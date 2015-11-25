@@ -20,8 +20,10 @@ public class Main {
         ApkProcessor processor = ApkProcessor.ofFiles(apks);
         List<ApkStatistics> stats = processor.processFiles();
 
-        System.out.print("aaa");
-//        ApkDecompiler dec = new ApkDecompiler(new File("D:\\Projects\\ApkToolTest\\Blowup.apk"));
-//        dec.decompile();
+        for (ApkStatistics s: stats
+             ) {
+            System.out.println(s);
+        }
+
     }
 }

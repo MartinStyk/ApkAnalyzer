@@ -1,6 +1,9 @@
 package sk.styk.martin.bakalarka.stats;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 
 import java.io.File;
@@ -21,6 +24,8 @@ import java.util.zip.ZipInputStream;
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApkProcessor.class);
 
     private List<File> apks;
     private List<ApkStatistics> statistics = new ArrayList<ApkStatistics>();
@@ -44,14 +49,26 @@ public class ApkProcessor {
     }
 
     public void processFile(File apk) {
+        logger.info("Started processing of file " + apk.getName());
+
         ApkStatistics data = new ApkStatistics();
         getFileName(apk, data);
         getFileSize(apk, data);
 
         ApkUnziper.unZipApk(apk);
         getDexSize(data);
+        getArscSize(data);
+
+        ApkDecompiler.decompile(apk);
+
+        AndroidManifestProcessor
+                .getInstance(data)
+                .processAndroidManifest();
+
 
         statistics.add(data);
+
+        logger.info("Finished processing of file " + apk.getName());
     }
 
     private void getFileName(File apk, ApkStatistics data) {
@@ -63,14 +80,16 @@ public class ApkProcessor {
     }
 
     private void getDexSize(ApkStatistics data) {
-        File dexFile = new File(ApkUnziper.TEMP_FOLDER_UNZIP + "classes.dex");
+        File dexFile = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "classes.dex");
         data.setDexSize(dexFile.length());
     }
 
     private void getArscSize(ApkStatistics data) {
-        File file = new File(ApkUnziper.TEMP_FOLDER_UNZIP + "resources.arsc");
+        File file = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "resources.arsc");
         data.setArscSize(file.length());
     }
+
+
 }
 
 

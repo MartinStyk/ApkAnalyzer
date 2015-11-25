@@ -3,6 +3,8 @@ package sk.styk.martin.bakalarka.decompile;
 import brut.androlib.AndrolibException;
 import brut.androlib.ApkDecoder;
 import brut.directory.DirectoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,57 +14,61 @@ import java.io.IOException;
  */
 public class ApkDecompiler {
 
+    private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
+    public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\decompiled";
+
     private File apkFile;
 
-    public ApkDecompiler(File apkFile) {
-        if (apkFile == null) {
-            throw new NullPointerException("apkFile is null!");
+    public static void decompile(File apkFile) {
+        try {
+            decompileIt(apkFile, true);
+            return;
+        } catch (AndrolibException e) {
+
         }
-        if (!apkFile.exists()) {
-            throw new IllegalArgumentException("apkFile doesn`t exists");
+
+        logger.warn("Decompilation of apk " + apkFile.getName() + " unsuccessful. Retrying without resources");
+
+        try {
+            decompileIt(apkFile, false);
+            return;
+        } catch (AndrolibException e) {
         }
-        this.apkFile = apkFile;
+        logger.error("Decompilation of apk " + apkFile.getName() + " failed");
     }
 
-    public void decompile(){
-        decompile(true);
-    }
+    private static void decompileIt(File apkFile, boolean arsc) throws AndrolibException {
 
-    public void decompile(boolean arsc) {
         ApkDecoder decoder = new ApkDecoder();
         decoder.setApkFile(apkFile);
         decoder.setForceDelete(true);
+        decoder.setDecodeSources((short)0);
 
-        String outDirName = apkFile.getName();
-        outDirName = outDirName.substring(0, outDirName.length() - 4);
-
-
-        if(!arsc){
+        if (!arsc) {
             try {
-                decoder.setDecodeResources((short)256);
+                decoder.setDecodeResources((short) 256);
             } catch (AndrolibException e) {
                 e.printStackTrace();
             }
         }
 
+        File outDirectory = new File(TEMP_FOLDER_UNZIP);
+        outDirectory.mkdirs();
+
+
         try {
-            decoder.setOutDir(new File("D:\\Projects\\ApkToolTest\\" + outDirName));
+            decoder.setOutDir(outDirectory);
         } catch (AndrolibException e) {
             e.printStackTrace();
         }
-
+        logger.info("Starting decompilation of apk " + apkFile.getName());
         try {
             decoder.decode();
-        } catch (AndrolibException e) {
-            e.printStackTrace();
-            if(e.getMessage().contains("arsc")){
-                decompile(false);
-            }
         } catch (DirectoryException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
     }
 }

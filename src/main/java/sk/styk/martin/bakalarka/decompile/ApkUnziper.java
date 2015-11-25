@@ -1,6 +1,8 @@
 package sk.styk.martin.bakalarka.decompile;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +15,8 @@ import java.util.zip.ZipInputStream;
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkUnziper {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
 
     public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\unziped";
 
@@ -33,12 +37,13 @@ public class ApkUnziper {
             //get the zipped file list entry
             ZipEntry ze = zis.getNextEntry();
 
+            logger.info("Starting unzip of apk " + zipFile.getName());
             while (ze != null) {
 
                 String fileName = ze.getName();
                 File newFile = new File(TEMP_FOLDER_UNZIP + File.separator + fileName);
 
-                System.out.println("file unzip : " + newFile.getAbsoluteFile());
+                logger.trace("file unzip : " + newFile.getAbsoluteFile());
 
                 //create all non exists folders
                 //else you will hit FileNotFoundException for compressed folder
@@ -58,7 +63,7 @@ public class ApkUnziper {
             zis.closeEntry();
             zis.close();
 
-            System.out.println("Done");
+            logger.info("Finished unzip of apk " + zipFile.getName());
 
         } catch (IOException ex) {
             ex.printStackTrace();
