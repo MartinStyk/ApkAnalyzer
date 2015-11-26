@@ -1,7 +1,9 @@
 package sk.styk.martin.bakalarka.decompile;
 
+import brut.androlib.Androlib;
 import brut.androlib.AndrolibException;
 import brut.androlib.ApkDecoder;
+import brut.androlib.ApkOptions;
 import brut.directory.DirectoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ public class ApkDecompiler {
 
         if (instance == null) {
             instance = new ApkDecompiler();
+            installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
         }
         instance.apkFile = apkFile;
         return instance;
@@ -51,7 +54,7 @@ public class ApkDecompiler {
         ApkDecoder decoder = new ApkDecoder();
         decoder.setApkFile(apkFile);
         decoder.setForceDelete(true);
-        decoder.setDecodeSources((short)0);
+        decoder.setDecodeSources((short) 0);
 
         File outDirectory = new File(TEMP_FOLDER_UNZIP);
         outDirectory.mkdirs();
@@ -71,5 +74,17 @@ public class ApkDecompiler {
             e.printStackTrace();
         }
         logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
+    }
+
+    private static void installFramework() {
+
+        logger.info("Installing framework-res.apk");
+
+        ApkOptions apkOptions = new ApkOptions();
+        try {
+            new Androlib(apkOptions).installFramework(new File("lib" + File.separator + "framework-res.apk"));
+        } catch (AndrolibException e) {
+            logger.warn("Installing framework-res.apk FAILED");
+        }
     }
 }
