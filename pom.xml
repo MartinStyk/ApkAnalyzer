@@ -16,7 +16,7 @@
         <dependency>
             <groupId>ApkTool</groupId>
             <artifactId>ApkTool</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.0.rc4</version>
         </dependency>
 
         <dependency>
