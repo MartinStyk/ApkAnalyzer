@@ -17,10 +17,28 @@ import java.util.zip.ZipInputStream;
 public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
-
+    private static ApkUnziper instance = null;
     public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\unziped";
 
-    public static void unZipApk(File zipFile) {
+    private File apkFile;
+
+    private ApkUnziper() {
+        // Exists only to defeat instantiation.
+    }
+
+    public static ApkUnziper getInstance(File apkFile) {
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
+        }
+
+        if (instance == null) {
+            instance = new ApkUnziper();
+        }
+        instance.apkFile = apkFile;
+        return instance;
+    }
+
+    public void unzip() {
 
         byte[] buffer = new byte[1024];
 
@@ -33,11 +51,11 @@ public class ApkUnziper {
             folder.mkdir();
             //get the zip file content
             ZipInputStream zis =
-                    new ZipInputStream(new FileInputStream(zipFile));
+                    new ZipInputStream(new FileInputStream(apkFile));
             //get the zipped file list entry
             ZipEntry ze = zis.getNextEntry();
 
-            logger.info("Starting unzip of apk " + zipFile.getName());
+            logger.info("Starting unzip of apk " + apkFile.getName());
             while (ze != null) {
 
                 String fileName = ze.getName();
@@ -63,7 +81,7 @@ public class ApkUnziper {
             zis.closeEntry();
             zis.close();
 
-            logger.info("Finished unzip of apk " + zipFile.getName());
+            logger.info("Finished unzip of apk " + apkFile.getName());
 
         } catch (IOException ex) {
             ex.printStackTrace();

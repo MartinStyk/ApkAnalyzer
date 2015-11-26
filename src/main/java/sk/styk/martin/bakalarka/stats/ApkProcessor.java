@@ -55,7 +55,10 @@ public class ApkProcessor {
         getFileName(apk, data);
         getFileSize(apk, data);
 
-        ApkUnziper.unZipApk(apk);
+        ApkUnziper
+                .getInstance(apk)
+                .unzip();
+
         getDexSize(data);
         getArscSize(data);
 
