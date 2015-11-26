@@ -59,7 +59,9 @@ public class ApkProcessor {
         getDexSize(data);
         getArscSize(data);
 
-        ApkDecompiler.decompile(apk);
+        ApkDecompiler
+                .getInstance(apk)
+                .decompile();
 
         AndroidManifestProcessor
                 .getInstance(data)
@@ -68,7 +70,7 @@ public class ApkProcessor {
 
         statistics.add(data);
 
-        logger.info("Finished processing of file " + apk.getName());
+        logger.info("Finished processing of file " + apk.getName() + " with result " + data);
     }
 
     private void getFileName(File apk, ApkStatistics data) {
