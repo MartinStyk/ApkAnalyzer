@@ -47,8 +47,9 @@ public class FileInfoProcessor {
         return instance;
     }
 
-    public ApkData processFileInfo(){
+    public ApkData processFileInfo() {
         getFileName();
+        getSourceOfFile();
         getFileSize();
         getDexSize();
         getArscSize();
@@ -58,6 +59,49 @@ public class FileInfoProcessor {
 
     private void getFileName() {
         data.setFileName(apkFile.getName());
+    }
+
+    private void getSourceOfFile() {
+
+        String parentFolderName;
+
+        try {
+            parentFolderName = apkFile.getParentFile().getName();
+        } catch (Exception e) {
+            //ok nevermind
+            return;
+        }
+
+        if(parentFolderName.contains("playdrone")){
+            data.setSourceOfFile("Playdrone(originally from Google PlayStore)");
+            return;
+        }
+        if(parentFolderName.contains("androidApksFree")){
+            data.setSourceOfFile("www.androidapksfree.com");
+            return;
+        }
+        if(parentFolderName.contains("ApkMania")){
+            data.setSourceOfFile("www.androidapkmaniafull.com");
+            return;
+        }
+        if(parentFolderName.contains("torrent")){
+            data.setSourceOfFile("torrent");
+            return;
+        }
+        if(parentFolderName.contains("ulozto")){
+            data.setSourceOfFile("www.uloz.to");
+            return;
+        }
+        if(parentFolderName.contains("zippy")){
+            data.setSourceOfFile("www.zippyshare.com");
+            return;
+        }
+        if(parentFolderName.contains("Test") || parentFolderName.contains("test")){
+            data.setSourceOfFile("test - works)");
+            return;
+        }
+
+
     }
 
     private void getFileSize() {

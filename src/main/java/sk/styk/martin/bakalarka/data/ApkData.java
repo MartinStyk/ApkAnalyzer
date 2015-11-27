@@ -10,15 +10,16 @@ public class ApkData {
 
     //basic info
     private String fileName;
+    private String sourceOfFile;
     private Long fileSize;
     private Long dexSize;
     private Long arscSize;
 
-    //certificate info
-    private List<CertificateData> certificateDatas;
-
     //manifest info
     private AndroidManifestData androidManifest;
+
+    //certificate info
+    private List<CertificateData> certificateDatas;
 
     //hash of every file
     private List<String> fileDigest;
@@ -30,6 +31,14 @@ public class ApkData {
 
     public void setFileName(String name) {
         this.fileName = name;
+    }
+
+    public String getSourceOfFile() {
+        return sourceOfFile;
+    }
+
+    public void setSourceOfFile(String sourceOfFile) {
+        this.sourceOfFile = sourceOfFile;
     }
 
     public Long getFileSize() {

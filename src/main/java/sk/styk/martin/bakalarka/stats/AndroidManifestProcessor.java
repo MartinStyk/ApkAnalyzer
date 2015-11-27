@@ -72,9 +72,9 @@ public class AndroidManifestProcessor {
             getUsedPermissions();
             getUsedLibraries();
             getUsedFeatures();
+            getUsesSdk();
 
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error(e.toString());
         } finally {
             doc = null;
@@ -136,6 +136,20 @@ public class AndroidManifestProcessor {
             }
         }
         manifestData.setUsesFeature(result);
+    }
+
+    private void getUsesSdk() {
+        NodeList sdkList = doc.getElementsByTagName("uses-sdk");
+        if(sdkList.getLength() != 1)
+            return;;
+
+        Node nNode = sdkList.item(0);
+        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element eElement = (Element) nNode;
+            manifestData.setUsesTargetSdkVersion(eElement.getAttribute("android:targetSdkVersion"));
+            manifestData.setUsesMinSdkVersion(eElement.getAttribute("android:minSdkVersion"));
+            manifestData.setUsesMaxSdkVersion(eElement.getAttribute("android:maxSdkVersion"));
+        }
     }
 
 }

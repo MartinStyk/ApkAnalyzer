@@ -1,5 +1,6 @@
 package sk.styk.martin.bakalarka;
 
+import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.stats.ApkProcessor;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.FileFinder;
@@ -23,10 +24,14 @@ public class Main {
         FileFinder ff = new FileFinder(new File(APK_TEST));
         List<File> apks = ff.getApkFilesInDirectories();
 
-        ApkProcessor processor = ApkProcessor.ofFiles(apks);
-        processor.processFiles(new File(METADATA_DIR));
+        ApkProcessor
+                .ofFiles(apks)
+                .processFiles(new File(METADATA_DIR));
 
-        List<ApkData> stats = processor.processFiles();
+        JsonUtils.fromJson(new File(METADATA_DIR + File.separator + "Tangram.Pro.v1.0.5.json"));
+
+// uncomment to get List of statistitics and write it to the file
+//        List<ApkData> stats = processor.processFiles();
 //
 //        PrintWriter writer = new PrintWriter("statistics.txt", "UTF-8");
 //
