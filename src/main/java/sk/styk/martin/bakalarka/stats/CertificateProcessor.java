@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class CertificateProcessor {
 
-    private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
+    private static final Logger logger = LoggerFactory.getLogger(CertificateProcessor.class);
     private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas ;
     private ApkData data;
@@ -86,18 +86,7 @@ public class CertificateProcessor {
             is = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             logger.error("Unable to read certificate " + file.getName());
-        }finally {
-            if(is!=null){
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
-
-
 
         try {
             PKCS7 pkcs7 = new PKCS7(is);
@@ -132,6 +121,15 @@ public class CertificateProcessor {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.toString());
+        }finally {
+            if(is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
     }

@@ -57,6 +57,10 @@ public class ApkProcessor {
                 .getInstance(data)
                 .processCertificates();
 
+        HashProcessor
+                .getInstance(data)
+                .getHashes();
+
         // 2. decompile and get data from decompile directory
         ApkDecompiler
                 .getInstance(apk)

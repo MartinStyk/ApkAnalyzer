@@ -101,13 +101,13 @@ public class CertificateData {
     @Override
     public String toString() {
         return "CertificateData{" +
-                "signAlgorithm='" + signAlgorithm + '\'' +
+                "fileName='" + fileName + '\'' +
+                ", signAlgorithm='" + signAlgorithm + '\'' +
                 ", signAlgorithmOID='" + signAlgorithmOID + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", certBase64Md5='" + certBase64Md5 + '\'' +
                 ", certMd5='" + certMd5 + '\'' +
-                ", publicKey='" + publicKey + '\'' +
                 ", version=" + version +
                 ", issuerName='" + issuerName + '\'' +
                 '}';

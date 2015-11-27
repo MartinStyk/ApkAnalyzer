@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Martin Styk on 27.11.2015.
@@ -56,6 +58,25 @@ public class FileUtils {
     public static void cleanDirectory(File folder, int retries){
         deleteDirectory(folder,retries);
         folder.mkdirs();
+    }
+
+    public static String fileToString(File f) throws IOException{
+
+        FileInputStream fis = null;
+        byte[] data;
+
+        try{
+            fis = new FileInputStream(f);
+            data = new byte[(int) f.length()];
+            fis.read(data);
+            fis.close();
+        }finally {
+            if(fis!=null){
+                fis.close();
+            }
+        }
+
+        return new String(data, "UTF-8");
     }
 
 }

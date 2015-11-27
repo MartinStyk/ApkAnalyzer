@@ -16,6 +16,19 @@ public class AndroidManifestData {
     private List<String> usesFeature;
 
     @Override
+    public String toString() {
+        return "AndroidManifestData{" +
+                "numberOfActivities=" + numberOfActivities +
+                ", numberOfServices=" + numberOfServices +
+                ", numberOfContentProviders=" + numberOfContentProviders +
+                ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +
+                ", usesPermissions=" + usesPermissions +
+                ", usesLibrary=" + usesLibrary +
+                ", usesFeature=" + usesFeature +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -43,19 +56,6 @@ public class AndroidManifestData {
         result = 31 * result + (usesLibrary != null ? usesLibrary.hashCode() : 0);
         result = 31 * result + (usesFeature != null ? usesFeature.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "AndroidManifestData{" +
-                "numberOfActivities=" + numberOfActivities +
-                ", numberOfServices=" + numberOfServices +
-                ", numberOfContentProviders=" + numberOfContentProviders +
-                ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +
-                ", usesPermissions=" + usesPermissions +
-                ", usesLibrary=" + usesLibrary +
-                ", usesFeature=" + usesFeature +
-                '}';
     }
 
     public int getNumberOfActivities() {

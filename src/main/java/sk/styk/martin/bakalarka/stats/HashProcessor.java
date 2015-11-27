@@ -1,20 +1,13 @@
 package sk.styk.martin.bakalarka.stats;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.data.CertificateData;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.FileFinder;
-import sun.security.pkcs.PKCS7;
+import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.*;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -87,7 +80,7 @@ public class HashProcessor {
         String content = null;
 
         try {
-            content = FileUtils.readFileToString(file);
+            content = FileUtils.fileToString(file);
         } catch (IOException e) {
             logger.error("Unable to read file " + file.getName());
             return;

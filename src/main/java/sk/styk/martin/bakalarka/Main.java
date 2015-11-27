@@ -1,11 +1,13 @@
 package sk.styk.martin.bakalarka;
 
 import sk.styk.martin.bakalarka.stats.ApkProcessor;
-import sk.styk.martin.bakalarka.stats.ApkData;
+import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.FileFinder;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
 
 /**
