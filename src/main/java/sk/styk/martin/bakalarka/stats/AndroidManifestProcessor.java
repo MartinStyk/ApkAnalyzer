@@ -9,6 +9,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import sk.styk.martin.bakalarka.data.AndroidManifestData;
+import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 
 import java.io.File;
@@ -25,6 +27,7 @@ public class AndroidManifestProcessor {
     private Document doc;
     private ApkData data;
     private File manifestFile;
+    private AndroidManifestData manifestData;
 
     private AndroidManifestProcessor() {
         // Exists only to defeat instantiation.
@@ -39,10 +42,20 @@ public class AndroidManifestProcessor {
             instance = new AndroidManifestProcessor();
         }
         instance.data = data;
+        instance.manifestData = new AndroidManifestData();
         return instance;
     }
 
-    public void processAndroidManifest() {
+    public static AndroidManifestProcessor getInstance() {
+        if (instance == null) {
+            instance = new AndroidManifestProcessor();
+        }
+        instance.data = null;
+        instance.manifestData = new AndroidManifestData();
+        return instance;
+    }
+
+    public AndroidManifestData processAndroidManifest() {
         try {
 
             manifestFile = new File(ApkDecompiler.TEMP_FOLDER_UNZIP + File.separator + "AndroidManifest.xml");
@@ -63,6 +76,12 @@ public class AndroidManifestProcessor {
         } finally {
             doc = null;
         }
+
+        if(data!=null){
+            data.setAndroidManifest(manifestData);
+        }
+
+        return manifestData;
     }
 
     private void getNumberOfAppComponents() {
@@ -71,10 +90,10 @@ public class AndroidManifestProcessor {
         NodeList receiverList = doc.getElementsByTagName("receiver");
         NodeList providerList = doc.getElementsByTagName("provider");
 
-        data.setNumberOfActivities(activityList.getLength());
-        data.setNumberOfServices(serviceList.getLength());
-        data.setNumberOfBroadcastReceivers(receiverList.getLength());
-        data.setNumberOfContentProviders(providerList.getLength());
+        manifestData.setNumberOfActivities(activityList.getLength());
+        manifestData.setNumberOfServices(serviceList.getLength());
+        manifestData.setNumberOfBroadcastReceivers(receiverList.getLength());
+        manifestData.setNumberOfContentProviders(providerList.getLength());
     }
 
     private void getUsedPermissions() {
@@ -87,7 +106,7 @@ public class AndroidManifestProcessor {
                 result.add(eElement.getAttribute("android:name"));
             }
         }
-        data.setUsesPermissions(result);
+        manifestData.setUsesPermissions(result);
     }
 
     private void getUsedLibraries() {
@@ -100,7 +119,7 @@ public class AndroidManifestProcessor {
                 result.add(eElement.getAttribute("android:name"));
             }
         }
-        data.setUsesLibrary(result);
+        manifestData.setUsesLibrary(result);
     }
 
     private void getUsedFeatures() {
@@ -113,7 +132,7 @@ public class AndroidManifestProcessor {
                 result.add(eElement.getAttribute("android:name"));
             }
         }
-        data.setUsesFeature(result);
+        manifestData.setUsesFeature(result);
     }
 
 }

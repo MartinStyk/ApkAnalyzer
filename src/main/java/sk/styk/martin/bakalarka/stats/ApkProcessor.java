@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 
@@ -41,8 +42,6 @@ public class ApkProcessor {
         logger.info("Started processing of file " + apk.getName());
 
         ApkData data = new ApkData();
-        getFileName(apk, data);
-        getFileSize(apk, data);
 
         // 1. unzip and get data from unziped directory
 
@@ -50,8 +49,9 @@ public class ApkProcessor {
                 .getInstance(apk)
                 .unzip();
 
-        getDexSize(data);
-        getArscSize(data);
+        FileInfoProcessor
+                .getInstance(data,apk)
+                .processFileInfo();
 
         CertificateProcessor
                 .getInstance(data)
@@ -71,25 +71,6 @@ public class ApkProcessor {
 
         logger.info("Finished processing of file " + apk.getName() + " with result " + data);
     }
-
-    private void getFileName(File apk, ApkData data) {
-        data.setFileName(apk.getName());
-    }
-
-    private void getFileSize(File apk, ApkData data) {
-        data.setFileSize(apk.length());
-    }
-
-    private void getDexSize(ApkData data) {
-        File dexFile = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "classes.dex");
-        data.setDexSize(dexFile.length());
-    }
-
-    private void getArscSize(ApkData data) {
-        File file = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "resources.arsc");
-        data.setArscSize(file.length());
-    }
-
 
 }
 

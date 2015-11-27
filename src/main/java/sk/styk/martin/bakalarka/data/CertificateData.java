@@ -1,4 +1,4 @@
-package sk.styk.martin.bakalarka.stats;
+package sk.styk.martin.bakalarka.data;
 
 import java.util.Date;
 

@@ -2,6 +2,8 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.data.ApkData;
+import sk.styk.martin.bakalarka.data.CertificateData;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sun.security.pkcs.PKCS7;
@@ -58,9 +60,15 @@ public class CertificateProcessor {
 
     public List<CertificateData> processCertificates(File dirWithCertificates) {
 
-        FileFinder ff = new FileFinder(dirWithCertificates);
+        List<File> certs=null;
 
-        List<File> certs = ff.getCertificateFilesInDirectories();
+        try {
+            FileFinder ff = new FileFinder(dirWithCertificates);
+            certs = ff.getCertificateFilesInDirectories();
+        }catch (IllegalArgumentException e){
+            logger.warn("META-INF directory doesn`t exists");
+            return null;
+        }
 
         for(File f : certs){
             processCertificate(f);
