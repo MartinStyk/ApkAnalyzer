@@ -23,14 +23,14 @@ public class AndroidManifestProcessor {
     private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
     private static AndroidManifestProcessor instance = null;
     private Document doc;
-    private ApkStatistics data;
+    private ApkData data;
     private File manifestFile;
 
     private AndroidManifestProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static AndroidManifestProcessor getInstance(ApkStatistics data) {
+    public static AndroidManifestProcessor getInstance(ApkData data) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -55,7 +55,7 @@ public class AndroidManifestProcessor {
             getNumberOfAppComponents();
             getUsedPermissions();
             getUsedLibraries();
-
+            getUsedFeatures();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,7 +89,8 @@ public class AndroidManifestProcessor {
         }
         data.setUsesPermissions(result);
     }
-    private void getUsedLibraries(){
+
+    private void getUsedLibraries() {
         NodeList usesLibraryList = doc.getElementsByTagName("uses-library");
         List<String> result = new ArrayList<String>();
         for (int i = 0; i < usesLibraryList.getLength(); i++) {
@@ -100,6 +101,19 @@ public class AndroidManifestProcessor {
             }
         }
         data.setUsesLibrary(result);
+    }
+
+    private void getUsedFeatures() {
+        NodeList usesLibraryList = doc.getElementsByTagName("uses-feature");
+        List<String> result = new ArrayList<String>();
+        for (int i = 0; i < usesLibraryList.getLength(); i++) {
+            Node nNode = usesLibraryList.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                result.add(eElement.getAttribute("android:name"));
+            }
+        }
+        data.setUsesFeature(result);
     }
 
 }

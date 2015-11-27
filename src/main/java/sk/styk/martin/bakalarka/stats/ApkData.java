@@ -1,12 +1,13 @@
 package sk.styk.martin.bakalarka.stats;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Martin Styk on 23.11.2015.
  */
-public class ApkStatistics {
+public class ApkData {
 
 
     //basic info
@@ -15,6 +16,9 @@ public class ApkStatistics {
     private Long dexSize;
     private Long arscSize;
 
+    //certificate info
+    private List<CertificateData> certificateDatas;
+
     //manifest info
     private int numberOfActivities;
     private int numberOfServices;
@@ -22,6 +26,7 @@ public class ApkStatistics {
     private int numberOfBroadcastReceivers;
     private List<String> usesPermissions;
     private List<String> usesLibrary;
+    private List<String> usesFeature;
 
 
     public String getFileName() {
@@ -104,9 +109,25 @@ public class ApkStatistics {
         this.usesLibrary = usesLibrary;
     }
 
+    public List<String> getUsesFeature() {
+        return usesFeature;
+    }
+
+    public void setUsesFeature(List<String> usesFeature) {
+        this.usesFeature = usesFeature;
+    }
+
+    public List<CertificateData> getCertificateDatas() {
+        return certificateDatas;
+    }
+
+    public void setCertificateDatas(List<CertificateData> certificateDatas) {
+        this.certificateDatas = certificateDatas;
+    }
+
     @Override
     public String toString() {
-        return "ApkStatistics{" +
+        return "ApkData{" +
                 "fileName='" + fileName + '\'' +
                 ", fileSize=" + fileSize +
                 ", dexSize=" + dexSize +
@@ -117,6 +138,7 @@ public class ApkStatistics {
                 ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +
                 ", usesPermissions=" + usesPermissions +
                 ", usesLibrary=" + usesLibrary +
+                ", usesFeature=" + usesFeature +
                 '}';
     }
 }

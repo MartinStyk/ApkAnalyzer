@@ -7,7 +7,6 @@ import brut.androlib.ApkOptions;
 import brut.directory.DirectoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.styk.martin.bakalarka.stats.ApkStatistics;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class ApkDecompiler {
         try {
             decompileIt();
         } catch (AndrolibException e) {
-            logger.error("Decompilation of apk " + apkFile.getName() + " failed");
+            logger.error("Decompilation of apk " + apkFile.getName() + " failed with " + e.toString());
         }
     }
 

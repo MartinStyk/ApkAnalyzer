@@ -1,24 +1,13 @@
 package sk.styk.martin.bakalarka.stats;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * Created by Martin Styk on 23.11.2015.
@@ -28,7 +17,7 @@ public class ApkProcessor {
     private static final Logger logger = LoggerFactory.getLogger(ApkProcessor.class);
 
     private List<File> apks;
-    private List<ApkStatistics> statistics = new ArrayList<ApkStatistics>();
+    private List<ApkData> statistics = new ArrayList<ApkData>();
 
     public static ApkProcessor ofFiles(List<File> apks) {
         return new ApkProcessor(apks);
@@ -41,7 +30,7 @@ public class ApkProcessor {
         this.apks = apks;
     }
 
-    public List<ApkStatistics> processFiles() {
+    public List<ApkData> processFiles() {
         for (File f : apks) {
             processFile(f);
         }
@@ -51,9 +40,11 @@ public class ApkProcessor {
     public void processFile(File apk) {
         logger.info("Started processing of file " + apk.getName());
 
-        ApkStatistics data = new ApkStatistics();
+        ApkData data = new ApkData();
         getFileName(apk, data);
         getFileSize(apk, data);
+
+        // 1. unzip and get data from unziped directory
 
         ApkUnziper
                 .getInstance(apk)
@@ -62,6 +53,11 @@ public class ApkProcessor {
         getDexSize(data);
         getArscSize(data);
 
+        CertificateProcessor
+                .getInstance(data)
+                .processCertificates();
+
+        // 2. decompile and get data from decompile directory
         ApkDecompiler
                 .getInstance(apk)
                 .decompile();
@@ -76,20 +72,20 @@ public class ApkProcessor {
         logger.info("Finished processing of file " + apk.getName() + " with result " + data);
     }
 
-    private void getFileName(File apk, ApkStatistics data) {
+    private void getFileName(File apk, ApkData data) {
         data.setFileName(apk.getName());
     }
 
-    private void getFileSize(File apk, ApkStatistics data) {
+    private void getFileSize(File apk, ApkData data) {
         data.setFileSize(apk.length());
     }
 
-    private void getDexSize(ApkStatistics data) {
+    private void getDexSize(ApkData data) {
         File dexFile = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "classes.dex");
         data.setDexSize(dexFile.length());
     }
 
-    private void getArscSize(ApkStatistics data) {
+    private void getArscSize(ApkData data) {
         File file = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "resources.arsc");
         data.setArscSize(file.length());
     }
