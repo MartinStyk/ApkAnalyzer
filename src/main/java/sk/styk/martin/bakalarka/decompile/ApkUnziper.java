@@ -1,8 +1,8 @@
 package sk.styk.martin.bakalarka.decompile;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,10 +45,9 @@ public class ApkUnziper {
         try {
             File folder = new File(TEMP_FOLDER_UNZIP);
             //create output directory is not exists
-            if (folder.exists()) {
-                FileUtils.deleteDirectory(folder);
-            }
-            folder.mkdir();
+
+            FileUtils.cleanDirectory(folder);
+
             //get the zip file content
             ZipInputStream zis =
                     new ZipInputStream(new FileInputStream(apkFile));

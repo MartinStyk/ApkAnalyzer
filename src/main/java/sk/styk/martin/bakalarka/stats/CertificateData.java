@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by Martin Styk on 27.11.2015.
  */
 public class CertificateData {
+    private String fileName;
     private String signAlgorithm;
     private String signAlgorithmOID;
     private Date startDate;
@@ -15,6 +16,14 @@ public class CertificateData {
     private String publicKey;
     private Integer version;
     private String issuerName;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public String getSignAlgorithm() {
         return signAlgorithm;

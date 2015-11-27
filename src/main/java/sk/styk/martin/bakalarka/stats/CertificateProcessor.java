@@ -63,10 +63,21 @@ public class CertificateProcessor {
         List<File> certs = ff.getCertificateFilesInDirectories();
 
         for(File f : certs){
+            InputStream is = null;
             try {
-                processCertificate(new FileInputStream(f));
+                is = new FileInputStream(f);
+                processCertificate(is);
             } catch (FileNotFoundException e) {
                 logger.error("Unable to read certificate " + f.getName());
+            }finally {
+                if(is!=null){
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         }
         if(data!=null){
