@@ -57,6 +57,13 @@ public class FileFinder {
         return files;
     }
 
+    public List<File> getJsonFilesInDirectories() {
+        for (File directory : apkFolders) {
+            getFilesInDirectory(directory, "json");
+        }
+        return files;
+    }
+
     private void getFilesInDirectory(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
