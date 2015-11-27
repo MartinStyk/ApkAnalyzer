@@ -50,6 +50,13 @@ public class FileFinder {
         return files;
     }
 
+    public List<File> getMFFilesInDirectories() {
+        for (File directory : apkFolders) {
+            getFilesInDirectory(directory, "MF");
+        }
+        return files;
+    }
+
     private void getFilesInDirectory(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {

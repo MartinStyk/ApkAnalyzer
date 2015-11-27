@@ -56,6 +56,9 @@ public class AndroidManifestProcessor {
     }
 
     public AndroidManifestData processAndroidManifest() {
+
+        manifestData = new AndroidManifestData();
+
         try {
 
             manifestFile = new File(ApkDecompiler.TEMP_FOLDER_UNZIP + File.separator + "AndroidManifest.xml");

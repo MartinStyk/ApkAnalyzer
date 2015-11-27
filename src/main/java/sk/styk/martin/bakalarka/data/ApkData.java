@@ -18,13 +18,10 @@ public class ApkData {
     private List<CertificateData> certificateDatas;
 
     //manifest info
-    private int numberOfActivities;
-    private int numberOfServices;
-    private int numberOfContentProviders;
-    private int numberOfBroadcastReceivers;
-    private List<String> usesPermissions;
-    private List<String> usesLibrary;
-    private List<String> usesFeature;
+    private AndroidManifestData androidManifest;
+
+    //hash of every file
+    private List<String> fileDigest;
 
 
     public String getFileName() {
@@ -59,60 +56,12 @@ public class ApkData {
         this.arscSize = arscSize;
     }
 
-    public int getNumberOfActivities() {
-        return numberOfActivities;
+    public AndroidManifestData getAndroidManifest() {
+        return androidManifest;
     }
 
-    public void setNumberOfActivities(int numberOfActivities) {
-        this.numberOfActivities = numberOfActivities;
-    }
-
-    public int getNumberOfServices() {
-        return numberOfServices;
-    }
-
-    public void setNumberOfServices(int numberOfServices) {
-        this.numberOfServices = numberOfServices;
-    }
-
-    public int getNumberOfContentProviders() {
-        return numberOfContentProviders;
-    }
-
-    public void setNumberOfContentProviders(int numberOfContentProviders) {
-        this.numberOfContentProviders = numberOfContentProviders;
-    }
-
-    public int getNumberOfBroadcastReceivers() {
-        return numberOfBroadcastReceivers;
-    }
-
-    public void setNumberOfBroadcastReceivers(int numberOfBroadcastReceivers) {
-        this.numberOfBroadcastReceivers = numberOfBroadcastReceivers;
-    }
-
-    public List<String> getUsesPermissions() {
-        return usesPermissions;
-    }
-
-    public void setUsesPermissions(List<String> usesPermissions) {
-        this.usesPermissions = usesPermissions;
-    }
-
-    public List<String> getUsesLibrary() {
-        return usesLibrary;
-    }
-
-    public void setUsesLibrary(List<String> usesLibrary) {
-        this.usesLibrary = usesLibrary;
-    }
-
-    public List<String> getUsesFeature() {
-        return usesFeature;
-    }
-
-    public void setUsesFeature(List<String> usesFeature) {
-        this.usesFeature = usesFeature;
+    public void setAndroidManifest(AndroidManifestData androidManifest) {
+        this.androidManifest = androidManifest;
     }
 
     public List<CertificateData> getCertificateDatas() {
@@ -123,6 +72,42 @@ public class ApkData {
         this.certificateDatas = certificateDatas;
     }
 
+    public List<String> getFileDigest() {
+        return fileDigest;
+    }
+
+    public void setFileDigest(List<String> fileDigest) {
+        this.fileDigest = fileDigest;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ApkData apkData = (ApkData) o;
+
+        if (fileName != null ? !fileName.equals(apkData.fileName) : apkData.fileName != null) return false;
+        if (fileSize != null ? !fileSize.equals(apkData.fileSize) : apkData.fileSize != null) return false;
+        if (dexSize != null ? !dexSize.equals(apkData.dexSize) : apkData.dexSize != null) return false;
+        if (arscSize != null ? !arscSize.equals(apkData.arscSize) : apkData.arscSize != null) return false;
+        if (certificateDatas != null ? !certificateDatas.equals(apkData.certificateDatas) : apkData.certificateDatas != null)
+            return false;
+        return !(androidManifest != null ? !androidManifest.equals(apkData.androidManifest) : apkData.androidManifest != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fileName != null ? fileName.hashCode() : 0;
+        result = 31 * result + (fileSize != null ? fileSize.hashCode() : 0);
+        result = 31 * result + (dexSize != null ? dexSize.hashCode() : 0);
+        result = 31 * result + (arscSize != null ? arscSize.hashCode() : 0);
+        result = 31 * result + (certificateDatas != null ? certificateDatas.hashCode() : 0);
+        result = 31 * result + (androidManifest != null ? androidManifest.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "ApkData{" +
@@ -130,13 +115,8 @@ public class ApkData {
                 ", fileSize=" + fileSize +
                 ", dexSize=" + dexSize +
                 ", arscSize=" + arscSize +
-                ", numberOfActivities=" + numberOfActivities +
-                ", numberOfServices=" + numberOfServices +
-                ", numberOfContentProviders=" + numberOfContentProviders +
-                ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +
-                ", usesPermissions=" + usesPermissions +
-                ", usesLibrary=" + usesLibrary +
-                ", usesFeature=" + usesFeature +
+                ", certificateDatas=" + certificateDatas +
+                ", androidManifest=" + androidManifest +
                 '}';
     }
 }

@@ -25,7 +25,6 @@ public class CertificateProcessor {
     private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
     private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas ;
-    private File manifestFile;
     private ApkData data;
 
     private CertificateProcessor() {
@@ -60,6 +59,7 @@ public class CertificateProcessor {
 
     public List<CertificateData> processCertificates(File dirWithCertificates) {
 
+        certDatas = new ArrayList<CertificateData>();
         List<File> certs=null;
 
         try {
