@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
+import sk.styk.martin.bakalarka.files.JsonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class ApkProcessor {
     private static final Logger logger = LoggerFactory.getLogger(ApkProcessor.class);
 
     private List<File> apks;
-    private List<ApkData> statistics = new ArrayList<ApkData>();
 
     public static ApkProcessor ofFiles(List<File> apks) {
         return new ApkProcessor(apks);
@@ -32,13 +32,21 @@ public class ApkProcessor {
     }
 
     public List<ApkData> processFiles() {
+        List<ApkData> statistics = new ArrayList<ApkData>();
         for (File f : apks) {
-            processFile(f);
+            statistics.add(processFile(f));
         }
         return statistics;
     }
 
-    public void processFile(File apk) {
+    public void processFiles(File outputDirectory) {
+        for (File f : apks) {
+            ApkData data = processFile(f);
+            JsonUtils.toJson(data,outputDirectory);
+        }
+    }
+
+    public ApkData processFile(File apk) {
         logger.info("Started processing of file " + apk.getName());
 
         ApkData data = new ApkData();
@@ -70,10 +78,9 @@ public class ApkProcessor {
                 .getInstance(data)
                 .processAndroidManifest();
 
-
-        statistics.add(data);
-
         logger.info("Finished processing of file " + apk.getName() + " with result " + data);
+
+        return data;
     }
 
 }

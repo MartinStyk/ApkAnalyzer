@@ -6,8 +6,6 @@ import sk.styk.martin.bakalarka.files.FileFinder;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.List;
 
 /**
@@ -18,6 +16,7 @@ public class Main {
     private static String APK_TEST = "D:\\Projects\\ApkToolTest";
     private static String APK_TORRENT = "D:\\APK\\APK_torrent";
     private static String APK_PLAY = "D:\\APK\\APK_playdrone";
+    private static String METADATA_DIR = "D:\\APK\\metadata";
 
     public static void main(String[] args) throws Exception {
 
@@ -25,15 +24,17 @@ public class Main {
         List<File> apks = ff.getApkFilesInDirectories();
 
         ApkProcessor processor = ApkProcessor.ofFiles(apks);
+        processor.processFiles(new File(METADATA_DIR));
+
         List<ApkData> stats = processor.processFiles();
-
-        PrintWriter writer = new PrintWriter("statistics.txt", "UTF-8");
-
-        for (ApkData s : stats) {
-            System.out.println( s.getFileName() + s.getCertificateDatas().size() + s.getCertificateDatas());
-            writer.println(s);
-        }
-        writer.close();
+//
+//        PrintWriter writer = new PrintWriter("statistics.txt", "UTF-8");
+//
+//        for (ApkData s : stats) {
+//            System.out.println( s.getFileName() + s.getCertificateDatas().size() + s.getCertificateDatas());
+//            writer.println(s);
+//        }
+//        writer.close();
     }
 }
 
