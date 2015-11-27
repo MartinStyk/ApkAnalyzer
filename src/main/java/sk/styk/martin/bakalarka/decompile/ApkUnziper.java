@@ -83,7 +83,7 @@ public class ApkUnziper {
             logger.info("Finished unzip of apk " + apkFile.getName());
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.error("Error unziping " + apkFile.getName() );
         }
     }
 }

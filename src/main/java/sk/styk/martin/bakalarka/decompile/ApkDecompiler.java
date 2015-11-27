@@ -68,9 +68,9 @@ public class ApkDecompiler {
         try {
             decoder.decode();
         } catch (DirectoryException e) {
-            e.printStackTrace();
+            logger.error("Exception during decompiling : " + e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Exception during decompiling : " + e.toString());
         }
         logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
     }

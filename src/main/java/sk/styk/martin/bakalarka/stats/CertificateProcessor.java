@@ -118,7 +118,6 @@ public class CertificateProcessor {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error(e.toString());
         }finally {
             if(is!=null){

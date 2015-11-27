@@ -1,18 +1,17 @@
 package sk.styk.martin.bakalarka.stats;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import sk.styk.martin.bakalarka.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
