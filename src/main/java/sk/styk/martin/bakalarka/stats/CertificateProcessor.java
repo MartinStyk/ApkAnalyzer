@@ -63,22 +63,7 @@ public class CertificateProcessor {
         List<File> certs = ff.getCertificateFilesInDirectories();
 
         for(File f : certs){
-            InputStream is = null;
-            try {
-                is = new FileInputStream(f);
-                processCertificate(is);
-            } catch (FileNotFoundException e) {
-                logger.error("Unable to read certificate " + f.getName());
-            }finally {
-                if(is!=null){
-                    try {
-                        is.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
+            processCertificate(f);
         }
         if(data!=null){
             data.setCertificateDatas(certDatas);
@@ -86,7 +71,25 @@ public class CertificateProcessor {
         return certDatas;
     }
 
-    private void processCertificate(InputStream is) {
+    private void processCertificate(File file) {
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            logger.error("Unable to read certificate " + file.getName());
+        }finally {
+            if(is!=null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
 
         try {
             PKCS7 pkcs7 = new PKCS7(is);
@@ -95,6 +98,8 @@ public class CertificateProcessor {
             for (int i = 0; i < certificates.length ; ++i) {
                 X509Certificate certificate = certificates[i];
                 CertificateData data = new CertificateData();
+
+                data.setFileName(file.getName());
 
                 byte[] bytes = certificate.getEncoded();
                 String certMd5 = this.md5Digest(bytes);
