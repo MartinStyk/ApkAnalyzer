@@ -13,7 +13,6 @@ public class CertificateData {
     private Date endDate;
     private String certBase64Md5;
     private String certMd5;
-    private String publicKey;
     private Integer version;
     private String issuerName;
 
@@ -90,14 +89,6 @@ public class CertificateData {
         this.issuerName = issuerName;
     }
 
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
     @Override
     public String toString() {
         return "CertificateData{" +
@@ -129,7 +120,6 @@ public class CertificateData {
         if (certBase64Md5 != null ? !certBase64Md5.equals(that.certBase64Md5) : that.certBase64Md5 != null)
             return false;
         if (certMd5 != null ? !certMd5.equals(that.certMd5) : that.certMd5 != null) return false;
-        if (publicKey != null ? !publicKey.equals(that.publicKey) : that.publicKey != null) return false;
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
         return !(issuerName != null ? !issuerName.equals(that.issuerName) : that.issuerName != null);
 
@@ -143,7 +133,6 @@ public class CertificateData {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (certBase64Md5 != null ? certBase64Md5.hashCode() : 0);
         result = 31 * result + (certMd5 != null ? certMd5.hashCode() : 0);
-        result = 31 * result + (publicKey != null ? publicKey.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (issuerName != null ? issuerName.hashCode() : 0);
         return result;

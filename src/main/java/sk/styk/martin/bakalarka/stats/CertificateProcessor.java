@@ -101,7 +101,6 @@ public class CertificateProcessor {
                 byte[] bytes = certificate.getEncoded();
                 String certMd5 = this.md5Digest(bytes);
                 String publicKeyString = this.byteToHexString(bytes);
-                data.setPublicKey(publicKeyString);
 
                 String certBase64Md5 = this.md5Digest(publicKeyString);
                 data.setCertBase64Md5(certBase64Md5);
