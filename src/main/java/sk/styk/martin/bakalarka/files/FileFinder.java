@@ -71,7 +71,7 @@ public class FileFinder {
                 for (String type : typeFilter) {
                     if (file.getName().endsWith(type))
                         files.add(file);
-                        break;
+                    break;
                 }
             } else if (file.isDirectory()) {
                 getFilesInDirectory(new File(file.getAbsolutePath()), typeFilter);

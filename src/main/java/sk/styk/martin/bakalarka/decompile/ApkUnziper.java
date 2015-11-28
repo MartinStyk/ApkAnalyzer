@@ -17,9 +17,8 @@ import java.util.zip.ZipInputStream;
 public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
-    private static ApkUnziper instance = null;
     public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\unziped";
-
+    private static ApkUnziper instance = null;
     private File apkFile;
 
     private ApkUnziper() {
@@ -76,8 +75,9 @@ public class ApkUnziper {
                     while ((len = zis.read(buffer)) > 0) {
                         fos.write(buffer, 0, len);
                     }
+                    logger.trace("Unziping file " + newFile.getPath());
                 } catch (IOException e) {
-                    logger.error("Unziping file " + newFile.getPath() + " failed.");
+                    logger.trace("Unziping file " + newFile.getPath() + " failed");
                 } finally {
                     if (fos != null) {
                         fos.close();
@@ -94,7 +94,7 @@ public class ApkUnziper {
                 try {
                     zis.closeEntry();
                     zis.close();
-                }catch (IOException e){
+                } catch (IOException e) {
                     logger.error("Closing ZipInputStream failed");
                 }
             }

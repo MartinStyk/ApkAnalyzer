@@ -14,20 +14,20 @@ public class FileUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-    public static void deleteDirectory(File folder) throws IOException{
+    public static void deleteDirectory(File folder) throws IOException {
         deleteDirectory(folder, 10);
     }
 
     public static void deleteDirectory(File folder, int retries) throws IOException {
 
-        if(folder==null){
+        if (folder == null) {
             throw new NullPointerException("deleteDirectory - folder is null");
         }
 
         if (folder.exists()) {
             for (int i = 0; i < retries; i++) {
 
-                if(i!=0){
+                if (i != 0) {
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
@@ -40,7 +40,7 @@ public class FileUtils {
                     break;
                 } catch (IOException e) {
                     if (i < retries) {
-                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + i+1 + " time");
+                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + i + 1 + " time");
                         throw e;
                     }
                 }
@@ -48,28 +48,28 @@ public class FileUtils {
         }
     }
 
-    public static void cleanDirectory(File folder) throws IOException{
+    public static void cleanDirectory(File folder) throws IOException {
         deleteDirectory(folder);
         folder.mkdirs();
     }
 
     public static void cleanDirectory(File folder, int retries) throws IOException {
-        deleteDirectory(folder,retries);
+        deleteDirectory(folder, retries);
         folder.mkdirs();
     }
 
-    public static String fileToString(File f) throws IOException{
+    public static String fileToString(File f) throws IOException {
 
         FileInputStream fis = null;
         byte[] data;
 
-        try{
+        try {
             fis = new FileInputStream(f);
             data = new byte[(int) f.length()];
             fis.read(data);
             fis.close();
-        }finally {
-            if(fis!=null){
+        } finally {
+            if (fis != null) {
                 fis.close();
             }
         }

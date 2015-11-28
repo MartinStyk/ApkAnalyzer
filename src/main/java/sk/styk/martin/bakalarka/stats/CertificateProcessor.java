@@ -24,7 +24,7 @@ public class CertificateProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(CertificateProcessor.class);
     private static CertificateProcessor instance = null;
-    private List<CertificateData> certDatas ;
+    private List<CertificateData> certDatas;
     private ApkData data;
 
     private CertificateProcessor() {
@@ -60,20 +60,20 @@ public class CertificateProcessor {
     public List<CertificateData> processCertificates(File dirWithCertificates) {
 
         certDatas = new ArrayList<CertificateData>();
-        List<File> certs=null;
+        List<File> certs = null;
 
         try {
             FileFinder ff = new FileFinder(dirWithCertificates);
             certs = ff.getCertificateFilesInDirectories();
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             logger.warn("META-INF directory doesn`t exists");
             return null;
         }
 
-        for(File f : certs){
+        for (File f : certs) {
             processCertificate(f);
         }
-        if(data!=null){
+        if (data != null) {
             data.setCertificateDatas(certDatas);
         }
         return certDatas;
@@ -92,7 +92,7 @@ public class CertificateProcessor {
             PKCS7 pkcs7 = new PKCS7(is);
             X509Certificate[] certificates = pkcs7.getCertificates();
 
-            for (int i = 0; i < certificates.length ; ++i) {
+            for (int i = 0; i < certificates.length; ++i) {
                 X509Certificate certificate = certificates[i];
                 CertificateData data = new CertificateData();
 
@@ -119,8 +119,8 @@ public class CertificateProcessor {
 
         } catch (Exception e) {
             logger.error(e.toString());
-        }finally {
-            if(is!=null){
+        } finally {
+            if (is != null) {
                 try {
                     is.close();
                 } catch (IOException e) {
@@ -131,6 +131,7 @@ public class CertificateProcessor {
         }
 
     }
+
     private String md5Digest(byte[] input) throws IOException {
         MessageDigest digest = this.getDigest("Md5");
         digest.update(input);
@@ -148,10 +149,10 @@ public class CertificateProcessor {
         byte[] var4 = bArray;
         int var5 = bArray.length;
 
-        for(int var6 = 0; var6 < var5; ++var6) {
+        for (int var6 = 0; var6 < var5; ++var6) {
             byte aBArray = var4[var6];
-            String sTemp = Integer.toHexString(255 & (char)aBArray);
-            if(sTemp.length() < 2) {
+            String sTemp = Integer.toHexString(255 & (char) aBArray);
+            if (sTemp.length() < 2) {
                 sb.append(0);
             }
 

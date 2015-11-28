@@ -72,31 +72,31 @@ public class FileInfoProcessor {
             return;
         }
 
-        if(parentFolderName.contains("playdrone")){
+        if (parentFolderName.contains("playdrone")) {
             data.setSourceOfFile("Playdrone(originally from Google PlayStore)");
             return;
         }
-        if(parentFolderName.contains("androidApksFree")){
+        if (parentFolderName.contains("androidApksFree")) {
             data.setSourceOfFile("www.androidapksfree.com");
             return;
         }
-        if(parentFolderName.contains("ApkMania")){
+        if (parentFolderName.contains("ApkMania")) {
             data.setSourceOfFile("www.androidapkmaniafull.com");
             return;
         }
-        if(parentFolderName.contains("torrent")){
+        if (parentFolderName.contains("torrent")) {
             data.setSourceOfFile("torrent");
             return;
         }
-        if(parentFolderName.contains("ulozto")){
+        if (parentFolderName.contains("ulozto")) {
             data.setSourceOfFile("www.uloz.to");
             return;
         }
-        if(parentFolderName.contains("zippy")){
+        if (parentFolderName.contains("zippy")) {
             data.setSourceOfFile("www.zippyshare.com");
             return;
         }
-        if(parentFolderName.contains("Test") || parentFolderName.contains("test")){
+        if (parentFolderName.contains("Test") || parentFolderName.contains("test")) {
             data.setSourceOfFile("test - works)");
             return;
         }

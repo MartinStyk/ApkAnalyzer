@@ -4,9 +4,9 @@ import brut.androlib.Androlib;
 import brut.androlib.AndrolibException;
 import brut.androlib.ApkDecoder;
 import brut.androlib.ApkOptions;
-import brut.directory.DirectoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,9 +17,8 @@ import java.io.IOException;
 public class ApkDecompiler {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
-    private static ApkDecompiler instance = null;
     public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\decompiled";
-
+    private static ApkDecompiler instance = null;
     private File apkFile;
 
     private ApkDecompiler() {
@@ -39,7 +38,19 @@ public class ApkDecompiler {
         return instance;
     }
 
-    public void decompile()  {
+    private static void installFramework() {
+
+        logger.info("Installing framework-res.apk");
+
+        ApkOptions apkOptions = new ApkOptions();
+        try {
+            new Androlib(apkOptions).installFramework(new File("lib" + File.separator + "framework-res.apk"));
+        } catch (AndrolibException e) {
+            logger.warn("Installing framework-res.apk FAILED");
+        }
+    }
+
+    public void decompile() {
 
         ApkDecoder decoder = new ApkDecoder();
         decoder.setApkFile(apkFile);
@@ -52,8 +63,11 @@ public class ApkDecompiler {
         }
 
         File outDirectory = new File(TEMP_FOLDER_UNZIP);
-        outDirectory.mkdirs();
-
+        try {
+            FileUtils.cleanDirectory(outDirectory);
+        } catch (IOException e) {
+            logger.warn("Temp directory " + outDirectory.getPath() + " wasn`t cleaned");
+        }
 
         try {
             decoder.setOutDir(outDirectory);
@@ -65,20 +79,8 @@ public class ApkDecompiler {
             decoder.decode();
             logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
         } catch (Exception e) {
-            logger.error("Finished decompilation with exception : " + e.toString());
+            logger.error("Finished decompilation of apk " + apkFile.getName() + " with exception : " + e.toString());
         }
 
-    }
-
-    private static void installFramework() {
-
-        logger.info("Installing framework-res.apk");
-
-        ApkOptions apkOptions = new ApkOptions();
-        try {
-            new Androlib(apkOptions).installFramework(new File("lib" + File.separator + "framework-res.apk"));
-        } catch (AndrolibException e) {
-            logger.warn("Installing framework-res.apk FAILED");
-        }
     }
 }

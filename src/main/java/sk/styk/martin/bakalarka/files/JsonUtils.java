@@ -17,11 +17,11 @@ public class JsonUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-    public static void toJson(ApkData data, File outputDirectory){
+    public static void toJson(ApkData data, File outputDirectory) {
 
-        if(!outputDirectory.exists()){
+        if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
-            logger.info("Creating metadata directory" + outputDirectory.getName() );
+            logger.info("Creating metadata directory" + outputDirectory.getName());
         }
 
         Gson gson = new GsonBuilder()
@@ -31,7 +31,7 @@ public class JsonUtils {
 
         String jsonString = gson.toJson(data);
 
-        File outFile = new File(outputDirectory,getMetadataFileName(data));
+        File outFile = new File(outputDirectory, getMetadataFileName(data));
 
         FileWriter writer = null;
 
@@ -41,9 +41,9 @@ public class JsonUtils {
             logger.info(data.getFileName() + " written to " + outFile.getName() + " in " + outputDirectory.getName());
 
         } catch (IOException e) {
-            logger.error("Error saving file to " + outFile.getName() );
+            logger.error("Error saving file to " + outFile.getName());
         } finally {
-            if(writer!=null){
+            if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
@@ -53,7 +53,7 @@ public class JsonUtils {
         }
     }
 
-    public static ApkData fromJson(File jsonFile){
+    public static ApkData fromJson(File jsonFile) {
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -72,16 +72,16 @@ public class JsonUtils {
             System.out.println(obj);
 
         } catch (IOException e) {
-            logger.error("Error reading file from " + jsonFile.getName() );
-        }finally {
-            if(fr!=null){
+            logger.error("Error reading file from " + jsonFile.getName());
+        } finally {
+            if (fr != null) {
                 try {
                     fr.close();
                 } catch (IOException e) {
                     logger.error("Error closing FileReader : " + e.toString());
                 }
             }
-            if(br!=null){
+            if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
@@ -93,9 +93,9 @@ public class JsonUtils {
     }
 
 
-    public static List<ApkData> ListfromJson(File jsonFolder){
+    public static List<ApkData> ListfromJson(File jsonFolder) {
 
-        if(jsonFolder==null || !jsonFolder.exists()){
+        if (jsonFolder == null || !jsonFolder.exists()) {
             throw new IllegalArgumentException("jsonFolder");
         }
 
@@ -104,14 +104,14 @@ public class JsonUtils {
 
         List<ApkData> list = new ArrayList<ApkData>();
 
-        for(File f : jsons){
+        for (File f : jsons) {
             list.add(fromJson(f));
         }
 
         return list;
     }
 
-    private static String getMetadataFileName(ApkData data){
+    private static String getMetadataFileName(ApkData data) {
         String apkName = data.getFileName();
         String jsonName = apkName.substring(0, apkName.length() - 3) + "json";
 

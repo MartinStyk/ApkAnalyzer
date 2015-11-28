@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class AndroidManifestData {
 
+    private String packageName;
     private Integer numberOfActivities;
     private Integer numberOfServices;
     private Integer numberOfContentProviders;
@@ -18,6 +19,13 @@ public class AndroidManifestData {
     private String usesTargetSdkVersion;
     private String usesMaxSdkVersion;
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 
     public int getNumberOfActivities() {
         return numberOfActivities;
@@ -106,6 +114,7 @@ public class AndroidManifestData {
 
         AndroidManifestData that = (AndroidManifestData) o;
 
+        if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null) return false;
         if (numberOfActivities != null ? !numberOfActivities.equals(that.numberOfActivities) : that.numberOfActivities != null)
             return false;
         if (numberOfServices != null ? !numberOfServices.equals(that.numberOfServices) : that.numberOfServices != null)
@@ -128,7 +137,8 @@ public class AndroidManifestData {
 
     @Override
     public int hashCode() {
-        int result = numberOfActivities != null ? numberOfActivities.hashCode() : 0;
+        int result = packageName != null ? packageName.hashCode() : 0;
+        result = 31 * result + (numberOfActivities != null ? numberOfActivities.hashCode() : 0);
         result = 31 * result + (numberOfServices != null ? numberOfServices.hashCode() : 0);
         result = 31 * result + (numberOfContentProviders != null ? numberOfContentProviders.hashCode() : 0);
         result = 31 * result + (numberOfBroadcastReceivers != null ? numberOfBroadcastReceivers.hashCode() : 0);
@@ -144,7 +154,8 @@ public class AndroidManifestData {
     @Override
     public String toString() {
         return "AndroidManifestData{" +
-                "numberOfActivities=" + numberOfActivities +
+                "packageName='" + packageName + '\'' +
+                ", numberOfActivities=" + numberOfActivities +
                 ", numberOfServices=" + numberOfServices +
                 ", numberOfContentProviders=" + numberOfContentProviders +
                 ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +

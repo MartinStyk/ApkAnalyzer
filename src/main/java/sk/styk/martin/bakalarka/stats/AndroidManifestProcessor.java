@@ -67,6 +67,7 @@ public class AndroidManifestProcessor {
 
             doc.getDocumentElement().normalize();
 
+            getPackage();
             getNumberOfAppComponents();
             getUsedPermissions();
             getUsedLibraries();
@@ -79,11 +80,24 @@ public class AndroidManifestProcessor {
             doc = null;
         }
 
-        if(data!=null){
+        if (data != null) {
             data.setAndroidManifest(manifestData);
         }
 
         return manifestData;
+    }
+
+    public void getPackage() {
+        NodeList manifestList = doc.getElementsByTagName("manifest");
+        if (manifestList.getLength() != 1)
+            return;
+        ;
+
+        Node nNode = manifestList.item(0);
+        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element eElement = (Element) nNode;
+            manifestData.setPackageName(eElement.getAttribute("package"));
+        }
     }
 
     private void getNumberOfAppComponents() {
@@ -139,8 +153,9 @@ public class AndroidManifestProcessor {
 
     private void getUsesSdk() {
         NodeList sdkList = doc.getElementsByTagName("uses-sdk");
-        if(sdkList.getLength() != 1)
-            return;;
+        if (sdkList.getLength() != 1)
+            return;
+        ;
 
         Node nNode = sdkList.item(0);
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {

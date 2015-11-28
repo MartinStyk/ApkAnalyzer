@@ -20,15 +20,15 @@ public class ApkProcessor {
 
     private List<File> apks;
 
-    public static ApkProcessor ofFiles(List<File> apks) {
-        return new ApkProcessor(apks);
-    }
-
     public ApkProcessor(List<File> apks) {
         if (apks == null || apks.isEmpty()) {
             throw new IllegalArgumentException("apks not valid");
         }
         this.apks = apks;
+    }
+
+    public static ApkProcessor ofFiles(List<File> apks) {
+        return new ApkProcessor(apks);
     }
 
     public List<ApkData> processFiles() {
@@ -42,7 +42,7 @@ public class ApkProcessor {
     public void processFiles(File outputDirectory) {
         for (File f : apks) {
             ApkData data = processFile(f);
-            JsonUtils.toJson(data,outputDirectory);
+            JsonUtils.toJson(data, outputDirectory);
         }
     }
 
@@ -58,7 +58,7 @@ public class ApkProcessor {
                 .unzip();
 
         FileInfoProcessor
-                .getInstance(data,apk)
+                .getInstance(data, apk)
                 .processFileInfo();
 
         CertificateProcessor
@@ -78,7 +78,7 @@ public class ApkProcessor {
                 .getInstance(data)
                 .processAndroidManifest();
 
-        logger.info("Finished processing of file " + apk.getName() + " with result " + data);
+        logger.info("Finished processing of file " + apk.getName());
 
         return data;
     }
