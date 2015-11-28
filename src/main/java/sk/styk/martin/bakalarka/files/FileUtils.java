@@ -14,14 +14,14 @@ public class FileUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-    public static void deleteDirectory(File folder){
+    public static void deleteDirectory(File folder) throws IOException{
         deleteDirectory(folder, 10);
     }
 
-    public static void deleteDirectory(File folder, int retries) {
+    public static void deleteDirectory(File folder, int retries) throws IOException {
 
         if(folder==null){
-            throw new NullPointerException("folder");
+            throw new NullPointerException("deleteDirectory - folder is null");
         }
 
         if (folder.exists()) {
@@ -29,7 +29,7 @@ public class FileUtils {
 
                 if(i!=0){
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         logger.error("Interrupted");
                     }
@@ -40,21 +40,20 @@ public class FileUtils {
                     break;
                 } catch (IOException e) {
                     if (i < retries) {
-                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying...");
-                    }else{
-                        logger.error("Cannot delete directory " + folder.getName() + "Failed!");
+                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + i+1 + " time");
+                        throw e;
                     }
                 }
             }
         }
     }
 
-    public static void cleanDirectory(File folder){
+    public static void cleanDirectory(File folder) throws IOException{
         deleteDirectory(folder);
         folder.mkdirs();
     }
 
-    public static void cleanDirectory(File folder, int retries){
+    public static void cleanDirectory(File folder, int retries) throws IOException {
         deleteDirectory(folder,retries);
         folder.mkdirs();
     }

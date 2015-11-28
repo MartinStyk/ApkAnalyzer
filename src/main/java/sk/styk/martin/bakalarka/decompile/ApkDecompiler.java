@@ -39,21 +39,17 @@ public class ApkDecompiler {
         return instance;
     }
 
-
-    public void decompile() {
-        try {
-            decompileIt();
-        } catch (AndrolibException e) {
-            logger.error("Decompilation of apk " + apkFile.getName() + " failed with " + e.toString());
-        }
-    }
-
-    private void decompileIt() throws AndrolibException {
+    public void decompile()  {
 
         ApkDecoder decoder = new ApkDecoder();
         decoder.setApkFile(apkFile);
         decoder.setForceDelete(true);
-        decoder.setDecodeSources((short) 0);
+
+        try {
+            decoder.setDecodeSources((short) 0);
+        } catch (AndrolibException e) {
+            logger.error(e.toString());
+        }
 
         File outDirectory = new File(TEMP_FOLDER_UNZIP);
         outDirectory.mkdirs();
@@ -62,17 +58,16 @@ public class ApkDecompiler {
         try {
             decoder.setOutDir(outDirectory);
         } catch (AndrolibException e) {
-            e.printStackTrace();
+            logger.error("Setting out directory failed : " + e.toString());
         }
         logger.info("Starting decompilation of apk " + apkFile.getName());
         try {
             decoder.decode();
-        } catch (DirectoryException e) {
-            logger.error("Exception during decompiling : " + e.toString());
-        } catch (IOException e) {
-            logger.error("Exception during decompiling : " + e.toString());
+            logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
+        } catch (Exception e) {
+            logger.error("Finished decompilation with exception : " + e.toString());
         }
-        logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
+
     }
 
     private static void installFramework() {

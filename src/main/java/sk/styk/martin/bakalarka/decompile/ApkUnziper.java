@@ -42,15 +42,18 @@ public class ApkUnziper {
 
         byte[] buffer = new byte[1024];
 
+        File folder = new File(TEMP_FOLDER_UNZIP);
+
         try {
-            File folder = new File(TEMP_FOLDER_UNZIP);
-            //create output directory is not exists
-
             FileUtils.cleanDirectory(folder);
+        } catch (IOException e) {
+            logger.warn("Temp directory " + folder.getPath() + " wasn`t cleaned");
+        }
 
-            //get the zip file content
-            ZipInputStream zis =
-                    new ZipInputStream(new FileInputStream(apkFile));
+
+        ZipInputStream zis = null;
+        try {
+            zis = new ZipInputStream(new FileInputStream(apkFile));
             //get the zipped file list entry
             ZipEntry ze = zis.getNextEntry();
 
@@ -60,30 +63,42 @@ public class ApkUnziper {
                 String fileName = ze.getName();
                 File newFile = new File(TEMP_FOLDER_UNZIP + File.separator + fileName);
 
-                logger.trace("file unzip : " + newFile.getAbsoluteFile());
+                logger.trace("Unziping file : " + newFile.getAbsoluteFile());
 
                 //create all non exists folders
                 //else you will hit FileNotFoundException for compressed folder
                 new File(newFile.getParent()).mkdirs();
 
-                FileOutputStream fos = new FileOutputStream(newFile);
-
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(newFile);
+                    int len;
+                    while ((len = zis.read(buffer)) > 0) {
+                        fos.write(buffer, 0, len);
+                    }
+                } catch (IOException e) {
+                    logger.error("Unziping file " + newFile.getPath() + " failed.");
+                } finally {
+                    if (fos != null) {
+                        fos.close();
+                    }
                 }
-
-                fos.close();
                 ze = zis.getNextEntry();
             }
-
-            zis.closeEntry();
-            zis.close();
-
             logger.info("Finished unzip of apk " + apkFile.getName());
 
         } catch (IOException ex) {
-            logger.error("Error unziping " + apkFile.getName() );
+            logger.error("Error unziping " + apkFile.getName());
+        } finally {
+            if (zis != null) {
+                try {
+                    zis.closeEntry();
+                    zis.close();
+                }catch (IOException e){
+                    logger.error("Closing ZipInputStream failed");
+                }
+            }
+
         }
     }
 }

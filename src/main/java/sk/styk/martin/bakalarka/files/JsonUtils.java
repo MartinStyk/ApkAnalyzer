@@ -33,14 +33,23 @@ public class JsonUtils {
 
         File outFile = new File(outputDirectory,getMetadataFileName(data));
 
+        FileWriter writer = null;
+
         try {
-            FileWriter writer = new FileWriter(outFile);
+            writer = new FileWriter(outFile);
             writer.write(jsonString);
-            writer.close();
             logger.info(data.getFileName() + " written to " + outFile.getName() + " in " + outputDirectory.getName());
 
         } catch (IOException e) {
             logger.error("Error saving file to " + outFile.getName() );
+        } finally {
+            if(writer!=null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileWriter : " + e.toString());
+                }
+            }
         }
     }
 
@@ -52,10 +61,11 @@ public class JsonUtils {
                 .create();
 
         ApkData obj = null;
+        BufferedReader br = null;
+        FileReader fr = null;
         try {
-
-            BufferedReader br = new BufferedReader(
-                    new FileReader(jsonFile));
+            fr = new FileReader(jsonFile);
+            br = new BufferedReader(fr);
 
             obj = gson.fromJson(br, ApkData.class);
 
@@ -63,6 +73,21 @@ public class JsonUtils {
 
         } catch (IOException e) {
             logger.error("Error reading file from " + jsonFile.getName() );
+        }finally {
+            if(fr!=null){
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileReader : " + e.toString());
+                }
+            }
+            if(br!=null){
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.error("Error closing BufferedReader : " + e.toString());
+                }
+            }
         }
         return obj;
     }
