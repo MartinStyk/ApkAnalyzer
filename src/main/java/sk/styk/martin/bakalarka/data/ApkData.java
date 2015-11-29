@@ -20,6 +20,8 @@ public class ApkData {
 
     //certificate info
     private List<CertificateData> certificateDatas;
+    
+    private List<String> locale;
 
     //hash of every file
     private List<String> fileDigest;
@@ -89,6 +91,14 @@ public class ApkData {
         this.fileDigest = fileDigest;
     }
 
+    public List<String> getLocale() {
+        return locale;
+    }
+
+    public void setLocale(List<String> locale) {
+        this.locale = locale;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,23 +107,31 @@ public class ApkData {
         ApkData apkData = (ApkData) o;
 
         if (fileName != null ? !fileName.equals(apkData.fileName) : apkData.fileName != null) return false;
+        if (sourceOfFile != null ? !sourceOfFile.equals(apkData.sourceOfFile) : apkData.sourceOfFile != null)
+            return false;
         if (fileSize != null ? !fileSize.equals(apkData.fileSize) : apkData.fileSize != null) return false;
         if (dexSize != null ? !dexSize.equals(apkData.dexSize) : apkData.dexSize != null) return false;
         if (arscSize != null ? !arscSize.equals(apkData.arscSize) : apkData.arscSize != null) return false;
+        if (androidManifest != null ? !androidManifest.equals(apkData.androidManifest) : apkData.androidManifest != null)
+            return false;
         if (certificateDatas != null ? !certificateDatas.equals(apkData.certificateDatas) : apkData.certificateDatas != null)
             return false;
-        return !(androidManifest != null ? !androidManifest.equals(apkData.androidManifest) : apkData.androidManifest != null);
+        if (fileDigest != null ? !fileDigest.equals(apkData.fileDigest) : apkData.fileDigest != null) return false;
+        return !(locale != null ? !locale.equals(apkData.locale) : apkData.locale != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = fileName != null ? fileName.hashCode() : 0;
+        result = 31 * result + (sourceOfFile != null ? sourceOfFile.hashCode() : 0);
         result = 31 * result + (fileSize != null ? fileSize.hashCode() : 0);
         result = 31 * result + (dexSize != null ? dexSize.hashCode() : 0);
         result = 31 * result + (arscSize != null ? arscSize.hashCode() : 0);
-        result = 31 * result + (certificateDatas != null ? certificateDatas.hashCode() : 0);
         result = 31 * result + (androidManifest != null ? androidManifest.hashCode() : 0);
+        result = 31 * result + (certificateDatas != null ? certificateDatas.hashCode() : 0);
+        result = 31 * result + (fileDigest != null ? fileDigest.hashCode() : 0);
+        result = 31 * result + (locale != null ? locale.hashCode() : 0);
         return result;
     }
 
@@ -121,11 +139,13 @@ public class ApkData {
     public String toString() {
         return "ApkData{" +
                 "fileName='" + fileName + '\'' +
+                ", sourceOfFile='" + sourceOfFile + '\'' +
                 ", fileSize=" + fileSize +
                 ", dexSize=" + dexSize +
                 ", arscSize=" + arscSize +
-                ", certificateDatas=" + certificateDatas +
                 ", androidManifest=" + androidManifest +
+                ", certificateDatas=" + certificateDatas +
+                ", locale=" + locale +
                 '}';
     }
 }

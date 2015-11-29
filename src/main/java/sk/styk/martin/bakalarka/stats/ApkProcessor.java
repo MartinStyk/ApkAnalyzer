@@ -78,6 +78,10 @@ public class ApkProcessor {
                 .getInstance(data)
                 .processAndroidManifest();
 
+        ResourceProcessor
+                .getInstance(data)
+                .getLocalizations();
+
         logger.info("Finished processing of file " + apk.getName());
 
         return data;
