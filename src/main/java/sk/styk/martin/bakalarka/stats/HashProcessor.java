@@ -56,6 +56,8 @@ public class HashProcessor {
 
     public List<String> getHashes(File dirWithManifestMF) {
 
+        logger.trace("Started processing of hashes");
+
         List<File> files = null;
 
         try {
@@ -74,6 +76,9 @@ public class HashProcessor {
         if (data != null) {
             data.setFileDigest(hashes);
         }
+
+        logger.trace("Finished processing of hashes");
+
         return hashes;
     }
 

@@ -50,6 +50,8 @@ public class ResourceProcessor {
 
     public List<String> getLocalizations() {
 
+        logger.trace("Started processing of localizations");
+
         List<File> files = null;
 
         try {
@@ -68,6 +70,9 @@ public class ResourceProcessor {
         if (data != null) {
             data.setLocale(localizations);
         }
+
+        logger.trace("Finished processing of localizations");
+
         return localizations;
 
     }

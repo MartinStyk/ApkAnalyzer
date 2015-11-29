@@ -41,10 +41,12 @@ public class FileUtils {
                 } catch (IOException e) {
                     if (i < retries) {
                         logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + i + 1 + " time");
+                    } else {
                         throw e;
                     }
                 }
             }
+            logger.info("Directory " + folder.getName() + " deleted");
         }
     }
 

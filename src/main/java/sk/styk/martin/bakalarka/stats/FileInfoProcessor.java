@@ -48,11 +48,16 @@ public class FileInfoProcessor {
     }
 
     public ApkData processFileInfo() {
+
+        logger.trace("Started processing of file info");
+
         getFileName();
         getSourceOfFile();
         getFileSize();
         getDexSize();
         getArscSize();
+
+        logger.trace("Finished processing of file info");
 
         return data;
     }

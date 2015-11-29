@@ -58,6 +58,8 @@ public class AndroidManifestProcessor {
 
         manifestData = new AndroidManifestData();
 
+        logger.trace("Started processing AndroidManifest");
+
         try {
 
             manifestFile = new File(ApkDecompiler.TEMP_FOLDER_UNZIP + File.separator + "AndroidManifest.xml");
@@ -83,6 +85,8 @@ public class AndroidManifestProcessor {
         if (data != null) {
             data.setAndroidManifest(manifestData);
         }
+
+        logger.trace("Finished processing of AndroidManifest");
 
         return manifestData;
     }

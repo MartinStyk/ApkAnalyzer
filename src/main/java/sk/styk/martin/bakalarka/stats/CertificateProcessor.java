@@ -81,6 +81,8 @@ public class CertificateProcessor {
 
     private void processCertificate(File file) {
 
+        logger.trace("Started processing of certificate");
+
         InputStream is = null;
         try {
             is = new FileInputStream(file);
@@ -129,7 +131,7 @@ public class CertificateProcessor {
             }
 
         }
-
+        logger.trace("Finished processing of certificate");
     }
 
     private String md5Digest(byte[] input) throws IOException {
