@@ -38,33 +38,40 @@ public class FileFinder {
 
     public List<File> getApkFilesInDirectories() {
         for (File directory : apkFolders) {
-            getFilesInDirectory(directory, "apk");
+            getFilesInDirectoryFileTypeMatch(directory, "apk");
         }
         return files;
     }
 
     public List<File> getCertificateFilesInDirectories() {
         for (File directory : apkFolders) {
-            getFilesInDirectory(directory, "RSA", "DSA");
+            getFilesInDirectoryFileTypeMatch(directory, "RSA", "DSA");
         }
         return files;
     }
 
     public List<File> getMFFilesInDirectories() {
         for (File directory : apkFolders) {
-            getFilesInDirectory(directory, "MF");
+            getFilesInDirectoryFileTypeMatch(directory, "MF");
         }
         return files;
     }
 
     public List<File> getJsonFilesInDirectories() {
         for (File directory : apkFolders) {
-            getFilesInDirectory(directory, "json");
+            getFilesInDirectoryFileTypeMatch(directory, "json");
         }
         return files;
     }
 
-    private void getFilesInDirectory(File directory, String... typeFilter) {
+    public List<File> getStringResourceFilesInDirectories() {
+        for (File directory : apkFolders) {
+            getFilesInDirectoryFullNameMatch(directory, "strings.xml");
+        }
+        return files;
+    }
+
+    private void getFilesInDirectoryFileTypeMatch(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
             if (file.isFile()) {
@@ -74,7 +81,22 @@ public class FileFinder {
                     break;
                 }
             } else if (file.isDirectory()) {
-                getFilesInDirectory(new File(file.getAbsolutePath()), typeFilter);
+                getFilesInDirectoryFileTypeMatch(new File(file.getAbsolutePath()), typeFilter);
+            }
+        }
+    }
+
+    private void getFilesInDirectoryFullNameMatch(File directory, String... typeFilter) {
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isFile()) {
+                for (String type : typeFilter) {
+                    if (file.getName().equals(type))
+                        files.add(file);
+                    break;
+                }
+            } else if (file.isDirectory()) {
+                getFilesInDirectoryFullNameMatch(new File(file.getAbsolutePath()), typeFilter);
             }
         }
     }
