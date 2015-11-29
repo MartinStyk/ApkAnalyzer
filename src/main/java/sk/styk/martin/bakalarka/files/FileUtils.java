@@ -40,7 +40,8 @@ public class FileUtils {
                     break;
                 } catch (IOException e) {
                     if (i < retries) {
-                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + i + 1 + " time");
+                        int time = i + 1;
+                        logger.warn("Cannot delete directory " + folder.getName() + "Retrying for " + time + " time");
                     } else {
                         throw e;
                     }
