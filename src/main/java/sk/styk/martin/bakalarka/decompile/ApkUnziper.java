@@ -17,38 +17,33 @@ import java.util.zip.ZipInputStream;
 public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
-    public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\unziped";
     private static ApkUnziper instance = null;
     private File apkFile;
+    private File outDirectory;
 
     private ApkUnziper() {
         // Exists only to defeat instantiation.
     }
 
-    public static ApkUnziper getInstance(File apkFile) {
+    public static ApkUnziper getInstance(File apkFile, File outDirectory) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
+        }
+        if (outDirectory == null) {
+            throw new IllegalArgumentException("outDirectory null");
         }
 
         if (instance == null) {
             instance = new ApkUnziper();
         }
         instance.apkFile = apkFile;
+        instance.outDirectory = outDirectory;
         return instance;
     }
 
     public void unzip() {
 
         byte[] buffer = new byte[1024];
-
-        File folder = new File(TEMP_FOLDER_UNZIP);
-
-        try {
-            FileUtils.cleanDirectory(folder);
-        } catch (IOException e) {
-            logger.warn("Temp directory " + folder.getPath() + " wasn`t cleaned");
-        }
-
 
         ZipInputStream zis = null;
         try {
@@ -60,7 +55,7 @@ public class ApkUnziper {
             while (ze != null) {
 
                 String fileName = ze.getName();
-                File newFile = new File(TEMP_FOLDER_UNZIP + File.separator + fileName);
+                File newFile = new File(outDirectory, fileName);
 
                 logger.trace("Unziping file : " + newFile.getAbsoluteFile());
 

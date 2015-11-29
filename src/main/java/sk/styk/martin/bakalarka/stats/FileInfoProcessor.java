@@ -3,7 +3,6 @@ package sk.styk.martin.bakalarka.stats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 
 import java.io.File;
 
@@ -17,17 +16,21 @@ public class FileInfoProcessor {
     private static FileInfoProcessor instance = null;
     private ApkData data;
     private File apkFile;
+    private File unzipDir;
 
     private FileInfoProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static FileInfoProcessor getInstance(ApkData data, File apkFile) {
+    public static FileInfoProcessor getInstance(ApkData data, File apkFile, File unzipDir) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
+        }
+        if (unzipDir == null) {
+            throw new IllegalArgumentException("unzipDir null");
         }
 
         if (instance == null) {
@@ -35,6 +38,7 @@ public class FileInfoProcessor {
         }
         instance.data = data;
         instance.apkFile = apkFile;
+        instance.unzipDir = unzipDir;
         return instance;
     }
 
@@ -114,12 +118,12 @@ public class FileInfoProcessor {
     }
 
     private void getDexSize() {
-        File dexFile = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "classes.dex");
+        File dexFile = new File(unzipDir, "classes.dex");
         data.setDexSize(dexFile.length());
     }
 
     private void getArscSize() {
-        File file = new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "resources.arsc");
+        File file = new File(unzipDir, "resources.arsc");
         data.setArscSize(file.length());
     }
 

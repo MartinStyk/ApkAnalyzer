@@ -26,20 +26,25 @@ public class CertificateProcessor {
     private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas;
     private ApkData data;
+    private File unzipDir;
 
     private CertificateProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static CertificateProcessor getInstance(ApkData data) {
+    public static CertificateProcessor getInstance(ApkData data, File unzipDir) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
+        }
+        if (unzipDir == null) {
+            throw new IllegalArgumentException("unzipDir null");
         }
 
         if (instance == null) {
             instance = new CertificateProcessor();
         }
         instance.data = data;
+        instance.unzipDir = unzipDir;
         instance.certDatas = new ArrayList<CertificateData>();
         return instance;
     }
@@ -54,7 +59,7 @@ public class CertificateProcessor {
     }
 
     public List<CertificateData> processCertificates() {
-        return processCertificates(new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "META-INF"));
+        return processCertificates(new File(unzipDir, "META-INF"));
     }
 
     public List<CertificateData> processCertificates(File dirWithCertificates) {

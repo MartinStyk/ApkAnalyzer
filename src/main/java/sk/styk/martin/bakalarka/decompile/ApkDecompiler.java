@@ -17,17 +17,20 @@ import java.io.IOException;
 public class ApkDecompiler {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
-    public static String TEMP_FOLDER_UNZIP = "D:\\Projects\\temp\\decompiled";
     private static ApkDecompiler instance = null;
     private File apkFile;
+    private File outDirectory;
 
     private ApkDecompiler() {
         // Exists only to defeat instantiation.
     }
 
-    public static ApkDecompiler getInstance(File apkFile) {
+    public static ApkDecompiler getInstance(File apkFile, File outDirectory) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
+        }
+        if (outDirectory == null) {
+            throw new IllegalArgumentException("outDirectory null");
         }
 
         if (instance == null) {
@@ -35,6 +38,7 @@ public class ApkDecompiler {
             installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
         }
         instance.apkFile = apkFile;
+        instance.outDirectory = outDirectory;
         return instance;
     }
 
@@ -60,13 +64,6 @@ public class ApkDecompiler {
             decoder.setDecodeSources((short) 0);
         } catch (AndrolibException e) {
             logger.error(e.toString());
-        }
-
-        File outDirectory = new File(TEMP_FOLDER_UNZIP);
-        try {
-            FileUtils.cleanDirectory(outDirectory);
-        } catch (IOException e) {
-            logger.warn("Temp directory " + outDirectory.getPath() + " wasn`t cleaned");
         }
 
         try {

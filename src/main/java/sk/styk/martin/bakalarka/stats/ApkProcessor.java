@@ -6,8 +6,10 @@ import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.JsonUtils;
+import sk.styk.martin.bakalarka.files.TempFileManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,34 +55,46 @@ public class ApkProcessor {
 
         // 1. unzip and get data from unziped directory
 
+        TempFileManager tempMng = new TempFileManager(apk);
+        File unzipDirectory = tempMng.createApkUnzipedDirectory();
+
         ApkUnziper
-                .getInstance(apk)
+                .getInstance(apk, unzipDirectory)
                 .unzip();
 
         FileInfoProcessor
-                .getInstance(data, apk)
+                .getInstance(data, apk, unzipDirectory)
                 .processFileInfo();
 
         CertificateProcessor
-                .getInstance(data)
+                .getInstance(data, unzipDirectory)
                 .processCertificates();
 
         HashProcessor
-                .getInstance(data)
+                .getInstance(data, unzipDirectory)
                 .getHashes();
 
         // 2. decompile and get data from decompile directory
+
+        File decompileDirectory = tempMng.createApkDecompiledDirectory();
+
         ApkDecompiler
-                .getInstance(apk)
+                .getInstance(apk,decompileDirectory)
                 .decompile();
 
         AndroidManifestProcessor
-                .getInstance(data)
+                .getInstance(data,decompileDirectory)
                 .processAndroidManifest();
 
         ResourceProcessor
-                .getInstance(data)
+                .getInstance(data,decompileDirectory)
                 .getLocalizations();
+
+        try{
+            tempMng.deleteApkWorkingDirectory();
+        }catch (IOException e){
+            logger.error("Unable to clean working dir for " + apk.getName());
+        }
 
         logger.info("Finished processing of file " + apk.getName());
 

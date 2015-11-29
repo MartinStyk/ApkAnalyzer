@@ -21,20 +21,25 @@ public class ResourceProcessor {
     private static ResourceProcessor instance = null;
     private List<String> localizations;
     private ApkData data;
+    private File decompiledDir;
 
     private ResourceProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static ResourceProcessor getInstance(ApkData data) {
+    public static ResourceProcessor getInstance(ApkData data, File decompiledDir) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
+        }
+        if (decompiledDir == null) {
+            throw new IllegalArgumentException("decompiledDir null");
         }
 
         if (instance == null) {
             instance = new ResourceProcessor();
         }
         instance.data = data;
+        instance.decompiledDir = decompiledDir;
         instance.localizations = new ArrayList<String>();
         return instance;
     }
@@ -55,7 +60,7 @@ public class ResourceProcessor {
         List<File> files = null;
 
         try {
-            FileFinder ff = new FileFinder(new File(ApkDecompiler.TEMP_FOLDER_UNZIP + File.separator + "res"));
+            FileFinder ff = new FileFinder(new File(decompiledDir, "res"));
             files = ff.getStringResourceFilesInDirectories();
         } catch (IllegalArgumentException e) {
             logger.warn("res directory doesn`t exists");

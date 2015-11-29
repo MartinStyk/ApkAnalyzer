@@ -27,20 +27,25 @@ public class AndroidManifestProcessor {
     private ApkData data;
     private File manifestFile;
     private AndroidManifestData manifestData;
+    private File decompiledDir;
 
     private AndroidManifestProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static AndroidManifestProcessor getInstance(ApkData data) {
+    public static AndroidManifestProcessor getInstance(ApkData data, File decompiledDir) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
+        }
+        if (decompiledDir == null) {
+            throw new IllegalArgumentException("decompiledDir null");
         }
 
         if (instance == null) {
             instance = new AndroidManifestProcessor();
         }
         instance.data = data;
+        instance.decompiledDir = decompiledDir;
         instance.manifestData = new AndroidManifestData();
         return instance;
     }
@@ -62,7 +67,7 @@ public class AndroidManifestProcessor {
 
         try {
 
-            manifestFile = new File(ApkDecompiler.TEMP_FOLDER_UNZIP + File.separator + "AndroidManifest.xml");
+            manifestFile = new File(decompiledDir,"AndroidManifest.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(manifestFile);

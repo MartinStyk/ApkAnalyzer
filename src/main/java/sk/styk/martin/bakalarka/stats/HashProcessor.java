@@ -23,20 +23,25 @@ public class HashProcessor {
     private static HashProcessor instance = null;
     private List<String> hashes;
     private ApkData data;
+    private File unzipDir;
 
     private HashProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static HashProcessor getInstance(ApkData data) {
+    public static HashProcessor getInstance(ApkData data, File unzipDir) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
+        }
+        if (unzipDir == null) {
+            throw new IllegalArgumentException("unzipDir null");
         }
 
         if (instance == null) {
             instance = new HashProcessor();
         }
         instance.data = data;
+        instance.unzipDir = unzipDir;
         instance.hashes = new ArrayList<String>();
         return instance;
     }
@@ -51,7 +56,7 @@ public class HashProcessor {
     }
 
     public List<String> getHashes() {
-        return getHashes(new File(ApkUnziper.TEMP_FOLDER_UNZIP + File.separator + "META-INF"));
+        return getHashes(new File(unzipDir, "META-INF"));
     }
 
     public List<String> getHashes(File dirWithManifestMF) {
