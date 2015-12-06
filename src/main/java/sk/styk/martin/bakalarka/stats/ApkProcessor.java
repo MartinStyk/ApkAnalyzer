@@ -88,7 +88,7 @@ public class ApkProcessor {
 
         ResourceProcessor
                 .getInstance(data,decompileDirectory)
-                .getLocalizations();
+                .getStringLocalizations();
 
         try{
             tempMng.deleteApkWorkingDirectory();

@@ -21,7 +21,7 @@ public class ApkData {
     //certificate info
     private List<CertificateData> certificateDatas;
     
-    private List<String> locale;
+    private ResourceData resourceData;
 
     //hash of every file
     private List<String> fileDigest;
@@ -91,12 +91,12 @@ public class ApkData {
         this.fileDigest = fileDigest;
     }
 
-    public List<String> getLocale() {
-        return locale;
+    public ResourceData getResourceData() {
+        return resourceData;
     }
 
-    public void setLocale(List<String> locale) {
-        this.locale = locale;
+    public void setResourceData(ResourceData resourceData) {
+        this.resourceData = resourceData;
     }
 
     @Override
@@ -116,8 +116,9 @@ public class ApkData {
             return false;
         if (certificateDatas != null ? !certificateDatas.equals(apkData.certificateDatas) : apkData.certificateDatas != null)
             return false;
-        if (fileDigest != null ? !fileDigest.equals(apkData.fileDigest) : apkData.fileDigest != null) return false;
-        return !(locale != null ? !locale.equals(apkData.locale) : apkData.locale != null);
+        if (resourceData != null ? !resourceData.equals(apkData.resourceData) : apkData.resourceData != null)
+            return false;
+        return !(fileDigest != null ? !fileDigest.equals(apkData.fileDigest) : apkData.fileDigest != null);
 
     }
 
@@ -130,8 +131,8 @@ public class ApkData {
         result = 31 * result + (arscSize != null ? arscSize.hashCode() : 0);
         result = 31 * result + (androidManifest != null ? androidManifest.hashCode() : 0);
         result = 31 * result + (certificateDatas != null ? certificateDatas.hashCode() : 0);
+        result = 31 * result + (resourceData != null ? resourceData.hashCode() : 0);
         result = 31 * result + (fileDigest != null ? fileDigest.hashCode() : 0);
-        result = 31 * result + (locale != null ? locale.hashCode() : 0);
         return result;
     }
 
@@ -145,7 +146,7 @@ public class ApkData {
                 ", arscSize=" + arscSize +
                 ", androidManifest=" + androidManifest +
                 ", certificateDatas=" + certificateDatas +
-                ", locale=" + locale +
+                ", resourceData=" + resourceData +
                 '}';
     }
 }

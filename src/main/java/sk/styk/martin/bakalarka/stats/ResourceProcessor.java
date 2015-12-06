@@ -3,6 +3,7 @@ package sk.styk.martin.bakalarka.stats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
+import sk.styk.martin.bakalarka.data.ResourceData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.files.FileFinder;
 
@@ -53,7 +54,7 @@ public class ResourceProcessor {
         return instance;
     }
 
-    public List<String> getLocalizations() {
+    public List<String> getStringLocalizations() {
 
         logger.trace("Started processing of localizations");
 
@@ -73,7 +74,13 @@ public class ResourceProcessor {
             processLocalization(f);
         }
         if (data != null) {
-            data.setLocale(localizations);
+            if(data.getResourceData()!=null){
+                data.getResourceData().setLocale(localizations);
+            }else{
+                ResourceData rd = new ResourceData();
+                rd.setLocale(localizations);
+            }
+
         }
 
         logger.trace("Finished processing of localizations");
