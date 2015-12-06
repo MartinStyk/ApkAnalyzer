@@ -14,6 +14,7 @@ public class ResourceData {
     private Integer pngDrawables;
     private Integer jpgDrawables;
     private Integer gifDrawables;
+    private Integer xmlDrawables;
 
     //number of drawables with different name
     private Integer differentDrawables;
@@ -25,6 +26,7 @@ public class ResourceData {
     private Integer xhdpiDrawables;
     private Integer xxhdpiDrawables;
     private Integer xxxhdpiDrawables;
+    private Integer unspecifiedDpiDrawables;
 
 
 
@@ -54,6 +56,14 @@ public class ResourceData {
 
     public Integer getGifDrawables() {
         return gifDrawables;
+    }
+
+    public Integer getXmlDrawables() {
+        return xmlDrawables;
+    }
+
+    public void setXmlDrawables(Integer xmlDrawables) {
+        this.xmlDrawables = xmlDrawables;
     }
 
     public void setGifDrawables(Integer gifDrawables) {
@@ -114,5 +124,76 @@ public class ResourceData {
 
     public void setXxxhdpiDrawables(Integer xxxhdpiDrawables) {
         this.xxxhdpiDrawables = xxxhdpiDrawables;
+    }
+
+    public Integer getUnspecifiedDpiDrawables() {
+        return unspecifiedDpiDrawables;
+    }
+
+    public void setUnspecifiedDpiDrawables(Integer unspecifiedDpiDrawables) {
+        this.unspecifiedDpiDrawables = unspecifiedDpiDrawables;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ResourceData that = (ResourceData) o;
+
+        if (locale != null ? !locale.equals(that.locale) : that.locale != null) return false;
+        if (pngDrawables != null ? !pngDrawables.equals(that.pngDrawables) : that.pngDrawables != null) return false;
+        if (jpgDrawables != null ? !jpgDrawables.equals(that.jpgDrawables) : that.jpgDrawables != null) return false;
+        if (gifDrawables != null ? !gifDrawables.equals(that.gifDrawables) : that.gifDrawables != null) return false;
+        if (xmlDrawables != null ? !xmlDrawables.equals(that.xmlDrawables) : that.xmlDrawables != null) return false;
+        if (differentDrawables != null ? !differentDrawables.equals(that.differentDrawables) : that.differentDrawables != null)
+            return false;
+        if (ldpiDrawables != null ? !ldpiDrawables.equals(that.ldpiDrawables) : that.ldpiDrawables != null)
+            return false;
+        if (mdpiDrawables != null ? !mdpiDrawables.equals(that.mdpiDrawables) : that.mdpiDrawables != null)
+            return false;
+        if (hdpiDrawables != null ? !hdpiDrawables.equals(that.hdpiDrawables) : that.hdpiDrawables != null)
+            return false;
+        if (xhdpiDrawables != null ? !xhdpiDrawables.equals(that.xhdpiDrawables) : that.xhdpiDrawables != null)
+            return false;
+        if (xxhdpiDrawables != null ? !xxhdpiDrawables.equals(that.xxhdpiDrawables) : that.xxhdpiDrawables != null)
+            return false;
+        return !(xxxhdpiDrawables != null ? !xxxhdpiDrawables.equals(that.xxxhdpiDrawables) : that.xxxhdpiDrawables != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = locale != null ? locale.hashCode() : 0;
+        result = 31 * result + (pngDrawables != null ? pngDrawables.hashCode() : 0);
+        result = 31 * result + (jpgDrawables != null ? jpgDrawables.hashCode() : 0);
+        result = 31 * result + (gifDrawables != null ? gifDrawables.hashCode() : 0);
+        result = 31 * result + (xmlDrawables != null ? xmlDrawables.hashCode() : 0);
+        result = 31 * result + (differentDrawables != null ? differentDrawables.hashCode() : 0);
+        result = 31 * result + (ldpiDrawables != null ? ldpiDrawables.hashCode() : 0);
+        result = 31 * result + (mdpiDrawables != null ? mdpiDrawables.hashCode() : 0);
+        result = 31 * result + (hdpiDrawables != null ? hdpiDrawables.hashCode() : 0);
+        result = 31 * result + (xhdpiDrawables != null ? xhdpiDrawables.hashCode() : 0);
+        result = 31 * result + (xxhdpiDrawables != null ? xxhdpiDrawables.hashCode() : 0);
+        result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceData{" +
+                "locale=" + locale +
+                ", pngDrawables=" + pngDrawables +
+                ", jpgDrawables=" + jpgDrawables +
+                ", gifDrawables=" + gifDrawables +
+                ", xmlDrawables=" + xmlDrawables +
+                ", differentDrawables=" + differentDrawables +
+                ", ldpiDrawables=" + ldpiDrawables +
+                ", mdpiDrawables=" + mdpiDrawables +
+                ", hdpiDrawables=" + hdpiDrawables +
+                ", xhdpiDrawables=" + xhdpiDrawables +
+                ", xxhdpiDrawables=" + xxhdpiDrawables +
+                ", xxxhdpiDrawables=" + xxxhdpiDrawables +
+                '}';
     }
 }

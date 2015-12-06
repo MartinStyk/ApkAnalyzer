@@ -74,7 +74,7 @@ public class ResourceProcessor {
             FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
             directories = ff.getDrawableDirectories();
             ff = new FileFinder(directories);
-            files=ff.getDrawableResourceFiles();
+            files = ff.getDrawableResourceFiles();
         } catch (IllegalArgumentException e) {
             logger.warn("res directory doesn`t exists");
         }
@@ -142,28 +142,41 @@ public class ResourceProcessor {
         int numJpg = 0;
         int numGif = 0;
         int numPng = 0;
+        int numXml = 0;
 
         for (File f : files) {
-            if (f.getName().endsWith(".jpg") ||
-                    f.getName().endsWith(".JPG") ||
-                    f.getName().endsWith(".jpeg") ||
-                    f.getName().endsWith(".JPEG")) {
+
+            String name = f.getName();
+
+            if (name.endsWith(".jpg") ||
+                    name.endsWith(".JPG") ||
+                    name.endsWith(".jpeg") ||
+                    name.endsWith(".JPEG")) {
                 numJpg++;
-            } else if (f.getName().endsWith(".gif") ||
-                    f.getName().endsWith(".GIF")) {
+            } else if (name.endsWith(".gif") ||
+                    name.endsWith(".GIF")) {
                 numGif++;
-            } else if (f.getName().endsWith(".png") ||
-                    f.getName().endsWith(".PNG")) {
+            } else if (name.endsWith(".png") ||
+                    name.endsWith(".PNG")) {
                 numPng++;
+            } else if (name.endsWith(".xml") ||
+                    name.endsWith(".XML")) {
+                numXml++;
             }
         }
         if (numGif != 0) resourceData.setGifDrawables(numGif);
         if (numPng != 0) resourceData.setPngDrawables(numPng);
         if (numJpg != 0) resourceData.setJpgDrawables(numJpg);
+        if (numXml != 0) resourceData.setXmlDrawables(numXml);
 
     }
 
     private void processDifferentDrawables(List<File> files) {
+
+        if (files == null || files.isEmpty()) {
+            return;
+        }
+
         Set<String> names = new HashSet<String>();
         for (File f : files) {
             names.add(f.getName());
@@ -172,7 +185,9 @@ public class ResourceProcessor {
             resourceData.setDifferentDrawables(names.size());
     }
 
-    private void processDirectories(List<File> directories){
+    private void processDirectories(List<File> directories) {
+
+        int withoutdpi = 0;
         int ldpi = 0;
         int mdpi = 0;
         int hdpi = 0;
@@ -180,25 +195,31 @@ public class ResourceProcessor {
         int xxhdpi = 0;
         int xxxhdpi = 0;
 
-        for (File dir: directories) {
+        if (directories == null || directories.isEmpty()) {
+            return;
+        }
+
+        for (File dir : directories) {
             FileFinder ff = new FileFinder(dir);
             int size = ff.getDrawableResourceFiles().size();
 
-            if(size > 0){
-                if(dir.getName().contains("ldpi")) ldpi += size;
-                else if(dir.getName().contains("mdpi")) mdpi += size;
-                else if(dir.getName().contains("hdpi")) hdpi += size;
-                else if(dir.getName().contains("xhdpi")) xhdpi += size;
-                else if(dir.getName().contains("xxhdpi")) xxhdpi += size;
-                else if(dir.getName().contains("xxxhdpi")) xxxhdpi += size;
+            if (size > 0) {
+                if (dir.getName().contains("ldpi")) ldpi += size;
+                else if (dir.getName().contains("mdpi")) mdpi += size;
+                else if (dir.getName().contains("xxxhdpi")) xxxhdpi += size;
+                else if (dir.getName().contains("xxhdpi")) xxhdpi += size;
+                else if (dir.getName().contains("xhdpi")) xhdpi += size;
+                else if (dir.getName().contains("hdpi")) hdpi += size;
+                else if (dir.getName().contains("drawable")) withoutdpi += size;
             }
         }
 
-        if(ldpi != 0) resourceData.setLdpiDrawables(ldpi);
-        if(mdpi != 0) resourceData.setMdpiDrawables(mdpi);
-        if(hdpi != 0) resourceData.setHdpiDrawables(hdpi);
-        if(xhdpi != 0) resourceData.setXhdpiDrawables(xhdpi);
-        if(xxhdpi != 0) resourceData.setXxhdpiDrawables(xxhdpi);
-        if(xxxhdpi != 0) resourceData.setXxxhdpiDrawables(xxxhdpi);
+        if (ldpi != 0) resourceData.setLdpiDrawables(ldpi);
+        if (mdpi != 0) resourceData.setMdpiDrawables(mdpi);
+        if (hdpi != 0) resourceData.setHdpiDrawables(hdpi);
+        if (xhdpi != 0) resourceData.setXhdpiDrawables(xhdpi);
+        if (xxhdpi != 0) resourceData.setXxhdpiDrawables(xxhdpi);
+        if (xxxhdpi != 0) resourceData.setXxxhdpiDrawables(xxxhdpi);
+        if (withoutdpi != 0) resourceData.setUnspecifiedDpiDrawables(withoutdpi);
     }
 }

@@ -95,7 +95,7 @@ public class FileFinder {
     public List<File> getDrawableResourceFiles() {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, ".jpg",".jpeg", ".JPG" , ".JPEG" , ".gif", ".GIF", "png", "PNG");
+            getFilesInDirectoryFileTypeMatch(directory, ".jpg",".jpeg", ".JPG" , ".JPEG" , ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
         }
         return files;
     }
