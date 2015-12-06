@@ -68,15 +68,19 @@ public class ResourceProcessor {
         resourceData.setLocale(getStringLocalizations());
 
         List<File> files = null;
+        List<File> directories = null;
 
         try {
             FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
-            files = ff.getDrawableResourceFilesInDirectories();
+            directories = ff.getDrawableDirectories();
+            ff = new FileFinder(directories);
+            files=ff.getDrawableResourceFiles();
         } catch (IllegalArgumentException e) {
             logger.warn("res directory doesn`t exists");
         }
         processDrawablesTypes(files);
         processDifferentDrawables(files);
+        processDirectories(directories);
 
         if (data != null) {
             data.setResourceData(resourceData);
@@ -168,4 +172,33 @@ public class ResourceProcessor {
             resourceData.setDifferentDrawables(names.size());
     }
 
+    private void processDirectories(List<File> directories){
+        int ldpi = 0;
+        int mdpi = 0;
+        int hdpi = 0;
+        int xhdpi = 0;
+        int xxhdpi = 0;
+        int xxxhdpi = 0;
+
+        for (File dir: directories) {
+            FileFinder ff = new FileFinder(dir);
+            int size = ff.getDrawableResourceFiles().size();
+
+            if(size > 0){
+                if(dir.getName().contains("ldpi")) ldpi += size;
+                else if(dir.getName().contains("mdpi")) mdpi += size;
+                else if(dir.getName().contains("hdpi")) hdpi += size;
+                else if(dir.getName().contains("xhdpi")) xhdpi += size;
+                else if(dir.getName().contains("xxhdpi")) xxhdpi += size;
+                else if(dir.getName().contains("xxxhdpi")) xxxhdpi += size;
+            }
+        }
+
+        if(ldpi != 0) resourceData.setLdpiDrawables(ldpi);
+        if(mdpi != 0) resourceData.setMdpiDrawables(mdpi);
+        if(hdpi != 0) resourceData.setHdpiDrawables(hdpi);
+        if(xhdpi != 0) resourceData.setXhdpiDrawables(xhdpi);
+        if(xxhdpi != 0) resourceData.setXxhdpiDrawables(xxhdpi);
+        if(xxxhdpi != 0) resourceData.setXxxhdpiDrawables(xxxhdpi);
+    }
 }

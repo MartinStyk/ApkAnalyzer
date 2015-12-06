@@ -25,7 +25,19 @@ public class FileFinder {
 
     public FileFinder(File... folders) {
         this.apkFolders = new ArrayList<File>();
-        for (File folder : apkFolders) {
+        for (File folder : folders) {
+            if (folder == null) {
+                throw new NullPointerException("folder null");
+            }
+            if (!folder.isDirectory()) {
+                throw new IllegalArgumentException("folder is not valid directory" + folder.getAbsolutePath());
+            }
+            this.apkFolders.add(folder);
+        }
+    }
+    public FileFinder(List<File> folders) {
+        this.apkFolders = new ArrayList<File>();
+        for (File folder : folders) {
             if (folder == null) {
                 throw new NullPointerException("folder null");
             }
@@ -37,6 +49,7 @@ public class FileFinder {
     }
 
     public List<ApkFile> getApkFilesInDirectories() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "apk");
         }
@@ -48,6 +61,7 @@ public class FileFinder {
     }
 
     public List<File> getCertificateFilesInDirectories() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "RSA", "DSA");
         }
@@ -55,6 +69,7 @@ public class FileFinder {
     }
 
     public List<File> getMFFilesInDirectories() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "MF");
         }
@@ -62,6 +77,7 @@ public class FileFinder {
     }
 
     public List<File> getJsonFilesInDirectories() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "json");
         }
@@ -69,13 +85,15 @@ public class FileFinder {
     }
 
     public List<File> getStringResourceFilesInDirectories() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFullNameMatch(directory, "strings.xml");
         }
         return files;
     }
 
-    public List<File> getDrawableResourceFilesInDirectories() {
+    public List<File> getDrawableResourceFiles() {
+        files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, ".jpg",".jpeg", ".JPG" , ".JPEG" , ".gif", ".GIF", "png", "PNG");
         }
@@ -108,6 +126,25 @@ public class FileFinder {
                 }
             } else if (file.isDirectory()) {
                 getFilesInDirectoryFullNameMatch(new File(file.getAbsolutePath()), typeFilter);
+            }
+        }
+    }
+
+    public List<File> getDrawableDirectories(){
+        files = new ArrayList<File>();
+        for (File directory : apkFolders) {
+            getDirectoriesContainingExpression(directory,"drawable");
+        }
+        return  files;
+    }
+    private void getDirectoriesContainingExpression(File directory, String matchExpression){
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isDirectory()) {
+                if(file.getName().contains(matchExpression)){
+                    files.add(file);
+                }
+                getDirectoriesContainingExpression(new File(file.getAbsolutePath()), matchExpression);
             }
         }
     }
