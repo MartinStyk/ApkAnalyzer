@@ -75,6 +75,13 @@ public class FileFinder {
         return files;
     }
 
+    public List<File> getDrawableResourceFilesInDirectories() {
+        for (File directory : apkFolders) {
+            getFilesInDirectoryFileTypeMatch(directory, ".jpg",".jpeg", ".JPG" , ".JPEG" , ".gif", ".GIF", "png", "PNG");
+        }
+        return files;
+    }
+
     private void getFilesInDirectoryFileTypeMatch(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
@@ -82,7 +89,7 @@ public class FileFinder {
                 for (String type : typeFilter) {
                     if (file.getName().endsWith(type))
                         files.add(file);
-                    break;
+                    //break;
                 }
             } else if (file.isDirectory()) {
                 getFilesInDirectoryFileTypeMatch(new File(file.getAbsolutePath()), typeFilter);

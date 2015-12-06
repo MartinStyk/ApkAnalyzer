@@ -9,7 +9,9 @@ import sk.styk.martin.bakalarka.files.FileFinder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,7 +67,18 @@ public class ResourceProcessor {
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
 
-        if(data!= null){
+        List<File> files = null;
+
+        try {
+            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
+            files = ff.getDrawableResourceFilesInDirectories();
+        } catch (IllegalArgumentException e) {
+            logger.warn("res directory doesn`t exists");
+        }
+        processDrawablesTypes(files);
+        processDifferentDrawables(files);
+
+        if (data != null) {
             data.setResourceData(resourceData);
         }
 
@@ -114,6 +127,45 @@ public class ResourceProcessor {
         if (matcher.find()) {
             localizations.add(matcher.group(1));
         }
+    }
+
+    private void processDrawablesTypes(List<File> files) {
+
+        if (files == null || files.isEmpty()) {
+            return;
+        }
+
+        int numJpg = 0;
+        int numGif = 0;
+        int numPng = 0;
+
+        for (File f : files) {
+            if (f.getName().endsWith(".jpg") ||
+                    f.getName().endsWith(".JPG") ||
+                    f.getName().endsWith(".jpeg") ||
+                    f.getName().endsWith(".JPEG")) {
+                numJpg++;
+            } else if (f.getName().endsWith(".gif") ||
+                    f.getName().endsWith(".GIF")) {
+                numGif++;
+            } else if (f.getName().endsWith(".png") ||
+                    f.getName().endsWith(".PNG")) {
+                numPng++;
+            }
+        }
+        if (numGif != 0) resourceData.setGifDrawables(numGif);
+        if (numPng != 0) resourceData.setPngDrawables(numPng);
+        if (numJpg != 0) resourceData.setJpgDrawables(numJpg);
+
+    }
+
+    private void processDifferentDrawables(List<File> files) {
+        Set<String> names = new HashSet<String>();
+        for (File f : files) {
+            names.add(f.getName());
+        }
+        if (!names.isEmpty())
+            resourceData.setDifferentDrawables(names.size());
     }
 
 }
