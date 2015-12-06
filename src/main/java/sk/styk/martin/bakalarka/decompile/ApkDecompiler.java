@@ -6,6 +6,7 @@ import brut.androlib.ApkDecoder;
 import brut.androlib.ApkOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
@@ -18,19 +19,15 @@ public class ApkDecompiler {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
     private static ApkDecompiler instance = null;
-    private File apkFile;
-    private File outDirectory;
+    private ApkFile apkFile;
 
     private ApkDecompiler() {
         // Exists only to defeat instantiation.
     }
 
-    public static ApkDecompiler getInstance(File apkFile, File outDirectory) {
+    public static ApkDecompiler getInstance(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
-        }
-        if (outDirectory == null) {
-            throw new IllegalArgumentException("outDirectory null");
         }
 
         if (instance == null) {
@@ -38,7 +35,6 @@ public class ApkDecompiler {
             installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
         }
         instance.apkFile = apkFile;
-        instance.outDirectory = outDirectory;
         return instance;
     }
 
@@ -67,7 +63,7 @@ public class ApkDecompiler {
         }
 
         try {
-            decoder.setOutDir(outDirectory);
+            decoder.setOutDir(apkFile.getDecompiledDirectory());
         } catch (AndrolibException e) {
             logger.error("Setting out directory failed : " + e.toString());
         }

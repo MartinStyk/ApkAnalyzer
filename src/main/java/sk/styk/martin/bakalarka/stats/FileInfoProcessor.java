@@ -3,6 +3,7 @@ package sk.styk.martin.bakalarka.stats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
+import sk.styk.martin.bakalarka.files.ApkFile;
 
 import java.io.File;
 
@@ -15,22 +16,18 @@ public class FileInfoProcessor {
     private static final Logger logger = LoggerFactory.getLogger(FileInfoProcessor.class);
     private static FileInfoProcessor instance = null;
     private ApkData data;
-    private File apkFile;
-    private File unzipDir;
+    private ApkFile apkFile;
 
     private FileInfoProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static FileInfoProcessor getInstance(ApkData data, File apkFile, File unzipDir) {
+    public static FileInfoProcessor getInstance(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
-        }
-        if (unzipDir == null) {
-            throw new IllegalArgumentException("unzipDir null");
         }
 
         if (instance == null) {
@@ -38,13 +35,15 @@ public class FileInfoProcessor {
         }
         instance.data = data;
         instance.apkFile = apkFile;
-        instance.unzipDir = unzipDir;
         return instance;
     }
 
-    public static FileInfoProcessor getInstance(File apkFile) {
+    public static FileInfoProcessor getInstance(ApkFile apkFile) {
         if (instance == null) {
             instance = new FileInfoProcessor();
+        }
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
         }
         instance.data = new ApkData();
         instance.apkFile = apkFile;
@@ -118,12 +117,12 @@ public class FileInfoProcessor {
     }
 
     private void getDexSize() {
-        File dexFile = new File(unzipDir, "classes.dex");
+        File dexFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "classes.dex");
         data.setDexSize(dexFile.length());
     }
 
     private void getArscSize() {
-        File file = new File(unzipDir, "resources.arsc");
+        File file = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "resources.arsc");
         data.setArscSize(file.length());
     }
 

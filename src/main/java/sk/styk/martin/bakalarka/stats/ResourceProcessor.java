@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.data.ResourceData;
-import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 
 import java.io.File;
@@ -20,76 +20,83 @@ public class ResourceProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceProcessor.class);
     private static ResourceProcessor instance = null;
-    private List<String> localizations;
     private ApkData data;
-    private File decompiledDir;
+    private ApkFile apkFile;
+    private ResourceData resourceData;
 
     private ResourceProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static ResourceProcessor getInstance(ApkData data, File decompiledDir) {
+    public static ResourceProcessor getInstance(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
-        if (decompiledDir == null) {
-            throw new IllegalArgumentException("decompiledDir null");
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
         }
 
         if (instance == null) {
             instance = new ResourceProcessor();
         }
         instance.data = data;
-        instance.decompiledDir = decompiledDir;
-        instance.localizations = new ArrayList<String>();
+        instance.apkFile = apkFile;
+        instance.resourceData = null;
         return instance;
     }
 
-    public static ResourceProcessor getInstance() {
+    public static ResourceProcessor getInstance(ApkFile apkFile) {
         if (instance == null) {
             instance = new ResourceProcessor();
         }
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
+        }
         instance.data = null;
-        instance.localizations = new ArrayList<String>();
+        instance.apkFile = apkFile;
+        instance.resourceData = null;
         return instance;
     }
 
-    public List<String> getStringLocalizations() {
+    public ResourceData processResources() {
 
-        logger.trace("Started processing of localizations");
+        logger.trace("Started processing of resources");
+
+        resourceData = new ResourceData();
+        resourceData.setLocale(getStringLocalizations());
+
+        if(data!= null){
+            data.setResourceData(resourceData);
+        }
+
+        logger.trace("Finished processing of localizations");
+
+        return resourceData;
+    }
+
+    private List<String> getStringLocalizations() {
 
         List<File> files = null;
 
         try {
-            FileFinder ff = new FileFinder(new File(decompiledDir, "res"));
+            FileFinder ff = new FileFinder(new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res"));
             files = ff.getStringResourceFilesInDirectories();
         } catch (IllegalArgumentException e) {
             logger.warn("res directory doesn`t exists");
             return null;
         }
 
-        localizations = new ArrayList<String>();
+        List<String> localizations = new ArrayList<String>();
 
         for (File f : files) {
-            processLocalization(f);
-        }
-        if (data != null) {
-            if(data.getResourceData()!=null){
-                data.getResourceData().setLocale(localizations);
-            }else{
-                ResourceData rd = new ResourceData();
-                rd.setLocale(localizations);
-            }
-
+            processLocalization(f, localizations);
         }
 
-        logger.trace("Finished processing of localizations");
-
-        return localizations;
+        return localizations.isEmpty() ? null : localizations;
 
     }
 
-    private void processLocalization(File f) {
+    private void processLocalization(File f, List<String> localizations) {
 
         String parentName = null;
         try {

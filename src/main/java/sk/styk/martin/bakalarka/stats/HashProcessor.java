@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sk.styk.martin.bakalarka.files.FileUtils;
 
@@ -23,40 +24,44 @@ public class HashProcessor {
     private static HashProcessor instance = null;
     private List<String> hashes;
     private ApkData data;
-    private File unzipDir;
+    private ApkFile apkFile;
 
     private HashProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static HashProcessor getInstance(ApkData data, File unzipDir) {
+    public static HashProcessor getInstance(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
-        if (unzipDir == null) {
-            throw new IllegalArgumentException("unzipDir null");
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
         }
 
         if (instance == null) {
             instance = new HashProcessor();
         }
         instance.data = data;
-        instance.unzipDir = unzipDir;
+        instance.apkFile = apkFile;
         instance.hashes = new ArrayList<String>();
         return instance;
     }
 
-    public static HashProcessor getInstance() {
+    public static HashProcessor getInstance(ApkFile apkFile) {
         if (instance == null) {
             instance = new HashProcessor();
         }
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
+        }
         instance.data = null;
+        instance.apkFile = apkFile;
         instance.hashes = new ArrayList<String>();
         return instance;
     }
 
     public List<String> getHashes() {
-        return getHashes(new File(unzipDir, "META-INF"));
+        return getHashes(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "META-INF"));
     }
 
     public List<String> getHashes(File dirWithManifestMF) {

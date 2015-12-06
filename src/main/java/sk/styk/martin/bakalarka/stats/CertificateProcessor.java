@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.data.CertificateData;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sun.security.pkcs.PKCS7;
 
@@ -26,40 +27,44 @@ public class CertificateProcessor {
     private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas;
     private ApkData data;
-    private File unzipDir;
+    private ApkFile apkFile;
 
     private CertificateProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static CertificateProcessor getInstance(ApkData data, File unzipDir) {
+    public static CertificateProcessor getInstance(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
-        if (unzipDir == null) {
-            throw new IllegalArgumentException("unzipDir null");
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
         }
 
         if (instance == null) {
             instance = new CertificateProcessor();
         }
         instance.data = data;
-        instance.unzipDir = unzipDir;
+        instance.apkFile = apkFile;
         instance.certDatas = new ArrayList<CertificateData>();
         return instance;
     }
 
-    public static CertificateProcessor getInstance() {
+    public static CertificateProcessor getInstance(ApkFile apkFile) {
         if (instance == null) {
             instance = new CertificateProcessor();
         }
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
+        }
         instance.data = null;
         instance.certDatas = new ArrayList<CertificateData>();
+        instance.apkFile = apkFile;
         return instance;
     }
 
     public List<CertificateData> processCertificates() {
-        return processCertificates(new File(unzipDir, "META-INF"));
+        return processCertificates(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "META-INF"));
     }
 
     public List<CertificateData> processCertificates(File dirWithCertificates) {

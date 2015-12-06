@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.files.TempFileManager;
 
@@ -20,81 +21,65 @@ public class ApkProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkProcessor.class);
 
-    private List<File> apks;
+    private List<ApkFile> apks;
 
-    public ApkProcessor(List<File> apks) {
+    public ApkProcessor(List<ApkFile> apks) {
         if (apks == null || apks.isEmpty()) {
             throw new IllegalArgumentException("apks not valid");
         }
         this.apks = apks;
     }
 
-    public static ApkProcessor ofFiles(List<File> apks) {
+    public static ApkProcessor ofFiles(List<ApkFile> apks) {
         return new ApkProcessor(apks);
     }
 
     public List<ApkData> processFiles() {
         List<ApkData> statistics = new ArrayList<ApkData>();
-        for (File f : apks) {
+        for (ApkFile f : apks) {
             statistics.add(processFile(f));
         }
         return statistics;
     }
 
     public void processFiles(File outputDirectory) {
-        for (File f : apks) {
+        for (ApkFile f : apks) {
             ApkData data = processFile(f);
             JsonUtils.toJson(data, outputDirectory);
         }
     }
 
-    public ApkData processFile(File apk) {
+    public ApkData processFile(ApkFile apk) {
         logger.info("Started processing of file " + apk.getName());
 
         ApkData data = new ApkData();
 
-        // 1. unzip and get data from unziped directory
-
-        TempFileManager tempMng = new TempFileManager(apk);
-        File unzipDirectory = tempMng.createApkUnzipedDirectory();
-
-        ApkUnziper
-                .getInstance(apk, unzipDirectory)
-                .unzip();
+        // 1. get data from unziped directory
 
         FileInfoProcessor
-                .getInstance(data, apk, unzipDirectory)
+                .getInstance(data, apk)
                 .processFileInfo();
 
         CertificateProcessor
-                .getInstance(data, unzipDirectory)
+                .getInstance(data, apk)
                 .processCertificates();
 
         HashProcessor
-                .getInstance(data, unzipDirectory)
+                .getInstance(data, apk)
                 .getHashes();
 
-        // 2. decompile and get data from decompile directory
-
-        File decompileDirectory = tempMng.createApkDecompiledDirectory();
-
-        ApkDecompiler
-                .getInstance(apk,decompileDirectory)
-                .decompile();
+        // 2. get data from decompile directory
 
         AndroidManifestProcessor
-                .getInstance(data,decompileDirectory)
+                .getInstance(data,apk)
                 .processAndroidManifest();
 
         ResourceProcessor
-                .getInstance(data,decompileDirectory)
-                .getStringLocalizations();
+                .getInstance(data,apk)
+                .processResources();
 
-        try{
-            tempMng.deleteApkWorkingDirectory();
-        }catch (IOException e){
-            logger.error("Unable to clean working dir for " + apk.getName());
-        }
+
+        apk.cleanApkWorkingDirectory();
 
         logger.info("Finished processing of file " + apk.getName());
 

@@ -36,11 +36,15 @@ public class FileFinder {
         }
     }
 
-    public List<File> getApkFilesInDirectories() {
+    public List<ApkFile> getApkFilesInDirectories() {
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "apk");
         }
-        return files;
+        List<ApkFile> apkFiles = new ArrayList<ApkFile>();
+        for(File f : files){
+            apkFiles.add(new ApkFile(f.getAbsolutePath()));
+        }
+        return  apkFiles;
     }
 
     public List<File> getCertificateFilesInDirectories() {

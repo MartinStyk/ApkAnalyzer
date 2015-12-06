@@ -1,7 +1,7 @@
 package sk.styk.martin.bakalarka;
 
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
-import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.stats.ApkProcessor;
 
 import java.io.File;
@@ -15,18 +15,18 @@ public class Main {
     private static String APK_TEST = "D:\\Projects\\ApkToolTest";
     private static String APK_TORRENT = "D:\\APK\\APK_torrent";
     private static String APK_PLAY = "D:\\APK\\APK_playdrone";
+    private static String APK_ZIPPY = "D:\\APK\\APK_zippyshare";
+    private static String APK_ZIPPY2 = "D:\\APK\\APK_zippyshare2";
     private static String METADATA_DIR = "D:\\APK\\metadata";
 
     public static void main(String[] args) throws Exception {
 
-        FileFinder ff = new FileFinder(new File(APK_TEST));
-        List<File> apks = ff.getApkFilesInDirectories();
+        FileFinder ff = new FileFinder(new File(APK_PLAY));
+        List<ApkFile> apks = ff.getApkFilesInDirectories();
 
         ApkProcessor
                 .ofFiles(apks)
                 .processFiles(new File(METADATA_DIR));
-
-        JsonUtils.fromJson(new File(METADATA_DIR + File.separator + "Tangram.Pro.v1.0.5.json"));
 
 // uncomment to get List of statistitics and write it to the file
 //        List<ApkData> stats = processor.processFiles();

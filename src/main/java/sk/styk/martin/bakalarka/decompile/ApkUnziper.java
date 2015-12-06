@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.decompile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
@@ -18,26 +19,21 @@ public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
     private static ApkUnziper instance = null;
-    private File apkFile;
-    private File outDirectory;
+    private ApkFile apkFile;
 
     private ApkUnziper() {
         // Exists only to defeat instantiation.
     }
 
-    public static ApkUnziper getInstance(File apkFile, File outDirectory) {
+    public static ApkUnziper getInstance(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
-        }
-        if (outDirectory == null) {
-            throw new IllegalArgumentException("outDirectory null");
         }
 
         if (instance == null) {
             instance = new ApkUnziper();
         }
         instance.apkFile = apkFile;
-        instance.outDirectory = outDirectory;
         return instance;
     }
 
@@ -55,9 +51,7 @@ public class ApkUnziper {
             while (ze != null) {
 
                 String fileName = ze.getName();
-                File newFile = new File(outDirectory, fileName);
-
-                logger.trace("Unziping file : " + newFile.getAbsoluteFile());
+                File newFile = new File(apkFile.getUnzipDirectory(), fileName);
 
                 //create all non exists folders
                 //else you will hit FileNotFoundException for compressed folder

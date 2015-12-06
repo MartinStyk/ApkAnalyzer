@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import sk.styk.martin.bakalarka.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
+import sk.styk.martin.bakalarka.files.ApkFile;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,34 +28,38 @@ public class AndroidManifestProcessor {
     private ApkData data;
     private File manifestFile;
     private AndroidManifestData manifestData;
-    private File decompiledDir;
+    private ApkFile apkFile;
 
     private AndroidManifestProcessor() {
         // Exists only to defeat instantiation.
     }
 
-    public static AndroidManifestProcessor getInstance(ApkData data, File decompiledDir) {
+    public static AndroidManifestProcessor getInstance(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
-        if (decompiledDir == null) {
-            throw new IllegalArgumentException("decompiledDir null");
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
         }
 
         if (instance == null) {
             instance = new AndroidManifestProcessor();
         }
         instance.data = data;
-        instance.decompiledDir = decompiledDir;
+        instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
         return instance;
     }
 
-    public static AndroidManifestProcessor getInstance() {
+    public static AndroidManifestProcessor getInstance(ApkFile apkFile) {
         if (instance == null) {
             instance = new AndroidManifestProcessor();
         }
+        if (apkFile == null) {
+            throw new IllegalArgumentException("apkFile null");
+        }
         instance.data = null;
+        instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
         return instance;
     }
@@ -67,7 +72,7 @@ public class AndroidManifestProcessor {
 
         try {
 
-            manifestFile = new File(decompiledDir,"AndroidManifest.xml");
+            manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(),"AndroidManifest.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(manifestFile);
