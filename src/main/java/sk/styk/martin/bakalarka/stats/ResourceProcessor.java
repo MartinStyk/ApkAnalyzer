@@ -67,20 +67,7 @@ public class ResourceProcessor {
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
 
-        List<File> files = null;
-        List<File> directories = null;
-
-        try {
-            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
-            directories = ff.getDrawableDirectories();
-            ff = new FileFinder(directories);
-            files = ff.getDrawableResourceFiles();
-        } catch (IllegalArgumentException e) {
-            logger.warn("res directory doesn`t exists");
-        }
-        processDrawablesTypes(files);
-        processDifferentDrawables(files);
-        processDirectories(directories);
+        processDrawableResources();
 
         if (data != null) {
             data.setResourceData(resourceData);
@@ -89,6 +76,23 @@ public class ResourceProcessor {
         logger.trace("Finished processing of localizations");
 
         return resourceData;
+    }
+
+    private void processDrawableResources() {
+        List<File> drawableFiles = null;
+        List<File> directories = null;
+
+        try {
+            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
+            directories = ff.getDrawableDirectories();
+            ff = new FileFinder(directories);
+            drawableFiles = ff.getDrawableResourceFiles();
+        } catch (IllegalArgumentException e) {
+            logger.warn("res directory doesn`t exists");
+        }
+        processDrawablesTypes(drawableFiles);
+        processDifferentDrawables(drawableFiles);
+        processDrawableDirectories(directories);
     }
 
     private List<String> getStringLocalizations() {
@@ -185,7 +189,7 @@ public class ResourceProcessor {
             resourceData.setDifferentDrawables(names.size());
     }
 
-    private void processDirectories(List<File> directories) {
+    private void processDrawableDirectories(List<File> directories) {
 
         int withoutdpi = 0;
         int ldpi = 0;
