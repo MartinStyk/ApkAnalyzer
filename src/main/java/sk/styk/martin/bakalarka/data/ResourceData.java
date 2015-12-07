@@ -10,13 +10,16 @@ public class ResourceData {
     //versions of string.xml file
     private List<String> locale;
 
+    //number of different resource entries from default /res/values/strings.xml
+    private Integer numberOfStringResource;
+
     //types of drawables
     private Integer pngDrawables;
     private Integer jpgDrawables;
     private Integer gifDrawables;
     private Integer xmlDrawables;
 
-    //number of drawables with different name
+    //number of drawables with different name (i.e. /res/hdpi/a.png == /res/xhdpi/a.png)
     private Integer differentDrawables;
 
     //drawables according to dimensions
@@ -134,6 +137,14 @@ public class ResourceData {
         this.unspecifiedDpiDrawables = unspecifiedDpiDrawables;
     }
 
+    public Integer getNumberOfStringResource() {
+        return numberOfStringResource;
+    }
+
+    public void setNumberOfStringResource(Integer numberOfStringResource) {
+        this.numberOfStringResource = numberOfStringResource;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -142,6 +153,8 @@ public class ResourceData {
         ResourceData that = (ResourceData) o;
 
         if (locale != null ? !locale.equals(that.locale) : that.locale != null) return false;
+        if (numberOfStringResource != null ? !numberOfStringResource.equals(that.numberOfStringResource) : that.numberOfStringResource != null)
+            return false;
         if (pngDrawables != null ? !pngDrawables.equals(that.pngDrawables) : that.pngDrawables != null) return false;
         if (jpgDrawables != null ? !jpgDrawables.equals(that.jpgDrawables) : that.jpgDrawables != null) return false;
         if (gifDrawables != null ? !gifDrawables.equals(that.gifDrawables) : that.gifDrawables != null) return false;
@@ -158,13 +171,16 @@ public class ResourceData {
             return false;
         if (xxhdpiDrawables != null ? !xxhdpiDrawables.equals(that.xxhdpiDrawables) : that.xxhdpiDrawables != null)
             return false;
-        return !(xxxhdpiDrawables != null ? !xxxhdpiDrawables.equals(that.xxxhdpiDrawables) : that.xxxhdpiDrawables != null);
+        if (xxxhdpiDrawables != null ? !xxxhdpiDrawables.equals(that.xxxhdpiDrawables) : that.xxxhdpiDrawables != null)
+            return false;
+        return !(unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = locale != null ? locale.hashCode() : 0;
+        result = 31 * result + (numberOfStringResource != null ? numberOfStringResource.hashCode() : 0);
         result = 31 * result + (pngDrawables != null ? pngDrawables.hashCode() : 0);
         result = 31 * result + (jpgDrawables != null ? jpgDrawables.hashCode() : 0);
         result = 31 * result + (gifDrawables != null ? gifDrawables.hashCode() : 0);
@@ -176,6 +192,7 @@ public class ResourceData {
         result = 31 * result + (xhdpiDrawables != null ? xhdpiDrawables.hashCode() : 0);
         result = 31 * result + (xxhdpiDrawables != null ? xxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
+        result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
         return result;
     }
 
@@ -183,6 +200,7 @@ public class ResourceData {
     public String toString() {
         return "ResourceData{" +
                 "locale=" + locale +
+                ", numberOfStringResource=" + numberOfStringResource +
                 ", pngDrawables=" + pngDrawables +
                 ", jpgDrawables=" + jpgDrawables +
                 ", gifDrawables=" + gifDrawables +
@@ -194,6 +212,7 @@ public class ResourceData {
                 ", xhdpiDrawables=" + xhdpiDrawables +
                 ", xxhdpiDrawables=" + xxhdpiDrawables +
                 ", xxxhdpiDrawables=" + xxxhdpiDrawables +
+                ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 '}';
     }
 }
