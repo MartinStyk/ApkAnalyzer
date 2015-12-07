@@ -1,6 +1,5 @@
 package sk.styk.martin.bakalarka.stats;
 
-import com.sun.javaws.jnl.XMLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -75,8 +74,10 @@ public class ResourceProcessor {
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
         resourceData.setNumberOfStringResource(getNumberOfStringResource());
+        resourceData.setRawResources(getNumberOfRawResources());
 
         processDrawableResources();
+
 
         if (data != null) {
             data.setResourceData(resourceData);
@@ -85,6 +86,22 @@ public class ResourceProcessor {
         logger.trace(apkNameMarker + "Finished processing of localizations");
 
         return resourceData;
+    }
+
+    private Integer getNumberOfRawResources() {
+        File resFolder = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res");
+        File rawFolder = new File(resFolder, "raw");
+
+        if(!resFolder.exists()){
+            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            return null;
+        }
+        if (!rawFolder.exists()) {
+            return 0;
+        }
+
+        return new FileFinder(rawFolder).getAllFilesInDirectories().size();
+
     }
 
     private void processDrawableResources() {
@@ -159,7 +176,7 @@ public class ResourceProcessor {
             return null;
         }
 
-       return XmlParsingHelper.getListOfTagAttributeValues(document,"string", "name").size();
+        return XmlParsingHelper.getListOfTagAttributeValues(document, "string", "name").size();
     }
 
     private void processDrawablesTypes(List<File> files) {

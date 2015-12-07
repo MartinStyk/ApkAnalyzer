@@ -35,6 +35,7 @@ public class FileFinder {
             this.apkFolders.add(folder);
         }
     }
+
     public FileFinder(List<File> folders) {
         this.apkFolders = new ArrayList<File>();
         for (File folder : folders) {
@@ -48,16 +49,36 @@ public class FileFinder {
         }
     }
 
+    public List<File> getAllFilesInDirectories(){
+        for (File f : apkFolders){
+            getAllFilesInDirectory(f);
+        }
+        return files;
+    }
+
+    private void getAllFilesInDirectory(File directory) {
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isFile()) {
+
+                files.add(file);
+
+            } else if (file.isDirectory()) {
+                getAllFilesInDirectory(new File(file.getAbsolutePath()));
+            }
+        }
+    }
+
     public List<ApkFile> getApkFilesInDirectories() {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getFilesInDirectoryFileTypeMatch(directory, "apk");
         }
         List<ApkFile> apkFiles = new ArrayList<ApkFile>();
-        for(File f : files){
+        for (File f : files) {
             apkFiles.add(new ApkFile(f.getAbsolutePath()));
         }
-        return  apkFiles;
+        return apkFiles;
     }
 
     public List<File> getCertificateFilesInDirectories() {
@@ -95,7 +116,7 @@ public class FileFinder {
     public List<File> getDrawableResourceFiles() {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, ".jpg",".jpeg", ".JPG" , ".JPEG" , ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
+            getFilesInDirectoryFileTypeMatch(directory, ".jpg", ".jpeg", ".JPG", ".JPEG", ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
         }
         return files;
     }
@@ -130,18 +151,19 @@ public class FileFinder {
         }
     }
 
-    public List<File> getDrawableDirectories(){
+    public List<File> getDrawableDirectories() {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
-            getDirectoriesContainingExpression(directory,"drawable");
+            getDirectoriesContainingExpression(directory, "drawable");
         }
-        return  files;
+        return files;
     }
-    private void getDirectoriesContainingExpression(File directory, String matchExpression){
+
+    private void getDirectoriesContainingExpression(File directory, String matchExpression) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
             if (file.isDirectory()) {
-                if(file.getName().contains(matchExpression)){
+                if (file.getName().contains(matchExpression)) {
                     files.add(file);
                 }
                 getDirectoriesContainingExpression(new File(file.getAbsolutePath()), matchExpression);

@@ -31,7 +31,8 @@ public class ResourceData {
     private Integer xxxhdpiDrawables;
     private Integer unspecifiedDpiDrawables;
 
-
+    //resources that should not be comprimed
+    private Integer rawResources;
 
     public List<String> getLocale() {
         return locale;
@@ -145,6 +146,14 @@ public class ResourceData {
         this.numberOfStringResource = numberOfStringResource;
     }
 
+    public Integer getRawResources() {
+        return rawResources;
+    }
+
+    public void setRawResources(Integer rawResources) {
+        this.rawResources = rawResources;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,7 +182,9 @@ public class ResourceData {
             return false;
         if (xxxhdpiDrawables != null ? !xxxhdpiDrawables.equals(that.xxxhdpiDrawables) : that.xxxhdpiDrawables != null)
             return false;
-        return !(unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null);
+        if (unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null)
+            return false;
+        return !(rawResources != null ? !rawResources.equals(that.rawResources) : that.rawResources != null);
 
     }
 
@@ -193,6 +204,7 @@ public class ResourceData {
         result = 31 * result + (xxhdpiDrawables != null ? xxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
+        result = 31 * result + (rawResources != null ? rawResources.hashCode() : 0);
         return result;
     }
 
@@ -213,6 +225,7 @@ public class ResourceData {
                 ", xxhdpiDrawables=" + xxhdpiDrawables +
                 ", xxxhdpiDrawables=" + xxxhdpiDrawables +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
+                ", rawResources=" + rawResources +
                 '}';
     }
 }
