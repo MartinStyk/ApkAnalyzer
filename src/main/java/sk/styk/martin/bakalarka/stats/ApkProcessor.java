@@ -34,6 +34,18 @@ public class ApkProcessor {
         return new ApkProcessor(apks);
     }
 
+    public ApkProcessor(ApkFile apk) {
+        if (apks == null || !apk.exists()) {
+            throw new IllegalArgumentException("apks not valid");
+        }
+        this.apks = new ArrayList<ApkFile>();
+        this.apks.add(apk);
+    }
+    public static ApkProcessor ofFile(ApkFile apk) {
+        return new ApkProcessor(apk);
+    }
+
+
     public List<ApkData> processFiles() {
         List<ApkData> statistics = new ArrayList<ApkData>();
         for (ApkFile f : apks) {
@@ -74,6 +86,7 @@ public class ApkProcessor {
                 .getInstance(data,apk)
                 .processAndroidManifest();
 
+        // 3. uses data from decompile and unzip directory
         ResourceProcessor
                 .getInstance(data,apk)
                 .processResources();
