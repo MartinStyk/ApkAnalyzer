@@ -2,8 +2,8 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sk.styk.martin.bakalarka.files.FileUtils;
@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 public class HashProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(HashProcessor.class);
+    private Marker apkNameMarker;
+
     private static HashProcessor instance = null;
     private List<String> hashes;
     private ApkData data;
@@ -44,6 +46,7 @@ public class HashProcessor {
         instance.data = data;
         instance.apkFile = apkFile;
         instance.hashes = new ArrayList<String>();
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -57,6 +60,7 @@ public class HashProcessor {
         instance.data = null;
         instance.apkFile = apkFile;
         instance.hashes = new ArrayList<String>();
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -66,7 +70,7 @@ public class HashProcessor {
 
     public List<String> getHashes(File dirWithManifestMF) {
 
-        logger.trace("Started processing of hashes");
+        logger.trace(apkNameMarker + "Started processing of hashes");
 
         List<File> files = null;
 
@@ -74,7 +78,7 @@ public class HashProcessor {
             FileFinder ff = new FileFinder(dirWithManifestMF);
             files = ff.getMFFilesInDirectories();
         } catch (IllegalArgumentException e) {
-            logger.warn("META-INF directory doesn`t exists");
+            logger.warn(apkNameMarker + "META-INF directory doesn`t exists");
             return null;
         }
 
@@ -87,7 +91,7 @@ public class HashProcessor {
             data.setFileDigest(hashes);
         }
 
-        logger.trace("Finished processing of hashes");
+        logger.trace(apkNameMarker + "Finished processing of hashes");
 
         return hashes;
     }
@@ -98,7 +102,7 @@ public class HashProcessor {
         try {
             content = FileUtils.fileToString(file);
         } catch (IOException e) {
-            logger.error("Unable to read file " + file.getName());
+            logger.error(apkNameMarker + "Unable to read file " + file.getName());
             return;
         }
 

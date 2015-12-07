@@ -2,9 +2,9 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.data.CertificateData;
-import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sun.security.pkcs.PKCS7;
@@ -24,6 +24,8 @@ import java.util.List;
 public class CertificateProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(CertificateProcessor.class);
+    private Marker apkNameMarker;
+
     private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas;
     private ApkData data;
@@ -47,6 +49,7 @@ public class CertificateProcessor {
         instance.data = data;
         instance.apkFile = apkFile;
         instance.certDatas = new ArrayList<CertificateData>();
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -60,6 +63,7 @@ public class CertificateProcessor {
         instance.data = null;
         instance.certDatas = new ArrayList<CertificateData>();
         instance.apkFile = apkFile;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -76,7 +80,7 @@ public class CertificateProcessor {
             FileFinder ff = new FileFinder(dirWithCertificates);
             certs = ff.getCertificateFilesInDirectories();
         } catch (IllegalArgumentException e) {
-            logger.warn("META-INF directory doesn`t exists");
+            logger.warn(apkNameMarker + "META-INF directory doesn`t exists");
             return null;
         }
 
@@ -91,13 +95,13 @@ public class CertificateProcessor {
 
     private void processCertificate(File file) {
 
-        logger.trace("Started processing of certificate");
+        logger.trace(apkNameMarker + "Started processing of certificate");
 
         InputStream is = null;
         try {
             is = new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            logger.error("Unable to read certificate " + file.getName());
+            logger.error(apkNameMarker + "Unable to read certificate " + file.getName());
         }
 
         try {
@@ -141,7 +145,7 @@ public class CertificateProcessor {
             }
 
         }
-        logger.trace("Finished processing of certificate");
+        logger.trace(apkNameMarker + "Finished processing of certificate");
     }
 
     private String md5Digest(byte[] input) throws IOException {

@@ -2,8 +2,8 @@ package sk.styk.martin.bakalarka.decompile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +19,7 @@ public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
     private static ApkUnziper instance = null;
+    private Marker apkNameMarker;
     private ApkFile apkFile;
 
     private ApkUnziper() {
@@ -34,6 +35,7 @@ public class ApkUnziper {
             instance = new ApkUnziper();
         }
         instance.apkFile = apkFile;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -47,7 +49,7 @@ public class ApkUnziper {
             //get the zipped file list entry
             ZipEntry ze = zis.getNextEntry();
 
-            logger.info("Starting unzip of apk " + apkFile.getName());
+            logger.info(apkNameMarker + "Starting unzip");
             while (ze != null) {
 
                 String fileName = ze.getName();
@@ -64,9 +66,9 @@ public class ApkUnziper {
                     while ((len = zis.read(buffer)) > 0) {
                         fos.write(buffer, 0, len);
                     }
-                    logger.trace("Unziping file " + newFile.getPath());
+                    logger.trace(apkNameMarker + "Unziping file " + newFile.getPath());
                 } catch (IOException e) {
-                    logger.trace("Unziping file " + newFile.getPath() + " failed");
+                    logger.trace(apkNameMarker + "Unziping file " + newFile.getPath() + " failed");
                 } finally {
                     if (fos != null) {
                         fos.close();
@@ -74,10 +76,10 @@ public class ApkUnziper {
                 }
                 ze = zis.getNextEntry();
             }
-            logger.info("Finished unzip of apk " + apkFile.getName());
+            logger.info(apkNameMarker + "Finished unzip of apk " + apkFile.getName());
 
         } catch (IOException ex) {
-            logger.error("Error unziping " + apkFile.getName());
+            logger.error(apkNameMarker + "Error unziping " + apkFile.getName());
             throw ex;
         } finally {
             if (zis != null) {
@@ -85,7 +87,7 @@ public class ApkUnziper {
                     zis.closeEntry();
                     zis.close();
                 } catch (IOException e) {
-                    logger.error("Closing ZipInputStream failed");
+                    logger.error(apkNameMarker + "Closing ZipInputStream failed");
                 }
             }
 

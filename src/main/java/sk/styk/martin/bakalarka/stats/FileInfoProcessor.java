@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.ApkFile;
 
@@ -14,6 +15,8 @@ import java.io.File;
 public class FileInfoProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(FileInfoProcessor.class);
+    private Marker apkNameMarker;
+
     private static FileInfoProcessor instance = null;
     private ApkData data;
     private ApkFile apkFile;
@@ -35,6 +38,7 @@ public class FileInfoProcessor {
         }
         instance.data = data;
         instance.apkFile = apkFile;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -47,12 +51,13 @@ public class FileInfoProcessor {
         }
         instance.data = new ApkData();
         instance.apkFile = apkFile;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
     public ApkData processFileInfo() {
 
-        logger.trace("Started processing of file info");
+        logger.trace(apkNameMarker + "Started processing of file info");
 
         getFileName();
         getSourceOfFile();
@@ -60,7 +65,7 @@ public class FileInfoProcessor {
         getDexSize();
         getArscSize();
 
-        logger.trace("Finished processing of file info");
+        logger.trace(apkNameMarker + "Finished processing of file info");
 
         return data;
     }

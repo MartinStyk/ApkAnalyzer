@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.stats;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -19,6 +20,8 @@ import java.util.List;
 public class AndroidManifestProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
+    private Marker apkNameMarker;
+
     private static AndroidManifestProcessor instance = null;
     private Document document;
     private ApkData data;
@@ -45,6 +48,7 @@ public class AndroidManifestProcessor {
         instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
         instance.document = null;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -59,6 +63,7 @@ public class AndroidManifestProcessor {
         instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
         instance.document = null;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -66,7 +71,7 @@ public class AndroidManifestProcessor {
 
         manifestData = new AndroidManifestData();
 
-        logger.trace("Started processing AndroidManifest");
+        logger.trace(apkNameMarker + "Started processing AndroidManifest");
 
         try {
 
@@ -82,7 +87,7 @@ public class AndroidManifestProcessor {
             getSupportScreens();
 
         } catch (Exception e) {
-            logger.error(e.toString());
+            logger.error(apkNameMarker + e.toString());
         } finally {
             document = null;
         }
@@ -91,7 +96,7 @@ public class AndroidManifestProcessor {
             data.setAndroidManifest(manifestData);
         }
 
-        logger.trace("Finished processing of AndroidManifest");
+        logger.trace(apkNameMarker + "Finished processing of AndroidManifest");
 
         return manifestData;
     }

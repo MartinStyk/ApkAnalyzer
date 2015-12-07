@@ -6,11 +6,10 @@ import brut.androlib.ApkDecoder;
 import brut.androlib.ApkOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Martin Styk on 23.11.2015.
@@ -18,6 +17,8 @@ import java.io.IOException;
 public class ApkDecompiler {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
+    private Marker apkNameMarker;
+
     private static ApkDecompiler instance = null;
     private ApkFile apkFile;
 
@@ -35,6 +36,7 @@ public class ApkDecompiler {
             installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
         }
         instance.apkFile = apkFile;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -59,20 +61,20 @@ public class ApkDecompiler {
         try {
             decoder.setDecodeSources((short) 0);
         } catch (AndrolibException e) {
-            logger.error(e.toString());
+            logger.error(apkNameMarker + e.toString());
         }
 
         try {
             decoder.setOutDir(apkFile.getDecompiledDirectory());
         } catch (AndrolibException e) {
-            logger.error("Setting out directory failed : " + e.toString());
+            logger.error(apkNameMarker + "Setting out directory failed : " + e.toString());
         }
-        logger.info("Starting decompilation of apk " + apkFile.getName());
+        logger.info(apkNameMarker + "Starting decompilation");
         try {
             decoder.decode();
-            logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
+            logger.info(apkNameMarker + "Succesfully finished decompilation");
         } catch (Exception e) {
-            logger.error("Finished decompilation of apk " + apkFile.getName() + " with exception : " + e.toString());
+            logger.error(apkNameMarker + "Finished decompilation with exception : " + e.toString());
             throw e;
         }
 

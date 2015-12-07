@@ -2,6 +2,8 @@ package sk.styk.martin.bakalarka.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 
@@ -105,5 +107,9 @@ public class ApkFile extends File {
 
     public Exception getUnzipException() {
         return unzipException;
+    }
+
+    public Marker getMarker(){
+       return MarkerFactory.getMarker(" [" + getName() + "] ");
     }
 }

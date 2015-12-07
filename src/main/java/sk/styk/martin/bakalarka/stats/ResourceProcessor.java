@@ -3,6 +3,7 @@ package sk.styk.martin.bakalarka.stats;
 import com.sun.javaws.jnl.XMLUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.w3c.dom.Document;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.data.ResourceData;
@@ -24,6 +25,8 @@ import java.util.regex.Pattern;
 public class ResourceProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceProcessor.class);
+    private Marker apkNameMarker;
+
     private static ResourceProcessor instance = null;
     private ApkData data;
     private ApkFile apkFile;
@@ -47,6 +50,7 @@ public class ResourceProcessor {
         instance.data = data;
         instance.apkFile = apkFile;
         instance.resourceData = null;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
@@ -60,12 +64,13 @@ public class ResourceProcessor {
         instance.data = null;
         instance.apkFile = apkFile;
         instance.resourceData = null;
+        instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
     public ResourceData processResources() {
 
-        logger.trace("Started processing of resources");
+        logger.trace(apkNameMarker + "Started processing of resources");
 
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
@@ -77,7 +82,7 @@ public class ResourceProcessor {
             data.setResourceData(resourceData);
         }
 
-        logger.trace("Finished processing of localizations");
+        logger.trace(apkNameMarker + "Finished processing of localizations");
 
         return resourceData;
     }
@@ -92,7 +97,7 @@ public class ResourceProcessor {
             ff = new FileFinder(directories);
             drawableFiles = ff.getDrawableResourceFiles();
         } catch (IllegalArgumentException e) {
-            logger.warn("res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res directory doesn`t exists");
             return;
         }
         processDrawablesTypes(drawableFiles);
@@ -108,7 +113,7 @@ public class ResourceProcessor {
             FileFinder ff = new FileFinder(new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res"));
             files = ff.getStringResourceFilesInDirectories();
         } catch (IllegalArgumentException e) {
-            logger.warn("res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res directory doesn`t exists");
             return null;
         }
 
@@ -150,7 +155,7 @@ public class ResourceProcessor {
             file = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res" + File.separator + "values" + File.separator + "strings.xml");
             document = XmlParsingHelper.getNormalizedDocument(file);
         } catch (Exception e) {
-            logger.warn("res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res directory doesn`t exists");
             return null;
         }
 

@@ -37,6 +37,7 @@ public class ApkProcessor {
         this.apks = new ArrayList<ApkFile>();
         this.apks.add(apk);
     }
+
     public static ApkProcessor ofFile(ApkFile apk) {
         return new ApkProcessor(apk);
     }
@@ -58,7 +59,7 @@ public class ApkProcessor {
     }
 
     public ApkData processFile(ApkFile apk) {
-        logger.info("Started processing of file " + apk.getName());
+        logger.info(apk.getMarker() + "Started processing of file " + apk.getName());
 
         ApkData data = new ApkData();
 
@@ -79,18 +80,18 @@ public class ApkProcessor {
         // 2. get data from decompile directory
 
         AndroidManifestProcessor
-                .getInstance(data,apk)
+                .getInstance(data, apk)
                 .processAndroidManifest();
 
         // 3. uses data from decompile and unzip directory
         ResourceProcessor
-                .getInstance(data,apk)
+                .getInstance(data, apk)
                 .processResources();
 
 
         apk.cleanApkWorkingDirectory();
 
-        logger.info("Finished processing of file " + apk.getName());
+        logger.info(apk.getMarker() + "Finished processing of file " + apk.getName());
 
         return data;
     }
