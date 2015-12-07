@@ -60,16 +60,13 @@ public class XmlParsingHelper {
     public static List<String> getListOfTagAttributeValues(Document document, String elementTag, String attributeName) {
         NodeList usesPermissionList = document.getElementsByTagName(elementTag);
 
-        List<String> result = null;
+        List<String> result = new ArrayList<String>();
         for (int i = 0; i < usesPermissionList.getLength(); i++) {
             Node nNode = usesPermissionList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 String value = eElement.getAttribute(attributeName);
                 if (value != null && !value.isEmpty()) {
-                    if (result == null) {
-                        result = new ArrayList<String>();
-                    }
                     result.add(value);
                 }
             }

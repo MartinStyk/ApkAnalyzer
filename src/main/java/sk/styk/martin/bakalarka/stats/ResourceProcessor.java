@@ -89,6 +89,7 @@ public class ResourceProcessor {
             drawableFiles = ff.getDrawableResourceFiles();
         } catch (IllegalArgumentException e) {
             logger.warn("res directory doesn`t exists");
+            return;
         }
         processDrawablesTypes(drawableFiles);
         processDifferentDrawables(drawableFiles);
@@ -113,7 +114,7 @@ public class ResourceProcessor {
             processLocalization(f, localizations);
         }
 
-        return localizations.isEmpty() ? null : localizations;
+        return localizations;
 
     }
 
@@ -168,10 +169,10 @@ public class ResourceProcessor {
                 numXml++;
             }
         }
-        if (numGif != 0) resourceData.setGifDrawables(numGif);
-        if (numPng != 0) resourceData.setPngDrawables(numPng);
-        if (numJpg != 0) resourceData.setJpgDrawables(numJpg);
-        if (numXml != 0) resourceData.setXmlDrawables(numXml);
+        resourceData.setGifDrawables(numGif);
+        resourceData.setPngDrawables(numPng);
+        resourceData.setJpgDrawables(numJpg);
+        resourceData.setXmlDrawables(numXml);
 
     }
 
@@ -185,11 +186,12 @@ public class ResourceProcessor {
         for (File f : files) {
             names.add(f.getName());
         }
-        if (!names.isEmpty())
-            resourceData.setDifferentDrawables(names.size());
+        resourceData.setDifferentDrawables(names.size());
     }
 
     private void processDrawableDirectories(List<File> directories) {
+
+        boolean success = false;
 
         int withoutdpi = 0;
         int ldpi = 0;
@@ -208,6 +210,7 @@ public class ResourceProcessor {
             int size = ff.getDrawableResourceFiles().size();
 
             if (size > 0) {
+                success = true;
                 if (dir.getName().contains("ldpi")) ldpi += size;
                 else if (dir.getName().contains("mdpi")) mdpi += size;
                 else if (dir.getName().contains("xxxhdpi")) xxxhdpi += size;
@@ -217,13 +220,14 @@ public class ResourceProcessor {
                 else if (dir.getName().contains("drawable")) withoutdpi += size;
             }
         }
-
-        if (ldpi != 0) resourceData.setLdpiDrawables(ldpi);
-        if (mdpi != 0) resourceData.setMdpiDrawables(mdpi);
-        if (hdpi != 0) resourceData.setHdpiDrawables(hdpi);
-        if (xhdpi != 0) resourceData.setXhdpiDrawables(xhdpi);
-        if (xxhdpi != 0) resourceData.setXxhdpiDrawables(xxhdpi);
-        if (xxxhdpi != 0) resourceData.setXxxhdpiDrawables(xxxhdpi);
-        if (withoutdpi != 0) resourceData.setUnspecifiedDpiDrawables(withoutdpi);
+        if (success) {
+            resourceData.setLdpiDrawables(ldpi);
+            resourceData.setMdpiDrawables(mdpi);
+            resourceData.setHdpiDrawables(hdpi);
+            resourceData.setXhdpiDrawables(xhdpi);
+            resourceData.setXxhdpiDrawables(xxhdpi);
+            resourceData.setXxxhdpiDrawables(xxxhdpi);
+            resourceData.setUnspecifiedDpiDrawables(withoutdpi);
+        }
     }
 }
