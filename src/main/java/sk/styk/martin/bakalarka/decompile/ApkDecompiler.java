@@ -50,7 +50,7 @@ public class ApkDecompiler {
         }
     }
 
-    public void decompile() {
+    public void decompile() throws Exception {
 
         ApkDecoder decoder = new ApkDecoder();
         decoder.setApkFile(apkFile);
@@ -73,6 +73,7 @@ public class ApkDecompiler {
             logger.info("Succesfully finished decompilation of apk " + apkFile.getName());
         } catch (Exception e) {
             logger.error("Finished decompilation of apk " + apkFile.getName() + " with exception : " + e.toString());
+            throw e;
         }
 
     }

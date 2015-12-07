@@ -16,6 +16,9 @@ public class ApkFile extends File {
     private static final Logger logger = LoggerFactory.getLogger(ApkFile.class);
     private TempFileManager apkWorkingDirectoryManager = new TempFileManager(this);
 
+    private Exception decompilationException;
+    private Exception unzipException;
+
     public ApkFile(String pathname) {
         super(pathname);
         if (!pathname.endsWith(".apk")) {
@@ -51,32 +54,56 @@ public class ApkFile extends File {
     }
 
     public void unzip() {
-        ApkUnziper.getInstance(this).unzip();
+        try {
+            ApkUnziper.getInstance(this).unzip();
+        } catch (Exception e) {
+            unzipException = e;
+        }
     }
 
     public void decompile() {
-        ApkDecompiler.getInstance(this).decompile();
+        try {
+            ApkDecompiler.getInstance(this).decompile();
+        } catch (Exception e) {
+            decompilationException = e;
+        }
     }
 
-    public boolean isDecompiled(){
+    public boolean isDecompiled() {
         return apkWorkingDirectoryManager.getApkDecompiledDirectory().listFiles().length > 0;
     }
-    public boolean isUnziped(){
+
+    public boolean isDecompilationFailed() {
+        return decompilationException != null;
+    }
+
+    public boolean isUnziped() {
         return apkWorkingDirectoryManager.getApkUnzipedDirectory().listFiles().length > 0;
     }
 
-    public File getUnzipDirectoryWithUnzipedData(){
-        if(!isUnziped()){
+    public boolean isUnzipFailed() {
+        return unzipException != null;
+    }
+
+    public File getUnzipDirectoryWithUnzipedData() {
+        if (!isUnziped() && !isUnzipFailed()) {
             unzip();
         }
         return getUnzipDirectory();
     }
 
-    public File getDecompiledDirectoryWithDecompiledData(){
-        if(!isDecompiled()){
+    public File getDecompiledDirectoryWithDecompiledData() {
+        if (!isDecompiled() && !isDecompilationFailed()) {
             decompile();
         }
         return getDecompiledDirectory();
     }
 
+    public Exception getDecompilationException() {
+        return decompilationException;
+    }
+
+    public Exception getUnzipException() {
+        return unzipException;
+    }
 }

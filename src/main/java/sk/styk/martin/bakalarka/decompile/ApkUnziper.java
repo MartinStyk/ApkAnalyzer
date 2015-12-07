@@ -37,7 +37,7 @@ public class ApkUnziper {
         return instance;
     }
 
-    public void unzip() {
+    public void unzip() throws IOException {
 
         byte[] buffer = new byte[1024];
 
@@ -78,6 +78,7 @@ public class ApkUnziper {
 
         } catch (IOException ex) {
             logger.error("Error unziping " + apkFile.getName());
+            throw ex;
         } finally {
             if (zis != null) {
                 try {
