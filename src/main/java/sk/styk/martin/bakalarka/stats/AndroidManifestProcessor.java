@@ -4,16 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import sk.styk.martin.bakalarka.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.ApkFile;
+import sk.styk.martin.bakalarka.stats.helpers.XmlParsingHelper;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +20,7 @@ public class AndroidManifestProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
     private static AndroidManifestProcessor instance = null;
-    private Document doc;
+    private Document document;
     private ApkData data;
     private File manifestFile;
     private AndroidManifestData manifestData;
@@ -47,6 +44,7 @@ public class AndroidManifestProcessor {
         instance.data = data;
         instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
+        instance.document = null;
         return instance;
     }
 
@@ -60,6 +58,7 @@ public class AndroidManifestProcessor {
         instance.data = null;
         instance.apkFile = apkFile;
         instance.manifestData = new AndroidManifestData();
+        instance.document = null;
         return instance;
     }
 
@@ -72,11 +71,7 @@ public class AndroidManifestProcessor {
         try {
 
             manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(manifestFile);
-
-            doc.getDocumentElement().normalize();
+            document = XmlParsingHelper.getNormalizedDocument(manifestFile);
 
             getPackage();
             getNumberOfAppComponents();
@@ -89,7 +84,7 @@ public class AndroidManifestProcessor {
         } catch (Exception e) {
             logger.error(e.toString());
         } finally {
-            doc = null;
+            document = null;
         }
 
         if (data != null) {
@@ -102,23 +97,17 @@ public class AndroidManifestProcessor {
     }
 
     public void getPackage() {
-        NodeList manifestList = doc.getElementsByTagName("manifest");
-        if (manifestList.getLength() != 1)
-            return;
-        ;
-
-        Node nNode = manifestList.item(0);
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) nNode;
-            manifestData.setPackageName(eElement.getAttribute("package"));
+        Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "manifest");
+        if (element != null) {
+            manifestData.setPackageName(element.getAttribute("package"));
         }
     }
 
     private void getNumberOfAppComponents() {
-        NodeList activityList = doc.getElementsByTagName("activity");
-        NodeList serviceList = doc.getElementsByTagName("service");
-        NodeList receiverList = doc.getElementsByTagName("receiver");
-        NodeList providerList = doc.getElementsByTagName("provider");
+        NodeList activityList = document.getElementsByTagName("activity");
+        NodeList serviceList = document.getElementsByTagName("service");
+        NodeList receiverList = document.getElementsByTagName("receiver");
+        NodeList providerList = document.getElementsByTagName("provider");
 
         manifestData.setNumberOfActivities(activityList.getLength());
         manifestData.setNumberOfServices(serviceList.getLength());
@@ -127,90 +116,41 @@ public class AndroidManifestProcessor {
     }
 
     private void getUsedPermissions() {
-        NodeList usesPermissionList = doc.getElementsByTagName("uses-permission");
-        List<String> result = new ArrayList<String>();
-        for (int i = 0; i < usesPermissionList.getLength(); i++) {
-            Node nNode = usesPermissionList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                String value = eElement.getAttribute("android:name");
-                if (value != null && !value.isEmpty())
-                    result.add(value);
-            }
-        }
+        List<String> result = XmlParsingHelper.getListOfTagAttributeValues(document, "uses-permission", "android:name");
         manifestData.setUsesPermissions(result);
     }
 
     private void getUsedLibraries() {
-        NodeList usesLibraryList = doc.getElementsByTagName("uses-library");
-        List<String> result = new ArrayList<String>();
-        for (int i = 0; i < usesLibraryList.getLength(); i++) {
-            Node nNode = usesLibraryList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                String value = eElement.getAttribute("android:name");
-                if (value != null && !value.isEmpty())
-                    result.add(value);
-            }
-        }
+        List<String> result = XmlParsingHelper.getListOfTagAttributeValues(document, "uses-library", "android:name");
         manifestData.setUsesLibrary(result);
     }
 
     private void getUsedFeatures() {
-        NodeList usesLibraryList = doc.getElementsByTagName("uses-feature");
-        List<String> result = new ArrayList<String>();
-        for (int i = 0; i < usesLibraryList.getLength(); i++) {
-            Node nNode = usesLibraryList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-                String value = eElement.getAttribute("android:name");
-                if (value != null && !value.isEmpty())
-                    result.add(value);
-            }
-        }
+        List<String> result = XmlParsingHelper.getListOfTagAttributeValues(document, "uses-feature", "android:name");
         manifestData.setUsesFeature(result);
     }
 
     private void getUsesSdk() {
-        NodeList sdkList = doc.getElementsByTagName("uses-sdk");
-        if (sdkList.getLength() != 1)
-            return;
-        ;
+        Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "uses-sdk");
 
-        Node nNode = sdkList.item(0);
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) nNode;
-            manifestData.setUsesTargetSdkVersion(eElement.getAttribute("android:targetSdkVersion"));
-            manifestData.setUsesMinSdkVersion(eElement.getAttribute("android:minSdkVersion"));
-            manifestData.setUsesMaxSdkVersion(eElement.getAttribute("android:maxSdkVersion"));
+        if (element != null) {
+            manifestData.setUsesTargetSdkVersion(element.getAttribute("android:targetSdkVersion"));
+            manifestData.setUsesMinSdkVersion(element.getAttribute("android:minSdkVersion"));
+            manifestData.setUsesMaxSdkVersion(element.getAttribute("android:maxSdkVersion"));
         }
     }
 
     private void getSupportScreens() {
-        NodeList sdkList = doc.getElementsByTagName("supports-screens");
-        if (sdkList.getLength() != 1)
-            return;
-        ;
+        Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "supports-screens");
 
-        Node nNode = sdkList.item(0);
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element eElement = (Element) nNode;
-
-            manifestData.setSupportsScreensResizeable(getBooleanElementAtribute(eElement, "android:resizeable"));
-            manifestData.setSupportsScreensAnyDensity(getBooleanElementAtribute(eElement, "android:anyDensity"));
-            manifestData.setSupportsScreensSmall(getBooleanElementAtribute(eElement, "android:smallScreens"));
-            manifestData.setSupportsScreensNormal(getBooleanElementAtribute(eElement, "android:normalScreens"));
-            manifestData.setSupportsScreensLarge(getBooleanElementAtribute(eElement, "android:largeScreens"));
-            manifestData.setSupportsScreensXlarge(getBooleanElementAtribute(eElement, "android:xlargeScreens"));
+        if (element != null) {
+            manifestData.setSupportsScreensResizeable(XmlParsingHelper.getBooleanElementAtribute(element, "android:resizeable"));
+            manifestData.setSupportsScreensAnyDensity(XmlParsingHelper.getBooleanElementAtribute(element, "android:anyDensity"));
+            manifestData.setSupportsScreensSmall(XmlParsingHelper.getBooleanElementAtribute(element, "android:smallScreens"));
+            manifestData.setSupportsScreensNormal(XmlParsingHelper.getBooleanElementAtribute(element, "android:normalScreens"));
+            manifestData.setSupportsScreensLarge(XmlParsingHelper.getBooleanElementAtribute(element, "android:largeScreens"));
+            manifestData.setSupportsScreensXlarge(XmlParsingHelper.getBooleanElementAtribute(element, "android:xlargeScreens"));
         }
-    }
-
-    private Boolean getBooleanElementAtribute(Element eElement, String atribute) {
-        String atr = eElement.getAttribute(atribute);
-        if (atr != null && !atr.isEmpty()) {
-            return Boolean.valueOf(atr);
-        }
-        return null;
     }
 
 }

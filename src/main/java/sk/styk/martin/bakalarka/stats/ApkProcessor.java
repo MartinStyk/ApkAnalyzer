@@ -3,14 +3,10 @@ package sk.styk.martin.bakalarka.stats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
-import sk.styk.martin.bakalarka.decompile.ApkUnziper;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.JsonUtils;
-import sk.styk.martin.bakalarka.files.TempFileManager;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
