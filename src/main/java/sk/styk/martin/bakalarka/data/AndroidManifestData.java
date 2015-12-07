@@ -8,16 +8,26 @@ import java.util.List;
 public class AndroidManifestData {
 
     private String packageName;
+
     private Integer numberOfActivities;
     private Integer numberOfServices;
     private Integer numberOfContentProviders;
     private Integer numberOfBroadcastReceivers;
+
     private List<String> usesPermissions;
     private List<String> usesLibrary;
     private List<String> usesFeature;
+
     private String usesMinSdkVersion;
     private String usesTargetSdkVersion;
     private String usesMaxSdkVersion;
+
+    private Boolean supportsScreensResizeable;
+    private Boolean supportsScreensSmall;
+    private Boolean supportsScreensNormal;
+    private Boolean supportsScreensLarge;
+    private Boolean supportsScreensXlarge;
+    private Boolean supportsScreensAnyDensity;
 
     public String getPackageName() {
         return packageName;
@@ -107,6 +117,54 @@ public class AndroidManifestData {
         this.usesTargetSdkVersion = usesTargetSdkVersion;
     }
 
+    public Boolean getSupportsScreensResizeable() {
+        return supportsScreensResizeable;
+    }
+
+    public void setSupportsScreensResizeable(Boolean supportsScreensResizeable) {
+        this.supportsScreensResizeable = supportsScreensResizeable;
+    }
+
+    public Boolean getSupportsScreensSmall() {
+        return supportsScreensSmall;
+    }
+
+    public void setSupportsScreensSmall(Boolean supportsScreensSmall) {
+        this.supportsScreensSmall = supportsScreensSmall;
+    }
+
+    public Boolean getSupportsScreensNormal() {
+        return supportsScreensNormal;
+    }
+
+    public void setSupportsScreensNormal(Boolean supportsScreensNormal) {
+        this.supportsScreensNormal = supportsScreensNormal;
+    }
+
+    public Boolean getSupportsScreensLarge() {
+        return supportsScreensLarge;
+    }
+
+    public void setSupportsScreensLarge(Boolean supportsScreensLarge) {
+        this.supportsScreensLarge = supportsScreensLarge;
+    }
+
+    public Boolean getSupportsScreensXlarge() {
+        return supportsScreensXlarge;
+    }
+
+    public void setSupportsScreensXlarge(Boolean supportsScreensXlarge) {
+        this.supportsScreensXlarge = supportsScreensXlarge;
+    }
+
+    public Boolean getSupportsScreensAnyDensity() {
+        return supportsScreensAnyDensity;
+    }
+
+    public void setSupportsScreensAnyDensity(Boolean supportsScreensAnyDensity) {
+        this.supportsScreensAnyDensity = supportsScreensAnyDensity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,7 +189,19 @@ public class AndroidManifestData {
             return false;
         if (usesTargetSdkVersion != null ? !usesTargetSdkVersion.equals(that.usesTargetSdkVersion) : that.usesTargetSdkVersion != null)
             return false;
-        return !(usesMaxSdkVersion != null ? !usesMaxSdkVersion.equals(that.usesMaxSdkVersion) : that.usesMaxSdkVersion != null);
+        if (usesMaxSdkVersion != null ? !usesMaxSdkVersion.equals(that.usesMaxSdkVersion) : that.usesMaxSdkVersion != null)
+            return false;
+        if (supportsScreensResizeable != null ? !supportsScreensResizeable.equals(that.supportsScreensResizeable) : that.supportsScreensResizeable != null)
+            return false;
+        if (supportsScreensSmall != null ? !supportsScreensSmall.equals(that.supportsScreensSmall) : that.supportsScreensSmall != null)
+            return false;
+        if (supportsScreensNormal != null ? !supportsScreensNormal.equals(that.supportsScreensNormal) : that.supportsScreensNormal != null)
+            return false;
+        if (supportsScreensLarge != null ? !supportsScreensLarge.equals(that.supportsScreensLarge) : that.supportsScreensLarge != null)
+            return false;
+        if (supportsScreensXlarge != null ? !supportsScreensXlarge.equals(that.supportsScreensXlarge) : that.supportsScreensXlarge != null)
+            return false;
+        return !(supportsScreensAnyDensity != null ? !supportsScreensAnyDensity.equals(that.supportsScreensAnyDensity) : that.supportsScreensAnyDensity != null);
 
     }
 
@@ -148,6 +218,12 @@ public class AndroidManifestData {
         result = 31 * result + (usesMinSdkVersion != null ? usesMinSdkVersion.hashCode() : 0);
         result = 31 * result + (usesTargetSdkVersion != null ? usesTargetSdkVersion.hashCode() : 0);
         result = 31 * result + (usesMaxSdkVersion != null ? usesMaxSdkVersion.hashCode() : 0);
+        result = 31 * result + (supportsScreensResizeable != null ? supportsScreensResizeable.hashCode() : 0);
+        result = 31 * result + (supportsScreensSmall != null ? supportsScreensSmall.hashCode() : 0);
+        result = 31 * result + (supportsScreensNormal != null ? supportsScreensNormal.hashCode() : 0);
+        result = 31 * result + (supportsScreensLarge != null ? supportsScreensLarge.hashCode() : 0);
+        result = 31 * result + (supportsScreensXlarge != null ? supportsScreensXlarge.hashCode() : 0);
+        result = 31 * result + (supportsScreensAnyDensity != null ? supportsScreensAnyDensity.hashCode() : 0);
         return result;
     }
 
@@ -165,6 +241,12 @@ public class AndroidManifestData {
                 ", usesMinSdkVersion='" + usesMinSdkVersion + '\'' +
                 ", usesTargetSdkVersion='" + usesTargetSdkVersion + '\'' +
                 ", usesMaxSdkVersion='" + usesMaxSdkVersion + '\'' +
+                ", supportsScreensResizeable=" + supportsScreensResizeable +
+                ", supportsScreensSmall=" + supportsScreensSmall +
+                ", supportsScreensNormal=" + supportsScreensNormal +
+                ", supportsScreensLarge=" + supportsScreensLarge +
+                ", supportsScreensXlarge=" + supportsScreensXlarge +
+                ", supportsScreensAnyDensity=" + supportsScreensAnyDensity +
                 '}';
     }
 }

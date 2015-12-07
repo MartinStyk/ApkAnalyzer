@@ -8,7 +8,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import sk.styk.martin.bakalarka.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
 import sk.styk.martin.bakalarka.files.ApkFile;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -72,7 +71,7 @@ public class AndroidManifestProcessor {
 
         try {
 
-            manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(),"AndroidManifest.xml");
+            manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(manifestFile);
@@ -85,6 +84,7 @@ public class AndroidManifestProcessor {
             getUsedLibraries();
             getUsedFeatures();
             getUsesSdk();
+            getSupportScreens();
 
         } catch (Exception e) {
             logger.error(e.toString());
@@ -133,7 +133,9 @@ public class AndroidManifestProcessor {
             Node nNode = usesPermissionList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                result.add(eElement.getAttribute("android:name"));
+                String value = eElement.getAttribute("android:name");
+                if (value != null && !value.isEmpty())
+                    result.add(value);
             }
         }
         manifestData.setUsesPermissions(result);
@@ -146,7 +148,9 @@ public class AndroidManifestProcessor {
             Node nNode = usesLibraryList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                result.add(eElement.getAttribute("android:name"));
+                String value = eElement.getAttribute("android:name");
+                if (value != null && !value.isEmpty())
+                    result.add(value);
             }
         }
         manifestData.setUsesLibrary(result);
@@ -159,7 +163,9 @@ public class AndroidManifestProcessor {
             Node nNode = usesLibraryList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                result.add(eElement.getAttribute("android:name"));
+                String value = eElement.getAttribute("android:name");
+                if (value != null && !value.isEmpty())
+                    result.add(value);
             }
         }
         manifestData.setUsesFeature(result);
@@ -178,6 +184,33 @@ public class AndroidManifestProcessor {
             manifestData.setUsesMinSdkVersion(eElement.getAttribute("android:minSdkVersion"));
             manifestData.setUsesMaxSdkVersion(eElement.getAttribute("android:maxSdkVersion"));
         }
+    }
+
+    private void getSupportScreens() {
+        NodeList sdkList = doc.getElementsByTagName("supports-screens");
+        if (sdkList.getLength() != 1)
+            return;
+        ;
+
+        Node nNode = sdkList.item(0);
+        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element eElement = (Element) nNode;
+
+            manifestData.setSupportsScreensResizeable(getBooleanElementAtribute(eElement, "android:resizeable"));
+            manifestData.setSupportsScreensAnyDensity(getBooleanElementAtribute(eElement, "android:anyDensity"));
+            manifestData.setSupportsScreensSmall(getBooleanElementAtribute(eElement, "android:smallScreens"));
+            manifestData.setSupportsScreensNormal(getBooleanElementAtribute(eElement, "android:normalScreens"));
+            manifestData.setSupportsScreensLarge(getBooleanElementAtribute(eElement, "android:largeScreens"));
+            manifestData.setSupportsScreensXlarge(getBooleanElementAtribute(eElement, "android:xlargeScreens"));
+        }
+    }
+
+    private Boolean getBooleanElementAtribute(Element eElement, String atribute) {
+        String atr = eElement.getAttribute(atribute);
+        if (atr != null && !atr.isEmpty()) {
+            return Boolean.valueOf(atr);
+        }
+        return null;
     }
 
 }
