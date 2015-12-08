@@ -39,7 +39,7 @@ Example of method that saves metadata about every apk file found in directory AP
 }
   ```
   
-### Example of output *.json
+## Example of output *.json
   
   ```json
   {
