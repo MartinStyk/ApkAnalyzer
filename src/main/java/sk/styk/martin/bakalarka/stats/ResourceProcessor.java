@@ -172,7 +172,7 @@ public class ResourceProcessor {
             file = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res" + File.separator + "values" + File.separator + "strings.xml");
             document = XmlParsingHelper.getNormalizedDocument(file);
         } catch (Exception e) {
-            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            logger.warn(apkNameMarker + "strings.xml doesn`t exists");
             return null;
         }
 
