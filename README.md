@@ -9,7 +9,7 @@ ApkAnalyzer uses Apktool for decompilation of Apk. You need to add Apktool to yo
 
 #### Get Metadata 
 
-Currently ApkAnalyzer can`t be used as a standalone app. However you can modify main method or create use it as a library to get data about your apk. 
+Currently ApkAnalyzer can`t be used as a standalone app. However, you can modify main method or use it as a library to get data about your apk. 
 
 Example of method that gets list of ApkData objects from every apk file found in directory APKS (i.e = APKS = "C:\\APKS")
 
