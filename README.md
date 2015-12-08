@@ -43,8 +43,7 @@ Example of method that saves metadata about every apk file found in directory AP
   
   ```json
   {
-  "fileName": "com.facebook.katana-42.0.0.27.114-APK4Fun.com.apk",
-  "sourceOfFile": "test - works)",
+  "fileName": "com.facebook.katana-42.0.0.27.114",
   "fileSize": 35488821,
   "dexSize": 510148,
   "arscSize": 8129808,
