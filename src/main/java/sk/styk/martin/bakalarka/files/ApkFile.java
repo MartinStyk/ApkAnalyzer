@@ -51,7 +51,7 @@ public class ApkFile extends File {
     public void cleanApkWorkingDirectory() {
         try {
             apkWorkingDirectoryManager.deleteApkWorkingDirectory();
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("cannot clean working directory of" + getName());
         }
     }

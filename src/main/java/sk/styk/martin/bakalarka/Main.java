@@ -29,7 +29,11 @@ public class Main {
         List<Exception> decompileExceptions = new ArrayList<Exception>();
         List<Exception> compileExceptions = new ArrayList<Exception>();
 
+        int i=0;
         for(ApkFile apk : apks){
+            if(i==20){
+                break;
+            }
             apk.decompile();
             Exception e = apk.getDecompilationException();
             if(e != null){
@@ -40,7 +44,7 @@ public class Main {
             if(e1 != null){
                 compileExceptions.add(e);
             }
-            apk.cleanApkWorkingDirectory();
+           // apk.cleanApkWorkingDirectory();
         }
 
 

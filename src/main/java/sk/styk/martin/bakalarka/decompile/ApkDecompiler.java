@@ -77,12 +77,17 @@ public class ApkDecompiler {
 
     public void compile() throws Exception {
 
-        File outFile = null;
         ApkOptions apkOptions = new ApkOptions();
         apkOptions.forceBuildAll = true;
-        outFile = apkFile.getCompiledFile();
 
-        new Androlib(apkOptions).build(apkFile.getDecompiledDirectory(), outFile);
+        try {
+            new Androlib(apkOptions).build(apkFile.getDecompiledDirectory(), null);
+            logger.info(apkNameMarker + "Succesfully finished compilation");
+        } catch (Exception e) {
+            logger.error(apkNameMarker + "Finished compilation with exception : " + e.toString());
+            throw e;
+        }
+
 
     }
 
