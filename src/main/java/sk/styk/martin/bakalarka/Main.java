@@ -40,6 +40,7 @@ public class Main {
             if(e1 != null){
                 compileExceptions.add(e);
             }
+            apk.cleanApkWorkingDirectory();
         }
 
 
