@@ -10,6 +10,8 @@ public class AndroidManifestData {
     private String packageName;
     private String versionCode;
 
+    private String installLocation;
+
     private Integer numberOfActivities;
     private Integer numberOfServices;
     private Integer numberOfContentProviders;
@@ -44,6 +46,14 @@ public class AndroidManifestData {
 
     public void setVersionCode(String versionCode) {
         this.versionCode = versionCode;
+    }
+
+    public String getInstallLocation() {
+        return installLocation;
+    }
+
+    public void setInstallLocation(String installLocation) {
+        this.installLocation = installLocation;
     }
 
     public int getNumberOfActivities() {
@@ -183,6 +193,8 @@ public class AndroidManifestData {
 
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null) return false;
         if (versionCode != null ? !versionCode.equals(that.versionCode) : that.versionCode != null) return false;
+        if (installLocation != null ? !installLocation.equals(that.installLocation) : that.installLocation != null)
+            return false;
         if (numberOfActivities != null ? !numberOfActivities.equals(that.numberOfActivities) : that.numberOfActivities != null)
             return false;
         if (numberOfServices != null ? !numberOfServices.equals(that.numberOfServices) : that.numberOfServices != null)
@@ -219,6 +231,7 @@ public class AndroidManifestData {
     public int hashCode() {
         int result = packageName != null ? packageName.hashCode() : 0;
         result = 31 * result + (versionCode != null ? versionCode.hashCode() : 0);
+        result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
         result = 31 * result + (numberOfActivities != null ? numberOfActivities.hashCode() : 0);
         result = 31 * result + (numberOfServices != null ? numberOfServices.hashCode() : 0);
         result = 31 * result + (numberOfContentProviders != null ? numberOfContentProviders.hashCode() : 0);
@@ -243,6 +256,7 @@ public class AndroidManifestData {
         return "AndroidManifestData{" +
                 "packageName='" + packageName + '\'' +
                 ", versionCode='" + versionCode + '\'' +
+                ", installLocation='" + installLocation + '\'' +
                 ", numberOfActivities=" + numberOfActivities +
                 ", numberOfServices=" + numberOfServices +
                 ", numberOfContentProviders=" + numberOfContentProviders +

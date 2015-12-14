@@ -104,8 +104,9 @@ public class AndroidManifestProcessor {
     public void getManifestTagData() {
         Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "manifest");
         if (element != null) {
-            manifestData.setPackageName(element.getAttribute("package"));
-            manifestData.setVersionCode(element.getAttribute("android:versionCode"));
+            manifestData.setPackageName(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"package"));
+            manifestData.setVersionCode(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"android:versionCode"));
+            manifestData.setInstallLocation(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"android:installLocation"));
         }
     }
 

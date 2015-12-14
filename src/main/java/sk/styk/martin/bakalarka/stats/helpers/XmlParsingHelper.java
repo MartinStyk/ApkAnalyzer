@@ -73,4 +73,9 @@ public class XmlParsingHelper {
         }
         return result;
     }
+
+    public static String getSingleNonEmptyStringAtributeFromElement(Element element, String atrName){
+        String atrValue = element.getAttribute(atrName);
+        return atrValue.isEmpty() ? null : atrValue;
+    }
 }
