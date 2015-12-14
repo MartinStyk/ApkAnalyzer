@@ -24,7 +24,7 @@ public class ApkData {
     private ResourceData resourceData;
 
     //hash of every file
-    private List<String> fileDigest;
+    private HashData fileDigest;
 
 
     public String getFileName() {
@@ -83,11 +83,11 @@ public class ApkData {
         this.certificateDatas = certificateDatas;
     }
 
-    public List<String> getFileDigest() {
+    public HashData getFileDigest() {
         return fileDigest;
     }
 
-    public void setFileDigest(List<String> fileDigest) {
+    public void setFileDigest(HashData fileDigest) {
         this.fileDigest = fileDigest;
     }
 

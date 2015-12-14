@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.data.ApkData;
+import sk.styk.martin.bakalarka.data.HashData;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sk.styk.martin.bakalarka.files.FileUtils;
@@ -24,7 +25,8 @@ public class HashProcessor {
     private Marker apkNameMarker;
 
     private static HashProcessor instance = null;
-    private List<String> hashes;
+    private HashData hashData;
+    private List<String> hashList;
     private ApkData data;
     private ApkFile apkFile;
 
@@ -45,7 +47,7 @@ public class HashProcessor {
         }
         instance.data = data;
         instance.apkFile = apkFile;
-        instance.hashes = new ArrayList<String>();
+        instance.hashData = new HashData();
         instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
@@ -59,16 +61,16 @@ public class HashProcessor {
         }
         instance.data = null;
         instance.apkFile = apkFile;
-        instance.hashes = new ArrayList<String>();
+        instance.hashData = new HashData();
         instance.apkNameMarker = apkFile.getMarker();
         return instance;
     }
 
-    public List<String> getHashes() {
+    public HashData getHashes() {
         return getHashes(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "META-INF"));
     }
 
-    public List<String> getHashes(File dirWithManifestMF) {
+    public HashData getHashes(File dirWithManifestMF) {
 
         logger.trace(apkNameMarker + "Started processing of hashes");
 
@@ -82,18 +84,20 @@ public class HashProcessor {
             return null;
         }
 
-        hashes = new ArrayList<String>();
+        hashData = new HashData();
+        hashList = new ArrayList<String>();
+        hashData.setHashesFromManifest(hashList);
 
         for (File f : files) {
             processHashesFile(f);
         }
         if (data != null) {
-            data.setFileDigest(hashes);
+            data.setFileDigest(hashData);
         }
 
         logger.trace(apkNameMarker + "Finished processing of hashes");
 
-        return hashes;
+        return hashData;
     }
 
     private void processHashesFile(File file) {
@@ -107,13 +111,20 @@ public class HashProcessor {
         }
 
 
-        String REGEX = "SHA1-Digest:\\s(.*)";
+        String REGEX = "Name: (.*)\\r\\nSHA1-Digest:\\s(.*)";
         Pattern p = Pattern.compile(REGEX);
         Matcher matcher = p.matcher(content);
 
 
         while (matcher.find()) {
-            hashes.add(matcher.group(1));
+            String fileName = matcher.group(1);
+            String fileHash = matcher.group(2);
+            if(fileName.equals("classes.dex")){
+                hashData.setDexHash(fileHash);
+            } else if(fileName.equals("resources.arsc")){
+                hashData.setArscHash(fileHash);
+            }
+            hashList.add(fileHash);
         }
 
     }
