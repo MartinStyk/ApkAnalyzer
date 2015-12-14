@@ -39,16 +39,47 @@ Example of method that saves metadata about every apk file found in directory AP
 }
   ```
   
-## Example of output *.json
+##Collected data
+###Attributes & description
+
+#####Basic apk metadata
+Name          | Type     | Description
+------------- | -------- | ------------------------------ 
+fileName      | String   | Name of analyzed apk file  
+sourceOfFile  | String   | Location from where the file was downloaded
+fileSize      | Long     | Size of whole apk file (in bytes)
+dexSize       | Long     | Size of compiled sources in classes.dex file (in bytes)
+arscSize      | Long     | Size of compiled resources in classes.dex file (in bytes)
+
+#####Android manifest metadata
+Name          | Type     | Description
+------------- | -------- | ------------------------------ 
+packageName      | String   | Name of analyzed apk file  
+versionCode  | String   | Location from where the file was downloaded
+installLocation      | Long     | Size of whole apk file (in bytes)
+numberOfActivities       | Long     | Size of compiled sources in classes.dex file (in bytes)
+numberOfServices      | Long     | Size of compiled resources in classes.dex file (in bytes)
+packageName      | String   | Name of analyzed apk file  
+versionCode  | String   | Location from where the file was downloaded
+installLocation      | Long     | Size of whole apk file (in bytes)
+numberOfActivities       | Long     | Size of compiled sources in classes.dex file (in bytes)
+numberOfServices      | Long     | Size of compiled resources in classes.dex file (in bytes)
+
+
+
+#### Example of output *.json
   
   ```json
   {
-  "fileName": "com.facebook.katana-42.0.0.27.114",
+  "fileName": "com.facebook.katana-42.0.0.27.114.apk",
+  "sourceOfFile": "Playdrone",
   "fileSize": 35488821,
   "dexSize": 510148,
   "arscSize": 8129808,
   "androidManifest": {
     "packageName": "com.facebook.katana",
+    "versionCode": "753ab4",
+    "installLocation": "auto",
     "numberOfActivities": 257,
     "numberOfServices": 84,
     "numberOfContentProviders": 25,
@@ -60,7 +91,6 @@ Example of method that saves metadata about every apk file found in directory AP
       "android.permission.READ_CONTACTS",
       "android.permission.WRITE_CONTACTS",
       "android.permission.GET_ACCOUNTS",
-      "android.permission.MANAGE_ACCOUNTS",
       ...
     ],
     "usesLibrary": [
@@ -83,6 +113,7 @@ Example of method that saves metadata about every apk file found in directory AP
       "signAlgorithmOID": "1.2.840.113549.1.1.4",
       "startDate": "Aug 31, 2009 11:52:16 PM",
       "endDate": "Sep 25, 2050 11:52:16 PM",
+      "publicKeyMd5": "57e4647d1da90ef6eef980770673862c",
       "certBase64Md5": "bc45583156a00f55537903de8e84e9d2",
       "certMd5": "3fad024f2dcbe3ee693c96f350f8e376",
       "version": 1,
@@ -123,18 +154,24 @@ Example of method that saves metadata about every apk file found in directory AP
     "unspecifiedDpiDrawables": 1585,
     "rawResources": 85
   },
-  "fileDigest": [
-    "S6vxCIQ2bS3ze7pSOF+6eozEldc=",
-    "u6PXfLUM/wS8OHGm4JKie+yzwNk=",
-    "JZz9ovk+VP9FMdxx4ye8CsRBy/8=",
-    "XStCfZ5vtOP9TPfrrRKwo6bQOGs=",
-    "qm12ZRIghea52HzmPvd3cBPgDzA=",
-    "GtgtOKw7JxZNKbtM+a7a/hzZSXs=",
-    "vwW5VlhUgPaMM5jip8cIwzH8erQ=",
-    "X72U90yuwqrbgd1ROBPM9MUL8Ak=",
-    "BgqL2Is8reLgMdnpNEjsj4MBBBE=",
-    "gKG/XMO17Y4hHDIEZmahLn0oAW4=",
-    ....
-  ]
+  "fileDigest": {
+    "dexHash": "bMyeEVy9g8VYPd8S09xBeDu1ouE=",
+    "arscHash": "br+poZYwb/JUSmFAKYhW0zd8QVc=",
+    "hashesFromManifest": [
+      "S6vxCIQ2bS3ze7pSOF+6eozEldc=",
+      "uNOeQAFoOFkQbYgJfkJyePznmy0=",
+      "KchKiLDAPwjG37nNRMBHyzobzY0=",
+      "yraCp5c9QDTFzwKIX/8UCuTIeEo=",
+      "727pL5pYYaMczcG0OKDMaYT1F9Q=",
+      "AmdW7QPZdY4SfNJVK8NHoGZEepU=",
+      "QTk8L3Uae9TSvjgCGVuOJHaecp0=",
+      "jvPAktczgQwCWbOP7CRdMr1dmSY=",
+      "u5TY6PQerEhaOucVzSCrKc5lor8=",
+      "frIdJxKEIYvANiZ5gWrd7ijk1qM=",
+      "MuSnK3Cf2lk/cT6NzwWZLRD1O58=",
+      "3Qsa4NCFZyy9zsstBa88EvNlvSQ=",
+      ...
+    ]
+  }
 }
   ```
