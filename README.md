@@ -1,12 +1,26 @@
 # ApkAnalyzer
 Java app / library used to obtain detailed informations about Andoid APK files.
+* [How to use it](#How_to_use_it)
+  * [Prepare for first use](#Prepare_for_first_use)
+  * [Get Metadata](#Get_Metadata)
+* [Collected data](#Collected_data)
+  * [Attributes & description](#ad)
+   * [Basic apk metadata](#basic)
+   * [Android manifest metadata](#manifest)
+   * [Certificate metadata](#certificate)
+   * [Resources metadata](#resource)
+   * [File hashes](#hash)
+  * [Example of output *.json](#json)
 
+<a name="How_to_use_it"/>
 ## How to use it
+<a name="Prepare_for_first_use"/>
 #### Prepare for first use
 ApkAnalyzer uses Apktool for decompilation of Apk. You need to add Apktool to your maven repository.<br/>
 1. Download apktool_2.0.0rc4 from https://bitbucket.org/iBotPeaches/apktool/downloads<br/>
 2. Run following maven command : mvn install:install-file -Dfile=<path-to-apktool_2.0.0rc4-file> -DgroupId=ApkTool -DartifactId=ApkTool -Dversion=2.0.0.rc4 -Dpackaging=jar<br/>
-
+3. 
+<a name="Get_Metadata"/>
 #### Get Metadata 
 
 Currently ApkAnalyzer can`t be used as a standalone app. However, you can modify main method or use it as a library to get data about your apk. 
@@ -38,10 +52,13 @@ Example of method that saves metadata about every apk file found in directory AP
                 .processFiles(new File(METADATA_DIR));
 }
   ```
-  
+<a name="Collected_data"/>
 ##Collected data
+
+<a name="ad"/>
 ###Attributes & description
 
+<a name="basic"/>
 ####Basic apk metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -51,6 +68,7 @@ fileSize      | Long     | Size of whole apk file (in bytes)
 dexSize       | Long     | Size of compiled sources in classes.dex file (in bytes)
 arscSize      | Long     | Size of compiled resources in classes.dex file (in bytes)
 
+<a name="manifest"/>
 ####Android manifest metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -74,6 +92,7 @@ supportsScreensLarge  | Boolean   | [See Android documentation](http://developer
 supportsScreensXlarge      | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
 supportsScreensAnyDensity       | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
 
+<a name="certificate"/>
 ####Certificate metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -88,7 +107,8 @@ certMd5       | String | MD5 hash of certificate
 version      | Integer | Version value from the certificate
 issuerName   | String | Representation of the X.500 distinguished name using the format defined in RFC 2253
 
-####Resource metadata
+<a name="resource"/>
+####Resources metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 locale      | List<String>   | Localizations of string.xml file
@@ -106,6 +126,7 @@ xxxhdpiDrawables       | Integer | Number of drawables located in xxxhdpi folder
 unspecifiedDpiDrawables      | Integer | Number of drawables located in default drawable folder
 rawResources   | Integer | Number of resources in raw/ folder
 
+<a name="hash"/>
 ####File hashes
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -113,7 +134,8 @@ dexHash      | String | Hash of classes.dex from META-INF/MANIFEST.MF
 arscHash      | String | Hash of resources.arsc from META-INF/MANIFEST.MF
 hashesFromManifest      | List<String>  | Hashes of all files in apk from META-INF/MANIFEST.MF
 
-#### Example of output *.json
+<a name="json"/>
+### Example of output *.json
   
   ```json
   {
