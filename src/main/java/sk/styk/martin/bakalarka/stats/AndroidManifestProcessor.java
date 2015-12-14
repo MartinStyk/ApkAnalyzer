@@ -78,7 +78,7 @@ public class AndroidManifestProcessor {
             manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
             document = XmlParsingHelper.getNormalizedDocument(manifestFile);
 
-            getPackage();
+            getManifestTagData();
             getNumberOfAppComponents();
             getUsedPermissions();
             getUsedLibraries();
@@ -101,10 +101,11 @@ public class AndroidManifestProcessor {
         return manifestData;
     }
 
-    public void getPackage() {
+    public void getManifestTagData() {
         Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "manifest");
         if (element != null) {
             manifestData.setPackageName(element.getAttribute("package"));
+            manifestData.setVersionCode(element.getAttribute("android:versionCode"));
         }
     }
 

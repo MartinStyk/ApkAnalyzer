@@ -8,6 +8,7 @@ import java.util.List;
 public class AndroidManifestData {
 
     private String packageName;
+    private String versionCode;
 
     private Integer numberOfActivities;
     private Integer numberOfServices;
@@ -35,6 +36,14 @@ public class AndroidManifestData {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
     }
 
     public int getNumberOfActivities() {
@@ -173,6 +182,7 @@ public class AndroidManifestData {
         AndroidManifestData that = (AndroidManifestData) o;
 
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null) return false;
+        if (versionCode != null ? !versionCode.equals(that.versionCode) : that.versionCode != null) return false;
         if (numberOfActivities != null ? !numberOfActivities.equals(that.numberOfActivities) : that.numberOfActivities != null)
             return false;
         if (numberOfServices != null ? !numberOfServices.equals(that.numberOfServices) : that.numberOfServices != null)
@@ -208,6 +218,7 @@ public class AndroidManifestData {
     @Override
     public int hashCode() {
         int result = packageName != null ? packageName.hashCode() : 0;
+        result = 31 * result + (versionCode != null ? versionCode.hashCode() : 0);
         result = 31 * result + (numberOfActivities != null ? numberOfActivities.hashCode() : 0);
         result = 31 * result + (numberOfServices != null ? numberOfServices.hashCode() : 0);
         result = 31 * result + (numberOfContentProviders != null ? numberOfContentProviders.hashCode() : 0);
@@ -231,6 +242,7 @@ public class AndroidManifestData {
     public String toString() {
         return "AndroidManifestData{" +
                 "packageName='" + packageName + '\'' +
+                ", versionCode='" + versionCode + '\'' +
                 ", numberOfActivities=" + numberOfActivities +
                 ", numberOfServices=" + numberOfServices +
                 ", numberOfContentProviders=" + numberOfContentProviders +
