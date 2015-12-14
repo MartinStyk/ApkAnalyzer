@@ -54,16 +54,28 @@ arscSize      | Long     | Size of compiled resources in classes.dex file (in by
 #####Android manifest metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
-packageName      | String   | Name of analyzed apk file  
-versionCode  | String   | Location from where the file was downloaded
-installLocation      | Long     | Size of whole apk file (in bytes)
-numberOfActivities       | Long     | Size of compiled sources in classes.dex file (in bytes)
-numberOfServices      | Long     | Size of compiled resources in classes.dex file (in bytes)
-packageName      | String   | Name of analyzed apk file  
-versionCode  | String   | Location from where the file was downloaded
-installLocation      | Long     | Size of whole apk file (in bytes)
-numberOfActivities       | Long     | Size of compiled sources in classes.dex file (in bytes)
-numberOfServices      | Long     | Size of compiled resources in classes.dex file (in bytes)
+packageName      | String   | [See Android documentation](http://developer.android.com/guide/topics/manifest/manifest-element.html#package)
+versionCode  | String   | [See Android documentation](http://developer.android.com/guide/topics/manifest/manifest-element.html#vcode) 
+installLocation      | String     | [See Android documentation](http://developer.android.com/guide/topics/manifest/manifest-element.html#install)
+numberOfActivities       | Integer     | Total number of activities in application
+numberOfServices      | Integer     | Total number of services in application
+numberOfContentProviders      | Integer   | Total number of content providers in application  
+numberOfBroadcastReceivers  | Integer   | Total number of broadcast receivers in application
+usesPermissions      | List<String>     | List of permissions used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-permission-element.html)
+usesLibrary       | List<String>     | List of libraries used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-library-element.html)
+usesFeature      | List<String>     | List of features used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-feature-element.html)
+usesMinSdkVersion      | String   | Minimum Sdk version required by app List of features used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html)
+usesTargetSdkVersion  | String   | Target Sdk version required by app [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html)
+usesMaxSdkVersion      | String     | Maximal Sdk version requered by app [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html)
+supportsScreensResizeable       | Boolean     |  [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+supportsScreensSmall      | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+supportsScreensNormal      | Boolean   | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+supportsScreensLarge  | Boolean   | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+supportsScreensXlarge      | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+supportsScreensAnyDensity       | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
+
+
+
 
 
 
