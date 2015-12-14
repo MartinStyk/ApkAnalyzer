@@ -42,7 +42,7 @@ Example of method that saves metadata about every apk file found in directory AP
 ##Collected data
 ###Attributes & description
 
-#####Basic apk metadata
+####Basic apk metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 fileName      | String   | Name of analyzed apk file  
@@ -51,7 +51,7 @@ fileSize      | Long     | Size of whole apk file (in bytes)
 dexSize       | Long     | Size of compiled sources in classes.dex file (in bytes)
 arscSize      | Long     | Size of compiled resources in classes.dex file (in bytes)
 
-#####Android manifest metadata
+####Android manifest metadata
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 packageName      | String   | [See Android documentation](http://developer.android.com/guide/topics/manifest/manifest-element.html#package)
@@ -74,10 +74,44 @@ supportsScreensLarge  | Boolean   | [See Android documentation](http://developer
 supportsScreensXlarge      | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
 supportsScreensAnyDensity       | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
 
+####Certificate metadata
+Name          | Type     | Description
+------------- | -------- | ------------------------------ 
+fileName      | String   | Name of certificate file (i.e CERT.RSA in MEATA-INF directory)  
+signAlgorithm  | String   | Signature algorithm name from the certificate
+signAlgorithmOID      | String     | Signature algorithm OID string from the certificate
+startDate       | Date     | notBefore date from the validity period of the certificate
+endDate      | Date     | notAfter date from the validity period of the certificate
+publicKeyMd5  | String   | MD5 hash of public key
+certBase64Md5      | String | Base64 MD5 hash of certificate
+certMd5       | String | MD5 hash of certificate
+version      | Integer | Version value from the certificate
+issuerName   | String | Representation of the X.500 distinguished name using the format defined in RFC 2253
 
+####Resource metadata
+Name          | Type     | Description
+------------- | -------- | ------------------------------ 
+locale      | List<String>   | Localizations of string.xml file
+numberOfStringResource  | Integer   | Number of entries in default string.xml file
+pngDrawables      | Integer     | Number of drawables in png format
+jpgDrawables       | Integer     | Number of drawables in jpg/jpeg format
+gifDrawables      | Integer     | Number of drawables in gif format
+xmlDrawables  | Integer   | Number of drawables in xml format
+ldpiDrawables      | Integer | Number of drawables located in ldpi folder
+mdpiDrawables       | Integer | Number of drawables located in mdpi folder
+hdpiDrawables      | Integer | Number of drawables located in hdpi folder
+xhdpiDrawables   | Integer | Number of drawables located in xhdpi folder
+xxhdpiDrawables      | Integer | Number of drawables located in xxhdpi folder
+xxxhdpiDrawables       | Integer | Number of drawables located in xxxhdpi folder
+unspecifiedDpiDrawables      | Integer | Number of drawables located in default drawable folder
+rawResources   | Integer | Number of resources in raw/ folder
 
-
-
+####File hashes
+Name          | Type     | Description
+------------- | -------- | ------------------------------ 
+dexHash      | String | Hash of classes.dex from META-INF/MANIFEST.MF
+arscHash      | String | Hash of resources.arsc from META-INF/MANIFEST.MF
+hashesFromManifest      | List<String>  | Hashes of all files in apk from META-INF/MANIFEST.MF
 
 #### Example of output *.json
   
