@@ -15,6 +15,7 @@ public class TempFileManager {
     File decompiledDir;
     File unzipDir;
     File workingDir;
+    File compiledFile;
     private String defaultTempDirBase = "D:\\Projects\\temp";
     private File apk;
 
@@ -93,5 +94,10 @@ public class TempFileManager {
 
     }
 
+    public File getCompiledFile() {
+        workingDir = getApkWorkingDirectory();
+        compiledFile = new File(workingDir, "compiled"+apk.getName());
+        return decompiledDir;
+    }
 
 }

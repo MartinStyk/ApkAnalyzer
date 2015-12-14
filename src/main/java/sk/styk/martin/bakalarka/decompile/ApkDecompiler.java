@@ -74,4 +74,16 @@ public class ApkDecompiler {
         }
 
     }
+
+    public void compile() throws Exception {
+
+        File outFile = null;
+        ApkOptions apkOptions = new ApkOptions();
+        apkOptions.forceBuildAll = true;
+        outFile = apkFile.getCompiledFile();
+
+        new Androlib(apkOptions).build(apkFile.getDecompiledDirectory(), outFile);
+
+    }
+
 }

@@ -20,6 +20,7 @@ public class ApkFile extends File {
 
     private Exception decompilationException;
     private Exception unzipException;
+    private Exception compilationException;
 
     public ApkFile(String pathname) {
         super(pathname);
@@ -70,6 +71,13 @@ public class ApkFile extends File {
             decompilationException = e;
         }
     }
+    public void compile() {
+        try {
+            ApkDecompiler.getInstance(this).compile();
+        } catch (Exception e) {
+            compilationException = e;
+        }
+    }
 
     public boolean isDecompiled() {
         return apkWorkingDirectoryManager.getApkDecompiledDirectory().listFiles().length > 0;
@@ -111,5 +119,12 @@ public class ApkFile extends File {
 
     public Marker getMarker(){
        return MarkerFactory.getMarker(" [" + getName() + "] ");
+    }
+
+    public Exception getCompilationException() {
+        return compilationException;
+    }
+    public File getCompiledFile() {
+        return apkWorkingDirectoryManager.getCompiledFile();
     }
 }

@@ -26,21 +26,30 @@ public class Main {
 
         FileFinder ff = new FileFinder(new File(APK_DIR));
         List<ApkFile> apks = ff.getApkFilesInDirectories();
-        List<Exception> exceptions = new ArrayList<Exception>();
+        List<Exception> decompileExceptions = new ArrayList<Exception>();
+        List<Exception> compileExceptions = new ArrayList<Exception>();
 
         for(ApkFile apk : apks){
             apk.decompile();
             Exception e = apk.getDecompilationException();
             if(e != null){
-                exceptions.add(e);
+                decompileExceptions.add(e);
+            }
+            apk.compile();
+            Exception e1 = apk.getCompilationException();
+            if(e1 != null){
+                compileExceptions.add(e);
             }
         }
-        writeToFile(exceptions);
+
+
+        writeToFile(decompileExceptions,"decompilationErrors.txt");
+        writeToFile(compileExceptions,"compilationErrors.txt");
 
     }
 
-    private static void writeToFile(List<Exception> exceptions) throws Exception{
-        PrintWriter writer = new PrintWriter("decompilationErrors.txt", "UTF-8");
+    private static void writeToFile(List<Exception> exceptions, String fName) throws Exception{
+        PrintWriter writer = new PrintWriter(fName, "UTF-8");
 
         for (Exception s : exceptions) {
             System.out.println("*["+s.getClass()+ "]*" + " -> " +s.getMessage() + "<-");
