@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,13 +115,17 @@ public class CertificateProcessor {
 
                 data.setFileName(file.getName());
 
+                //certificate hashes
                 byte[] bytes = certificate.getEncoded();
                 String certMd5 = this.md5Digest(bytes);
-                String publicKeyString = this.byteToHexString(bytes);
-
-                String certBase64Md5 = this.md5Digest(publicKeyString);
-                data.setCertBase64Md5(certBase64Md5);
                 data.setCertMd5(certMd5);
+                String certBase64Md5 = this.md5Digest(this.byteToHexString(bytes));
+                data.setCertBase64Md5(certBase64Md5);
+
+                //public key hash
+                PublicKey publicKey = certificate.getPublicKey();
+                String publicKeyMd5 = this.md5Digest(this.byteToHexString(publicKey.getEncoded()));
+                data.setPublicKeyMd5(publicKeyMd5);
 
                 data.setStartDate(certificate.getNotBefore());
                 data.setEndDate(certificate.getNotAfter());

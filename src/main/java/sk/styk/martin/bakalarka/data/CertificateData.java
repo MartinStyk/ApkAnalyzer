@@ -11,6 +11,7 @@ public class CertificateData {
     private String signAlgorithmOID;
     private Date startDate;
     private Date endDate;
+    private String publicKeyMd5;
     private String certBase64Md5;
     private String certMd5;
     private Integer version;
@@ -56,6 +57,13 @@ public class CertificateData {
         this.endDate = endDate;
     }
 
+    public String getPublicKeyMd5() {
+        return publicKeyMd5;
+    }
+
+    public void setPublicKeyMd5(String publicKeyMd5) {
+        this.publicKeyMd5 = publicKeyMd5;
+    }
 
     public String getCertBase64Md5() {
         return certBase64Md5;
