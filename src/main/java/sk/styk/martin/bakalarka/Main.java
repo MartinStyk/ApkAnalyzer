@@ -2,9 +2,10 @@ package sk.styk.martin.bakalarka;
 
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
-import sk.styk.martin.bakalarka.stats.ApkProcessor;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,25 +20,33 @@ public class Main {
     private static String APK_ZIPPY2 = "D:\\APK\\APK_zippyshare2";
     private static String METADATA_DIR = "D:\\APK\\metadata";
 
+    private static String APK_DIR = "D:\\APK";
+
     public static void main(String[] args) throws Exception {
 
-        FileFinder ff = new FileFinder(new File(APK_PLAY));
+        FileFinder ff = new FileFinder(new File(APK_DIR));
         List<ApkFile> apks = ff.getApkFilesInDirectories();
+        List<Exception> exceptions = new ArrayList<Exception>();
 
-        ApkProcessor
-                .ofFiles(apks)
-                .processFiles(new File(METADATA_DIR));
+        for(ApkFile apk : apks){
+            apk.decompile();
+            Exception e = apk.getDecompilationException();
+            if(e != null){
+                exceptions.add(e);
+            }
+        }
+        writeToFile(exceptions);
 
-// uncomment to get List of statistitics and write it to the file
-//        List<ApkData> stats = processor.processFiles();
-//
-//        PrintWriter writer = new PrintWriter("statistics.txt", "UTF-8");
-//
-//        for (ApkData s : stats) {
-//            System.out.println( s.getFileName() + s.getCertificateDatas().size() + s.getCertificateDatas());
-//            writer.println(s);
-//        }
-//        writer.close();
+    }
+
+    private static void writeToFile(List<Exception> exceptions) throws Exception{
+        PrintWriter writer = new PrintWriter("decompilationErrors.txt", "UTF-8");
+
+        for (Exception s : exceptions) {
+            System.out.println("*["+s.getClass()+ "]*" + " -> " +s.getMessage() + "<-");
+            writer.println(s);
+        }
+        writer.close();
     }
 }
 

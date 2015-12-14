@@ -59,15 +59,10 @@ public class ApkDecompiler {
         decoder.setForceDelete(true);
 
         try {
-            decoder.setDecodeSources((short) 0);
-        } catch (AndrolibException e) {
-            logger.error(apkNameMarker + e.toString());
-        }
-
-        try {
             decoder.setOutDir(apkFile.getDecompiledDirectory());
         } catch (AndrolibException e) {
             logger.error(apkNameMarker + "Setting out directory failed : " + e.toString());
+            throw e;
         }
         logger.info(apkNameMarker + "Starting decompilation");
         try {
