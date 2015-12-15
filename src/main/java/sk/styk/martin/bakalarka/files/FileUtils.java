@@ -29,7 +29,7 @@ public class FileUtils {
 
                 if (i != 0) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         logger.error("Interrupted");
                     }

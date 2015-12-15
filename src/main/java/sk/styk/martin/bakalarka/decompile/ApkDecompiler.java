@@ -78,7 +78,6 @@ public class ApkDecompiler {
     public void compile() throws Exception {
 
         ApkOptions apkOptions = new ApkOptions();
-        apkOptions.forceBuildAll = true;
 
         try {
             new Androlib(apkOptions).build(apkFile.getDecompiledDirectory(), null);

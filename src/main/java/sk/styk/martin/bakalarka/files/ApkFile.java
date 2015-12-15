@@ -48,12 +48,14 @@ public class ApkFile extends File {
         return apkWorkingDirectoryManager.getApkDecompiledDirectory();
     }
 
-    public void cleanApkWorkingDirectory() {
+    public boolean cleanApkWorkingDirectory() {
         try {
             apkWorkingDirectoryManager.deleteApkWorkingDirectory();
         } catch (Exception e) {
             logger.error("cannot clean working directory of" + getName());
+            return false;
         }
+        return true;
     }
 
     public void unzip() {
