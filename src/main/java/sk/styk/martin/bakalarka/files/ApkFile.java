@@ -60,6 +60,7 @@ public class ApkFile extends File {
             ApkUnziper.getInstance(this).unzip();
         } catch (Exception e) {
             unzipException = e;
+            logger.error(getMarker() + " unzip failed");
         }
     }
 
@@ -68,6 +69,7 @@ public class ApkFile extends File {
             ApkDecompiler.getInstance(this).decompile();
         } catch (Exception e) {
             decompilationException = e;
+            logger.error(getMarker() + " decompilation failed");
         }
     }
 
