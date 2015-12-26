@@ -125,6 +125,8 @@ xxhdpiDrawables      | Integer | Number of drawables located in xxhdpi folder
 xxxhdpiDrawables       | Integer | Number of drawables located in xxxhdpi folder
 unspecifiedDpiDrawables      | Integer | Number of drawables located in default drawable folder
 rawResources   | Integer | Number of resources in raw/ folder
+layouts   | Integer | Total number of layout resources in res/layout* folder
+differentLayouts   | Integer | Number of different layout resources in res/layout* folder
 
 <a name="hash"/>
 ####File hashes
