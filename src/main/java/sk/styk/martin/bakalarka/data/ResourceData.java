@@ -34,6 +34,11 @@ public class ResourceData {
     //resources that should not be comprimed
     private Integer rawResources;
 
+    private Integer layouts;
+    //number of layouts with different name (i.e. /res/layout/a.xml == /res/layout-land/a.xml)
+    private Integer differentLayouts;
+
+
     public List<String> getLocale() {
         return locale;
     }
@@ -150,6 +155,22 @@ public class ResourceData {
         return rawResources;
     }
 
+    public Integer getDifferentLayouts() {
+        return differentLayouts;
+    }
+
+    public void setDifferentLayouts(Integer differentLayouts) {
+        this.differentLayouts = differentLayouts;
+    }
+
+    public Integer getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(Integer layouts) {
+        this.layouts = layouts;
+    }
+
     public void setRawResources(Integer rawResources) {
         this.rawResources = rawResources;
     }
@@ -184,7 +205,10 @@ public class ResourceData {
             return false;
         if (unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null)
             return false;
-        return !(rawResources != null ? !rawResources.equals(that.rawResources) : that.rawResources != null);
+        if (rawResources != null ? !rawResources.equals(that.rawResources) : that.rawResources != null) return false;
+        if (differentLayouts != null ? !differentLayouts.equals(that.differentLayouts) : that.differentLayouts != null)
+            return false;
+        return !(layouts != null ? !layouts.equals(that.layouts) : that.layouts != null);
 
     }
 
@@ -205,6 +229,8 @@ public class ResourceData {
         result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
         result = 31 * result + (rawResources != null ? rawResources.hashCode() : 0);
+        result = 31 * result + (differentLayouts != null ? differentLayouts.hashCode() : 0);
+        result = 31 * result + (layouts != null ? layouts.hashCode() : 0);
         return result;
     }
 
@@ -226,6 +252,8 @@ public class ResourceData {
                 ", xxxhdpiDrawables=" + xxxhdpiDrawables +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 ", rawResources=" + rawResources +
+                ", differentLayouts=" + differentLayouts +
+                ", layouts=" + layouts +
                 '}';
     }
 }

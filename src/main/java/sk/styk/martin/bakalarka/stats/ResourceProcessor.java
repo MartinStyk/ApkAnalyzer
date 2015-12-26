@@ -77,7 +77,7 @@ public class ResourceProcessor {
         resourceData.setRawResources(getNumberOfRawResources());
 
         processDrawableResources();
-
+        processLayoutResources();
 
         if (data != null) {
             data.setResourceData(resourceData);
@@ -117,11 +117,29 @@ public class ResourceProcessor {
             logger.warn(apkNameMarker + "res directory doesn`t exists");
             return;
         }
+
+        resourceData.setDifferentDrawables(processDifferentFileNames(drawableFiles));
         processDrawablesTypes(drawableFiles);
-        processDifferentDrawables(drawableFiles);
         processDrawableDirectories(directories);
     }
 
+    private void processLayoutResources() {
+        List<File> layoutFiles = null;
+        List<File> directories = null;
+
+        try {
+            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
+            directories = ff.getLayoutDirectories();
+            ff = new FileFinder(directories);
+            layoutFiles = ff.getXmlFilesInDirectories();
+        } catch (IllegalArgumentException e) {
+            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            return;
+        }
+
+        resourceData.setDifferentLayouts(processDifferentFileNames(layoutFiles));
+        resourceData.setLayouts(layoutFiles.size());
+    }
     private List<String> getStringLocalizations() {
 
         List<File> files = null;
@@ -217,17 +235,17 @@ public class ResourceProcessor {
 
     }
 
-    private void processDifferentDrawables(List<File> files) {
+    private Integer processDifferentFileNames(List<File> files) {
 
         if (files == null || files.isEmpty()) {
-            return;
+            return null;
         }
 
         Set<String> names = new HashSet<String>();
         for (File f : files) {
             names.add(f.getName());
         }
-        resourceData.setDifferentDrawables(names.size());
+        return names.size();
     }
 
     private void processDrawableDirectories(List<File> directories) {

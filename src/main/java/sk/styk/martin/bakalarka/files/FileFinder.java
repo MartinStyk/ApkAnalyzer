@@ -105,6 +105,14 @@ public class FileFinder {
         return files;
     }
 
+    public List<File> getXmlFilesInDirectories() {
+        files = new ArrayList<File>();
+        for (File directory : apkFolders) {
+            getFilesInDirectoryFileTypeMatch(directory, "xml");
+        }
+        return files;
+    }
+
     public List<File> getStringResourceFilesInDirectories() {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
@@ -136,7 +144,7 @@ public class FileFinder {
         }
     }
 
-    private void getFilesInDirectoryFullNameMatch(File directory, String... typeFilter) {
+    public void getFilesInDirectoryFullNameMatch(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
             if (file.isFile()) {
@@ -155,6 +163,14 @@ public class FileFinder {
         files = new ArrayList<File>();
         for (File directory : apkFolders) {
             getDirectoriesContainingExpression(directory, "drawable");
+        }
+        return files;
+    }
+
+    public List<File> getLayoutDirectories() {
+        files = new ArrayList<File>();
+        for (File directory : apkFolders) {
+            getDirectoriesContainingExpression(directory, "layout");
         }
         return files;
     }
