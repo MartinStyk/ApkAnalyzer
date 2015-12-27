@@ -78,6 +78,7 @@ public class ResourceProcessor {
 
         processDrawableResources();
         processLayoutResources();
+        processMenuResources();
 
         if (data != null) {
             data.setResourceData(resourceData);
@@ -140,6 +141,23 @@ public class ResourceProcessor {
         resourceData.setDifferentLayouts(processDifferentFileNames(layoutFiles));
         resourceData.setLayouts(layoutFiles.size());
     }
+
+    private void processMenuResources() {
+        List<File> menuFiles = null;
+        List<File> menuDirectories = null;
+
+        try {
+            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
+            menuDirectories = ff.getMenuDirectories();
+            ff = new FileFinder(menuDirectories);
+            menuFiles = ff.getXmlFilesInDirectories();
+        } catch (IllegalArgumentException e) {
+            logger.warn(apkNameMarker + "res/menu directory doesn`t exists");
+            return;
+        }
+        resourceData.setMenu(menuFiles.size());
+    }
+
     private List<String> getStringLocalizations() {
 
         List<File> files = null;

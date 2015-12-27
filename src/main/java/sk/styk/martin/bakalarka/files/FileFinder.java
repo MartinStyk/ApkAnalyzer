@@ -175,6 +175,14 @@ public class FileFinder {
         return files;
     }
 
+    public List<File> getMenuDirectories() {
+        files = new ArrayList<File>();
+        for (File directory : apkFolders) {
+            getDirectoriesContainingExpression(directory, "menu");
+        }
+        return files;
+    }
+
     private void getDirectoriesContainingExpression(File directory, String matchExpression) {
         File[] fList = directory.listFiles();
         for (File file : fList) {

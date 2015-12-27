@@ -31,8 +31,11 @@ public class ResourceData {
     private Integer xxxhdpiDrawables;
     private Integer unspecifiedDpiDrawables;
 
-    //resources that should not be comprimed
+    //resources that should not be comprimed in res/raw folder
     private Integer rawResources;
+
+    //number of menu layout resources in res/menu directory
+    private Integer menu;
 
     private Integer layouts;
     //number of layouts with different name (i.e. /res/layout/a.xml == /res/layout-land/a.xml)
@@ -175,6 +178,14 @@ public class ResourceData {
         this.rawResources = rawResources;
     }
 
+    public Integer getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Integer menu) {
+        this.menu = menu;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -206,9 +217,9 @@ public class ResourceData {
         if (unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null)
             return false;
         if (rawResources != null ? !rawResources.equals(that.rawResources) : that.rawResources != null) return false;
-        if (differentLayouts != null ? !differentLayouts.equals(that.differentLayouts) : that.differentLayouts != null)
-            return false;
-        return !(layouts != null ? !layouts.equals(that.layouts) : that.layouts != null);
+        if (menu != null ? !menu.equals(that.menu) : that.menu != null) return false;
+        if (layouts != null ? !layouts.equals(that.layouts) : that.layouts != null) return false;
+        return !(differentLayouts != null ? !differentLayouts.equals(that.differentLayouts) : that.differentLayouts != null);
 
     }
 
@@ -229,8 +240,9 @@ public class ResourceData {
         result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
         result = 31 * result + (rawResources != null ? rawResources.hashCode() : 0);
-        result = 31 * result + (differentLayouts != null ? differentLayouts.hashCode() : 0);
+        result = 31 * result + (menu != null ? menu.hashCode() : 0);
         result = 31 * result + (layouts != null ? layouts.hashCode() : 0);
+        result = 31 * result + (differentLayouts != null ? differentLayouts.hashCode() : 0);
         return result;
     }
 
@@ -252,8 +264,9 @@ public class ResourceData {
                 ", xxxhdpiDrawables=" + xxxhdpiDrawables +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 ", rawResources=" + rawResources +
-                ", differentLayouts=" + differentLayouts +
+                ", menu=" + menu +
                 ", layouts=" + layouts +
+                ", differentLayouts=" + differentLayouts +
                 '}';
     }
 }
