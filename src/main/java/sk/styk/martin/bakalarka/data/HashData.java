@@ -7,17 +7,31 @@ import java.util.List;
  */
 public class HashData {
 
+    /**
+     * hash of classes.dex file
+     */
     private String dexHash;
+
+    /**
+     * hash of resources.arsc file
+     */
     private String arscHash;
-    private List<String> hashesFromManifest;
 
-    public List<String> getHashesFromManifest() {
-        return hashesFromManifest;
-    }
+    /**
+     * hash of all files in res/drawable* folder
+     */
+    private List<String> drawableHash;
 
-    public void setHashesFromManifest(List<String> hashesFromManifest) {
-        this.hashesFromManifest = hashesFromManifest;
-    }
+    /**
+     * hash of all files in res/layout* folder
+     */
+    private List<String> layoutHash;
+
+    /**
+     * hash that doesn`t belong to any of previous categories
+     */
+    private List<String> otherHash;
+
 
     public String getDexHash() {
         return dexHash;
@@ -35,6 +49,30 @@ public class HashData {
         this.arscHash = arscHash;
     }
 
+    public List<String> getDrawableHash() {
+        return drawableHash;
+    }
+
+    public void setDrawableHash(List<String> drawableHash) {
+        this.drawableHash = drawableHash;
+    }
+
+    public List<String> getLayoutHash() {
+        return layoutHash;
+    }
+
+    public void setLayoutHash(List<String> layoutHash) {
+        this.layoutHash = layoutHash;
+    }
+
+    public List<String> getOtherHash() {
+        return otherHash;
+    }
+
+    public void setOtherHash(List<String> otherHash) {
+        this.otherHash = otherHash;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,7 +82,10 @@ public class HashData {
 
         if (dexHash != null ? !dexHash.equals(hashData.dexHash) : hashData.dexHash != null) return false;
         if (arscHash != null ? !arscHash.equals(hashData.arscHash) : hashData.arscHash != null) return false;
-        return !(hashesFromManifest != null ? !hashesFromManifest.equals(hashData.hashesFromManifest) : hashData.hashesFromManifest != null);
+        if (drawableHash != null ? !drawableHash.equals(hashData.drawableHash) : hashData.drawableHash != null)
+            return false;
+        if (layoutHash != null ? !layoutHash.equals(hashData.layoutHash) : hashData.layoutHash != null) return false;
+        return !(otherHash != null ? !otherHash.equals(hashData.otherHash) : hashData.otherHash != null);
 
     }
 
@@ -52,7 +93,9 @@ public class HashData {
     public int hashCode() {
         int result = dexHash != null ? dexHash.hashCode() : 0;
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
-        result = 31 * result + (hashesFromManifest != null ? hashesFromManifest.hashCode() : 0);
+        result = 31 * result + (drawableHash != null ? drawableHash.hashCode() : 0);
+        result = 31 * result + (layoutHash != null ? layoutHash.hashCode() : 0);
+        result = 31 * result + (otherHash != null ? otherHash.hashCode() : 0);
         return result;
     }
 
@@ -61,7 +104,9 @@ public class HashData {
         return "HashData{" +
                 "dexHash='" + dexHash + '\'' +
                 ", arscHash='" + arscHash + '\'' +
-                ", hashesFromManifest=" + hashesFromManifest +
+                ", drawableHash=" + drawableHash +
+                ", layoutHash=" + layoutHash +
+                ", otherHash=" + otherHash +
                 '}';
     }
 }

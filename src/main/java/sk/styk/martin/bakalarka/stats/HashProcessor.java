@@ -26,7 +26,6 @@ public class HashProcessor {
 
     private static HashProcessor instance = null;
     private HashData hashData;
-    private List<String> hashList;
     private ApkData data;
     private ApkFile apkFile;
 
@@ -85,8 +84,9 @@ public class HashProcessor {
         }
 
         hashData = new HashData();
-        hashList = new ArrayList<String>();
-        hashData.setHashesFromManifest(hashList);
+        hashData.setDrawableHash(new ArrayList<String>());
+        hashData.setLayoutHash(new ArrayList<String>());
+        hashData.setOtherHash(new ArrayList<String>());
 
         for (File f : files) {
             processHashesFile(f);
@@ -119,12 +119,17 @@ public class HashProcessor {
         while (matcher.find()) {
             String fileName = matcher.group(1);
             String fileHash = matcher.group(2);
-            if(fileName.equals("classes.dex")){
+            if (fileName.equals("classes.dex")) {
                 hashData.setDexHash(fileHash);
-            } else if(fileName.equals("resources.arsc")){
+            } else if (fileName.equals("resources.arsc")) {
                 hashData.setArscHash(fileHash);
+            } else if (fileName.startsWith("res/drawable")) {
+                hashData.getDrawableHash().add(fileHash);
+            } else if (fileName.startsWith("res/layout")) {
+                hashData.getLayoutHash().add(fileHash);
+            } else {
+                hashData.getOtherHash().add(fileHash);
             }
-            hashList.add(fileHash);
         }
 
     }
