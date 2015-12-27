@@ -30,6 +30,7 @@ public class ResourceProcessor {
     private ApkData data;
     private ApkFile apkFile;
     private ResourceData resourceData;
+    private FileFinder resourceDirectoryFileFinder;
 
     private ResourceProcessor() {
         // Exists only to defeat instantiation.
@@ -71,6 +72,18 @@ public class ResourceProcessor {
 
         logger.trace(apkNameMarker + "Started processing of resources");
 
+        File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
+        if(!resFolder.exists()){
+            logger.warn(apkNameMarker + "res directory doesn`t exists, aborting getting of resources");
+            return null;
+        }
+        try {
+            resourceDirectoryFileFinder = new FileFinder(resFolder);
+        }catch (Exception e){
+            logger.warn(apkNameMarker + "res directory doesn`t exists, aborting getting of resources");
+            return null;
+        }
+
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
         resourceData.setNumberOfStringResource(getNumberOfStringResource());
@@ -94,7 +107,7 @@ public class ResourceProcessor {
         File rawFolder = new File(resFolder, "raw");
 
         if(!resFolder.exists()){
-            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res/raw directory doesn`t exists");
             return null;
         }
         if (!rawFolder.exists()) {
@@ -110,12 +123,11 @@ public class ResourceProcessor {
         List<File> directories = null;
 
         try {
-            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
-            directories = ff.getDrawableDirectories();
-            ff = new FileFinder(directories);
+            directories = resourceDirectoryFileFinder.getDirectoriesContainingExpression("drawable");
+            FileFinder ff = new FileFinder(directories);
             drawableFiles = ff.getDrawableResourceFiles();
         } catch (IllegalArgumentException e) {
-            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res/drawable directory doesn`t exists");
             return;
         }
 
@@ -129,12 +141,11 @@ public class ResourceProcessor {
         List<File> directories = null;
 
         try {
-            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
-            directories = ff.getLayoutDirectories();
-            ff = new FileFinder(directories);
+            directories = resourceDirectoryFileFinder.getDirectoriesContainingExpression("layout");
+            FileFinder ff = new FileFinder(directories);
             layoutFiles = ff.getXmlFilesInDirectories();
         } catch (IllegalArgumentException e) {
-            logger.warn(apkNameMarker + "res directory doesn`t exists");
+            logger.warn(apkNameMarker + "res/layout directory doesn`t exists");
             return;
         }
 
@@ -147,9 +158,8 @@ public class ResourceProcessor {
         List<File> menuDirectories = null;
 
         try {
-            FileFinder ff = new FileFinder(new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res"));
-            menuDirectories = ff.getMenuDirectories();
-            ff = new FileFinder(menuDirectories);
+            menuDirectories = resourceDirectoryFileFinder.getDirectoriesContainingExpression("menu");
+            FileFinder ff = new FileFinder(menuDirectories);
             menuFiles = ff.getXmlFilesInDirectories();
         } catch (IllegalArgumentException e) {
             logger.warn(apkNameMarker + "res/menu directory doesn`t exists");
@@ -160,15 +170,7 @@ public class ResourceProcessor {
 
     private List<String> getStringLocalizations() {
 
-        List<File> files = null;
-
-        try {
-            FileFinder ff = new FileFinder(new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res"));
-            files = ff.getStringResourceFilesInDirectories();
-        } catch (IllegalArgumentException e) {
-            logger.warn(apkNameMarker + "res directory doesn`t exists");
-            return null;
-        }
+        List<File> files = resourceDirectoryFileFinder.getStringResourceFilesInDirectories();
 
         List<String> localizations = new ArrayList<String>();
 

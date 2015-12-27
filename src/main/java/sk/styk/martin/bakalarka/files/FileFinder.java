@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class FileFinder {
 
-    private List<File> apkFolders;
-    private List<File> files = new ArrayList<File>();
+    private List<File> searchedFolders;
+    private List<File> files;
 
     public FileFinder(File folder) {
         if (folder == null) {
@@ -19,12 +19,12 @@ public class FileFinder {
         if (!folder.isDirectory()) {
             throw new IllegalArgumentException("folder is not valid directory");
         }
-        this.apkFolders = new ArrayList<File>();
-        this.apkFolders.add(folder);
+        this.searchedFolders = new ArrayList<File>();
+        this.searchedFolders.add(folder);
     }
 
     public FileFinder(File... folders) {
-        this.apkFolders = new ArrayList<File>();
+        this.searchedFolders = new ArrayList<File>();
         for (File folder : folders) {
             if (folder == null) {
                 throw new NullPointerException("folder null");
@@ -32,12 +32,12 @@ public class FileFinder {
             if (!folder.isDirectory()) {
                 throw new IllegalArgumentException("folder is not valid directory" + folder.getAbsolutePath());
             }
-            this.apkFolders.add(folder);
+            this.searchedFolders.add(folder);
         }
     }
 
     public FileFinder(List<File> folders) {
-        this.apkFolders = new ArrayList<File>();
+        this.searchedFolders = new ArrayList<File>();
         for (File folder : folders) {
             if (folder == null) {
                 throw new NullPointerException("folder null");
@@ -45,12 +45,13 @@ public class FileFinder {
             if (!folder.isDirectory()) {
                 throw new IllegalArgumentException("folder is not valid directory" + folder.getAbsolutePath());
             }
-            this.apkFolders.add(folder);
+            this.searchedFolders.add(folder);
         }
     }
 
-    public List<File> getAllFilesInDirectories(){
-        for (File f : apkFolders){
+    public List<File> getAllFilesInDirectories() {
+        files = new ArrayList<File>();
+        for (File f : searchedFolders) {
             getAllFilesInDirectory(f);
         }
         return files;
@@ -70,10 +71,7 @@ public class FileFinder {
     }
 
     public List<ApkFile> getApkFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, "apk");
-        }
+        files = getFilesInDirectoriesFileTypeMatch("apk","APK");
         List<ApkFile> apkFiles = new ArrayList<ApkFile>();
         for (File f : files) {
             apkFiles.add(new ApkFile(f.getAbsolutePath()));
@@ -82,49 +80,29 @@ public class FileFinder {
     }
 
     public List<File> getCertificateFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, "RSA", "DSA");
-        }
-        return files;
+        return getFilesInDirectoriesFileTypeMatch("RSA","DSA");
     }
 
     public List<File> getMFFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, "MF");
-        }
-        return files;
+        return getFilesInDirectoriesFileTypeMatch("MF");
     }
 
     public List<File> getJsonFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, "json");
-        }
-        return files;
+        return getFilesInDirectoriesFileTypeMatch("json");
     }
 
     public List<File> getXmlFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, "xml");
-        }
-        return files;
-    }
-
-    public List<File> getStringResourceFilesInDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFullNameMatch(directory, "strings.xml");
-        }
-        return files;
+        return getFilesInDirectoriesFileTypeMatch("xml","XML");
     }
 
     public List<File> getDrawableResourceFiles() {
+       return getFilesInDirectoriesFileTypeMatch( ".jpg", ".jpeg", ".JPG", ".JPEG", ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
+    }
+
+    public List<File> getFilesInDirectoriesFileTypeMatch(String... typeFilter) {
         files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getFilesInDirectoryFileTypeMatch(directory, ".jpg", ".jpeg", ".JPG", ".JPEG", ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
+        for (File directory : searchedFolders) {
+            getFilesInDirectoryFileTypeMatch(directory, typeFilter);
         }
         return files;
     }
@@ -144,6 +122,14 @@ public class FileFinder {
         }
     }
 
+    public List<File> getStringResourceFilesInDirectories() {
+        files = new ArrayList<File>();
+        for (File directory : searchedFolders) {
+            getFilesInDirectoryFullNameMatch(directory, "strings.xml");
+        }
+        return files;
+    }
+
     public void getFilesInDirectoryFullNameMatch(File directory, String... typeFilter) {
         File[] fList = directory.listFiles();
         for (File file : fList) {
@@ -159,26 +145,10 @@ public class FileFinder {
         }
     }
 
-    public List<File> getDrawableDirectories() {
+    public List<File> getDirectoriesContainingExpression(String matchExpression) {
         files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getDirectoriesContainingExpression(directory, "drawable");
-        }
-        return files;
-    }
-
-    public List<File> getLayoutDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getDirectoriesContainingExpression(directory, "layout");
-        }
-        return files;
-    }
-
-    public List<File> getMenuDirectories() {
-        files = new ArrayList<File>();
-        for (File directory : apkFolders) {
-            getDirectoriesContainingExpression(directory, "menu");
+        for (File directory : searchedFolders) {
+            getDirectoriesContainingExpression(directory, matchExpression);
         }
         return files;
     }
