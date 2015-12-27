@@ -127,6 +127,7 @@ unspecifiedDpiDrawables      | Integer | Number of drawables located in default 
 rawResources   | Integer | Number of resources in raw/ folder
 layouts   | Integer | Total number of layout resources in res/layout* folder
 differentLayouts   | Integer | Number of different layout resources in res/layout* folder
+menu   | Integer | Total number of menu resources in res/menu folder
 
 <a name="hash"/>
 ####File hashes
@@ -134,21 +135,22 @@ Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 dexHash      | String | Hash of classes.dex from META-INF/MANIFEST.MF
 arscHash      | String | Hash of resources.arsc from META-INF/MANIFEST.MF
-hashesFromManifest      | List<String>  | Hashes of all files in apk from META-INF/MANIFEST.MF
+drawableHash      | List<String>  | Hashes of files in res/drawable* folder from META-INF/MANIFEST.MF
+layoutHash      | List<String>  | Hashes of files in res/layout* folder from META-INF/MANIFEST.MF
+otherHash      | List<String>  | Hashes of all files in apk from META-INF/MANIFEST.MF
 
 <a name="json"/>
 ### Example of output *.json
   
   ```json
-  {
-  "fileName": "com.facebook.katana-42.0.0.27.114.apk",
-  "sourceOfFile": "Playdrone",
+ {
+  "fileName": "com.facebook.katana-42.0.0.27.114-APK4Fun.com.apk",
+  "sourceOfFile": "test - works)",
   "fileSize": 35488821,
   "dexSize": 510148,
   "arscSize": 8129808,
   "androidManifest": {
     "packageName": "com.facebook.katana",
-    "versionCode": "753ab4",
     "installLocation": "auto",
     "numberOfActivities": 257,
     "numberOfServices": 84,
@@ -161,7 +163,58 @@ hashesFromManifest      | List<String>  | Hashes of all files in apk from META-I
       "android.permission.READ_CONTACTS",
       "android.permission.WRITE_CONTACTS",
       "android.permission.GET_ACCOUNTS",
-      ...
+      "android.permission.MANAGE_ACCOUNTS",
+      "android.permission.AUTHENTICATE_ACCOUNTS",
+      "android.permission.READ_SYNC_SETTINGS",
+      "android.permission.WRITE_SYNC_SETTINGS",
+      "android.permission.ACCESS_FINE_LOCATION",
+      "android.permission.BROADCAST_STICKY",
+      "com.facebook.katana.provider.ACCESS",
+      "com.facebook.orca.provider.ACCESS",
+      "com.facebook.pages.app.provider.ACCESS",
+      "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+      "android.permission.CAMERA",
+      "android.permission.RECORD_AUDIO",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "com.facebook.permission.prod.FB_APP_COMMUNICATION",
+      "com.facebook.permission.prod.SYSTEM_COMMUNICATION",
+      "android.permission.READ_PHONE_STATE",
+      "android.permission.READ_CALENDAR",
+      "android.permission.WRITE_CALENDAR",
+      "android.permission.MODIFY_AUDIO_SETTINGS",
+      "android.permission.READ_PROFILE",
+      "android.permission.READ_SMS",
+      "android.permission.CHANGE_NETWORK_STATE",
+      "android.permission.CHANGE_WIFI_STATE",
+      "android.permission.SYSTEM_ALERT_WINDOW",
+      "com.google.android.providers.gsf.permission.READ_GSERVICES",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "com.facebook.katana.permission.CROSS_PROCESS_BROADCAST_MANAGER",
+      "android.permission.BATTERY_STATS",
+      "android.permission.ACCESS_WIFI_STATE",
+      "com.android.launcher.permission.INSTALL_SHORTCUT",
+      "android.permission.GET_TASKS",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.EXPAND_STATUS_BAR",
+      "android.permission.REORDER_TASKS",
+      "android.permission.CALL_PHONE",
+      "android.permission.SET_WALLPAPER",
+      "android.permission.SET_WALLPAPER_HINTS",
+      "com.facebook.receiver.permission.ACCESS",
+      "android.permission.INTERNET",
+      "com.sec.android.provider.badge.permission.READ",
+      "com.sec.android.provider.badge.permission.WRITE",
+      "com.htc.launcher.permission.READ_SETTINGS",
+      "com.htc.launcher.permission.UPDATE_SHORTCUT",
+      "com.sonyericsson.home.permission.BROADCAST_BADGE",
+      "com.facebook.home.permission.WRITE_BADGES",
+      "com.google.android.launcher.permission.READ_SETTINGS",
+      "com.google.android.c2dm.permission.RECEIVE",
+      "com.facebook.katana.permission.C2D_MESSAGE",
+      "com.nokia.pushnotifications.permission.RECEIVE",
+      "com.facebook.katana.permission.RECEIVE_ADM_MESSAGE",
+      "com.amazon.device.messaging.permission.RECEIVE"
     ],
     "usesLibrary": [
       "com.google.android.maps",
@@ -191,24 +244,7 @@ hashesFromManifest      | List<String>  | Hashes of all files in apk from META-I
     }
   ],
   "resourceData": {
-    "locale": [
-      "af",
-      "am",
-      "ar",
-      "bg",
-      "bn",
-      "bn-rBD",
-      "ca",
-      "cs",
-      "da",
-      "de",
-      "el",
-      "en-rAU",
-      "en-rGB",
-      "en-rIN",
-      "es",
-      ...
-    ],
+    "locale": [],
     "numberOfStringResource": 7866,
     "pngDrawables": 3470,
     "jpgDrawables": 4,
@@ -222,26 +258,46 @@ hashesFromManifest      | List<String>  | Hashes of all files in apk from META-I
     "xxhdpiDrawables": 0,
     "xxxhdpiDrawables": 0,
     "unspecifiedDpiDrawables": 1585,
-    "rawResources": 85
+    "rawResources": 85,
+    "menu": 32,
+    "layouts": 3072,
+    "differentLayouts": 3042
   },
   "fileDigest": {
     "dexHash": "bMyeEVy9g8VYPd8S09xBeDu1ouE=",
     "arscHash": "br+poZYwb/JUSmFAKYhW0zd8QVc=",
-    "hashesFromManifest": [
+    "drawableHash": [
       "S6vxCIQ2bS3ze7pSOF+6eozEldc=",
       "uNOeQAFoOFkQbYgJfkJyePznmy0=",
-      "KchKiLDAPwjG37nNRMBHyzobzY0=",
-      "yraCp5c9QDTFzwKIX/8UCuTIeEo=",
       "727pL5pYYaMczcG0OKDMaYT1F9Q=",
-      "AmdW7QPZdY4SfNJVK8NHoGZEepU=",
-      "QTk8L3Uae9TSvjgCGVuOJHaecp0=",
-      "jvPAktczgQwCWbOP7CRdMr1dmSY=",
       "u5TY6PQerEhaOucVzSCrKc5lor8=",
-      "frIdJxKEIYvANiZ5gWrd7ijk1qM=",
       "MuSnK3Cf2lk/cT6NzwWZLRD1O58=",
       "3Qsa4NCFZyy9zsstBa88EvNlvSQ=",
-      ...
-    ]
+      "uL4rEHyudY8XyvhT2UxSsSfBq8s=",
+      "Oykfw3UheEEts18yb9NpJVZtjSE=",
+      "xAt0x2WW8LlNCz3IIuearX9FqHc=",
+    ],
+    "layoutHash": [
+      "uNOeQAFoOFkQbYgJfkJyePznmy0=",
+      "727pL5pYYaMczcG0OKDMaYT1F9Q=",
+      "u5TY6PPerEhaOucVzSCrKc5lor8=",
+      "MuSnK3Cf2lk/cT6NzwWZLRD1O58=",
+      "3Qsa4NCFZyy9zsstBa88EvNlvSQ=",
+      "uL4rEHyudY8XyvhT2UxSsSfBq8s=",
+      "Oykfw3UheEEts18yb9NpJVZtjSE=",
+      "xAt0x2WW8LlNCz3IIuearX9FqHc=",
+     ]
+    "otherHash": [
+      "aNOeQAFoOFkQbYgJfkJyePznmy0=",
+      "927pL5pYYaMczcG0OKDMaYT1F9Q=",
+      "q5TY6PQerEhaOucVzSCrKc5lor8=",
+      "quSnK3Cf2lk/cT6NzwWZLRD1O58=",
+      "cQsa4NCFZyy9zsstBa88EvNlvSQ=",
+      "bL4rEHyudY8XyvhT2UxSsSfBq8s=",
+      "qykfw3UheEEts18yb9NpJVZtjSE=",
+      "yAt0x2WW8LlNCz3IIuearX9FqHc=",
+     ]
+
   }
 }
   ```
