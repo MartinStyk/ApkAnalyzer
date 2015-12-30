@@ -21,12 +21,12 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        FileFinder ff = new FileFinder(new File(APK_PLAY));
+        FileFinder ff = new FileFinder(new File(APK_TEST));
         List<ApkFile> apks = ff.getApkFilesInDirectories();
 
         ApkProcessor
                 .ofFiles(apks)
-                .processFiles(new File(METADATA_DIR));
+                .processFilesAsync(new File(METADATA_DIR),5);
 
 // uncomment to get List of statistitics and write it to the file
 //        List<ApkData> stats = processor.processFiles();

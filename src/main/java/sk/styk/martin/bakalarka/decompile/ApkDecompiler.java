@@ -27,10 +27,13 @@ public class ApkDecompiler {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (isFrameworkInstalled == false) {
-            installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
-            isFrameworkInstalled = true;
+        synchronized (ApkDecompiler.class){
+            if (isFrameworkInstalled == false) {
+                installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
+                isFrameworkInstalled = true;
+            }
         }
+
         this.apkFile = apkFile;
         this.apkNameMarker = apkFile.getMarker();
     }

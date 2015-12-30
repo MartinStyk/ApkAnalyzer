@@ -9,6 +9,9 @@ import sk.styk.martin.bakalarka.files.JsonUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Martin Styk on 23.11.2015.
@@ -42,7 +45,6 @@ public class ApkProcessor {
         return new ApkProcessor(apk);
     }
 
-
     public List<ApkData> processFiles() {
         List<ApkData> statistics = new ArrayList<ApkData>();
         for (ApkFile f : apks) {
@@ -55,6 +57,19 @@ public class ApkProcessor {
         for (ApkFile f : apks) {
             ApkData data = processFile(f);
             JsonUtils.toJson(data, outputDirectory);
+        }
+    }
+
+    public void processFilesAsync(File outputDirectory, int computingThreads) {
+        ExecutorService pool = Executors.newFixedThreadPool(computingThreads);
+        for (ApkFile f : apks) {
+            pool.submit(new ApkProcessingTask(f,outputDirectory));
+        }
+        pool.shutdown();
+        try {
+            pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            logger.warn(e.toString());
         }
     }
 
