@@ -24,16 +24,11 @@ public class HashProcessor {
     private static final Logger logger = LoggerFactory.getLogger(HashProcessor.class);
     private Marker apkNameMarker;
 
-    private static HashProcessor instance = null;
     private HashData hashData;
     private ApkData data;
     private ApkFile apkFile;
 
-    private HashProcessor() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static HashProcessor getInstance(ApkData data, ApkFile apkFile) {
+    public HashProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -41,28 +36,29 @@ public class HashProcessor {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new HashProcessor();
-        }
-        instance.data = data;
-        instance.apkFile = apkFile;
-        instance.hashData = new HashData();
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.data = data;
+        this.apkFile = apkFile;
+        this.hashData = new HashData();
+        this.apkNameMarker = apkFile.getMarker();
     }
 
-    public static HashProcessor getInstance(ApkFile apkFile) {
-        if (instance == null) {
-            instance = new HashProcessor();
-        }
+    public HashProcessor(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
-        instance.data = null;
-        instance.apkFile = apkFile;
-        instance.hashData = new HashData();
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+
+        this.apkFile = apkFile;
+        this.hashData = new HashData();
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+
+    public static HashProcessor getInstance(ApkData data, ApkFile apkFile) {
+        return new HashProcessor(data, apkFile);
+    }
+
+    public static HashProcessor getInstance(ApkFile apkFile) {
+        return new HashProcessor(apkFile);
     }
 
     public HashData getHashes() {

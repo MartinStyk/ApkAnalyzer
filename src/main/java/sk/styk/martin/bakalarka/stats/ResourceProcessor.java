@@ -26,17 +26,12 @@ public class ResourceProcessor {
     private static final Logger logger = LoggerFactory.getLogger(ResourceProcessor.class);
     private Marker apkNameMarker;
 
-    private static ResourceProcessor instance = null;
     private ApkData data;
     private ApkFile apkFile;
     private ResourceData resourceData;
     private FileFinder resourceDirectoryFileFinder;
 
-    private ResourceProcessor() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static ResourceProcessor getInstance(ApkData data, ApkFile apkFile) {
+    public ResourceProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -44,28 +39,27 @@ public class ResourceProcessor {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new ResourceProcessor();
-        }
-        instance.data = data;
-        instance.apkFile = apkFile;
-        instance.resourceData = null;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.data = data;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
     }
 
-    public static ResourceProcessor getInstance(ApkFile apkFile) {
-        if (instance == null) {
-            instance = new ResourceProcessor();
-        }
+    public ResourceProcessor(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
-        instance.data = null;
-        instance.apkFile = apkFile;
-        instance.resourceData = null;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+
+    public static ResourceProcessor getInstance(ApkData data, ApkFile apkFile) {
+       return new ResourceProcessor(data,apkFile);
+    }
+
+    public static ResourceProcessor getInstance(ApkFile apkFile) {
+        return new ResourceProcessor(apkFile);
     }
 
     public ResourceData processResources() {

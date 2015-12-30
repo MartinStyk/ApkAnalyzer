@@ -16,28 +16,27 @@ import java.io.File;
  */
 public class ApkDecompiler {
 
+    private static boolean isFrameworkInstalled;
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
     private Marker apkNameMarker;
 
-    private static ApkDecompiler instance = null;
     private ApkFile apkFile;
 
-    private ApkDecompiler() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static ApkDecompiler getInstance(ApkFile apkFile) {
+    public ApkDecompiler(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new ApkDecompiler();
+        if (isFrameworkInstalled == false) {
             installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
+            isFrameworkInstalled = true;
         }
-        instance.apkFile = apkFile;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+    public static ApkDecompiler getInstance(ApkFile apkFile) {
+        return new ApkDecompiler(apkFile);
     }
 
     private static void installFramework() {

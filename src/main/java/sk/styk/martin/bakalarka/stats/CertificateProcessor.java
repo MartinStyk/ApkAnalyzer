@@ -27,16 +27,11 @@ public class CertificateProcessor {
     private static final Logger logger = LoggerFactory.getLogger(CertificateProcessor.class);
     private Marker apkNameMarker;
 
-    private static CertificateProcessor instance = null;
     private List<CertificateData> certDatas;
     private ApkData data;
     private ApkFile apkFile;
 
-    private CertificateProcessor() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static CertificateProcessor getInstance(ApkData data, ApkFile apkFile) {
+    public CertificateProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -44,28 +39,28 @@ public class CertificateProcessor {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new CertificateProcessor();
-        }
-        instance.data = data;
-        instance.apkFile = apkFile;
-        instance.certDatas = new ArrayList<CertificateData>();
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.data = data;
+        this.apkFile = apkFile;
+        this.certDatas = new ArrayList<CertificateData>();
+        this.apkNameMarker = apkFile.getMarker();
     }
 
-    public static CertificateProcessor getInstance(ApkFile apkFile) {
-        if (instance == null) {
-            instance = new CertificateProcessor();
-        }
+    public CertificateProcessor(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
-        instance.data = null;
-        instance.certDatas = new ArrayList<CertificateData>();
-        instance.apkFile = apkFile;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+
+        this.apkFile = apkFile;
+        this.certDatas = new ArrayList<CertificateData>();
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+    public static CertificateProcessor getInstance(ApkData data, ApkFile apkFile) {
+        return new CertificateProcessor(data, apkFile);
+    }
+
+    public static CertificateProcessor getInstance(ApkFile apkFile) {
+        return new CertificateProcessor(apkFile);
     }
 
     public List<CertificateData> processCertificates() {

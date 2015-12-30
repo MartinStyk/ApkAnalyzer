@@ -17,15 +17,10 @@ public class FileInfoProcessor {
     private static final Logger logger = LoggerFactory.getLogger(FileInfoProcessor.class);
     private Marker apkNameMarker;
 
-    private static FileInfoProcessor instance = null;
     private ApkData data;
     private ApkFile apkFile;
 
-    private FileInfoProcessor() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static FileInfoProcessor getInstance(ApkData data, ApkFile apkFile) {
+    public FileInfoProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -33,26 +28,27 @@ public class FileInfoProcessor {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new FileInfoProcessor();
-        }
-        instance.data = data;
-        instance.apkFile = apkFile;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.data = data;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
     }
 
-    public static FileInfoProcessor getInstance(ApkFile apkFile) {
-        if (instance == null) {
-            instance = new FileInfoProcessor();
-        }
+    public FileInfoProcessor(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
-        instance.data = new ApkData();
-        instance.apkFile = apkFile;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+
+        this.data = new ApkData();
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+    public static FileInfoProcessor getInstance(ApkData data, ApkFile apkFile) {
+        return new FileInfoProcessor(data, apkFile);
+    }
+
+    public static FileInfoProcessor getInstance(ApkFile apkFile) {
+        return new FileInfoProcessor(apkFile);
     }
 
     public ApkData processFileInfo() {

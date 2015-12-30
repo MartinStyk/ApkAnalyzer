@@ -21,19 +21,13 @@ public class AndroidManifestProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidManifestProcessor.class);
     private Marker apkNameMarker;
-
-    private static AndroidManifestProcessor instance = null;
     private Document document;
     private ApkData data;
     private File manifestFile;
     private AndroidManifestData manifestData;
     private ApkFile apkFile;
 
-    private AndroidManifestProcessor() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static AndroidManifestProcessor getInstance(ApkData data, ApkFile apkFile) {
+    public AndroidManifestProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
             throw new IllegalArgumentException("data null");
         }
@@ -41,30 +35,27 @@ public class AndroidManifestProcessor {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new AndroidManifestProcessor();
-        }
-        instance.data = data;
-        instance.apkFile = apkFile;
-        instance.manifestData = new AndroidManifestData();
-        instance.document = null;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.data = data;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
     }
 
-    public static AndroidManifestProcessor getInstance(ApkFile apkFile) {
-        if (instance == null) {
-            instance = new AndroidManifestProcessor();
-        }
+    public AndroidManifestProcessor(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
-        instance.data = null;
-        instance.apkFile = apkFile;
-        instance.manifestData = new AndroidManifestData();
-        instance.document = null;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+
+        this.data = null;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+    public static AndroidManifestProcessor getInstance(ApkData data, ApkFile apkFile) {
+        return new AndroidManifestProcessor(data, apkFile);
+    }
+
+    public static AndroidManifestProcessor getInstance(ApkFile apkFile) {
+        return new AndroidManifestProcessor(apkFile);
     }
 
     public AndroidManifestData processAndroidManifest() {
@@ -101,12 +92,12 @@ public class AndroidManifestProcessor {
         return manifestData;
     }
 
-    public void getManifestTagData() {
+    private void getManifestTagData() {
         Element element = XmlParsingHelper.getSingleAppearingElementByTag(document, "manifest");
         if (element != null) {
-            manifestData.setPackageName(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"package"));
-            manifestData.setVersionCode(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"android:versionCode"));
-            manifestData.setInstallLocation(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element,"android:installLocation"));
+            manifestData.setPackageName(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "package"));
+            manifestData.setVersionCode(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:versionCode"));
+            manifestData.setInstallLocation(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:installLocation"));
         }
     }
 

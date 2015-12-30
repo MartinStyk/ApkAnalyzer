@@ -18,25 +18,20 @@ import java.util.zip.ZipInputStream;
 public class ApkUnziper {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkUnziper.class);
-    private static ApkUnziper instance = null;
     private Marker apkNameMarker;
     private ApkFile apkFile;
 
-    private ApkUnziper() {
-        // Exists only to defeat instantiation.
-    }
-
-    public static ApkUnziper getInstance(ApkFile apkFile) {
+    public ApkUnziper(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        if (instance == null) {
-            instance = new ApkUnziper();
-        }
-        instance.apkFile = apkFile;
-        instance.apkNameMarker = apkFile.getMarker();
-        return instance;
+        this.apkFile = apkFile;
+        this.apkNameMarker = apkFile.getMarker();
+    }
+
+    public static ApkUnziper getInstance(ApkFile apkFile) {
+        return new ApkUnziper(apkFile);
     }
 
     public void unzip() throws IOException {
