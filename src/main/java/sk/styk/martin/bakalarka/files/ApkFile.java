@@ -21,6 +21,10 @@ public class ApkFile extends File {
     private Exception decompilationException;
     private Exception unzipException;
 
+    public ApkFile(File file) {
+        this(file.getAbsolutePath());
+    }
+
     public ApkFile(String pathname) {
         super(pathname);
         if (!pathname.endsWith(".apk")) {

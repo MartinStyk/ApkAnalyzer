@@ -74,7 +74,7 @@ public class FileFinder {
         files = getFilesInDirectoriesFileTypeMatch("apk", "APK");
         List<ApkFile> apkFiles = new ArrayList<ApkFile>();
         for (File f : files) {
-            apkFiles.add(new ApkFile(f.getAbsolutePath()));
+            apkFiles.add(new ApkFile(f));
         }
         return apkFiles;
     }
