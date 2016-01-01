@@ -79,17 +79,20 @@ public class TempFileManager {
     }
 
     public void deleteApkDecompiledDirectory() throws IOException {
-        FileUtils.deleteDirectory(decompiledDir);
+        if (decompiledDir != null)
+            FileUtils.deleteDirectory(decompiledDir);
     }
 
     public void deleteApkUnzipedDirectory() throws IOException {
-        FileUtils.deleteDirectory(unzipDir);
+        if (unzipDir != null)
+            FileUtils.deleteDirectory(unzipDir);
     }
 
     public void deleteApkWorkingDirectory() throws IOException {
         deleteApkDecompiledDirectory();
         deleteApkUnzipedDirectory();
-        FileUtils.deleteDirectory(workingDir);
+        if (workingDir != null)
+            FileUtils.deleteDirectory(workingDir);
 
     }
 
