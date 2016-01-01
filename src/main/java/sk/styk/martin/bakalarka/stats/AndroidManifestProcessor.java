@@ -157,11 +157,11 @@ public class AndroidManifestProcessor {
 
             String installLocation = XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:installLocation");
             if (installLocation != null) {
-                if (installLocation == "0") {
+                if (installLocation.equalsIgnoreCase("0")) {
                     manifestData.setInstallLocation("auto");
-                } else if (installLocation == "1") {
+                } else if (installLocation.equalsIgnoreCase("1")){
                     manifestData.setInstallLocation("internalOnly");
-                } else if (installLocation == "2") {
+                } else if (installLocation.equalsIgnoreCase("2")){
                     manifestData.setInstallLocation("preferExternal");
                 } else {
                     manifestData.setInstallLocation(installLocation);
