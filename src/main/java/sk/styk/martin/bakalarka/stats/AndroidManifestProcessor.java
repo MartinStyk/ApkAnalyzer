@@ -1,5 +1,6 @@
 package sk.styk.martin.bakalarka.stats;
 
+import fr.xgouchet.axml.CompressedXmlParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
@@ -12,6 +13,7 @@ import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.stats.helpers.XmlParsingHelper;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -66,8 +68,12 @@ public class AndroidManifestProcessor {
 
         try {
 
-            manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
-            document = XmlParsingHelper.getNormalizedDocument(manifestFile);
+            manifestFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "AndroidManifest.xml");
+            document = new CompressedXmlParser().parseDOM(new FileInputStream(manifestFile));
+            document.getDocumentElement().normalize();
+
+            // manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
+            //document = XmlParsingHelper.getNormalizedDocument(manifestFile);
 
             getManifestTagData();
             getNumberOfAppComponents();
