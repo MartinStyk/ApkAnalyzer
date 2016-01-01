@@ -103,7 +103,19 @@ public class AndroidManifestProcessor {
         if (element != null) {
             manifestData.setPackageName(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "package"));
             manifestData.setVersionCode(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:versionCode"));
-            manifestData.setInstallLocation(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:installLocation"));
+
+            String installLocation = XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:installLocation");
+            if(installLocation != null){
+                if(installLocation == "0"){
+                    manifestData.setInstallLocation("auto");
+                } else if(installLocation == "1"){
+                    manifestData.setInstallLocation("internalOnly");
+                } else if(installLocation == "2"){
+                    manifestData.setInstallLocation("preferExternal");
+                } else {
+                    manifestData.setInstallLocation(installLocation);
+                }
+            }
         }
     }
 
