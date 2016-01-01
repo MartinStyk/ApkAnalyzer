@@ -80,7 +80,10 @@ public class ResourceProcessor {
 
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
-        resourceData.setNumberOfStringResource(getNumberOfStringResource());
+
+        // temporary don`t collect because this is only one attribute that requires apktool decompilation
+        // which takes time and attribute value is not so interesting
+        //resourceData.setNumberOfStringResource(getNumberOfStringResource());
         resourceData.setRawResources(getNumberOfRawResources());
 
         processDrawableResources();
@@ -97,7 +100,7 @@ public class ResourceProcessor {
     }
 
     private Integer getNumberOfRawResources() {
-        File resFolder = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res");
+        File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
         File rawFolder = new File(resFolder, "raw");
 
         if(!resFolder.exists()){
