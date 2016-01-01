@@ -26,7 +26,7 @@ public class Main {
 
         ApkProcessor
                 .ofFiles(apks)
-                .processFilesAsync(new File(METADATA_DIR),5);
+                .processFiles(new File(METADATA_DIR));
 
 // uncomment to get List of statistitics and write it to the file
 //        List<ApkData> stats = processor.processFiles();

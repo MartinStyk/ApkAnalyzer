@@ -54,14 +54,10 @@ public class ApkProcessor {
     }
 
     public void processFiles(File outputDirectory) {
-        for (ApkFile f : apks) {
-            ApkData data = processFile(f);
-            JsonUtils.toJson(data, outputDirectory);
-        }
-    }
 
-    public void processFilesAsync(File outputDirectory, int computingThreads) {
-        ExecutorService pool = Executors.newFixedThreadPool(computingThreads);
+        int numberOfProcessors = Runtime.getRuntime().availableProcessors();
+        ExecutorService pool = Executors.newFixedThreadPool(numberOfProcessors);
+
         for (ApkFile f : apks) {
             pool.submit(new ApkProcessingTask(f,outputDirectory));
         }
