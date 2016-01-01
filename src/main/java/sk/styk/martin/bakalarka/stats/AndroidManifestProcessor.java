@@ -14,6 +14,8 @@ import sk.styk.martin.bakalarka.stats.helpers.XmlParsingHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -62,31 +64,14 @@ public class AndroidManifestProcessor {
 
     public AndroidManifestData processAndroidManifest() {
 
-        manifestData = new AndroidManifestData();
-
         logger.trace(apkNameMarker + "Started processing AndroidManifest");
 
-        try {
+        manifestData = new AndroidManifestData();
 
-            manifestFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "AndroidManifest.xml");
-            document = new CompressedXmlParser().parseDOM(new FileInputStream(manifestFile));
-            document.getDocumentElement().normalize();
+        boolean isSuccessXmlDecompress = processUsingXmlDecompress();
 
-            // manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
-            //document = XmlParsingHelper.getNormalizedDocument(manifestFile);
-
-            getManifestTagData();
-            getNumberOfAppComponents();
-            getUsedPermissions();
-            getUsedLibraries();
-            getUsedFeatures();
-            getUsesSdk();
-            getSupportScreens();
-
-        } catch (Exception e) {
-            logger.error(apkNameMarker + e.toString());
-        } finally {
-            document = null;
+        if(! isSuccessXmlDecompress){
+            processUsingDecompilation();
         }
 
         if (data != null) {
@@ -96,6 +81,73 @@ public class AndroidManifestProcessor {
         logger.trace(apkNameMarker + "Finished processing of AndroidManifest");
 
         return manifestData;
+    }
+
+    private boolean processUsingXmlDecompress(){
+
+        boolean isSuccess;
+        InputStream manifestStream = null;
+        logger.trace(apkNameMarker + "Using XML decompress method");
+
+        try {
+
+            manifestFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "AndroidManifest.xml");
+            manifestStream = new FileInputStream(manifestFile);
+            document = new CompressedXmlParser().parseDOM(manifestStream);
+            document.getDocumentElement().normalize();
+
+            getManifestTagData();
+            getNumberOfAppComponents();
+            getUsedPermissions();
+            getUsedLibraries();
+            getUsedFeatures();
+            getUsesSdk();
+            getSupportScreens();
+
+            isSuccess = true;
+
+        } catch (Exception e) {
+            logger.error(apkNameMarker + e.toString());
+            isSuccess = false;
+        } finally {
+            document = null;
+            try {
+                manifestStream.close();
+            } catch (Exception e) {
+                logger.warn(e.toString());
+            }
+        }
+        return isSuccess;
+    }
+
+    private boolean processUsingDecompilation(){
+
+        boolean isSuccess;
+
+        logger.trace(apkNameMarker + "Using Apktool decompilation method");
+
+        try {
+
+            manifestFile = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "AndroidManifest.xml");
+            document = XmlParsingHelper.getNormalizedDocument(manifestFile);
+
+            getManifestTagData();
+            getNumberOfAppComponents();
+            getUsedPermissions();
+            getUsedLibraries();
+            getUsedFeatures();
+            getUsesSdk();
+            getSupportScreens();
+
+            isSuccess = true;
+
+        } catch (Exception e) {
+            logger.error(apkNameMarker + e.toString());
+            isSuccess = false;
+        } finally {
+            document = null;
+        }
+        return isSuccess;
     }
 
     private void getManifestTagData() {
