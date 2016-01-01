@@ -11,6 +11,8 @@ Java app / library used to obtain detailed informations about Andoid APK files.
    * [Resources metadata](#resource)
    * [File hashes](#hash)
   * [Example of output *.json](#json)
+* [Used libraries](#Used_libs)
+ 
 
 <a name="How_to_use_it"/>
 ## How to use it
@@ -112,7 +114,7 @@ issuerName   | String | Representation of the X.500 distinguished name using the
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 locale      | List<String>   | Localizations of string.xml file
-numberOfStringResource  | Integer   | Number of entries in default string.xml file
+numberOfStringResource  | Integer   | Number of entries in default string.xml file (currently not collected)
 pngDrawables      | Integer     | Number of drawables in png format
 jpgDrawables       | Integer     | Number of drawables in jpg/jpeg format
 gifDrawables      | Integer     | Number of drawables in gif format
@@ -301,3 +303,7 @@ otherHash      | List<String>  | Hashes of all files in apk from META-INF/MANIFE
   }
 }
   ```
+<a name="Used_libs"/>
+### Used libraries
+* [xgouchet/AXML](https://github.com/xgouchet/AXML) used code from this project, located in fr.xgouchet.axml package
+* [iBotPeaches/Apktool](https://github.com/iBotPeaches/Apktool)
