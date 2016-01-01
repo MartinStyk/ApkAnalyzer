@@ -55,7 +55,7 @@ public class ResourceProcessor {
 
 
     public static ResourceProcessor getInstance(ApkData data, ApkFile apkFile) {
-       return new ResourceProcessor(data,apkFile);
+        return new ResourceProcessor(data, apkFile);
     }
 
     public static ResourceProcessor getInstance(ApkFile apkFile) {
@@ -67,13 +67,13 @@ public class ResourceProcessor {
         logger.trace(apkNameMarker + "Started processing of resources");
 
         File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
-        if(!resFolder.exists()){
+        if (!resFolder.exists()) {
             logger.warn(apkNameMarker + "res directory doesn`t exists, aborting getting of resources");
             return null;
         }
         try {
             resourceDirectoryFileFinder = new FileFinder(resFolder);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.warn(apkNameMarker + "res directory doesn`t exists, aborting getting of resources");
             return null;
         }
@@ -103,7 +103,7 @@ public class ResourceProcessor {
         File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
         File rawFolder = new File(resFolder, "raw");
 
-        if(!resFolder.exists()){
+        if (!resFolder.exists()) {
             logger.warn(apkNameMarker + "res/raw directory doesn`t exists");
             return null;
         }

@@ -11,17 +11,17 @@ import java.io.File;
 /**
  * Created by Martin Styk on 30.12.2015.
  */
-public class ApkProcessingTask implements Runnable{
+public class ApkProcessingTask implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ApkProcessingTask.class);
     private ApkFile apk;
     private File outputDirectory;
 
-    public ApkProcessingTask(ApkFile apk, File outputDirectory){
-        if(apk==null){
+    public ApkProcessingTask(ApkFile apk, File outputDirectory) {
+        if (apk == null) {
             throw new IllegalArgumentException("apk file is null");
         }
-        if(outputDirectory==null){
+        if (outputDirectory == null) {
             throw new IllegalArgumentException("output directory is null");
         }
         this.apk = apk;
@@ -30,7 +30,7 @@ public class ApkProcessingTask implements Runnable{
     }
 
 
-    public void run(){
+    public void run() {
         ApkData data = processFile(apk);
         JsonUtils.toJson(data, outputDirectory);
     }

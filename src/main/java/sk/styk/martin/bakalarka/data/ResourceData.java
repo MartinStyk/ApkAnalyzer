@@ -70,16 +70,16 @@ public class ResourceData {
         return gifDrawables;
     }
 
+    public void setGifDrawables(Integer gifDrawables) {
+        this.gifDrawables = gifDrawables;
+    }
+
     public Integer getXmlDrawables() {
         return xmlDrawables;
     }
 
     public void setXmlDrawables(Integer xmlDrawables) {
         this.xmlDrawables = xmlDrawables;
-    }
-
-    public void setGifDrawables(Integer gifDrawables) {
-        this.gifDrawables = gifDrawables;
     }
 
     public Integer getDifferentDrawables() {
@@ -158,6 +158,10 @@ public class ResourceData {
         return rawResources;
     }
 
+    public void setRawResources(Integer rawResources) {
+        this.rawResources = rawResources;
+    }
+
     public Integer getDifferentLayouts() {
         return differentLayouts;
     }
@@ -172,10 +176,6 @@ public class ResourceData {
 
     public void setLayouts(Integer layouts) {
         this.layouts = layouts;
-    }
-
-    public void setRawResources(Integer rawResources) {
-        this.rawResources = rawResources;
     }
 
     public Integer getMenu() {

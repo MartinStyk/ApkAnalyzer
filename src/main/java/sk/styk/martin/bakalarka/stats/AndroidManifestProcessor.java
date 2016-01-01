@@ -14,7 +14,6 @@ import sk.styk.martin.bakalarka.stats.helpers.XmlParsingHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class AndroidManifestProcessor {
 
         boolean isSuccessXmlDecompress = processUsingXmlDecompress();
 
-        if(! isSuccessXmlDecompress){
+        if (!isSuccessXmlDecompress) {
             processUsingDecompilation();
         }
 
@@ -83,7 +82,7 @@ public class AndroidManifestProcessor {
         return manifestData;
     }
 
-    private boolean processUsingXmlDecompress(){
+    private boolean processUsingXmlDecompress() {
 
         boolean isSuccess;
         InputStream manifestStream = null;
@@ -120,7 +119,7 @@ public class AndroidManifestProcessor {
         return isSuccess;
     }
 
-    private boolean processUsingDecompilation(){
+    private boolean processUsingDecompilation() {
 
         boolean isSuccess;
 
@@ -157,12 +156,12 @@ public class AndroidManifestProcessor {
             manifestData.setVersionCode(XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:versionCode"));
 
             String installLocation = XmlParsingHelper.getSingleNonEmptyStringAtributeFromElement(element, "android:installLocation");
-            if(installLocation != null){
-                if(installLocation == "0"){
+            if (installLocation != null) {
+                if (installLocation == "0") {
                     manifestData.setInstallLocation("auto");
-                } else if(installLocation == "1"){
+                } else if (installLocation == "1") {
                     manifestData.setInstallLocation("internalOnly");
-                } else if(installLocation == "2"){
+                } else if (installLocation == "2") {
                     manifestData.setInstallLocation("preferExternal");
                 } else {
                     manifestData.setInstallLocation(installLocation);

@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.JsonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,16 +28,16 @@ public class ApkProcessor {
         this.apks = apks;
     }
 
-    public static ApkProcessor ofFiles(List<ApkFile> apks) {
-        return new ApkProcessor(apks);
-    }
-
     public ApkProcessor(ApkFile apk) {
         if (apks == null || !apk.exists()) {
             throw new IllegalArgumentException("apks not valid");
         }
         this.apks = new ArrayList<ApkFile>();
         this.apks.add(apk);
+    }
+
+    public static ApkProcessor ofFiles(List<ApkFile> apks) {
+        return new ApkProcessor(apks);
     }
 
     public static ApkProcessor ofFile(ApkFile apk) {
@@ -59,7 +58,7 @@ public class ApkProcessor {
         ExecutorService pool = Executors.newFixedThreadPool(numberOfProcessors);
 
         for (ApkFile f : apks) {
-            pool.submit(new ApkProcessingTask(f,outputDirectory));
+            pool.submit(new ApkProcessingTask(f, outputDirectory));
         }
         pool.shutdown();
         try {
@@ -74,8 +73,6 @@ public class ApkProcessor {
 
         ApkData data = new ApkData();
 
-        // 1. get data from unziped directory
-
         FileInfoProcessor
                 .getInstance(data, apk)
                 .processFileInfo();
@@ -88,18 +85,14 @@ public class ApkProcessor {
                 .getInstance(data, apk)
                 .getHashes();
 
-        // 2. get data from decompile directory
-
         AndroidManifestProcessor
                 .getInstance(data, apk)
                 .processAndroidManifest();
 
-        // 3. uses data from decompile and unzip directory
         ResourceProcessor
                 .getInstance(data, apk)
                 .processResources();
-
-
+        
         apk.cleanApkWorkingDirectory();
 
         logger.info(apk.getMarker() + "Finished processing of file " + apk.getName());

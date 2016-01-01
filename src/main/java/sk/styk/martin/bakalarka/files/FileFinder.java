@@ -71,7 +71,7 @@ public class FileFinder {
     }
 
     public List<ApkFile> getApkFilesInDirectories() {
-        files = getFilesInDirectoriesFileTypeMatch("apk","APK");
+        files = getFilesInDirectoriesFileTypeMatch("apk", "APK");
         List<ApkFile> apkFiles = new ArrayList<ApkFile>();
         for (File f : files) {
             apkFiles.add(new ApkFile(f.getAbsolutePath()));
@@ -80,7 +80,7 @@ public class FileFinder {
     }
 
     public List<File> getCertificateFilesInDirectories() {
-        return getFilesInDirectoriesFileTypeMatch("RSA","DSA");
+        return getFilesInDirectoriesFileTypeMatch("RSA", "DSA");
     }
 
     public List<File> getMFFilesInDirectories() {
@@ -92,11 +92,11 @@ public class FileFinder {
     }
 
     public List<File> getXmlFilesInDirectories() {
-        return getFilesInDirectoriesFileTypeMatch("xml","XML");
+        return getFilesInDirectoriesFileTypeMatch("xml", "XML");
     }
 
     public List<File> getDrawableResourceFiles() {
-       return getFilesInDirectoriesFileTypeMatch( ".jpg", ".jpeg", ".JPG", ".JPEG", ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
+        return getFilesInDirectoriesFileTypeMatch(".jpg", ".jpeg", ".JPG", ".JPEG", ".gif", ".GIF", "png", "PNG", ".xml", ".XML");
     }
 
     public List<File> getFilesInDirectoriesFileTypeMatch(String... typeFilter) {

@@ -111,7 +111,7 @@ public class ApkFile extends File {
         return unzipException;
     }
 
-    public Marker getMarker(){
-       return MarkerFactory.getMarker(" [" + getName() + "] ");
+    public Marker getMarker() {
+        return MarkerFactory.getMarker(" [" + getName() + "] ");
     }
 }

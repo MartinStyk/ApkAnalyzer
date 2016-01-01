@@ -16,8 +16,8 @@ import java.io.File;
  */
 public class ApkDecompiler {
 
-    private static boolean isFrameworkInstalled;
     private static final Logger logger = LoggerFactory.getLogger(ApkDecompiler.class);
+    private static boolean isFrameworkInstalled;
     private Marker apkNameMarker;
 
     private ApkFile apkFile;
@@ -27,7 +27,7 @@ public class ApkDecompiler {
             throw new IllegalArgumentException("apkFile null");
         }
 
-        synchronized (ApkDecompiler.class){
+        synchronized (ApkDecompiler.class) {
             if (isFrameworkInstalled == false) {
                 installFramework(); //we need to install framework, otherwise some apk cannot be decompiled (arsc cannot decompile)
                 isFrameworkInstalled = true;

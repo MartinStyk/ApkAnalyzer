@@ -1,29 +1,22 @@
 package fr.xgouchet.axml;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class CompressedXmlParser {
 
-    private static final Logger logger = LoggerFactory.getLogger(CompressedXmlParser.class);
-
     public static final String TAG = "CXP";
-
     public static final int WORD_START_DOCUMENT = 0x00080003;
-
     public static final int WORD_STRING_TABLE = 0x001C0001;
     public static final int WORD_RES_TABLE = 0x00080180;
-
     public static final int WORD_START_NS = 0x00100100;
     public static final int WORD_END_NS = 0x00100101;
     public static final int WORD_START_TAG = 0x00100102;
@@ -31,7 +24,7 @@ public class CompressedXmlParser {
     public static final int WORD_TEXT = 0x00100104;
     public static final int WORD_EOS = 0xFFFFFFFF;
     public static final int WORD_SIZE = 4;
-
+    private static final Logger logger = LoggerFactory.getLogger(CompressedXmlParser.class);
     private static final int TYPE_ID_REF = 0x01000008;
     private static final int TYPE_ATTR_REF = 0x02000008;
     private static final int TYPE_STRING = 0x03000008;
@@ -45,8 +38,17 @@ public class CompressedXmlParser {
     private static final int TYPE_COLOR = 0x1C000008;
     private static final int TYPE_COLOR2 = 0x1D000008;
 
-    private static final String[] DIMEN = new String[] { "px", "dp", "sp",
-            "pt", "in", "mm" };
+    private static final String[] DIMEN = new String[]{"px", "dp", "sp",
+            "pt", "in", "mm"};
+    // Data
+    private CompressedXmlParserListener mListener;
+    // Internal
+    private Map<String, String> mNamespaces;
+    private byte[] mData;
+    private String[] mStringsTable;
+    private int[] mResourcesIds;
+    private int mStringsCount, mStylesCount, mResCount;
+    private int mParserOffset;
 
     public CompressedXmlParser() {
         mNamespaces = new HashMap<String, String>();
@@ -55,12 +57,9 @@ public class CompressedXmlParser {
     /**
      * Parses the xml data in the given file,
      *
-     * @param source
-     *            the source file to parse
-     * @param listener
-     *            the listener for XML events (must not be null)
-     * @throws IOException
-     *             if the input can't be read
+     * @param source   the source file to parse
+     * @param listener the listener for XML events (must not be null)
+     * @throws IOException if the input can't be read
      */
     public void parse(final InputStream input,
                       final CompressedXmlParserListener listener) throws IOException {
@@ -84,14 +83,10 @@ public class CompressedXmlParser {
     /**
      * Parses the xml data in the given file,
      *
-     * @param source
-     *            the source file to parse
+     * @param source the source file to parse
      * @return the DOM document object
-     *
-     * @throws IOException
-     *             if the input can't be read
-     * @throws ParserConfigurationException
-     *             if a DocumentBuilder can't be created
+     * @throws IOException                  if the input can't be read
+     * @throws ParserConfigurationException if a DocumentBuilder can't be created
      */
     public Document parseDOM(final InputStream input) throws IOException,
             ParserConfigurationException {
@@ -105,7 +100,6 @@ public class CompressedXmlParser {
     /**
      * Each tag starts with a 32 bits word (different for start tag, end tag and
      * end doc)
-     *
      */
     private void parseCompressedXml() {
         int word0;
@@ -265,7 +259,6 @@ public class CompressedXmlParser {
      * <li>7th word : number of attributes following the start tag</li>
      * <li>8th word : ??? (0)</li>
      * </ul>
-     *
      */
     private void parseStartTag() {
         // get tag info
@@ -355,7 +348,6 @@ public class CompressedXmlParser {
      * <li>5rd word : ??? (always 8)</li>
      * <li>6rd word : ??? (always 0)</li>
      * </ul>
-     *
      */
     private void parseText() {
         // get tag infos
@@ -400,8 +392,7 @@ public class CompressedXmlParser {
     }
 
     /**
-     * @param index
-     *            the index of the string in the StringIndexTable
+     * @param index the index of the string in the StringIndexTable
      * @return the string
      */
     private String getString(final int index) {
@@ -416,9 +407,8 @@ public class CompressedXmlParser {
     }
 
     /**
-     * @param offset
-     *            offset of the beginning of the string inside the StringTable
-     *            (and not the whole data array)
+     * @param offset offset of the beginning of the string inside the StringTable
+     *               (and not the whole data array)
      * @return the String
      */
     private String getStringFromStringTable(final int offset) {
@@ -444,12 +434,10 @@ public class CompressedXmlParser {
     }
 
     /**
-     * @param arr
-     *            the byte array to read
-     * @param off
-     *            the offset of the word to read
+     * @param arr the byte array to read
+     * @param off the offset of the word to read
      * @return value of a Little Endian 32 bit word from the byte arrayat offset
-     *         off.
+     * off.
      */
     private int getLEWord(final int off) {
         return ((mData[off + 3] << 24) & 0xff000000)
@@ -459,8 +447,7 @@ public class CompressedXmlParser {
     }
 
     /**
-     * @param word
-     *            a word read in an attribute data
+     * @param word a word read in an attribute data
      * @return the typed value
      */
     private String getAttributeValue(final int type, final int data) {
@@ -508,17 +495,5 @@ public class CompressedXmlParser {
 
         return res;
     }
-
-    // Data
-    private CompressedXmlParserListener mListener;
-
-    // Internal
-    private Map<String, String> mNamespaces;
-    private byte[] mData;
-
-    private String[] mStringsTable;
-    private int[] mResourcesIds;
-    private int mStringsCount, mStylesCount, mResCount;
-    private int mParserOffset;
 
 }

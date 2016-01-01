@@ -20,7 +20,7 @@ public class ApkData {
 
     //certificate info
     private List<CertificateData> certificateDatas;
-    
+
     private ResourceData resourceData;
 
     //hash of every file

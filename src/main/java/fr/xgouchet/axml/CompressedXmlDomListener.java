@@ -1,20 +1,22 @@
 package fr.xgouchet.axml;
 
-import java.util.Stack;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.util.Stack;
+
 public class CompressedXmlDomListener implements CompressedXmlParserListener {
 
+    private final DocumentBuilder mBuilder;
+    private Stack<Node> mStack;
+    private Document mDocument;
+
     /**
-     * @throws ParserConfigurationException
-     *             if a DocumentBuilder can't be created
+     * @throws ParserConfigurationException if a DocumentBuilder can't be created
      */
     public CompressedXmlDomListener() throws ParserConfigurationException {
         mBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -83,11 +85,7 @@ public class CompressedXmlDomListener implements CompressedXmlParserListener {
         return mDocument;
     }
 
-    private Stack<Node> mStack;
-    private Document mDocument;
-    private final DocumentBuilder mBuilder;
-
-    private boolean isEmpty(String s){
-        return s==null || s.isEmpty();
+    private boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
     }
 }
