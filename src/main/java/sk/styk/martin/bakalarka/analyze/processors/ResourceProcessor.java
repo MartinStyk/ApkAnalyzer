@@ -66,7 +66,7 @@ public class ResourceProcessor {
 
         logger.trace(apkNameMarker + "Started processing of resources");
 
-        File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
+        File resFolder = new File(apkFile.getDecompiledDirectoryWithDecompiledData(), "res");
         if (!resFolder.exists()) {
             logger.warn(apkNameMarker + "res directory doesn`t exists, aborting getting of resources");
             return null;
@@ -81,9 +81,7 @@ public class ResourceProcessor {
         resourceData = new ResourceData();
         resourceData.setLocale(getStringLocalizations());
 
-        // temporary don`t collect because this is only one attribute that requires apktool decompilation
-        // which takes time and attribute value is not so interesting
-        //resourceData.setNumberOfStringResource(getNumberOfStringResource());
+        resourceData.setNumberOfStringResource(getNumberOfStringResource());
         resourceData.setRawResources(getNumberOfRawResources());
 
         processDrawableResources();
