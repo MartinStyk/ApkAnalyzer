@@ -1,14 +1,14 @@
-package sk.styk.martin.bakalarka.stats;
+package sk.styk.martin.bakalarka.analyze.processors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.w3c.dom.Document;
-import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.data.ResourceData;
+import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.analyze.processors.helpers.XmlParsingHelper;
+import sk.styk.martin.bakalarka.analyze.data.ResourceData;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
-import sk.styk.martin.bakalarka.stats.helpers.XmlParsingHelper;
 
 import java.io.File;
 import java.util.ArrayList;

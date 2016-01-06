@@ -1,7 +1,6 @@
-package sk.styk.martin.bakalarka.data;
+package sk.styk.martin.bakalarka.analyze.data;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Martin Styk on 14.12.2015.

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.styk.martin.bakalarka.data.ApkData;
+import sk.styk.martin.bakalarka.analyze.data.ApkData;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package sk.styk.martin.bakalarka.stats.helpers;
+package sk.styk.martin.bakalarka.analyze.processors.helpers;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;

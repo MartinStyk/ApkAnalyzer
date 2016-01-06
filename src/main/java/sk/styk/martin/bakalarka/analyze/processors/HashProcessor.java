@@ -1,10 +1,10 @@
-package sk.styk.martin.bakalarka.stats;
+package sk.styk.martin.bakalarka.analyze.processors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
-import sk.styk.martin.bakalarka.data.ApkData;
-import sk.styk.martin.bakalarka.data.HashData;
+import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.analyze.data.HashData;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
 import sk.styk.martin.bakalarka.files.FileUtils;
