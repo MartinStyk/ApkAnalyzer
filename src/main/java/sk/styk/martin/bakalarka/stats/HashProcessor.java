@@ -11,7 +11,7 @@ import sk.styk.martin.bakalarka.files.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,9 +80,9 @@ public class HashProcessor {
         }
 
         hashData = new HashData();
-        hashData.setDrawableHash(new ArrayList<String>());
-        hashData.setLayoutHash(new ArrayList<String>());
-        hashData.setOtherHash(new ArrayList<String>());
+        hashData.setDrawableHash(new HashMap<String,String>());
+        hashData.setLayoutHash(new HashMap<String,String>());
+        hashData.setOtherHash(new HashMap<String,String>());
 
         for (File f : files) {
             processHashesFile(f);
@@ -120,11 +120,11 @@ public class HashProcessor {
             } else if (fileName.equals("resources.arsc")) {
                 hashData.setArscHash(fileHash);
             } else if (fileName.startsWith("res/drawable")) {
-                hashData.getDrawableHash().add(fileHash);
+                hashData.getDrawableHash().put(fileHash,fileName);
             } else if (fileName.startsWith("res/layout")) {
-                hashData.getLayoutHash().add(fileHash);
+                hashData.getLayoutHash().put(fileHash,fileName);
             } else {
-                hashData.getOtherHash().add(fileHash);
+                hashData.getOtherHash().put(fileHash,fileName);
             }
         }
 

@@ -138,9 +138,9 @@ Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 dexHash      | String | Hash of classes.dex from META-INF/MANIFEST.MF
 arscHash      | String | Hash of resources.arsc from META-INF/MANIFEST.MF
-drawableHash      | List<String>  | Hashes of files in res/drawable* folder from META-INF/MANIFEST.MF
-layoutHash      | List<String>  | Hashes of files in res/layout* folder from META-INF/MANIFEST.MF
-otherHash      | List<String>  | Hashes of all files in apk from META-INF/MANIFEST.MF
+drawableHash      | Map<String,String> | Hashes of files in res/drawable* folder from META-INF/MANIFEST.MF. Map<HashValue, fileName>
+layoutHash      | Map<String,String> | Hashes of files in res/layout* folder from META-INF/MANIFEST.MF. Map<HashValue, fileName>
+otherHash      | Map<String,String>   | Hashes of all files in apk from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 
 <a name="json"/>
 ### Example of output *.json
