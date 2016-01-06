@@ -28,6 +28,9 @@ public class ApkPairCompare {
     public ComparisonResult compare() throws ComparisonException {
         result = new ComparisonResult(dataA.getFileName(), dataB.getFileName());
 
+        result.setMetadataCompareResult(metadataComparator.fullCompare());
+//elevate whether they are similiar if so continue
+    //    result.setMetadataCompareResult(metadataComparator.fullCompare());
         result.setHashCompareResult(hashComparator.hashCompare());
 
         return result;
