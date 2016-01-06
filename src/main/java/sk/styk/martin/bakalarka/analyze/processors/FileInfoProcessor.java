@@ -109,6 +109,10 @@ public class FileInfoProcessor {
             data.setSourceOfFile("test - works)");
             return;
         }
+        if (parentFolderName.contains("appsApk")) {
+            data.setSourceOfFile("www.appsApk.com");
+            return;
+        }
 
 
     }
