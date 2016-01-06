@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import sk.styk.martin.bakalarka.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.data.ApkData;
 import sk.styk.martin.bakalarka.files.ApkFile;
@@ -96,7 +95,7 @@ public class AndroidManifestProcessor {
             document.getDocumentElement().normalize();
 
             getManifestTagData();
-            getNumberOfAppComponents();
+            getAppComponents();
             getUsedPermissions();
             getUsedLibraries();
             getUsedFeatures();
@@ -131,7 +130,7 @@ public class AndroidManifestProcessor {
             document = XmlParsingHelper.getNormalizedDocument(manifestFile);
 
             getManifestTagData();
-            getNumberOfAppComponents();
+            getAppComponents();
             getUsedPermissions();
             getUsedLibraries();
             getUsedFeatures();
@@ -159,9 +158,9 @@ public class AndroidManifestProcessor {
             if (installLocation != null) {
                 if (installLocation.equalsIgnoreCase("0")) {
                     manifestData.setInstallLocation("auto");
-                } else if (installLocation.equalsIgnoreCase("1")){
+                } else if (installLocation.equalsIgnoreCase("1")) {
                     manifestData.setInstallLocation("internalOnly");
-                } else if (installLocation.equalsIgnoreCase("2")){
+                } else if (installLocation.equalsIgnoreCase("2")) {
                     manifestData.setInstallLocation("preferExternal");
                 } else {
                     manifestData.setInstallLocation(installLocation);
@@ -170,16 +169,21 @@ public class AndroidManifestProcessor {
         }
     }
 
-    private void getNumberOfAppComponents() {
-        NodeList activityList = document.getElementsByTagName("activity");
-        NodeList serviceList = document.getElementsByTagName("service");
-        NodeList receiverList = document.getElementsByTagName("receiver");
-        NodeList providerList = document.getElementsByTagName("provider");
+    private void getAppComponents() {
+        List<String> activityList = XmlParsingHelper.getListOfTagAttributeValues(document, "activity", "android:name");
+        List<String> serviceList = XmlParsingHelper.getListOfTagAttributeValues(document, "service", "android:name");
+        List<String> receiverList = XmlParsingHelper.getListOfTagAttributeValues(document, "receiver", "android:name");
+        List<String> providerList = XmlParsingHelper.getListOfTagAttributeValues(document, "provider", "android:name");
 
-        manifestData.setNumberOfActivities(activityList.getLength());
-        manifestData.setNumberOfServices(serviceList.getLength());
-        manifestData.setNumberOfBroadcastReceivers(receiverList.getLength());
-        manifestData.setNumberOfContentProviders(providerList.getLength());
+        manifestData.setNumberOfActivities(activityList.size());
+        manifestData.setNumberOfServices(serviceList.size());
+        manifestData.setNumberOfBroadcastReceivers(receiverList.size());
+        manifestData.setNumberOfContentProviders(providerList.size());
+
+        manifestData.setNamesOfActivities(activityList);
+        manifestData.setNamesOfServices(serviceList);
+        manifestData.setNamesOfBroadcastReceivers(receiverList);
+        manifestData.setNamesOfContentProviders(providerList);
     }
 
     private void getUsedPermissions() {

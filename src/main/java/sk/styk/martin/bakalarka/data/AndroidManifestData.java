@@ -17,6 +17,11 @@ public class AndroidManifestData {
     private Integer numberOfContentProviders;
     private Integer numberOfBroadcastReceivers;
 
+    private List<String> namesOfActivities;
+    private List<String> namesOfServices;
+    private List<String> namesOfContentProviders;
+    private List<String> namesOfBroadcastReceivers;
+
     private List<String> usesPermissions;
     private List<String> usesLibrary;
     private List<String> usesFeature;
@@ -86,6 +91,38 @@ public class AndroidManifestData {
 
     public void setNumberOfBroadcastReceivers(int numberOfBroadcastReceivers) {
         this.numberOfBroadcastReceivers = numberOfBroadcastReceivers;
+    }
+
+    public List<String> getNamesOfActivities() {
+        return namesOfActivities;
+    }
+
+    public void setNamesOfActivities(List<String> namesOfActivities) {
+        this.namesOfActivities = namesOfActivities;
+    }
+
+    public List<String> getNamesOfServices() {
+        return namesOfServices;
+    }
+
+    public void setNamesOfServices(List<String> namesOfServices) {
+        this.namesOfServices = namesOfServices;
+    }
+
+    public List<String> getNamesOfContentProviders() {
+        return namesOfContentProviders;
+    }
+
+    public void setNamesOfContentProviders(List<String> namesOfContentProviders) {
+        this.namesOfContentProviders = namesOfContentProviders;
+    }
+
+    public List<String> getNamesOfBroadcastReceivers() {
+        return namesOfBroadcastReceivers;
+    }
+
+    public void setNamesOfBroadcastReceivers(List<String> namesOfBroadcastReceivers) {
+        this.namesOfBroadcastReceivers = namesOfBroadcastReceivers;
     }
 
     public List<String> getUsesPermissions() {
@@ -203,6 +240,14 @@ public class AndroidManifestData {
             return false;
         if (numberOfBroadcastReceivers != null ? !numberOfBroadcastReceivers.equals(that.numberOfBroadcastReceivers) : that.numberOfBroadcastReceivers != null)
             return false;
+        if (namesOfActivities != null ? !namesOfActivities.equals(that.namesOfActivities) : that.namesOfActivities != null)
+            return false;
+        if (namesOfServices != null ? !namesOfServices.equals(that.namesOfServices) : that.namesOfServices != null)
+            return false;
+        if (namesOfContentProviders != null ? !namesOfContentProviders.equals(that.namesOfContentProviders) : that.namesOfContentProviders != null)
+            return false;
+        if (namesOfBroadcastReceivers != null ? !namesOfBroadcastReceivers.equals(that.namesOfBroadcastReceivers) : that.namesOfBroadcastReceivers != null)
+            return false;
         if (usesPermissions != null ? !usesPermissions.equals(that.usesPermissions) : that.usesPermissions != null)
             return false;
         if (usesLibrary != null ? !usesLibrary.equals(that.usesLibrary) : that.usesLibrary != null) return false;
@@ -236,6 +281,10 @@ public class AndroidManifestData {
         result = 31 * result + (numberOfServices != null ? numberOfServices.hashCode() : 0);
         result = 31 * result + (numberOfContentProviders != null ? numberOfContentProviders.hashCode() : 0);
         result = 31 * result + (numberOfBroadcastReceivers != null ? numberOfBroadcastReceivers.hashCode() : 0);
+        result = 31 * result + (namesOfActivities != null ? namesOfActivities.hashCode() : 0);
+        result = 31 * result + (namesOfServices != null ? namesOfServices.hashCode() : 0);
+        result = 31 * result + (namesOfContentProviders != null ? namesOfContentProviders.hashCode() : 0);
+        result = 31 * result + (namesOfBroadcastReceivers != null ? namesOfBroadcastReceivers.hashCode() : 0);
         result = 31 * result + (usesPermissions != null ? usesPermissions.hashCode() : 0);
         result = 31 * result + (usesLibrary != null ? usesLibrary.hashCode() : 0);
         result = 31 * result + (usesFeature != null ? usesFeature.hashCode() : 0);
@@ -261,6 +310,10 @@ public class AndroidManifestData {
                 ", numberOfServices=" + numberOfServices +
                 ", numberOfContentProviders=" + numberOfContentProviders +
                 ", numberOfBroadcastReceivers=" + numberOfBroadcastReceivers +
+                ", namesOfActivities=" + namesOfActivities +
+                ", namesOfServices=" + namesOfServices +
+                ", namesOfContentProviders=" + namesOfContentProviders +
+                ", namesOfBroadcastReceivers=" + namesOfBroadcastReceivers +
                 ", usesPermissions=" + usesPermissions +
                 ", usesLibrary=" + usesLibrary +
                 ", usesFeature=" + usesFeature +
