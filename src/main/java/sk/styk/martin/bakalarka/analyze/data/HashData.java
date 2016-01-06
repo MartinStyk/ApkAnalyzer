@@ -1,6 +1,6 @@
 package sk.styk.martin.bakalarka.analyze.data;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Martin Styk on 14.12.2015.
@@ -20,17 +20,17 @@ public class HashData {
     /**
      * hash of all files in res/drawable* folder
      */
-    private HashMap<String,String> drawableHash;
+    private Map<String,String> drawableHash;
 
     /**
      * hash of all files in res/layout* folder
      */
-    private HashMap<String,String> layoutHash;
+    private Map<String,String> layoutHash;
 
     /**
      * hash that doesn`t belong to any of previous categories
      */
-    private HashMap<String,String> otherHash;
+    private Map<String,String> otherHash;
 
 
     public String getDexHash() {
@@ -49,27 +49,27 @@ public class HashData {
         this.arscHash = arscHash;
     }
 
-    public HashMap<String,String> getDrawableHash() {
+    public Map<String,String> getDrawableHash() {
         return drawableHash;
     }
 
-    public void setDrawableHash(HashMap<String,String> drawableHash) {
+    public void setDrawableHash(Map<String,String> drawableHash) {
         this.drawableHash = drawableHash;
     }
 
-    public HashMap<String,String> getLayoutHash() {
+    public Map<String,String> getLayoutHash() {
         return layoutHash;
     }
 
-    public void setLayoutHash(HashMap<String,String> layoutHash) {
+    public void setLayoutHash(Map<String,String> layoutHash) {
         this.layoutHash = layoutHash;
     }
 
-    public HashMap<String,String> getOtherHash() {
+    public Map<String,String> getOtherHash() {
         return otherHash;
     }
 
-    public void setOtherHash(HashMap<String,String> otherHash) {
+    public void setOtherHash(Map<String,String> otherHash) {
         this.otherHash = otherHash;
     }
 

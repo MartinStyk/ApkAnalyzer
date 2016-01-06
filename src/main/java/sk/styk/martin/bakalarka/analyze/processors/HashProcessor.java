@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +28,10 @@ public class HashProcessor {
     private HashData hashData;
     private ApkData data;
     private ApkFile apkFile;
+    private Map<String,String> drawableHash = new HashMap<String, String>();
+    private Map<String,String> layoutHash = new HashMap<String, String>();
+    private Map<String,String> otherHash = new HashMap<String, String>();
+
 
     public HashProcessor(ApkData data, ApkFile apkFile) {
         if (data == null) {
@@ -80,12 +85,19 @@ public class HashProcessor {
         }
 
         hashData = new HashData();
-        hashData.setDrawableHash(new HashMap<String,String>());
-        hashData.setLayoutHash(new HashMap<String,String>());
-        hashData.setOtherHash(new HashMap<String,String>());
+
 
         for (File f : files) {
             processHashesFile(f);
+        }
+        if(!otherHash.isEmpty()){
+            hashData.setOtherHash(otherHash);
+        }
+        if(!drawableHash.isEmpty()){
+            hashData.setDrawableHash(drawableHash);
+        }
+        if(!layoutHash.isEmpty()){
+            hashData.setLayoutHash(layoutHash);
         }
         if (data != null) {
             data.setFileDigest(hashData);
@@ -120,11 +132,11 @@ public class HashProcessor {
             } else if (fileName.equals("resources.arsc")) {
                 hashData.setArscHash(fileHash);
             } else if (fileName.startsWith("res/drawable")) {
-                hashData.getDrawableHash().put(fileHash,fileName);
+                drawableHash.put(fileHash,fileName);
             } else if (fileName.startsWith("res/layout")) {
-                hashData.getLayoutHash().put(fileHash,fileName);
+                layoutHash.put(fileHash,fileName);
             } else {
-                hashData.getOtherHash().put(fileHash,fileName);
+                otherHash.put(fileHash,fileName);
             }
         }
 
