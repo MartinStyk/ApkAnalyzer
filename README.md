@@ -108,6 +108,7 @@ certBase64Md5      | String | Base64 MD5 hash of certificate
 certMd5       | String | MD5 hash of certificate
 version      | Integer | Version value from the certificate
 issuerName   | String | Representation of the X.500 distinguished name using the format defined in RFC 2253
+subjectName   | String | Representation of the X.500 distinguished name using the format defined in RFC 2253
 
 <a name="resource"/>
 ####Resources metadata

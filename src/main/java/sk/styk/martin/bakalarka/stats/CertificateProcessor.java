@@ -127,6 +127,7 @@ public class CertificateProcessor {
                 data.setSignAlgorithm(certificate.getSigAlgName());
                 data.setSignAlgorithmOID(certificate.getSigAlgOID());
                 data.setIssuerName(certificate.getIssuerX500Principal().getName());
+                data.setSubjectName(certificate.getSubjectX500Principal().getName());
                 data.setVersion(certificate.getVersion());
 
                 certDatas.add(data);
