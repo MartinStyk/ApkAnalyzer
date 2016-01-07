@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -111,6 +112,42 @@ public class JsonUtils {
         return list;
     }
 
+    public static void toJson(ComparisonResult data, File outputDirectory) {
+
+        if (!outputDirectory.exists()) {
+            outputDirectory.mkdirs();
+            logger.info("Creating compare metadata directory" + outputDirectory.getName());
+        }
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
+                .create();
+
+        String jsonString = gson.toJson(data);
+
+        File outFile = new File(outputDirectory, getMetadataFileName(data));
+
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter(outFile);
+            writer.write(jsonString);
+            logger.info(data.getNameA() + " vs " + data.getNameB() + " written to " + outFile.getName() + " in " + outputDirectory.getName());
+
+        } catch (IOException e) {
+            logger.error("Error saving file to " + outFile.getName());
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileWriter : " + e.toString());
+                }
+            }
+        }
+    }
+
     private static String getMetadataFileName(ApkData data) {
         String apkName = data.getFileName();
         String jsonName = apkName.substring(0, apkName.length() - 3) + "json";
@@ -118,4 +155,10 @@ public class JsonUtils {
         return jsonName;
     }
 
+    private static String getMetadataFileName(ComparisonResult data) {
+        String apkNameA = data.getNameA();
+        String apkNameB = data.getNameB();
+
+        return apkNameA + "-VS-" + apkNameB + ".json";
+    }
 }
