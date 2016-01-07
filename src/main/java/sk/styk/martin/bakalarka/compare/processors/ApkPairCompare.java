@@ -42,7 +42,7 @@ public class ApkPairCompare {
         //check whether they are similiar
         boolean isBasicallySimilar = similarityEvaluator.basicEvaluate(comparisonResult);
 
-        if (isBasicallySimilar) { //if they are not similar dont continue
+        if (!isBasicallySimilar) { //if they are not similar dont continue
             logger.trace("Basically not similar " + dataA.getFileName() + " and " + dataB.getFileName());
             return comparisonResult;
         }

@@ -1,10 +1,12 @@
 package sk.styk.martin.bakalarka;
 
+    import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
+import sk.styk.martin.bakalarka.compare.processors.ApkBatchCompare;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
-import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        analyze();
-
+        //analyze();
+        compareTwo();
     }
 
     public static void analyze() {
@@ -48,31 +50,19 @@ public class Main {
         analyzer.processFiles(outputDirectory);
     }
 
+    public static void compareTwo() {
 
-    // Not implemented yet
-//    public static void compareTwo() {
-//
-//        //possible input from user
-//        final String ANALYZED_APK_1;
-//        final String ANALYZED_APK_2;
-//        final String OUTPUT_DIR;
-//
-//        //code that handle 'compare two use case'
-//        final ApkFile analyzedApk1 = new File(ANALYZED_APK_1);
-//        final ApkFile analyzedApk2 = new File(ANALYZED_APK_2);
-//        ApkProcessor analyzer = new ApkProcessor(analyzedApk1);
-//        ApkData apk1Data = apk1Analyer.processFile(analyzedApk1);
-//
-//        ApkProcessor apk2Analyer = new ApkProcessor(analyzedApk2);
-//        ApkData apk2Data = apk1Analyer.processFile(analyzedApk1);
-//
-//        ApkCompare comparator = new ApkCompare(apk1Data,apk2Data);
-//        ComparisonResult result = comparator.compare();
-//        if(result !=null){
-//            JsonUtils.toJson(result,OUTPUT_DIR);
-//        }
-//
-//    }
+        //possible input from user
+        final String ANALYZED_APK_1 = "D:\\TEST\\1.json";
+        final String ANALYZED_APK_2 = "D:\\TEST\\2.json";
+        final String OUTPUT_DIR = "D:\\output";
+
+        //code that handle 'compare two use case'
+        List<File> jsons = Arrays.asList(new File(ANALYZED_APK_1), new File(ANALYZED_APK_2));
+        ApkBatchCompare apkBatchCompare = new ApkBatchCompare(jsons);
+        apkBatchCompare.processFiles(new File(OUTPUT_DIR));
+
+    }
 
 }
 

@@ -46,12 +46,12 @@ public class MetadataPairCompare {
             compareNumberOfDifferentLayoutResources();
         }
 
-        isBasicCompared  = true;
+        isBasicCompared = true;
         return result;
     }
 
     public MetadataCompareResult fullCompare() {
-        if(!isBasicCompared)
+        if (!isBasicCompared)
             result = basicCompare();
 
         compareDexSize();
@@ -808,8 +808,19 @@ public class MetadataPairCompare {
     }
 
     private Integer getPercentage(long valueA, long valueB) {
-        long difference = valueB - valueA;
-        return Math.round((valueA + valueB) / difference);
+        Long difference = valueB - valueA;
+        if (difference < 0.01 && difference > -0.01) {
+            return 0;
+        }
+        Long bigger;
+        if (valueA > valueB) {
+            bigger = valueA;
+        } else {
+            bigger = valueB;
+        }
+
+        Long result =Math.abs(Math.round(100L * difference / bigger.doubleValue()));
+        return result.intValue();
     }
 
     private String getDifferenceString(Object valueA, Object valueB) {

@@ -5,6 +5,8 @@ import java.util.List;
 /**Everything relates to first APK
  * if difference is +5, then A+5=B
  *
+ * difference percentage means difference is x% of larger
+ *
  * Created by Martin Styk on 06.01.2016.
  */
 public class MetadataCompareResult {
