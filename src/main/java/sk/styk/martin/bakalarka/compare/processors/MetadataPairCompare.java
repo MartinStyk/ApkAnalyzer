@@ -14,6 +14,7 @@ public class MetadataPairCompare {
     private ApkData apkDataA;
     private ApkData apkDataB;
     private MetadataCompareResult result;
+    private boolean isBasicCompared = false;
 
     public MetadataPairCompare(ApkData apkDataA, ApkData apkDataB) {
         if (apkDataA == null) {
@@ -31,14 +32,28 @@ public class MetadataPairCompare {
 
         result = new MetadataCompareResult();
 
+        compareFileSize();
 
+        if (apkDataB.getAndroidManifest() != null && apkDataA.getAndroidManifest() != null) {
+            compareActivities();
+            compareServices();
+            compareProviders();
+            compareReceivers();
+        }
+
+        if (apkDataA.getResourceData() != null && apkDataB.getResourceData() != null) {
+            compareNumberOfDifferentDrawables();
+            compareNumberOfDifferentLayoutResources();
+        }
+
+        isBasicCompared  = true;
         return result;
     }
 
     public MetadataCompareResult fullCompare() {
-        result = new MetadataCompareResult();
+        if(!isBasicCompared)
+            result = basicCompare();
 
-        compareFileSize();
         compareDexSize();
         compareArscSize();
 
@@ -55,10 +70,6 @@ public class MetadataPairCompare {
             compareSupportsScreensLarge();
             compareSupportsScreensNormal();
             compareSupportsScreensSmall();
-            compareActivities();
-            compareServices();
-            compareProviders();
-            compareReceivers();
             compareLibraries();
             compareFeatures();
             comparePermission();
@@ -78,7 +89,6 @@ public class MetadataPairCompare {
         if (apkDataA.getResourceData() != null && apkDataB.getResourceData() != null) {
             compareLocales();
             compareNumberOfStringResources();
-            compareNumberOfDifferentDrawables();
             compareNumberOfXmlDrawables();
             compareNumberOfJpgDrawables();
             compareNumberOfPngDrawables();
@@ -91,7 +101,6 @@ public class MetadataPairCompare {
             compareNumberOfXxxhdpiDrawables();
             compareNumberOfUnspecifiedDpiDrawables();
             compareNumberOfLayoutResources();
-            compareNumberOfDifferentLayoutResources();
             compareNumberOfMenuResources();
             compareNumberOfRawResources();
         }
