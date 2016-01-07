@@ -11,29 +11,42 @@ public class ApkPairCompare {
 
     private ApkData dataA;
     private ApkData dataB;
-    private ComparisonResult result;
+    private ComparisonResult comparisonResult;
     private HashPairCompare hashComparator;
     private MetadataPairCompare metadataComparator;
+    private SimilarityEvaluator similarityEvaluator;
 
-    public ApkPairCompare(ApkData dataA, ApkData dataB){
-        if(dataA == null || dataB == null){
+    public ApkPairCompare(ApkData dataA, ApkData dataB) {
+        if (dataA == null || dataB == null) {
             throw new IllegalArgumentException("data is null");
         }
         this.dataA = dataA;
         this.dataB = dataB;
         this.hashComparator = new HashPairCompare(dataA.getFileDigest(), dataB.getFileDigest());
-        this.metadataComparator = new MetadataPairCompare(dataA,dataB);
+        this.metadataComparator = new MetadataPairCompare(dataA, dataB);
+        this.similarityEvaluator = new SimilarityEvaluator();
     }
 
     public ComparisonResult compare() throws ComparisonException {
-        result = new ComparisonResult(dataA.getFileName(), dataB.getFileName());
 
-        result.setMetadataCompareResult(metadataComparator.fullCompare());
-//elevate whether they are similiar if so continue
-    //    result.setMetadataCompareResult(metadataComparator.fullCompare());
-        result.setHashCompareResult(hashComparator.hashCompare());
+        comparisonResult = new ComparisonResult(dataA.getFileName(), dataB.getFileName());
 
-        return result;
+        //do just basic compare
+        comparisonResult.setMetadataCompareResult(metadataComparator.basicCompare());
+
+        //check whether they are similiar
+        boolean isBasicallySimilar = similarityEvaluator.basicEvaluate(comparisonResult);
+
+        if (isBasicallySimilar) //if they are not similar dont continue
+            return comparisonResult;
+
+        //if they are similar get full statistics
+        comparisonResult.setMetadataCompareResult(metadataComparator.fullCompare());
+        comparisonResult.setHashCompareResult(hashComparator.hashCompare());
+
+        boolean isDetailedSimilar = similarityEvaluator.fullEvaluate(comparisonResult);
+
+        return comparisonResult;
     }
 
 }
