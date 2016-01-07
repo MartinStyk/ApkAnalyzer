@@ -64,7 +64,7 @@ public class MetadataPairCompare {
             comparePermission();
         }
 
-        if(apkDataA.getCertificateDatas().size() > 0 && apkDataB.getCertificateDatas().size() > 0 ){
+        if (apkDataA.getCertificateDatas().size() > 0 && apkDataB.getCertificateDatas().size() > 0) {
             compareCertificateSignAlgorithm();
             compareCertificateStartDate();
             compareCertificateEndDate();
@@ -75,6 +75,26 @@ public class MetadataPairCompare {
             compareCertificateSubject();
         }
 
+        if (apkDataA.getResourceData() != null && apkDataB.getResourceData() != null) {
+            compareLocales();
+            compareNumberOfStringResources();
+            compareNumberOfDifferentDrawables();
+            compareNumberOfXmlDrawables();
+            compareNumberOfJpgDrawables();
+            compareNumberOfPngDrawables();
+            compareNumberOfGifDrawables();
+            compareNumberOfLdpiDrawables();
+            compareNumberOfMdpiDrawables();
+            compareNumberOfHdpiDrawables();
+            compareNumberOfXhdpiDrawables();
+            compareNumberOfXxhdpiDrawables();
+            compareNumberOfXxxhdpiDrawables();
+            compareNumberOfUnspecifiedDpiDrawables();
+            compareNumberOfLayoutResources();
+            compareNumberOfDifferentLayoutResources();
+            compareNumberOfMenuResources();
+            compareNumberOfRawResources();
+        }
 
         return result;
     }
@@ -85,7 +105,7 @@ public class MetadataPairCompare {
         }
         Long diffSize = apkDataB.getFileSize() - apkDataA.getFileSize();
         result.setFileSizeDifference(diffSize);
-        result.setFileSizeDifferencePercentage(getPercentage(apkDataA.getFileSize(), diffSize));
+        result.setFileSizeDifferencePercentage(getPercentage(apkDataA.getFileSize(), apkDataB.getFileSize()));
     }
 
     private void compareDexSize() {
@@ -94,7 +114,7 @@ public class MetadataPairCompare {
         }
         Long diffSize = apkDataB.getDexSize() - apkDataA.getDexSize();
         result.setDexSizeDifference(diffSize);
-        result.setDexSizeDifferencePercentage(getPercentage(apkDataA.getDexSize(), diffSize));
+        result.setDexSizeDifferencePercentage(getPercentage(apkDataA.getDexSize(), apkDataB.getDexSize()));
     }
 
     private void compareArscSize() {
@@ -103,7 +123,7 @@ public class MetadataPairCompare {
         }
         Long diffSize = apkDataB.getArscSize() - apkDataA.getArscSize();
         result.setArscSizeDifference(diffSize);
-        result.setArscSizeDifferencePercentage(getPercentage(apkDataA.getArscSize() + apkDataA.getArscSize(), diffSize));
+        result.setArscSizeDifferencePercentage(getPercentage(apkDataA.getArscSize(), apkDataB.getArscSize()));
     }
 
     private void comparePackageName() {
@@ -284,9 +304,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfActivitiesDifference(difference);
-        //result.setNumberOfActivitiesDifferencePercentage(getPercentage());
+        result.setNumberOfActivitiesDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesOfActivitiesA = new ArrayList<String>(apkDataA.getAndroidManifest().getNamesOfActivities());
         List<String> namesOfActivitiesB = new ArrayList<String>(apkDataB.getAndroidManifest().getNamesOfActivities());
@@ -306,9 +326,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfServicesDifference(difference);
-        //result.setNumberOfServicesDifferencePercentage(getPercentage());
+        result.setNumberOfServicesDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesOfServicesA = new ArrayList<String>(apkDataA.getAndroidManifest().getNamesOfServices());
         List<String> namesOfServicesB = new ArrayList<String>(apkDataB.getAndroidManifest().getNamesOfServices());
@@ -328,9 +348,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfContentProvidersDifference(difference);
-        //  result.setNumberOfContentProvidersDifferencePercentage(getPercentage());
+        result.setNumberOfContentProvidersDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getNamesOfContentProviders());
         List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getNamesOfContentProviders());
@@ -350,9 +370,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfBroadcastReceiversDifference(difference);
-        //  result.setNumberOfBroadcastReceiversDifferencePercentage(getPercentage());
+        result.setNumberOfBroadcastReceiversDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getNamesOfBroadcastReceivers());
         List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getNamesOfBroadcastReceivers());
@@ -372,9 +392,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfPermissionsDifference(difference);
-       // result.setNumberOfPermissionsDifferencePercentage(getPercentage());
+        result.setNumberOfPermissionsDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getUsesPermissions());
         List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getUsesPermissions());
@@ -394,9 +414,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfLibrariesDifference(difference);
-        // result.setNumberOfLibrariesDifferencePercentage(getPercentage());
+        result.setNumberOfLibrariesDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getUsesLibrary());
         List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getUsesLibrary());
@@ -416,9 +436,9 @@ public class MetadataPairCompare {
 
         Integer difference = valueB - valueA;
         result.setNumberOfFeaturesDifference(difference);
-        // result.setNumberOfFeaturesDifferencePercentage(getPercentage());
+        result.setNumberOfFeaturesDifferencePercentage(getPercentage(valueA, valueB));
 
-        if(difference == 0) return;
+        if (difference == 0) return;
 
         List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getUsesFeature());
         List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getUsesFeature());
@@ -429,7 +449,7 @@ public class MetadataPairCompare {
         result.setAdditionalFeaturesInB(additionalInB);
     }
 
-    private void compareCertificateSignAlgorithm(){
+    private void compareCertificateSignAlgorithm() {
         String valueA = apkDataA.getCertificateDatas().get(0).getSignAlgorithm();
         String valueB = apkDataB.getCertificateDatas().get(0).getSignAlgorithm();
 
@@ -443,7 +463,7 @@ public class MetadataPairCompare {
         }
     }
 
-    private void compareCertificateStartDate(){
+    private void compareCertificateStartDate() {
         Date valueA = apkDataA.getCertificateDatas().get(0).getStartDate();
         Date valueB = apkDataB.getCertificateDatas().get(0).getStartDate();
 
@@ -457,7 +477,7 @@ public class MetadataPairCompare {
         }
     }
 
-    private void compareCertificateEndDate(){
+    private void compareCertificateEndDate() {
         Date valueA = apkDataA.getCertificateDatas().get(0).getEndDate();
         Date valueB = apkDataB.getCertificateDatas().get(0).getEndDate();
 
@@ -470,7 +490,8 @@ public class MetadataPairCompare {
             result.setCertificateEndDateDifference(getDifferenceString(valueA, valueB));
         }
     }
-    private void compareCertificatePublicKey(){
+
+    private void compareCertificatePublicKey() {
         String valueA = apkDataA.getCertificateDatas().get(0).getPublicKeyMd5();
         String valueB = apkDataB.getCertificateDatas().get(0).getPublicKeyMd5();
 
@@ -481,7 +502,7 @@ public class MetadataPairCompare {
         result.setCertificatePublicKeySame(isSame);
     }
 
-    private void compareCertificate(){
+    private void compareCertificate() {
         String valueA = apkDataA.getCertificateDatas().get(0).getCertMd5();
         String valueB = apkDataB.getCertificateDatas().get(0).getCertMd5();
 
@@ -492,7 +513,7 @@ public class MetadataPairCompare {
         result.setCertificateSame(isSame);
     }
 
-    private void compareCertificateVersion(){
+    private void compareCertificateVersion() {
         Integer valueA = apkDataA.getCertificateDatas().get(0).getVersion();
         Integer valueB = apkDataB.getCertificateDatas().get(0).getVersion();
 
@@ -506,7 +527,7 @@ public class MetadataPairCompare {
         }
     }
 
-    private void compareCertificateIssuer(){
+    private void compareCertificateIssuer() {
         String valueA = apkDataA.getCertificateDatas().get(0).getIssuerName();
         String valueB = apkDataB.getCertificateDatas().get(0).getIssuerName();
 
@@ -520,7 +541,7 @@ public class MetadataPairCompare {
         }
     }
 
-    private void compareCertificateSubject(){
+    private void compareCertificateSubject() {
         String valueA = apkDataA.getCertificateDatas().get(0).getSubjectName();
         String valueB = apkDataB.getCertificateDatas().get(0).getSubjectName();
 
@@ -534,9 +555,235 @@ public class MetadataPairCompare {
         }
     }
 
+    private void compareLocales() {
+        List<String> valueA = apkDataA.getResourceData().getLocale();
+        List<String> valueB = apkDataB.getResourceData().getLocale();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        Integer difference = valueB.size() - valueA.size();
+        result.setNumberOfLocalesDifference(difference);
+        result.setGetNumberOfLocalesDifferencePercentage(getPercentage(valueA.size(), valueB.size()));
+
+        if (difference == 0) return;
+
+        List<String> namesInA = new ArrayList<String>(valueA);
+        List<String> namesInB = new ArrayList<String>(valueB);
+        List<String> additionalInA = new ArrayList<String>();
+        List<String> additionalInB = new ArrayList<String>();
+        compareLists(namesInA, namesInB, additionalInA, additionalInB);
+        result.setAdditionalLocalesInA(additionalInA);
+        result.setAdditionalLocalesInB(additionalInB);
+    }
+
+    private void compareNumberOfStringResources() {
+        Integer valueA = apkDataA.getResourceData().getNumberOfStringResource();
+        Integer valueB = apkDataB.getResourceData().getNumberOfStringResource();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfStringResourceDifference(difference);
+        result.setNumberOfStringResourceDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfPngDrawables() {
+        Integer valueA = apkDataA.getResourceData().getPngDrawables();
+        Integer valueB = apkDataB.getResourceData().getPngDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfPngDrawablesDifference(difference);
+        result.setNumberOfPngDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfJpgDrawables() {
+        Integer valueA = apkDataA.getResourceData().getJpgDrawables();
+        Integer valueB = apkDataB.getResourceData().getJpgDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfJpgDrawablesDifference(difference);
+        result.setNumberOfJpgDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfGifDrawables() {
+        Integer valueA = apkDataA.getResourceData().getGifDrawables();
+        Integer valueB = apkDataB.getResourceData().getGifDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfGifDrawablesDifference(difference);
+        result.setNumberOfGifDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfXmlDrawables() {
+        Integer valueA = apkDataA.getResourceData().getXmlDrawables();
+        Integer valueB = apkDataB.getResourceData().getXmlDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfXmlDrawablesDifference(difference);
+        result.setNumberOfXmlDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfLdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getLdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getLdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfLdpiDrawablesDifference(difference);
+        result.setNumberOfLdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfMdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getMdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getMdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfMdpiDrawablesDifference(difference);
+        result.setNumberOfMdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfHdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getHdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getHdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfHdpiDrawablesDifference(difference);
+        result.setNumberOfHdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfXhdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getXhdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getXhdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfXhdpiDrawablesDifference(difference);
+        result.setNumberOfXhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfXxhdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getXxhdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getXxhdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfXxhdpiDrawablesDifference(difference);
+        result.setNumberOfXxhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfXxxhdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getXxxhdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getXxxhdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfXxxhdpiDrawablesDifference(difference);
+        result.setNumberOfXxxhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfUnspecifiedDpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getUnspecifiedDpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getUnspecifiedDpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfUnspecifiedDpiDrawablesDifference(difference);
+        result.setNumberOfUnspecifiedDpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfRawResources() {
+        Integer valueA = apkDataA.getResourceData().getRawResources();
+        Integer valueB = apkDataB.getResourceData().getRawResources();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfRawResourcesDifference(difference);
+        result.setNumberOfRawResourcesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfMenuResources() {
+        Integer valueA = apkDataA.getResourceData().getMenu();
+        Integer valueB = apkDataB.getResourceData().getMenu();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfMenusDifference(difference);
+        result.setNumberOfMenusDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfLayoutResources() {
+        Integer valueA = apkDataA.getResourceData().getLayouts();
+        Integer valueB = apkDataB.getResourceData().getLayouts();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfLayoutsDifference(difference);
+        result.setNumberOfLayoutsDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfDifferentLayoutResources() {
+        Integer valueA = apkDataA.getResourceData().getDifferentLayouts();
+        Integer valueB = apkDataB.getResourceData().getDifferentLayouts();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfDifferentLayoutsDifference(difference);
+        result.setNumberOfDifferentLayoutsDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
+    private void compareNumberOfDifferentDrawables() {
+        Integer valueA = apkDataA.getResourceData().getDifferentDrawables();
+        Integer valueB = apkDataB.getResourceData().getDifferentDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfDifferentDrawablesDifference(difference);
+        result.setNumberOfDifferentDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+    }
+
     private <X> void compareLists(List<X> inputA, List<X> inputB, List<X> additionalA, List<X> additionalB) {
 
-        if(inputA== null || inputB == null){
+        if (inputA == null || inputB == null) {
             return;
         }
 
@@ -551,9 +798,9 @@ public class MetadataPairCompare {
         }
     }
 
-    private Integer getPercentage(long full, long part) {
-        Long l = Math.round(part * 100.0 / full);
-        return l.intValue();
+    private Integer getPercentage(long valueA, long valueB) {
+        long difference = valueB - valueA;
+        return Math.round((valueA + valueB) / difference);
     }
 
     private String getDifferenceString(Object valueA, Object valueB) {

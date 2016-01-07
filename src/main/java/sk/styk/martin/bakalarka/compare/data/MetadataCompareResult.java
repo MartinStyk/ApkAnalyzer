@@ -119,11 +119,17 @@ public class MetadataCompareResult {
 
 
     //resources
+
+    private Integer numberOfLocalesDifference;
+    private Integer getNumberOfLocalesDifferencePercentage;
     private List<String> additionalLocalesInA;
     private List<String> additionalLocalesInB;
 
     private Integer numberOfStringResourceDifference;
     private Integer numberOfStringResourceDifferencePercentage;
+
+    private Integer numberOfDifferentDrawablesDifference;
+    private Integer numberOfDifferentDrawablesDifferencePercentage;
 
     private Integer numberOfPngDrawablesDifference;
     private Integer numberOfPngDrawablesDifferencePercentage;
@@ -746,6 +752,22 @@ public class MetadataCompareResult {
         this.certificateSubjectNameDifference = certificateSubjectNameDifference;
     }
 
+    public Integer getGetNumberOfLocalesDifferencePercentage() {
+        return getNumberOfLocalesDifferencePercentage;
+    }
+
+    public void setGetNumberOfLocalesDifferencePercentage(Integer getNumberOfLocalesDifferencePercentage) {
+        this.getNumberOfLocalesDifferencePercentage = getNumberOfLocalesDifferencePercentage;
+    }
+
+    public Integer getNumberOfLocalesDifference() {
+        return numberOfLocalesDifference;
+    }
+
+    public void setNumberOfLocalesDifference(Integer numberOfLocalesDifference) {
+        this.numberOfLocalesDifference = numberOfLocalesDifference;
+    }
+
     public List<String> getAdditionalLocalesInA() {
         return additionalLocalesInA;
     }
@@ -856,6 +878,22 @@ public class MetadataCompareResult {
 
     public void setNumberOfLdpiDrawablesDifferencePercentage(Integer numberOfLdpiDrawablesDifferencePercentage) {
         this.numberOfLdpiDrawablesDifferencePercentage = numberOfLdpiDrawablesDifferencePercentage;
+    }
+
+    public Integer getNumberOfDifferentDrawablesDifference() {
+        return numberOfDifferentDrawablesDifference;
+    }
+
+    public void setNumberOfDifferentDrawablesDifference(Integer numberOfDifferentDrawablesDifference) {
+        this.numberOfDifferentDrawablesDifference = numberOfDifferentDrawablesDifference;
+    }
+
+    public Integer getNumberOfDifferentDrawablesDifferencePercentage() {
+        return numberOfDifferentDrawablesDifferencePercentage;
+    }
+
+    public void setNumberOfDifferentDrawablesDifferencePercentage(Integer numberOfDifferentDrawablesDifferencePercentage) {
+        this.numberOfDifferentDrawablesDifferencePercentage = numberOfDifferentDrawablesDifferencePercentage;
     }
 
     public Integer getNumberOfMdpiDrawablesDifference() {
