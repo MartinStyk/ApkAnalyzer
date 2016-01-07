@@ -3,7 +3,7 @@ package sk.styk.martin.bakalarka.compare.data;
 import java.util.List;
 
 /**Everything relates to first APK
- * if difference is +5, then A=B+5
+ * if difference is +5, then A+5=B
  *
  * Created by Martin Styk on 06.01.2016.
  */
@@ -105,6 +105,7 @@ public class MetadataCompareResult {
     private String certificateEndDateDifference;
 
     private Boolean isCertificatePublicKeySame;
+
     private Boolean isCertificateSame;
 
     private Boolean isCertificateVersionSame;

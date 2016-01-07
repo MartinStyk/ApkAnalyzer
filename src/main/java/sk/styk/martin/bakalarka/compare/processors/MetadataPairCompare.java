@@ -4,6 +4,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,6 +62,17 @@ public class MetadataPairCompare {
             compareLibraries();
             compareFeatures();
             comparePermission();
+        }
+
+        if(apkDataA.getCertificateDatas().size() > 0 && apkDataB.getCertificateDatas().size() > 0 ){
+            compareCertificateSignAlgorithm();
+            compareCertificateStartDate();
+            compareCertificateEndDate();
+            compareCertificatePublicKey();
+            compareCertificate();
+            compareCertificateVersion();
+            compareCertificateIssuer();
+            compareCertificateSubject();
         }
 
 
@@ -417,6 +429,110 @@ public class MetadataPairCompare {
         result.setAdditionalFeaturesInB(additionalInB);
     }
 
+    private void compareCertificateSignAlgorithm(){
+        String valueA = apkDataA.getCertificateDatas().get(0).getSignAlgorithm();
+        String valueB = apkDataB.getCertificateDatas().get(0).getSignAlgorithm();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateSignAlgorithmSame(isSame);
+        if (!isSame) {
+            result.setCertificateSignAlgorithmDifference(getDifferenceString(valueA, valueB));
+        }
+    }
+
+    private void compareCertificateStartDate(){
+        Date valueA = apkDataA.getCertificateDatas().get(0).getStartDate();
+        Date valueB = apkDataB.getCertificateDatas().get(0).getStartDate();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateStartDateSame(isSame);
+        if (!isSame) {
+            result.setCertificateStartDateDifference(getDifferenceString(valueA, valueB));
+        }
+    }
+
+    private void compareCertificateEndDate(){
+        Date valueA = apkDataA.getCertificateDatas().get(0).getEndDate();
+        Date valueB = apkDataB.getCertificateDatas().get(0).getEndDate();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateEndDateSame(isSame);
+        if (!isSame) {
+            result.setCertificateEndDateDifference(getDifferenceString(valueA, valueB));
+        }
+    }
+    private void compareCertificatePublicKey(){
+        String valueA = apkDataA.getCertificateDatas().get(0).getPublicKeyMd5();
+        String valueB = apkDataB.getCertificateDatas().get(0).getPublicKeyMd5();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificatePublicKeySame(isSame);
+    }
+
+    private void compareCertificate(){
+        String valueA = apkDataA.getCertificateDatas().get(0).getCertMd5();
+        String valueB = apkDataB.getCertificateDatas().get(0).getCertMd5();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateSame(isSame);
+    }
+
+    private void compareCertificateVersion(){
+        Integer valueA = apkDataA.getCertificateDatas().get(0).getVersion();
+        Integer valueB = apkDataB.getCertificateDatas().get(0).getVersion();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateVersionSame(isSame);
+        if (!isSame) {
+            result.setCertificateVersionDifference(getDifferenceString(valueA, valueB));
+        }
+    }
+
+    private void compareCertificateIssuer(){
+        String valueA = apkDataA.getCertificateDatas().get(0).getIssuerName();
+        String valueB = apkDataB.getCertificateDatas().get(0).getIssuerName();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateIssuerNameSame(isSame);
+        if (!isSame) {
+            result.setCertificateIssuerNameDifference(getDifferenceString(valueA, valueB));
+        }
+    }
+
+    private void compareCertificateSubject(){
+        String valueA = apkDataA.getCertificateDatas().get(0).getSubjectName();
+        String valueB = apkDataB.getCertificateDatas().get(0).getSubjectName();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        boolean isSame = valueA.equals(valueB);
+        result.setCertificateSubjectNameSame(isSame);
+        if (!isSame) {
+            result.setCertificateSubjectNameDifference(getDifferenceString(valueA, valueB));
+        }
+    }
 
     private <X> void compareLists(List<X> inputA, List<X> inputB, List<X> additionalA, List<X> additionalB) {
 
