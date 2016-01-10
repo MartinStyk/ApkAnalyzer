@@ -27,8 +27,8 @@ public class ApkFile extends File {
 
     public ApkFile(String pathname) {
         super(pathname);
-        if (!pathname.endsWith(".apk")) {
-            throw new IllegalArgumentException("not apk file");
+        if (!(pathname.endsWith(".apk") || pathname.endsWith(".APK"))) {
+            throw new IllegalArgumentException(pathname + " not apk file");
         }
     }
 
