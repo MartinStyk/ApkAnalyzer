@@ -1,6 +1,7 @@
 package sk.styk.martin.bakalarka.compare.processors;
 
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
+import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
 
 import java.util.Arrays;
@@ -12,11 +13,7 @@ import java.util.List;
 public class SimilarityEvaluator {
 
     private SimilarityThreshold similarityThreshold;
-
-    public void basicEvaluate(ComparisonResult comparisonResult, SimilarityThreshold similarityThreshold) {
-        this.similarityThreshold = similarityThreshold;
-        basicEvaluate(comparisonResult);
-    }
+    private Boolean basicEvaluateResult;
 
     public boolean basicEvaluate(ComparisonResult comparisonResult) {
 
@@ -43,33 +40,57 @@ public class SimilarityEvaluator {
         Boolean layout = compareRatios(metadataResult.getNumberOfDifferentLayoutsDifferencePercentage(), similarityThreshold.getMaxDifferentLayoutsRatioDifference());
         Boolean drawable = compareRatios(metadataResult.getNumberOfDifferentDrawablesDifferencePercentage(), similarityThreshold.getMaxDifferentDrawablesRatioDifference());
 
-        boolean result = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable));
+        basicEvaluateResult = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable),similarityThreshold.getMinBooleanEvaluationThreshold());
 
-        comparisonResult.setSimilar(result);
+        comparisonResult.setSimilar(basicEvaluateResult);
 
-        return result;
+        return basicEvaluateResult;
 
     }
 
-    public void fullEvaluate(ComparisonResult comparisonResult, SimilarityThreshold similarityThreshold) {
-        this.similarityThreshold = similarityThreshold;
-        fullEvaluate(comparisonResult);
-    }
 
     public boolean fullEvaluate(ComparisonResult comparisonResult) {
-//TODO
-        return basicEvaluate(comparisonResult);
 
+        if (comparisonResult == null) {
+            throw new IllegalArgumentException("comparisonResult is null");
+        }
+        if (basicEvaluateResult != null && basicEvaluateResult == false) {
+            return false;
+        }
+        HashCompareResult compareResult = comparisonResult.getHashCompareResult();
+
+        if (compareResult == null) {
+            boolean isSimilar = basicEvaluateResult == null ? basicEvaluate(comparisonResult) : basicEvaluateResult;
+            comparisonResult.setSimilar(isSimilar);
+            return isSimilar;
+        }
+
+        if (similarityThreshold == null) {
+            similarityThreshold = new SimilarityThreshold();
+        }
+
+        HashCompareResult hashCompareResult = comparisonResult.getHashCompareResult();
+
+        Boolean drawables = compareRatios(hashCompareResult.getIdenticalDrawablesRatio(), similarityThreshold.getMinIdenticalDrawablesInApkRatio(), true);
+        Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayoutsRatio(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
+        Boolean others = compareRatios(hashCompareResult.getIdenticalOthersRatio(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
+
+        boolean result =  evaluateBooleans(Arrays.asList(drawables, layouts, others),similarityThreshold.getMinBooleanEvaluationThreshold());
+        comparisonResult.setSimilar(result);
+        return result;
     }
-
 
     private Boolean compareRatios(Integer current, Integer threshold) {
-        if (current == null)
-            return null;
-        return current < threshold;
+        return compareRatios(current, threshold, false);
     }
 
-    private Boolean evaluateBooleans(List<Boolean> booleans) {
+    private Boolean compareRatios(Integer current, Integer threshold, boolean isMinCriterium) {
+        if (current == null)
+            return null;
+        return isMinCriterium ? threshold < current : current < threshold;
+    }
+
+    private Boolean evaluateBooleans(List<Boolean> booleans, int threshold) {
         int allSize = booleans.size();
         int falseSize = 0;
         int nullSize = 0;
@@ -86,7 +107,7 @@ public class SimilarityEvaluator {
 
         int allSize2 = allSize - nullSize;
 
-        return ((trueSize * 100) / allSize2) > similarityThreshold.getMinBooleanEvaluationThreshold();
+        return ((trueSize * 100) / allSize2) > threshold;
 
     }
 

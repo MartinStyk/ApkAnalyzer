@@ -106,6 +106,9 @@ public class HashPairCompare {
         result.setTotalDrawablesA(mapA.keySet().size());
         result.setTotalDrawablesB(mapB.keySet().size());
 
+        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalDrawablesRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
+
     }
 
     private void compareLayouts() {
@@ -152,6 +155,9 @@ public class HashPairCompare {
         result.setIdenticalLayouts(mapA.keySet().size() - keysA.size());
         result.setTotalLayoutsA(mapA.keySet().size());
         result.setTotalLayoutsB(mapB.keySet().size());
+
+        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalLayoutsRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
 
     }
 
@@ -200,6 +206,9 @@ public class HashPairCompare {
         result.setTotalOthersA(mapA.keySet().size());
         result.setTotalOthersB(mapB.keySet().size());
 
+        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalOthersRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
+
     }
 
     private void compare(Set<String> keysA, Set<String> keysB) {
@@ -214,6 +223,11 @@ public class HashPairCompare {
                 keysA.remove(value);
             }
         }
+    }
+    private Integer getPercentage(Integer part, Integer bigger) {
+
+        Long result =Math.abs(Math.round(100L * part / bigger.doubleValue()));
+        return result.intValue();
     }
 
 }

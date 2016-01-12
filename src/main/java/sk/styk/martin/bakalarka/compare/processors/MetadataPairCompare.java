@@ -807,7 +807,7 @@ public class MetadataPairCompare {
         }
     }
 
-    private Integer getPercentage(long valueA, long valueB) {
+    protected static Integer getPercentage(long valueA, long valueB) {
         Long difference = valueB - valueA;
         if (difference < 0.01 && difference > -0.01) {
             return 0;

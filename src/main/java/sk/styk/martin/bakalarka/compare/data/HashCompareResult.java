@@ -24,6 +24,10 @@ public class HashCompareResult {
     private Integer identicalLayouts;
     private Integer identicalOthers;
 
+    private Integer identicalDrawablesRatio;
+    private Integer identicalLayoutsRatio;
+    private Integer identicalOthersRatio;
+
     private List<String> modifiedDrawableFiles;
     private List<String> modifiedLayoutFiles;
     private List<String> modifiedOtherFiles;
@@ -169,6 +173,30 @@ public class HashCompareResult {
         this.additionaLayoutFilesB = additionaLayoutFilesB;
     }
 
+    public Integer getIdenticalDrawablesRatio() {
+        return identicalDrawablesRatio;
+    }
+
+    public void setIdenticalDrawablesRatio(Integer identicalDrawablesRatio) {
+        this.identicalDrawablesRatio = identicalDrawablesRatio;
+    }
+
+    public Integer getIdenticalLayoutsRatio() {
+        return identicalLayoutsRatio;
+    }
+
+    public void setIdenticalLayoutsRatio(Integer identicalLayoutsRatio) {
+        this.identicalLayoutsRatio = identicalLayoutsRatio;
+    }
+
+    public Integer getIdenticalOthersRatio() {
+        return identicalOthersRatio;
+    }
+
+    public void setIdenticalOthersRatio(Integer identicalOthersRatio) {
+        this.identicalOthersRatio = identicalOthersRatio;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -194,6 +222,12 @@ public class HashCompareResult {
         if (identicalLayouts != null ? !identicalLayouts.equals(that.identicalLayouts) : that.identicalLayouts != null)
             return false;
         if (identicalOthers != null ? !identicalOthers.equals(that.identicalOthers) : that.identicalOthers != null)
+            return false;
+        if (identicalDrawablesRatio != null ? !identicalDrawablesRatio.equals(that.identicalDrawablesRatio) : that.identicalDrawablesRatio != null)
+            return false;
+        if (identicalLayoutsRatio != null ? !identicalLayoutsRatio.equals(that.identicalLayoutsRatio) : that.identicalLayoutsRatio != null)
+            return false;
+        if (identicalOthersRatio != null ? !identicalOthersRatio.equals(that.identicalOthersRatio) : that.identicalOthersRatio != null)
             return false;
         if (modifiedDrawableFiles != null ? !modifiedDrawableFiles.equals(that.modifiedDrawableFiles) : that.modifiedDrawableFiles != null)
             return false;
@@ -228,6 +262,9 @@ public class HashCompareResult {
         result = 31 * result + (identicalDrawables != null ? identicalDrawables.hashCode() : 0);
         result = 31 * result + (identicalLayouts != null ? identicalLayouts.hashCode() : 0);
         result = 31 * result + (identicalOthers != null ? identicalOthers.hashCode() : 0);
+        result = 31 * result + (identicalDrawablesRatio != null ? identicalDrawablesRatio.hashCode() : 0);
+        result = 31 * result + (identicalLayoutsRatio != null ? identicalLayoutsRatio.hashCode() : 0);
+        result = 31 * result + (identicalOthersRatio != null ? identicalOthersRatio.hashCode() : 0);
         result = 31 * result + (modifiedDrawableFiles != null ? modifiedDrawableFiles.hashCode() : 0);
         result = 31 * result + (modifiedLayoutFiles != null ? modifiedLayoutFiles.hashCode() : 0);
         result = 31 * result + (modifiedOtherFiles != null ? modifiedOtherFiles.hashCode() : 0);
@@ -270,6 +307,9 @@ public class HashCompareResult {
                 ", identicalDrawables=" + identicalDrawables +
                 ", identicalLayouts=" + identicalLayouts +
                 ", identicalOthers=" + identicalOthers +
+                ", identicalDrawablesRatio=" + identicalDrawablesRatio +
+                ", identicalLayoutsRatio=" + identicalLayoutsRatio +
+                ", identicalOthersRatio=" + identicalOthersRatio +
                 ", modifiedDrawableFiles=" + modifiedDrawableFiles +
                 ", modifiedLayoutFiles=" + modifiedLayoutFiles +
                 ", modifiedOtherFiles=" + modifiedOtherFiles +

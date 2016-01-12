@@ -13,6 +13,9 @@ public class SimilarityThreshold {
     private static final int MAX_DIFFERENT_DRAWABLES_RATIO_DIFFERENCE = 50;
     private static final int MAX_DIFFERENT_LAYOUTS_RATIO_DIFFERENCE = 50;
     private static final int MIN_BOOLEAN_EVALUATION_THRESHOLD = 50;
+    private static final int MIN_IDENTICAL_DRAWABLES_IN_APK_RATIO = 50;
+    private static final int MIN_IDENTICAL_LAYOUTS_IN_APK_RATIO = 50;
+    private static final int MIN_IDENTICAL_OTHERS_IN_APK_RATIO = 50;
 
 
     private Integer maxFilesizeRatioDifference;
@@ -23,6 +26,9 @@ public class SimilarityThreshold {
     private Integer maxDifferentDrawablesRatioDifference;
     private Integer maxDifferentLayoutsRatioDifference;
     private Integer minBooleanEvaluationThreshold;
+    private Integer minIdenticalDrawablesInApkRatio;
+    private Integer minIdenticalLayoutsInApkRatio;
+    private Integer minIdenticalOthersInApkRatio;
 
 
     public Integer getMaxFilesizeRatioDifference() {
@@ -50,7 +56,7 @@ public class SimilarityThreshold {
     }
 
     public Integer getMaxProvidersRatioDifference() {
-        return maxProvidersRatioDifference== null ? MAX_PROVIDERS_RATIO_DIFFERENCE : maxProvidersRatioDifference;
+        return maxProvidersRatioDifference == null ? MAX_PROVIDERS_RATIO_DIFFERENCE : maxProvidersRatioDifference;
     }
 
     public void setMaxProvidersRatioDifference(Integer maxProvidersRatioDifference) {
@@ -87,5 +93,29 @@ public class SimilarityThreshold {
 
     public void setMinBooleanEvaluationThreshold(Integer maxBooleanEvaluationThreshold) {
         this.minBooleanEvaluationThreshold = maxBooleanEvaluationThreshold;
+    }
+
+    public Integer getMinIdenticalDrawablesInApkRatio() {
+        return minIdenticalDrawablesInApkRatio == null ? MIN_IDENTICAL_DRAWABLES_IN_APK_RATIO : minIdenticalDrawablesInApkRatio;
+    }
+
+    public void setMinIdenticalDrawablesInApkRatio(Integer minIdenticalDrawablesInApkRatio) {
+        this.minIdenticalDrawablesInApkRatio = minIdenticalDrawablesInApkRatio;
+    }
+
+    public Integer getMinIdenticalLayoutsInApkRatio() {
+        return minIdenticalLayoutsInApkRatio == null ? MIN_IDENTICAL_LAYOUTS_IN_APK_RATIO : minIdenticalLayoutsInApkRatio;
+    }
+
+    public void setMinIdenticalLayoutsInApkRatio(Integer minIdenticalLayoutsInApkRatio) {
+        this.minIdenticalLayoutsInApkRatio = minIdenticalLayoutsInApkRatio;
+    }
+
+    public Integer getMinIdenticalOthersInApkRatio() {
+        return minIdenticalOthersInApkRatio == null ? MIN_IDENTICAL_OTHERS_IN_APK_RATIO : minIdenticalOthersInApkRatio;
+    }
+
+    public void setMinIdenticalOthersInApkRatio(Integer minIdenticalOthersInApkRatio) {
+        this.minIdenticalOthersInApkRatio = minIdenticalOthersInApkRatio;
     }
 }
