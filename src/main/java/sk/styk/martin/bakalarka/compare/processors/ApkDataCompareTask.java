@@ -34,7 +34,7 @@ public class ApkDataCompareTask implements Runnable {
     public void run() {
         logger.trace("start " + apkDataA.getFileName() + " " + apkDataB.getFileName());
 
-        ApkPairCompare apkPairCompare = new ApkPairCompare(apkDataA, apkDataB);
+        ApkPairCompare apkPairCompare = new ApkPairCompareSimilarImpl(apkDataA, apkDataB);
         ComparisonResult comparisonResult = apkPairCompare.compare();
         Boolean similar = comparisonResult.getSimilar();
 
