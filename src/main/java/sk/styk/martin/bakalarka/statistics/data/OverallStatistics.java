@@ -28,6 +28,94 @@ public class OverallStatistics {
 
     private AdditionalResourceStatistics additionalResourceStatistics;
 
+    public Integer getTotalAnalyzedApks() {
+        return totalAnalyzedApks;
+    }
+
+    public void setTotalAnalyzedApks(Integer totalAnalyzedApks) {
+        this.totalAnalyzedApks = totalAnalyzedApks;
+    }
+
+    public FileSizeStatistics getFileSizeStatistics() {
+        return fileSizeStatistics;
+    }
+
+    public void setFileSizeStatistics(FileSizeStatistics fileSizeStatistics) {
+        this.fileSizeStatistics = fileSizeStatistics;
+    }
+
+    public InstallLocationStatistics getInstallLocationStatistics() {
+        return installLocationStatistics;
+    }
+
+    public void setInstallLocationStatistics(InstallLocationStatistics installLocationStatistics) {
+        this.installLocationStatistics = installLocationStatistics;
+    }
+
+    public AppComponentsStatistics getAppComponentsStatistics() {
+        return appComponentsStatistics;
+    }
+
+    public void setAppComponentsStatistics(AppComponentsStatistics appComponentsStatistics) {
+        this.appComponentsStatistics = appComponentsStatistics;
+    }
+
+    public PermissionsStatistics getPermissionsStatistics() {
+        return permissionsStatistics;
+    }
+
+    public void setPermissionsStatistics(PermissionsStatistics permissionsStatistics) {
+        this.permissionsStatistics = permissionsStatistics;
+    }
+
+    public LibrariesStatistics getLibrariesStatistics() {
+        return librariesStatistics;
+    }
+
+    public void setLibrariesStatistics(LibrariesStatistics librariesStatistics) {
+        this.librariesStatistics = librariesStatistics;
+    }
+
+    public SdkStatistics getSdkStatistics() {
+        return sdkStatistics;
+    }
+
+    public void setSdkStatistics(SdkStatistics sdkStatistics) {
+        this.sdkStatistics = sdkStatistics;
+    }
+
+    public ScreenStatistics getScreenStatistics() {
+        return screenStatistics;
+    }
+
+    public void setScreenStatistics(ScreenStatistics screenStatistics) {
+        this.screenStatistics = screenStatistics;
+    }
+
+    public LocalizationsStatistics getLocalizationsStatistics() {
+        return localizationsStatistics;
+    }
+
+    public void setLocalizationsStatistics(LocalizationsStatistics localizationsStatistics) {
+        this.localizationsStatistics = localizationsStatistics;
+    }
+
+    public DrawableStatistics getDrawableStatistics() {
+        return drawableStatistics;
+    }
+
+    public void setDrawableStatistics(DrawableStatistics drawableStatistics) {
+        this.drawableStatistics = drawableStatistics;
+    }
+
+    public AdditionalResourceStatistics getAdditionalResourceStatistics() {
+        return additionalResourceStatistics;
+    }
+
+    public void setAdditionalResourceStatistics(AdditionalResourceStatistics additionalResourceStatistics) {
+        this.additionalResourceStatistics = additionalResourceStatistics;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

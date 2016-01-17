@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
+import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class JsonUtils {
 
             obj = gson.fromJson(br, ApkData.class);
 
-            System.out.println(obj);
+            logger.info(obj.toString());
 
         } catch (IOException e) {
             logger.error("Error reading file from " + jsonFile.getName());
@@ -137,6 +138,45 @@ public class JsonUtils {
 
         } catch (IOException e) {
             logger.error("Error saving file to " + outFile.getName());
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileWriter : " + e.toString());
+                }
+            }
+        }
+    }
+
+    public static void toJson(OverallStatistics data, File outputFile) {
+
+        if (!outputFile.exists()) {
+            try {
+                outputFile.createNewFile();
+                logger.info("Creating overall stats file " + outputFile.getName());
+            }catch (IOException e){
+                logger.error("Error creating output file");
+            }
+
+        }
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
+                .create();
+
+        String jsonString = gson.toJson(data);
+
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter(outputFile);
+            writer.write(jsonString);
+            logger.info("Writting overal statistics");
+
+        } catch (IOException e) {
+            logger.error("Error saving file to " + outputFile.getName());
         } finally {
             if (writer != null) {
                 try {
