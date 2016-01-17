@@ -63,31 +63,47 @@ public class FileSizeStatisticsProcessor {
 
         double mean = StatUtils.mean(array);
         double median = StatUtils.percentile(array, 50);
+        double minimum = StatUtils.min(array);
+        double maximum = StatUtils.max(array);
+        double variance = StatUtils.variance(array);
+        double deviation = Math.sqrt(variance);
 
-        setValues(type,mean,median,list.size());
+        setValues(type, mean, median, list.size(), minimum, maximum, variance, deviation);
 
     }
 
-    private void setValues(Type type, Double mean, Double median, int size){
-        if(fileSizeStatistics == null){
+    private void setValues(Type type, Double mean, Double median, int size, Double minimum, Double maximum, Double variance,Double deviation) {
+        if (fileSizeStatistics == null) {
             throw new NullPointerException("fileSizeStatistics");
         }
 
         switch (type) {
             case ARSC_SIZE:
                 fileSizeStatistics.setArscSizeTotalApks(size);
-                fileSizeStatistics.setArscSizeArithmeticMean(mean);
+                fileSizeStatistics.setArscSizeArithmeticMean(mean.longValue());
                 fileSizeStatistics.setArscSizeMedian(median.longValue());
+                fileSizeStatistics.setArscSizeMin(minimum.longValue());
+                fileSizeStatistics.setArscSizeMax(maximum.longValue());
+                fileSizeStatistics.setArscSizeVariance(variance.longValue());
+                fileSizeStatistics.setArscSizeDeviation(deviation.longValue());
                 break;
             case DEX_SIZE:
                 fileSizeStatistics.setDexSizeTotalApks(size);
-                fileSizeStatistics.setDexSizeArithmeticMean(mean);
+                fileSizeStatistics.setDexSizeArithmeticMean(mean.longValue());
                 fileSizeStatistics.setDexSizeMedian(median.longValue());
+                fileSizeStatistics.setDexSizeMin(minimum.longValue());
+                fileSizeStatistics.setDexSizeMax(maximum.longValue());
+                fileSizeStatistics.setDexSizeVariance(variance.longValue());
+                fileSizeStatistics.setDexSizeDeviation(deviation.longValue());
                 break;
             case FILE_SIZE:
                 fileSizeStatistics.setFileSizeTotalApks(size);
-                fileSizeStatistics.setFileSizeArithmeticMean(mean);
+                fileSizeStatistics.setFileSizeArithmeticMean(mean.longValue());
                 fileSizeStatistics.setFileSizeMedian(median.longValue());
+                fileSizeStatistics.setFileSizeMin(minimum.longValue());
+                fileSizeStatistics.setFileSizeMax(maximum.longValue());
+                fileSizeStatistics.setFileSizeVariance(variance.longValue());
+                fileSizeStatistics.setFileSizeDeviation(deviation.longValue());
                 break;
         }
     }
