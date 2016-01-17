@@ -1,6 +1,8 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
 import org.apache.commons.math3.stat.StatUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
@@ -17,6 +19,7 @@ public class FileSizeStatisticsProcessor {
 
     private List<File> jsons;
     private FileSizeStatistics fileSizeStatistics;
+    private static final Logger logger = LoggerFactory.getLogger(FileSizeStatisticsProcessor.class);
 
     private enum Type {
         FILE_SIZE,
@@ -38,44 +41,58 @@ public class FileSizeStatisticsProcessor {
     public FileSizeStatistics process() {
 
         fileSizeStatistics = new FileSizeStatistics();
-        process(Type.FILE_SIZE);
-        process(Type.ARSC_SIZE);
-        process(Type.DEX_SIZE);
+
+        List<Double> fileSizeList = new ArrayList<Double>();
+        List<Double> arscSizeList = new ArrayList<Double>();
+        List<Double> dexSizeList = new ArrayList<Double>();
+
+        for (int i = 0; i < jsons.size(); i++) {
+            if (i % 100 == 0) {
+                logger.info("Loading json number " + i);
+            }
+
+            File f = jsons.get(i);
+            ApkData data = JsonUtils.fromJson(f);
+            if (data != null) {
+
+                // FILE SIZE
+                Double fileSizeValue = getValue(Type.FILE_SIZE, data);
+                if (fileSizeValue != null) {
+                    fileSizeList.add(fileSizeValue);
+                }
+                Double arscSizeValue = getValue(Type.ARSC_SIZE, data);
+                if (arscSizeValue != null) {
+                    arscSizeList.add(arscSizeValue);
+                }
+                Double dexSizeValue = getValue(Type.DEX_SIZE, data);
+                if (dexSizeValue != null) {
+                    arscSizeList.add(dexSizeValue);
+                }
+            }
+        }
+
+        setValues(Type.FILE_SIZE, ConversionHelper.toDoubleArray(fileSizeList), fileSizeList.size());
+        setValues(Type.ARSC_SIZE, ConversionHelper.toDoubleArray(arscSizeList), arscSizeList.size());
+        setValues(Type.DEX_SIZE, ConversionHelper.toDoubleArray(dexSizeList), dexSizeList.size());
 
         return fileSizeStatistics;
 
     }
 
-    private void process(Type type) {
-        List<Double> list = new ArrayList<Double>();
 
-        for (File f : jsons) {
-            ApkData data = JsonUtils.fromJson(f);
-            if (data != null) {
-                Double value = getValue(type, data);
-                if (value != null) {
-                    list.add(value);
-                }
-            }
-        }
-
-        double[] array = ConversionHelper.toDoubleArray(list);
-
-        double mean = StatUtils.mean(array);
-        double median = StatUtils.percentile(array, 50);
-        double minimum = StatUtils.min(array);
-        double maximum = StatUtils.max(array);
-        double variance = StatUtils.variance(array);
-        double deviation = Math.sqrt(variance);
-
-        setValues(type, mean, median, list.size(), minimum, maximum, variance, deviation);
-
-    }
-
-    private void setValues(Type type, Double mean, Double median, int size, Double minimum, Double maximum, Double variance,Double deviation) {
+    private void setValues(Type type, double[] array, Integer size) {
         if (fileSizeStatistics == null) {
             throw new NullPointerException("fileSizeStatistics");
         }
+
+        logger.info("Started processing " + type.toString());
+
+        Double mean = StatUtils.mean(array);
+        Double median = StatUtils.percentile(array, 50);
+        Double minimum = StatUtils.min(array);
+        Double maximum = StatUtils.max(array);
+        Double variance = StatUtils.variance(array);
+        Double deviation = Math.sqrt(variance);
 
         switch (type) {
             case ARSC_SIZE:
@@ -106,6 +123,7 @@ public class FileSizeStatisticsProcessor {
                 fileSizeStatistics.setFileSizeDeviation(deviation.longValue());
                 break;
         }
+        logger.info("Finished processing " + type.toString());
     }
 
     private Double getValue(Type type, ApkData data) {

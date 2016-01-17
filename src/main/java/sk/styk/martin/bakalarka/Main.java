@@ -8,7 +8,10 @@ import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.StatisticsProcessor;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,10 +30,20 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        final long startTime = System.currentTimeMillis();
+
         //analyze();
         //compareTwo();
         //compareAll();
         computeStats();
+        final long endTime = System.currentTimeMillis();
+
+        Date date = new Date(endTime - startTime);
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+        String dateFormatted = formatter.format(date);
+
+        System.out.print("RUN TIME : " + dateFormatted);
+
     }
 
     public static void analyze() {
@@ -89,7 +102,7 @@ public class Main {
 
     public static void computeStats() {
         //possible input from user
-        final String INPUT_DIR = "D:\\TEST";
+        final String INPUT_DIR = "D:\\APK\\metadata";
         final String OUTPUT_FILE = "D:\\output\\stats.txt";
 
         //code that handle 'computeStats use case'
