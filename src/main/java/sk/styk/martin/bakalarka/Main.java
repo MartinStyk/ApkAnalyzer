@@ -90,7 +90,7 @@ public class Main {
     public static void computeStats() {
         //possible input from user
         final String INPUT_DIR = "D:\\TEST";
-        final String OUTPUT_DIR = "D:\\output";
+        final String OUTPUT_FILE = "D:\\output\\stats.txt";
 
         //code that handle 'computeStats use case'
 
