@@ -4,6 +4,8 @@ import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
 import sk.styk.martin.bakalarka.compare.processors.ApkBatchCompare;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
+import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
+import sk.styk.martin.bakalarka.statistics.processors.StatisticsProcessor;
 
 import java.io.File;
 import java.util.Arrays;
@@ -26,7 +28,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //analyze();
-        compareTwo();
+        //compareTwo();
+        //compareAll();
+        computeStats();
     }
 
     public static void analyze() {
@@ -81,6 +85,21 @@ public class Main {
         ApkBatchCompare apkBatchCompare = new ApkBatchCompare(jsons);
         apkBatchCompare.processFiles(new File(OUTPUT_DIR));
 
+    }
+
+    public static void computeStats() {
+        //possible input from user
+        final String INPUT_DIR = "D:\\TEST";
+        final String OUTPUT_DIR = "D:\\output";
+
+        //code that handle 'computeStats use case'
+
+        FileFinder ff = new FileFinder(new File(INPUT_DIR));
+        List<File> jsons = ff.getJsonFilesInDirectories();
+
+        StatisticsProcessor statisticsProcessor = new StatisticsProcessor(jsons);
+        statisticsProcessor.setOutputFile(new File(OUTPUT_DIR));
+        OverallStatistics overallStatistics = statisticsProcessor.processFiles();
     }
 
 }
