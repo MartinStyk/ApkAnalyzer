@@ -66,7 +66,7 @@ public class FileSizeStatisticsProcessor {
                 }
                 Double dexSizeValue = getValue(Type.DEX_SIZE, data);
                 if (dexSizeValue != null) {
-                    arscSizeList.add(dexSizeValue);
+                    dexSizeList.add(dexSizeValue);
                 }
             }
         }
