@@ -71,7 +71,7 @@ public class JsonUtils {
 
             obj = gson.fromJson(br, ApkData.class);
 
-            logger.info(obj.toString());
+            logger.trace(obj.toString());
 
         } catch (IOException e) {
             logger.error("Error reading file from " + jsonFile.getName());
