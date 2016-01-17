@@ -98,7 +98,7 @@ public class Main {
         List<File> jsons = ff.getJsonFilesInDirectories();
 
         StatisticsProcessor statisticsProcessor = new StatisticsProcessor(jsons);
-        statisticsProcessor.setOutputFile(new File(OUTPUT_DIR));
+        statisticsProcessor.setOutputFile(new File(OUTPUT_FILE));
         OverallStatistics overallStatistics = statisticsProcessor.processFiles();
     }
 
