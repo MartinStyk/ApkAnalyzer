@@ -1,6 +1,6 @@
 package sk.styk.martin.bakalarka;
 
-    import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
+import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
 import sk.styk.martin.bakalarka.compare.processors.ApkBatchCompare;
 import sk.styk.martin.bakalarka.files.ApkFile;
 import sk.styk.martin.bakalarka.files.FileFinder;
@@ -15,7 +15,10 @@ import java.util.List;
 public class Main {
 
     private static String APK_TEST = "D:\\Projects\\ApkToolTest";
+    private static String APK_APPSAPK = "D:\\APK\\APK_appsApk";
+    private static String APK_ANDROIDAPKSFREE = "D:\\APK\\APK_androidApksFree";
     private static String APK_TORRENT = "D:\\APK\\APK_torrent";
+    private static String APK_ULOZTO = "D:\\APK\\APK_ulozto";
     private static String APK_PLAY = "D:\\APK\\APK_playdrone";
     private static String APK_ZIPPY = "D:\\APK\\APK_zippyshare";
     private static String APK_ZIPPY2 = "D:\\APK\\APK_zippyshare2";
@@ -59,6 +62,22 @@ public class Main {
 
         //code that handle 'compare two use case'
         List<File> jsons = Arrays.asList(new File(ANALYZED_APK_1), new File(ANALYZED_APK_2));
+        ApkBatchCompare apkBatchCompare = new ApkBatchCompare(jsons);
+        apkBatchCompare.processFiles(new File(OUTPUT_DIR));
+
+    }
+
+    public static void compareAll() {
+
+        //possible input from user
+        final String INPUT_DIR = "D:\\TEST";
+        final String OUTPUT_DIR = "D:\\output";
+
+        //code that handle 'compare two use case'
+
+        FileFinder ff = new FileFinder(new File(INPUT_DIR));
+        List<File> jsons = ff.getJsonFilesInDirectories();
+
         ApkBatchCompare apkBatchCompare = new ApkBatchCompare(jsons);
         apkBatchCompare.processFiles(new File(OUTPUT_DIR));
 
