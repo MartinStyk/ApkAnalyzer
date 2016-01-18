@@ -1,45 +1,72 @@
 package sk.styk.martin.bakalarka.statistics.data;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 /**
  * Created by Martin Styk on 16.01.2016.
  */
 public class InstallLocationStatistics {
 
     //installLocation
-    private Integer installLocationTotalApks;
-    private Integer installLocationAutoPercentage;
-    private Integer installLocationInternalOnlyPercentage;
-    private Integer installLocationPreferExternalPercentage;
+    /**
+     * number of apks with data successfully collected from android manifest
+     */
+    private Integer analyzedApks;
+    /**
+     * number of apks with location tag found in manifest
+     */
+    private Integer installLocationTagFoundInApks;
+    private Map<String, Integer> installLocationTable;
+    private BigDecimal installLocationAutoPercentage;
+    private BigDecimal installLocationInternalOnlyPercentage;
+    private BigDecimal installLocationPreferExternalPercentage;
 
-    public Integer getInstallLocationTotalApks() {
-        return installLocationTotalApks;
+    public Integer getAnalyzedApks() {
+        return analyzedApks;
     }
 
-    public void setInstallLocationTotalApks(Integer installLocationTotalApks) {
-        this.installLocationTotalApks = installLocationTotalApks;
+    public void setAnalyzedApks(Integer analyzedApks) {
+        this.analyzedApks = analyzedApks;
     }
 
-    public Integer getInstallLocationAutoPercentage() {
+    public Integer getInstallLocationTagFoundInApks() {
+        return installLocationTagFoundInApks;
+    }
+
+    public void setInstallLocationTagFoundInApks(Integer installLocationTagFoundInApks) {
+        this.installLocationTagFoundInApks = installLocationTagFoundInApks;
+    }
+
+    public Map<String, Integer> getInstallLocationTable() {
+        return installLocationTable;
+    }
+
+    public void setInstallLocationTable(Map<String, Integer> installLocationTable) {
+        this.installLocationTable = installLocationTable;
+    }
+
+    public BigDecimal getInstallLocationAutoPercentage() {
         return installLocationAutoPercentage;
     }
 
-    public void setInstallLocationAutoPercentage(Integer installLocationAutoPercentage) {
+    public void setInstallLocationAutoPercentage(BigDecimal installLocationAutoPercentage) {
         this.installLocationAutoPercentage = installLocationAutoPercentage;
     }
 
-    public Integer getInstallLocationInternalOnlyPercentage() {
+    public BigDecimal getInstallLocationInternalOnlyPercentage() {
         return installLocationInternalOnlyPercentage;
     }
 
-    public void setInstallLocationInternalOnlyPercentage(Integer installLocationInternalOnlyPercentage) {
+    public void setInstallLocationInternalOnlyPercentage(BigDecimal installLocationInternalOnlyPercentage) {
         this.installLocationInternalOnlyPercentage = installLocationInternalOnlyPercentage;
     }
 
-    public Integer getInstallLocationPreferExternalPercentage() {
+    public BigDecimal getInstallLocationPreferExternalPercentage() {
         return installLocationPreferExternalPercentage;
     }
 
-    public void setInstallLocationPreferExternalPercentage(Integer installLocationPreferExternalPercentage) {
+    public void setInstallLocationPreferExternalPercentage(BigDecimal installLocationPreferExternalPercentage) {
         this.installLocationPreferExternalPercentage = installLocationPreferExternalPercentage;
     }
 
@@ -50,7 +77,10 @@ public class InstallLocationStatistics {
 
         InstallLocationStatistics that = (InstallLocationStatistics) o;
 
-        if (installLocationTotalApks != null ? !installLocationTotalApks.equals(that.installLocationTotalApks) : that.installLocationTotalApks != null)
+        if (analyzedApks != null ? !analyzedApks.equals(that.analyzedApks) : that.analyzedApks != null) return false;
+        if (installLocationTagFoundInApks != null ? !installLocationTagFoundInApks.equals(that.installLocationTagFoundInApks) : that.installLocationTagFoundInApks != null)
+            return false;
+        if (installLocationTable != null ? !installLocationTable.equals(that.installLocationTable) : that.installLocationTable != null)
             return false;
         if (installLocationAutoPercentage != null ? !installLocationAutoPercentage.equals(that.installLocationAutoPercentage) : that.installLocationAutoPercentage != null)
             return false;
@@ -62,7 +92,9 @@ public class InstallLocationStatistics {
 
     @Override
     public int hashCode() {
-        int result = installLocationTotalApks != null ? installLocationTotalApks.hashCode() : 0;
+        int result = analyzedApks != null ? analyzedApks.hashCode() : 0;
+        result = 31 * result + (installLocationTagFoundInApks != null ? installLocationTagFoundInApks.hashCode() : 0);
+        result = 31 * result + (installLocationTable != null ? installLocationTable.hashCode() : 0);
         result = 31 * result + (installLocationAutoPercentage != null ? installLocationAutoPercentage.hashCode() : 0);
         result = 31 * result + (installLocationInternalOnlyPercentage != null ? installLocationInternalOnlyPercentage.hashCode() : 0);
         result = 31 * result + (installLocationPreferExternalPercentage != null ? installLocationPreferExternalPercentage.hashCode() : 0);
@@ -72,7 +104,9 @@ public class InstallLocationStatistics {
     @Override
     public String toString() {
         return "InstallLocationStatistics{" +
-                "installLocationTotalApks=" + installLocationTotalApks +
+                "analyzedApks=" + analyzedApks +
+                ", installLocationTagFoundInApks=" + installLocationTagFoundInApks +
+                ", installLocationTable=" + installLocationTable +
                 ", installLocationAutoPercentage=" + installLocationAutoPercentage +
                 ", installLocationInternalOnlyPercentage=" + installLocationInternalOnlyPercentage +
                 ", installLocationPreferExternalPercentage=" + installLocationPreferExternalPercentage +

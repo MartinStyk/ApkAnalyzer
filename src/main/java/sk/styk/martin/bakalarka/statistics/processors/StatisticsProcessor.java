@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.statistics.processors;
 
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
+import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
 import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
 
 import java.io.File;
@@ -37,6 +38,11 @@ public class StatisticsProcessor {
 
         overallStatistics.setFileSizeStatistics(fileSizeStatistics);
 
+        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
 
         if(outputFile != null){
             JsonUtils.toJson(overallStatistics, outputFile);
