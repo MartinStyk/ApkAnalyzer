@@ -61,7 +61,7 @@ public class AndroidManifestData {
         this.installLocation = installLocation;
     }
 
-    public int getNumberOfActivities() {
+    public Integer getNumberOfActivities() {
         return numberOfActivities;
     }
 
@@ -69,7 +69,7 @@ public class AndroidManifestData {
         this.numberOfActivities = numberOfActivities;
     }
 
-    public int getNumberOfServices() {
+    public Integer getNumberOfServices() {
         return numberOfServices;
     }
 
@@ -77,7 +77,7 @@ public class AndroidManifestData {
         this.numberOfServices = numberOfServices;
     }
 
-    public int getNumberOfContentProviders() {
+    public Integer getNumberOfContentProviders() {
         return numberOfContentProviders;
     }
 
@@ -85,7 +85,7 @@ public class AndroidManifestData {
         this.numberOfContentProviders = numberOfContentProviders;
     }
 
-    public int getNumberOfBroadcastReceivers() {
+    public Integer getNumberOfBroadcastReceivers() {
         return numberOfBroadcastReceivers;
     }
 

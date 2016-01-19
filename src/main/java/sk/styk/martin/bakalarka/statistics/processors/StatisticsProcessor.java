@@ -1,6 +1,7 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
 import sk.styk.martin.bakalarka.files.JsonUtils;
+import sk.styk.martin.bakalarka.statistics.data.AppComponentsStatistics;
 import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
 import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
 import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
@@ -43,6 +44,14 @@ public class StatisticsProcessor {
                 .process();
 
         overallStatistics.setInstallLocationStatistics(installLocationStatistics);
+
+
+        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
+
 
         if(outputFile != null){
             JsonUtils.toJson(overallStatistics, outputFile);

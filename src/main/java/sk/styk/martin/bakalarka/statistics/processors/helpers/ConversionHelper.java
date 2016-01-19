@@ -1,5 +1,6 @@
 package sk.styk.martin.bakalarka.statistics.processors.helpers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,15 @@ public class ConversionHelper {
             target[i] = doubles.get(i);
         }
         return target;
+    }
+
+    public static List<Integer> toIntegerList(double[] arr){
+        List<Integer> toReturn = new ArrayList<Integer>();
+        for(int i = 0 ; i < arr.length ;i ++){
+            Double d = arr[i];
+            toReturn.add(d.intValue());
+        }
+        return toReturn;
     }
 
 }
