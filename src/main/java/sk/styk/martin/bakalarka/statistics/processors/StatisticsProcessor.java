@@ -14,6 +14,8 @@ import java.util.List;
  */
 public class StatisticsProcessor {
 
+    public static int PRINT_MESSAGE_INTERVAL = 250;
+
     private List<File> jsons;
     private File outputFile;
     private OverallStatistics overallStatistics;

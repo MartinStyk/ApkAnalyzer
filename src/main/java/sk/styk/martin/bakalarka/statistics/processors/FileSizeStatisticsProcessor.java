@@ -47,7 +47,7 @@ public class FileSizeStatisticsProcessor {
         List<Double> dexSizeList = new ArrayList<Double>();
 
         for (int i = 0; i < jsons.size(); i++) {
-            if (i % 100 == 0) {
+            if (i % StatisticsProcessor.PRINT_MESSAGE_INTERVAL == 0) {
                 logger.info("Loading json number " + i);
             }
 
