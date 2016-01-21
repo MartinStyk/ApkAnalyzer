@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class ConversionHelper {
 
-    public static double[] toDoubleArray(List<Double> doubles){
-        double[] target = new double[doubles.size()];
+    public static double[] toDoubleArray(List<Double> numbers){
+        double[] target = new double[numbers.size()];
         for (int i = 0; i < target.length; i++) {
-            target[i] = doubles.get(i);
+            target[i] = numbers.get(i).doubleValue();
         }
         return target;
     }

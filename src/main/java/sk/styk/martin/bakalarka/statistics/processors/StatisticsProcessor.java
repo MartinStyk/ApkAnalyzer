@@ -1,10 +1,7 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
 import sk.styk.martin.bakalarka.files.JsonUtils;
-import sk.styk.martin.bakalarka.statistics.data.AppComponentsStatistics;
-import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
-import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
-import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
+import sk.styk.martin.bakalarka.statistics.data.*;
 
 import java.io.File;
 import java.util.List;
@@ -53,6 +50,12 @@ public class StatisticsProcessor {
                 .process();
 
         overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
+
+        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setPermissionsStatistics(permissionsStatistics);
 
 
         if(outputFile != null){
