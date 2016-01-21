@@ -36,7 +36,7 @@ public class LibrariesStatistics {
     private BigDecimal librariesVarianceNonZero;
     private BigDecimal librariesDeviationNonZero;
 
-    private Map<String, Pair<Integer, BigDecimal>> topLibraries;
+    private Map<String, PercentagePair> topLibraries;
 
     public Integer getNumberOfApksWithLibrariesTagObtained() {
         return numberOfApksWithLibrariesTagObtained;
@@ -102,11 +102,11 @@ public class LibrariesStatistics {
         this.librariesDeviation = librariesDeviation;
     }
 
-    public Map<String, Pair<Integer, BigDecimal>> getTopLibraries() {
+    public Map<String, PercentagePair> getTopLibraries() {
         return topLibraries;
     }
 
-    public void setTopLibraries(Map<String, Pair<Integer, BigDecimal>> topLibraries) {
+    public void setTopLibraries(Map<String, PercentagePair> topLibraries) {
         this.topLibraries = topLibraries;
     }
 

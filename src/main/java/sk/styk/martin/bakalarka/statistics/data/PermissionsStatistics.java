@@ -36,7 +36,7 @@ public class PermissionsStatistics {
     private BigDecimal permissionsVarianceNonZero;
     private BigDecimal permissionsDeviationNonZero;
 
-    private Map<String,Pair<Integer,BigDecimal>> topPermissions;
+    private Map<String,PercentagePair> topPermissions;
 
     public Integer getAnalyzedApks() {
         return analyzedApks;
@@ -110,11 +110,11 @@ public class PermissionsStatistics {
         this.permissionsDeviation = permissionsDeviation;
     }
 
-    public Map<String, Pair<Integer, BigDecimal>> getTopPermissions() {
+    public Map<String, PercentagePair> getTopPermissions() {
         return topPermissions;
     }
 
-    public void setTopPermissions(Map<String, Pair<Integer, BigDecimal>> topPermissions) {
+    public void setTopPermissions(Map<String, PercentagePair> topPermissions) {
         this.topPermissions = topPermissions;
     }
 

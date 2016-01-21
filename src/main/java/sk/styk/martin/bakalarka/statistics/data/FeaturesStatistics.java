@@ -36,7 +36,7 @@ public class FeaturesStatistics {
     private BigDecimal featuresVarianceNonZero;
     private BigDecimal featuresDeviationNonZero;
 
-    private Map<String, Pair<Integer, BigDecimal>> topFeatures;
+    private Map<String, PercentagePair> topFeatures;
 
     public Integer getAnalyzedApks() {
         return analyzedApks;
@@ -174,11 +174,11 @@ public class FeaturesStatistics {
         this.featuresDeviationNonZero = featuresDeviationNonZero;
     }
 
-    public Map<String, Pair<Integer, BigDecimal>> getTopFeatures() {
+    public Map<String, PercentagePair> getTopFeatures() {
         return topFeatures;
     }
 
-    public void setTopFeatures(Map<String, Pair<Integer, BigDecimal>> topFeatures) {
+    public void setTopFeatures(Map<String, PercentagePair> topFeatures) {
         this.topFeatures = topFeatures;
     }
 

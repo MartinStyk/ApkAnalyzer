@@ -8,6 +8,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.Pair;
 import sk.styk.martin.bakalarka.statistics.data.LibrariesStatistics;
+import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
@@ -149,14 +150,14 @@ public class LibrariesStatisticsProcessor {
             throw new IllegalArgumentException("topLibraries");
         }
 
-        Map<String, Pair<Integer, BigDecimal>> result = new HashMap<String, Pair<Integer, BigDecimal>>();
+        Map<String, PercentagePair> result = new HashMap<String, PercentagePair>();
 
         for (Map.Entry<String, Integer> entry : topLibraries.entrySet()) {
             String name = entry.getKey();
             Integer number = entry.getValue();
             BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
 
-            Pair<Integer, BigDecimal> percentageEntry = new Pair<Integer, BigDecimal>(number, percentage);
+            PercentagePair percentageEntry = new PercentagePair(number, percentage);
 
             result.put(name, percentageEntry);
         }

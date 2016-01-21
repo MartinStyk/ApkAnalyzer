@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.Pair;
+import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.data.PermissionsStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
@@ -149,14 +150,14 @@ public class PermissionsStatisticsProcessor {
             throw new IllegalArgumentException("topPermissions");
         }
 
-        Map<String, Pair<Integer, BigDecimal>> result = new HashMap<String, Pair<Integer, BigDecimal>>();
+        Map<String, PercentagePair> result = new HashMap<String, PercentagePair>();
 
         for (Map.Entry<String, Integer> entry : topPermissions.entrySet()) {
             String name = entry.getKey();
             Integer number = entry.getValue();
             BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
 
-            Pair<Integer, BigDecimal> percentageEntry = new Pair<Integer, BigDecimal>(number, percentage);
+            PercentagePair percentageEntry = new PercentagePair(number, percentage);
 
             result.put(name, percentageEntry);
         }
