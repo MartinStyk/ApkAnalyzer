@@ -18,6 +18,8 @@ public class OverallStatistics {
 
     private LibrariesStatistics librariesStatistics;
 
+    private FeaturesStatistics featuresStatistics;
+
     private SdkStatistics sdkStatistics;
 
     private ScreenStatistics screenStatistics;
@@ -74,6 +76,14 @@ public class OverallStatistics {
 
     public void setLibrariesStatistics(LibrariesStatistics librariesStatistics) {
         this.librariesStatistics = librariesStatistics;
+    }
+
+    public FeaturesStatistics getFeaturesStatistics() {
+        return featuresStatistics;
+    }
+
+    public void setFeaturesStatistics(FeaturesStatistics featuresStatistics) {
+        this.featuresStatistics = featuresStatistics;
     }
 
     public SdkStatistics getSdkStatistics() {
@@ -135,6 +145,8 @@ public class OverallStatistics {
             return false;
         if (librariesStatistics != null ? !librariesStatistics.equals(that.librariesStatistics) : that.librariesStatistics != null)
             return false;
+        if (featuresStatistics != null ? !featuresStatistics.equals(that.featuresStatistics) : that.featuresStatistics != null)
+            return false;
         if (sdkStatistics != null ? !sdkStatistics.equals(that.sdkStatistics) : that.sdkStatistics != null)
             return false;
         if (screenStatistics != null ? !screenStatistics.equals(that.screenStatistics) : that.screenStatistics != null)
@@ -155,6 +167,7 @@ public class OverallStatistics {
         result = 31 * result + (appComponentsStatistics != null ? appComponentsStatistics.hashCode() : 0);
         result = 31 * result + (permissionsStatistics != null ? permissionsStatistics.hashCode() : 0);
         result = 31 * result + (librariesStatistics != null ? librariesStatistics.hashCode() : 0);
+        result = 31 * result + (featuresStatistics != null ? featuresStatistics.hashCode() : 0);
         result = 31 * result + (sdkStatistics != null ? sdkStatistics.hashCode() : 0);
         result = 31 * result + (screenStatistics != null ? screenStatistics.hashCode() : 0);
         result = 31 * result + (localizationsStatistics != null ? localizationsStatistics.hashCode() : 0);
@@ -172,6 +185,7 @@ public class OverallStatistics {
                 ", appComponentsStatistics=" + appComponentsStatistics +
                 ", permissionsStatistics=" + permissionsStatistics +
                 ", librariesStatistics=" + librariesStatistics +
+                ", featuresStatistics=" + featuresStatistics +
                 ", sdkStatistics=" + sdkStatistics +
                 ", screenStatistics=" + screenStatistics +
                 ", localizationsStatistics=" + localizationsStatistics +

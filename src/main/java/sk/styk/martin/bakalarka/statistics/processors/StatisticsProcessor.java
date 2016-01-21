@@ -57,6 +57,19 @@ public class StatisticsProcessor {
 
         overallStatistics.setPermissionsStatistics(permissionsStatistics);
 
+        LibrariesStatistics librariesStatistics = LibrariesStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setLibrariesStatistics(librariesStatistics);
+
+        FeaturesStatistics featuresStatistics = FeaturesStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setFeaturesStatistics(featuresStatistics);
+
+
 
         if(outputFile != null){
             JsonUtils.toJson(overallStatistics, outputFile);
