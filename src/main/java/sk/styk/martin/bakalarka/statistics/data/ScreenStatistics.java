@@ -1,122 +1,137 @@
 package sk.styk.martin.bakalarka.statistics.data;
 
+import java.util.Map;
+
 /**
  * Created by Martin Styk on 16.01.2016.
  */
 public class ScreenStatistics {
 
-    private Integer supportsScreensResizeableObtained;
-    private Integer supportsScreensResizeablePercentage;
+    /**
+     * number of apks with data successfully collected from android manifest
+     */
+    private Integer analyzedApks;
 
-    private Integer supportsScreensSmallObtained;
-    private Integer supportsScreensSmallPercentage;
+    private PercentagePair supportsScreensResizeableObtained;
+    private Map<String, PercentagePair> supportsScreensResizeable;
 
-    private Integer supportsScreensNormalObtained;
-    private Integer supportsScreensNormalPercentage;
+    private PercentagePair supportsScreensSmallObtained;
+    private Map<String, PercentagePair> supportsScreensSmall;
 
-    private Integer supportsScreensLargeObtained;
-    private Integer supportsScreensLargePercentage;
+    private PercentagePair supportsScreensNormalObtained;
+    private Map<String, PercentagePair> supportsScreensNormal;
 
-    private Integer supportsScreensXlargeObtained;
-    private Integer supportsScreensXlargePercentage;
+    private PercentagePair supportsScreensLargeObtained;
+    private Map<String, PercentagePair> supportsScreensLarge;
 
-    private Integer supportsScreensAnyDensityObtained;
-    private Integer supportsScreensAnyDensityPercentage;
+    private PercentagePair supportsScreensXlargeObtained;
+    private Map<String, PercentagePair> supportsScreensXlarge;
 
-    public Integer getSupportsScreensResizeableObtained() {
+    private PercentagePair supportsScreensAnyDensityObtained;
+    private Map<String, PercentagePair> supportsScreensAnyDensity;
+
+    public Integer getAnalyzedApks() {
+        return analyzedApks;
+    }
+
+    public void setAnalyzedApks(Integer analyzedApks) {
+        this.analyzedApks = analyzedApks;
+    }
+
+    public PercentagePair getSupportsScreensResizeableObtained() {
         return supportsScreensResizeableObtained;
     }
 
-    public void setSupportsScreensResizeableObtained(Integer supportsScreensResizeableObtained) {
+    public void setSupportsScreensResizeableObtained(PercentagePair supportsScreensResizeableObtained) {
         this.supportsScreensResizeableObtained = supportsScreensResizeableObtained;
     }
 
-    public Integer getSupportsScreensResizeablePercentage() {
-        return supportsScreensResizeablePercentage;
+    public Map<String, PercentagePair> getSupportsScreensResizeable() {
+        return supportsScreensResizeable;
     }
 
-    public void setSupportsScreensResizeablePercentage(Integer supportsScreensResizeablePercentage) {
-        this.supportsScreensResizeablePercentage = supportsScreensResizeablePercentage;
+    public void setSupportsScreensResizeable(Map<String, PercentagePair> supportsScreensResizeable) {
+        this.supportsScreensResizeable = supportsScreensResizeable;
     }
 
-    public Integer getSupportsScreensSmallObtained() {
+    public PercentagePair getSupportsScreensSmallObtained() {
         return supportsScreensSmallObtained;
     }
 
-    public void setSupportsScreensSmallObtained(Integer supportsScreensSmallObtained) {
+    public void setSupportsScreensSmallObtained(PercentagePair supportsScreensSmallObtained) {
         this.supportsScreensSmallObtained = supportsScreensSmallObtained;
     }
 
-    public Integer getSupportsScreensSmallPercentage() {
-        return supportsScreensSmallPercentage;
+    public Map<String, PercentagePair> getSupportsScreensSmall() {
+        return supportsScreensSmall;
     }
 
-    public void setSupportsScreensSmallPercentage(Integer supportsScreensSmallPercentage) {
-        this.supportsScreensSmallPercentage = supportsScreensSmallPercentage;
+    public void setSupportsScreensSmall(Map<String, PercentagePair> supportsScreensSmall) {
+        this.supportsScreensSmall = supportsScreensSmall;
     }
 
-    public Integer getSupportsScreensNormalObtained() {
+    public PercentagePair getSupportsScreensNormalObtained() {
         return supportsScreensNormalObtained;
     }
 
-    public void setSupportsScreensNormalObtained(Integer supportsScreensNormalObtained) {
+    public void setSupportsScreensNormalObtained(PercentagePair supportsScreensNormalObtained) {
         this.supportsScreensNormalObtained = supportsScreensNormalObtained;
     }
 
-    public Integer getSupportsScreensNormalPercentage() {
-        return supportsScreensNormalPercentage;
+    public Map<String, PercentagePair> getSupportsScreensNormal() {
+        return supportsScreensNormal;
     }
 
-    public void setSupportsScreensNormalPercentage(Integer supportsScreensNormalPercentage) {
-        this.supportsScreensNormalPercentage = supportsScreensNormalPercentage;
+    public void setSupportsScreensNormal(Map<String, PercentagePair> supportsScreensNormal) {
+        this.supportsScreensNormal = supportsScreensNormal;
     }
 
-    public Integer getSupportsScreensLargeObtained() {
+    public PercentagePair getSupportsScreensLargeObtained() {
         return supportsScreensLargeObtained;
     }
 
-    public void setSupportsScreensLargeObtained(Integer supportsScreensLargeObtained) {
+    public void setSupportsScreensLargeObtained(PercentagePair supportsScreensLargeObtained) {
         this.supportsScreensLargeObtained = supportsScreensLargeObtained;
     }
 
-    public Integer getSupportsScreensLargePercentage() {
-        return supportsScreensLargePercentage;
+    public Map<String, PercentagePair> getSupportsScreensLarge() {
+        return supportsScreensLarge;
     }
 
-    public void setSupportsScreensLargePercentage(Integer supportsScreensLargePercentage) {
-        this.supportsScreensLargePercentage = supportsScreensLargePercentage;
+    public void setSupportsScreensLarge(Map<String, PercentagePair> supportsScreensLarge) {
+        this.supportsScreensLarge = supportsScreensLarge;
     }
 
-    public Integer getSupportsScreensXlargeObtained() {
+    public PercentagePair getSupportsScreensXlargeObtained() {
         return supportsScreensXlargeObtained;
     }
 
-    public void setSupportsScreensXlargeObtained(Integer supportsScreensXlargeObtained) {
+    public void setSupportsScreensXlargeObtained(PercentagePair supportsScreensXlargeObtained) {
         this.supportsScreensXlargeObtained = supportsScreensXlargeObtained;
     }
 
-    public Integer getSupportsScreensXlargePercentage() {
-        return supportsScreensXlargePercentage;
+    public Map<String, PercentagePair> getSupportsScreensXlarge() {
+        return supportsScreensXlarge;
     }
 
-    public void setSupportsScreensXlargePercentage(Integer supportsScreensXlargePercentage) {
-        this.supportsScreensXlargePercentage = supportsScreensXlargePercentage;
+    public void setSupportsScreensXlarge(Map<String, PercentagePair> supportsScreensXlarge) {
+        this.supportsScreensXlarge = supportsScreensXlarge;
     }
 
-    public Integer getSupportsScreensAnyDensityObtained() {
+    public PercentagePair getSupportsScreensAnyDensityObtained() {
         return supportsScreensAnyDensityObtained;
     }
 
-    public void setSupportsScreensAnyDensityObtained(Integer supportsScreensAnyDensityObtained) {
+    public void setSupportsScreensAnyDensityObtained(PercentagePair supportsScreensAnyDensityObtained) {
         this.supportsScreensAnyDensityObtained = supportsScreensAnyDensityObtained;
     }
 
-    public Integer getSupportsScreensAnyDensityPercentage() {
-        return supportsScreensAnyDensityPercentage;
+    public Map<String, PercentagePair> getSupportsScreensAnyDensity() {
+        return supportsScreensAnyDensity;
     }
 
-    public void setSupportsScreensAnyDensityPercentage(Integer supportsScreensAnyDensityPercentage) {
-        this.supportsScreensAnyDensityPercentage = supportsScreensAnyDensityPercentage;
+    public void setSupportsScreensAnyDensity(Map<String, PercentagePair> supportsScreensAnyDensity) {
+        this.supportsScreensAnyDensity = supportsScreensAnyDensity;
     }
 
     @Override
@@ -126,64 +141,68 @@ public class ScreenStatistics {
 
         ScreenStatistics that = (ScreenStatistics) o;
 
+        if (analyzedApks != null ? !analyzedApks.equals(that.analyzedApks) : that.analyzedApks != null) return false;
         if (supportsScreensResizeableObtained != null ? !supportsScreensResizeableObtained.equals(that.supportsScreensResizeableObtained) : that.supportsScreensResizeableObtained != null)
             return false;
-        if (supportsScreensResizeablePercentage != null ? !supportsScreensResizeablePercentage.equals(that.supportsScreensResizeablePercentage) : that.supportsScreensResizeablePercentage != null)
+        if (supportsScreensResizeable != null ? !supportsScreensResizeable.equals(that.supportsScreensResizeable) : that.supportsScreensResizeable != null)
             return false;
         if (supportsScreensSmallObtained != null ? !supportsScreensSmallObtained.equals(that.supportsScreensSmallObtained) : that.supportsScreensSmallObtained != null)
             return false;
-        if (supportsScreensSmallPercentage != null ? !supportsScreensSmallPercentage.equals(that.supportsScreensSmallPercentage) : that.supportsScreensSmallPercentage != null)
+        if (supportsScreensSmall != null ? !supportsScreensSmall.equals(that.supportsScreensSmall) : that.supportsScreensSmall != null)
             return false;
         if (supportsScreensNormalObtained != null ? !supportsScreensNormalObtained.equals(that.supportsScreensNormalObtained) : that.supportsScreensNormalObtained != null)
             return false;
-        if (supportsScreensNormalPercentage != null ? !supportsScreensNormalPercentage.equals(that.supportsScreensNormalPercentage) : that.supportsScreensNormalPercentage != null)
+        if (supportsScreensNormal != null ? !supportsScreensNormal.equals(that.supportsScreensNormal) : that.supportsScreensNormal != null)
             return false;
         if (supportsScreensLargeObtained != null ? !supportsScreensLargeObtained.equals(that.supportsScreensLargeObtained) : that.supportsScreensLargeObtained != null)
             return false;
-        if (supportsScreensLargePercentage != null ? !supportsScreensLargePercentage.equals(that.supportsScreensLargePercentage) : that.supportsScreensLargePercentage != null)
+        if (supportsScreensLarge != null ? !supportsScreensLarge.equals(that.supportsScreensLarge) : that.supportsScreensLarge != null)
             return false;
         if (supportsScreensXlargeObtained != null ? !supportsScreensXlargeObtained.equals(that.supportsScreensXlargeObtained) : that.supportsScreensXlargeObtained != null)
             return false;
-        if (supportsScreensXlargePercentage != null ? !supportsScreensXlargePercentage.equals(that.supportsScreensXlargePercentage) : that.supportsScreensXlargePercentage != null)
+        if (supportsScreensXlarge != null ? !supportsScreensXlarge.equals(that.supportsScreensXlarge) : that.supportsScreensXlarge != null)
             return false;
         if (supportsScreensAnyDensityObtained != null ? !supportsScreensAnyDensityObtained.equals(that.supportsScreensAnyDensityObtained) : that.supportsScreensAnyDensityObtained != null)
             return false;
-        return !(supportsScreensAnyDensityPercentage != null ? !supportsScreensAnyDensityPercentage.equals(that.supportsScreensAnyDensityPercentage) : that.supportsScreensAnyDensityPercentage != null);
+        return !(supportsScreensAnyDensity != null ? !supportsScreensAnyDensity.equals(that.supportsScreensAnyDensity) : that.supportsScreensAnyDensity != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = supportsScreensResizeableObtained != null ? supportsScreensResizeableObtained.hashCode() : 0;
-        result = 31 * result + (supportsScreensResizeablePercentage != null ? supportsScreensResizeablePercentage.hashCode() : 0);
+        int result = analyzedApks != null ? analyzedApks.hashCode() : 0;
+        result = 31 * result + (supportsScreensResizeableObtained != null ? supportsScreensResizeableObtained.hashCode() : 0);
+        result = 31 * result + (supportsScreensResizeable != null ? supportsScreensResizeable.hashCode() : 0);
         result = 31 * result + (supportsScreensSmallObtained != null ? supportsScreensSmallObtained.hashCode() : 0);
-        result = 31 * result + (supportsScreensSmallPercentage != null ? supportsScreensSmallPercentage.hashCode() : 0);
+        result = 31 * result + (supportsScreensSmall != null ? supportsScreensSmall.hashCode() : 0);
         result = 31 * result + (supportsScreensNormalObtained != null ? supportsScreensNormalObtained.hashCode() : 0);
-        result = 31 * result + (supportsScreensNormalPercentage != null ? supportsScreensNormalPercentage.hashCode() : 0);
+        result = 31 * result + (supportsScreensNormal != null ? supportsScreensNormal.hashCode() : 0);
         result = 31 * result + (supportsScreensLargeObtained != null ? supportsScreensLargeObtained.hashCode() : 0);
-        result = 31 * result + (supportsScreensLargePercentage != null ? supportsScreensLargePercentage.hashCode() : 0);
+        result = 31 * result + (supportsScreensLarge != null ? supportsScreensLarge.hashCode() : 0);
         result = 31 * result + (supportsScreensXlargeObtained != null ? supportsScreensXlargeObtained.hashCode() : 0);
-        result = 31 * result + (supportsScreensXlargePercentage != null ? supportsScreensXlargePercentage.hashCode() : 0);
+        result = 31 * result + (supportsScreensXlarge != null ? supportsScreensXlarge.hashCode() : 0);
         result = 31 * result + (supportsScreensAnyDensityObtained != null ? supportsScreensAnyDensityObtained.hashCode() : 0);
-        result = 31 * result + (supportsScreensAnyDensityPercentage != null ? supportsScreensAnyDensityPercentage.hashCode() : 0);
+        result = 31 * result + (supportsScreensAnyDensity != null ? supportsScreensAnyDensity.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "ScreenStatistics{" +
-                "supportsScreensResizeableObtained=" + supportsScreensResizeableObtained +
-                ", supportsScreensResizeablePercentage=" + supportsScreensResizeablePercentage +
+                "analyzedApks=" + analyzedApks +
+                ", supportsScreensResizeableObtained=" + supportsScreensResizeableObtained +
+                ", supportsScreensResizeable=" + supportsScreensResizeable +
                 ", supportsScreensSmallObtained=" + supportsScreensSmallObtained +
-                ", supportsScreensSmallPercentage=" + supportsScreensSmallPercentage +
+                ", supportsScreensSmall=" + supportsScreensSmall +
                 ", supportsScreensNormalObtained=" + supportsScreensNormalObtained +
-                ", supportsScreensNormalPercentage=" + supportsScreensNormalPercentage +
+                ", supportsScreensNormal=" + supportsScreensNormal +
                 ", supportsScreensLargeObtained=" + supportsScreensLargeObtained +
-                ", supportsScreensLargePercentage=" + supportsScreensLargePercentage +
+                ", supportsScreensLarge=" + supportsScreensLarge +
                 ", supportsScreensXlargeObtained=" + supportsScreensXlargeObtained +
-                ", supportsScreensXlargePercentage=" + supportsScreensXlargePercentage +
+                ", supportsScreensXlarge=" + supportsScreensXlarge +
                 ", supportsScreensAnyDensityObtained=" + supportsScreensAnyDensityObtained +
-                ", supportsScreensAnyDensityPercentage=" + supportsScreensAnyDensityPercentage +
+                ", supportsScreensAnyDensity=" + supportsScreensAnyDensity +
                 '}';
     }
 }
+
