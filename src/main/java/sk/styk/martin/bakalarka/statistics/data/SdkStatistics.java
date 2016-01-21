@@ -89,4 +89,53 @@ public class SdkStatistics {
     public void setTopMaxSdk(Map<String, PercentagePair> topMaxSdk) {
         this.topMaxSdk = topMaxSdk;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SdkStatistics that = (SdkStatistics) o;
+
+        if (analyzedApks != null ? !analyzedApks.equals(that.analyzedApks) : that.analyzedApks != null) return false;
+        if (apksWithGeneralUsesSdkTagObtained != null ? !apksWithGeneralUsesSdkTagObtained.equals(that.apksWithGeneralUsesSdkTagObtained) : that.apksWithGeneralUsesSdkTagObtained != null)
+            return false;
+        if (apksWithMinSdkTagObtained != null ? !apksWithMinSdkTagObtained.equals(that.apksWithMinSdkTagObtained) : that.apksWithMinSdkTagObtained != null)
+            return false;
+        if (topMinSdk != null ? !topMinSdk.equals(that.topMinSdk) : that.topMinSdk != null) return false;
+        if (apksWithTargetSdkTagObtained != null ? !apksWithTargetSdkTagObtained.equals(that.apksWithTargetSdkTagObtained) : that.apksWithTargetSdkTagObtained != null)
+            return false;
+        if (topTargetSdk != null ? !topTargetSdk.equals(that.topTargetSdk) : that.topTargetSdk != null) return false;
+        if (apksWithMaxSdkTagObtained != null ? !apksWithMaxSdkTagObtained.equals(that.apksWithMaxSdkTagObtained) : that.apksWithMaxSdkTagObtained != null)
+            return false;
+        return !(topMaxSdk != null ? !topMaxSdk.equals(that.topMaxSdk) : that.topMaxSdk != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = analyzedApks != null ? analyzedApks.hashCode() : 0;
+        result = 31 * result + (apksWithGeneralUsesSdkTagObtained != null ? apksWithGeneralUsesSdkTagObtained.hashCode() : 0);
+        result = 31 * result + (apksWithMinSdkTagObtained != null ? apksWithMinSdkTagObtained.hashCode() : 0);
+        result = 31 * result + (topMinSdk != null ? topMinSdk.hashCode() : 0);
+        result = 31 * result + (apksWithTargetSdkTagObtained != null ? apksWithTargetSdkTagObtained.hashCode() : 0);
+        result = 31 * result + (topTargetSdk != null ? topTargetSdk.hashCode() : 0);
+        result = 31 * result + (apksWithMaxSdkTagObtained != null ? apksWithMaxSdkTagObtained.hashCode() : 0);
+        result = 31 * result + (topMaxSdk != null ? topMaxSdk.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SdkStatistics{" +
+                "analyzedApks=" + analyzedApks +
+                ", apksWithGeneralUsesSdkTagObtained=" + apksWithGeneralUsesSdkTagObtained +
+                ", apksWithMinSdkTagObtained=" + apksWithMinSdkTagObtained +
+                ", topMinSdk=" + topMinSdk +
+                ", apksWithTargetSdkTagObtained=" + apksWithTargetSdkTagObtained +
+                ", topTargetSdk=" + topTargetSdk +
+                ", apksWithMaxSdkTagObtained=" + apksWithMaxSdkTagObtained +
+                ", topMaxSdk=" + topMaxSdk +
+                '}';
+    }
 }
