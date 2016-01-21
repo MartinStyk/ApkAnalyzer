@@ -1,9 +1,7 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
 import sk.styk.martin.bakalarka.files.JsonUtils;
-import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
-import sk.styk.martin.bakalarka.statistics.data.ScreenStatistics;
-import sk.styk.martin.bakalarka.statistics.data.SdkStatistics;
+import sk.styk.martin.bakalarka.statistics.data.*;
 
 import java.io.File;
 import java.util.List;
@@ -34,54 +32,60 @@ public class StatisticsProcessor {
         overallStatistics = new OverallStatistics();
         overallStatistics.setTotalAnalyzedApks(jsons.size());
 
-//        FileSizeStatistics fileSizeStatistics = FileSizeStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setFileSizeStatistics(fileSizeStatistics);
-//
-//        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
-//
-//
-//        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
-//
-//        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setPermissionsStatistics(permissionsStatistics);
-//
-//        LibrariesStatistics librariesStatistics = LibrariesStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setLibrariesStatistics(librariesStatistics);
-//
-//        FeaturesStatistics featuresStatistics = FeaturesStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setFeaturesStatistics(featuresStatistics);
-//
-//        SdkStatistics sdkStatistics = SdkStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setSdkStatistics(sdkStatistics);
+        FileSizeStatistics fileSizeStatistics = FileSizeStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setFileSizeStatistics(fileSizeStatistics);
+
+        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
+
+
+        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
+
+        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setPermissionsStatistics(permissionsStatistics);
+
+        LibrariesStatistics librariesStatistics = LibrariesStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setLibrariesStatistics(librariesStatistics);
+
+        FeaturesStatistics featuresStatistics = FeaturesStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setFeaturesStatistics(featuresStatistics);
+
+        SdkStatistics sdkStatistics = SdkStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setSdkStatistics(sdkStatistics);
 
         ScreenStatistics screenStatistics = ScreenStatisticsProcessor
                 .ofFiles(jsons)
                 .process();
 
         overallStatistics.setScreenStatistics(screenStatistics);
+
+        LocalizationsStatistics localizationsStatistics = LocalizationsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setLocalizationsStatistics(localizationsStatistics);
 
 
         if (outputFile != null) {
