@@ -71,7 +71,7 @@ public class SdkStatisticsProcessor {
                 //min Sdk
                 String minSkd = manifestData.getUsesMinSdkVersion();
 
-                if (minSkd != null || !minSkd.isEmpty()) {
+                if (minSkd != null && !minSkd.isEmpty()) {
 
                     usesSdkTagFound = true;
 
@@ -89,7 +89,7 @@ public class SdkStatisticsProcessor {
                 //target Sdk
                 String targetSkd = manifestData.getUsesTargetSdkVersion();
 
-                if (targetSkd != null || !targetSkd.isEmpty()) {
+                if (targetSkd != null && !targetSkd.isEmpty()) {
 
                     usesSdkTagFound = true;
 
@@ -107,7 +107,7 @@ public class SdkStatisticsProcessor {
                 //max Sdk
                 String maxSdk = manifestData.getUsesMaxSdkVersion();
 
-                if (maxSdk != null || !maxSdk.isEmpty()) {
+                if (maxSdk != null && !maxSdk.isEmpty()) {
 
                     usesSdkTagFound = true;
 
