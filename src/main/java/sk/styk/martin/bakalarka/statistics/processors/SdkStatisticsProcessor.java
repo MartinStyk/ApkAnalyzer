@@ -48,6 +48,11 @@ public class SdkStatisticsProcessor {
         Map<String, PercentagePair> topMinSdk = new HashMap<String, PercentagePair>();
         Map<String, PercentagePair> topTargetSdk = new HashMap<String, PercentagePair>();
         Map<String, PercentagePair> topMaxSdk = new HashMap<String, PercentagePair>();
+
+        int numMinSdk = 0;
+        int numTargetSdk = 0;
+        int numMaxSdk = 0;
+
         int manifestFound = 0;
         int usesSdkFound = 0;
 
@@ -73,6 +78,7 @@ public class SdkStatisticsProcessor {
 
                 if (minSkd != null && !minSkd.isEmpty()) {
 
+                    numMinSdk++;
                     usesSdkTagFound = true;
 
                     if (topMinSdk.containsKey(minSkd)) {
@@ -91,6 +97,7 @@ public class SdkStatisticsProcessor {
 
                 if (targetSkd != null && !targetSkd.isEmpty()) {
 
+                    numTargetSdk++;
                     usesSdkTagFound = true;
 
                     if (topTargetSdk.containsKey(targetSkd)) {
@@ -110,7 +117,7 @@ public class SdkStatisticsProcessor {
                 if (maxSdk != null && !maxSdk.isEmpty()) {
 
                     usesSdkTagFound = true;
-
+                    numMaxSdk++;
 
                     if (topMaxSdk.containsKey(maxSdk)) {
                         PercentagePair percentagePair = topMaxSdk.get(maxSdk);
@@ -131,18 +138,18 @@ public class SdkStatisticsProcessor {
 
         sdkStatistics.setAnalyzedApks(manifestFound);
         sdkStatistics.setApksWithGeneralUsesSdkTagObtained(new PercentagePair(usesSdkFound, PercentageHelper.getPercentage(usesSdkFound, manifestFound)));
-        sdkStatistics.setApksWithMinSdkTagObtained(new PercentagePair(topMinSdk.size(), PercentageHelper.getPercentage(topMinSdk.size(), manifestFound)));
-        sdkStatistics.setApksWithMaxSdkTagObtained(new PercentagePair(topMaxSdk.size(), PercentageHelper.getPercentage(topMaxSdk.size(), manifestFound)));
-        sdkStatistics.setApksWithTargetSdkTagObtained(new PercentagePair(topTargetSdk.size(), PercentageHelper.getPercentage(topTargetSdk.size(), manifestFound)));
+        sdkStatistics.setApksWithMinSdkTagObtained(new PercentagePair(numMinSdk, PercentageHelper.getPercentage(numMinSdk, manifestFound)));
+        sdkStatistics.setApksWithMaxSdkTagObtained(new PercentagePair(numMaxSdk, PercentageHelper.getPercentage(numMaxSdk, manifestFound)));
+        sdkStatistics.setApksWithTargetSdkTagObtained(new PercentagePair(numTargetSdk, PercentageHelper.getPercentage(numTargetSdk, manifestFound)));
 
-        setTop(topMinSdk, Type.MIN);
-        setTop(topTargetSdk, Type.TARGET);
-        setTop(topMaxSdk, Type.MAX);
+        setTop(topMinSdk, numMinSdk, Type.MIN);
+        setTop(topTargetSdk, numTargetSdk, Type.TARGET);
+        setTop(topMaxSdk, numMaxSdk, Type.MAX);
 
         return sdkStatistics;
     }
 
-    private void setTop(Map<String, PercentagePair> topSdk, Type type) {
+    private void setTop(Map<String, PercentagePair> topSdk, int number, Type type) {
 
         logger.info("Started processing chart for " + type.toString());
 
@@ -153,7 +160,7 @@ public class SdkStatisticsProcessor {
         for (Map.Entry<String, PercentagePair> entry : topSdk.entrySet()) {
             PercentagePair pair = entry.getValue();
             Integer count = pair.getCount();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), topSdk.size()));
+            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
         }
 
         switch (type) {
