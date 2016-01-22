@@ -24,6 +24,8 @@ public class OverallStatistics {
 
     private ScreenStatistics screenStatistics;
 
+    private CertificateStatistics certificateStatistics;
+
     private LocalizationsStatistics localizationsStatistics;
 
     private DrawableStatistics drawableStatistics;
@@ -102,6 +104,14 @@ public class OverallStatistics {
         this.screenStatistics = screenStatistics;
     }
 
+    public CertificateStatistics getCertificateStatistics() {
+        return certificateStatistics;
+    }
+
+    public void setCertificateStatistics(CertificateStatistics certificateStatistics) {
+        this.certificateStatistics = certificateStatistics;
+    }
+
     public LocalizationsStatistics getLocalizationsStatistics() {
         return localizationsStatistics;
     }
@@ -151,6 +161,8 @@ public class OverallStatistics {
             return false;
         if (screenStatistics != null ? !screenStatistics.equals(that.screenStatistics) : that.screenStatistics != null)
             return false;
+        if (certificateStatistics != null ? !certificateStatistics.equals(that.certificateStatistics) : that.certificateStatistics != null)
+            return false;
         if (localizationsStatistics != null ? !localizationsStatistics.equals(that.localizationsStatistics) : that.localizationsStatistics != null)
             return false;
         if (drawableStatistics != null ? !drawableStatistics.equals(that.drawableStatistics) : that.drawableStatistics != null)
@@ -170,6 +182,7 @@ public class OverallStatistics {
         result = 31 * result + (featuresStatistics != null ? featuresStatistics.hashCode() : 0);
         result = 31 * result + (sdkStatistics != null ? sdkStatistics.hashCode() : 0);
         result = 31 * result + (screenStatistics != null ? screenStatistics.hashCode() : 0);
+        result = 31 * result + (certificateStatistics != null ? certificateStatistics.hashCode() : 0);
         result = 31 * result + (localizationsStatistics != null ? localizationsStatistics.hashCode() : 0);
         result = 31 * result + (drawableStatistics != null ? drawableStatistics.hashCode() : 0);
         result = 31 * result + (additionalResourceStatistics != null ? additionalResourceStatistics.hashCode() : 0);
@@ -188,6 +201,7 @@ public class OverallStatistics {
                 ", featuresStatistics=" + featuresStatistics +
                 ", sdkStatistics=" + sdkStatistics +
                 ", screenStatistics=" + screenStatistics +
+                ", certificateStatistics=" + certificateStatistics +
                 ", localizationsStatistics=" + localizationsStatistics +
                 ", drawableStatistics=" + drawableStatistics +
                 ", additionalResourceStatistics=" + additionalResourceStatistics +

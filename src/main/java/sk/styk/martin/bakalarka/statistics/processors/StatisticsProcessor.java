@@ -81,6 +81,12 @@ public class StatisticsProcessor {
 
         overallStatistics.setScreenStatistics(screenStatistics);
 
+        CertificateStatistics certificateStatistics = CertificateStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setCertificateStatistics(certificateStatistics);
+
         LocalizationsStatistics localizationsStatistics = LocalizationsStatisticsProcessor
                 .ofFiles(jsons)
                 .process();

@@ -103,7 +103,7 @@ public class Main {
     public static void computeStats() {
         //possible input from user
         final String INPUT_DIR = "D:\\APK\\metadata";
-        final String OUTPUT_FILE = "D:\\output\\stats.txt";
+        final String OUTPUT_FILE = "D:\\output\\stats.json";
 
         //code that handle 'computeStats use case'
 
@@ -115,5 +115,57 @@ public class Main {
         OverallStatistics overallStatistics = statisticsProcessor.processFiles();
     }
 
+//    public static void a() throws IOException {
+//        final String INPUT_DIR = "D:\\APK\\metadata";
+//        final String OUTPUT_FILE = "D:\\output\\stats.txt";
+//        String everything =null;
+//        //code that handle 'computeStats use case'
+//
+//        FileFinder ff = new FileFinder(new File(INPUT_DIR));
+//        List<File> jsons = ff.getJsonFilesInDirectories();
+//
+//        for(File f : jsons){
+//            boolean replace = false;
+//            BufferedReader br = null;
+//            try {
+//                br = new BufferedReader(new FileReader(f));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                StringBuilder sb = new StringBuilder();
+//                String line = br.readLine();
+//
+//                while (line != null) {
+//                    if(line.contains("\"androidManifest\": {},")){
+//                        System.out.print("REPLACE FOUND +" + f.getName());
+//                        replace=true;
+//                    }else {
+//                        sb.append(line);
+//                        sb.append(System.lineSeparator());
+//                    }
+//                    line = br.readLine();
+//                }
+//                everything = sb.toString();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } finally {
+//                br.close();
+//            }
+//
+//            if(replace){
+//                PrintWriter writer = new PrintWriter(f.getAbsoluteFile(), "UTF-8");
+//                writer.print(everything);
+//                writer.close();
+//
+//                ApkData data = JsonUtils.fromJson(f);
+//                if(data==null){
+//                    throw new RuntimeException("bad conversion");
+//                }
+//            }
+//
+//
+//        }
+//    }
 }
 
