@@ -141,7 +141,7 @@ public class FileSizeStatisticsProcessor {
                 value = data.getFileSize();
                 break;
         }
-        return value == null ? null : value.doubleValue();
+        return value == null || value == 0 ? null : value.doubleValue();
     }
 
 }

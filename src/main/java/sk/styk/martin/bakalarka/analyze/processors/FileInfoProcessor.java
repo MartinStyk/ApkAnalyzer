@@ -123,12 +123,19 @@ public class FileInfoProcessor {
 
     private void getDexSize() {
         File dexFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "classes.dex");
-        data.setDexSize(dexFile.length());
+        Long length = dexFile.length();
+        if(length !=  null && length != 0){
+            data.setDexSize(length);
+        }
+
     }
 
     private void getArscSize() {
         File file = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "resources.arsc");
-        data.setArscSize(file.length());
+        Long length = file.length();
+        if(length !=  null && length != 0){
+            data.setArscSize(length);
+        }
     }
 
 }
