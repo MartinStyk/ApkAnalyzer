@@ -32,6 +32,8 @@ public class OverallStatistics {
 
     private ResourceStatistics additionalResourceStatistics;
 
+    private FileStatistics fileStatistics;
+
     public Integer getTotalAnalyzedApks() {
         return totalAnalyzedApks;
     }
@@ -136,6 +138,14 @@ public class OverallStatistics {
         this.additionalResourceStatistics = additionalResourceStatistics;
     }
 
+    public FileStatistics getFileStatistics() {
+        return fileStatistics;
+    }
+
+    public void setFileStatistics(FileStatistics fileStatistics) {
+        this.fileStatistics = fileStatistics;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -167,7 +177,9 @@ public class OverallStatistics {
             return false;
         if (drawableStatistics != null ? !drawableStatistics.equals(that.drawableStatistics) : that.drawableStatistics != null)
             return false;
-        return !(additionalResourceStatistics != null ? !additionalResourceStatistics.equals(that.additionalResourceStatistics) : that.additionalResourceStatistics != null);
+        if (additionalResourceStatistics != null ? !additionalResourceStatistics.equals(that.additionalResourceStatistics) : that.additionalResourceStatistics != null)
+            return false;
+        return !(fileStatistics != null ? !fileStatistics.equals(that.fileStatistics) : that.fileStatistics != null);
 
     }
 
@@ -186,6 +198,7 @@ public class OverallStatistics {
         result = 31 * result + (localizationsStatistics != null ? localizationsStatistics.hashCode() : 0);
         result = 31 * result + (drawableStatistics != null ? drawableStatistics.hashCode() : 0);
         result = 31 * result + (additionalResourceStatistics != null ? additionalResourceStatistics.hashCode() : 0);
+        result = 31 * result + (fileStatistics != null ? fileStatistics.hashCode() : 0);
         return result;
     }
 
@@ -205,6 +218,7 @@ public class OverallStatistics {
                 ", localizationsStatistics=" + localizationsStatistics +
                 ", drawableStatistics=" + drawableStatistics +
                 ", additionalResourceStatistics=" + additionalResourceStatistics +
+                ", fileStatistics=" + fileStatistics +
                 '}';
     }
 }
