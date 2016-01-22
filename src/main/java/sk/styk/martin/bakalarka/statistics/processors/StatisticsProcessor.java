@@ -93,6 +93,12 @@ public class StatisticsProcessor {
 
         overallStatistics.setLocalizationsStatistics(localizationsStatistics);
 
+        DrawableStatistics drawableStatistics = DrawableStatisticsProcessors
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setDrawableStatistics(drawableStatistics);
+
 
         if (outputFile != null) {
             JsonUtils.toJson(overallStatistics, outputFile);
