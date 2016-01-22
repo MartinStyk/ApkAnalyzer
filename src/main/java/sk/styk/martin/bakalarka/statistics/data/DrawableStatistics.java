@@ -9,7 +9,7 @@ import java.util.List;
 public class DrawableStatistics {
 
     /**
-     * number of apks with data successfully collected from android manifest
+     * number of apks with data successfully collected
      */
     private Integer analyzedApks;
 

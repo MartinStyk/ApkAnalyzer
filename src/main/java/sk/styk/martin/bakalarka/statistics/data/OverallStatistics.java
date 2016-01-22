@@ -30,7 +30,7 @@ public class OverallStatistics {
 
     private DrawableStatistics drawableStatistics;
 
-    private AdditionalResourceStatistics additionalResourceStatistics;
+    private ResourceStatistics additionalResourceStatistics;
 
     public Integer getTotalAnalyzedApks() {
         return totalAnalyzedApks;
@@ -128,11 +128,11 @@ public class OverallStatistics {
         this.drawableStatistics = drawableStatistics;
     }
 
-    public AdditionalResourceStatistics getAdditionalResourceStatistics() {
+    public ResourceStatistics getAdditionalResourceStatistics() {
         return additionalResourceStatistics;
     }
 
-    public void setAdditionalResourceStatistics(AdditionalResourceStatistics additionalResourceStatistics) {
+    public void setAdditionalResourceStatistics(ResourceStatistics additionalResourceStatistics) {
         this.additionalResourceStatistics = additionalResourceStatistics;
     }
 
