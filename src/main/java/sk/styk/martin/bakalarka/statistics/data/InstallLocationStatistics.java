@@ -18,9 +18,9 @@ public class InstallLocationStatistics {
      */
     private Integer installLocationTagFoundInApks;
     private Map<String, Integer> installLocationTable;
-    private BigDecimal installLocationAutoPercentage;
-    private BigDecimal installLocationInternalOnlyPercentage;
-    private BigDecimal installLocationPreferExternalPercentage;
+    private PercentagePair installLocationAutoPercentage;
+    private PercentagePair installLocationInternalOnlyPercentage;
+    private PercentagePair installLocationPreferExternalPercentage;
 
     public Integer getAnalyzedApks() {
         return analyzedApks;
@@ -46,27 +46,27 @@ public class InstallLocationStatistics {
         this.installLocationTable = installLocationTable;
     }
 
-    public BigDecimal getInstallLocationAutoPercentage() {
+    public PercentagePair getInstallLocationAutoPercentage() {
         return installLocationAutoPercentage;
     }
 
-    public void setInstallLocationAutoPercentage(BigDecimal installLocationAutoPercentage) {
+    public void setInstallLocationAutoPercentage(PercentagePair installLocationAutoPercentage) {
         this.installLocationAutoPercentage = installLocationAutoPercentage;
     }
 
-    public BigDecimal getInstallLocationInternalOnlyPercentage() {
+    public PercentagePair getInstallLocationInternalOnlyPercentage() {
         return installLocationInternalOnlyPercentage;
     }
 
-    public void setInstallLocationInternalOnlyPercentage(BigDecimal installLocationInternalOnlyPercentage) {
+    public void setInstallLocationInternalOnlyPercentage(PercentagePair installLocationInternalOnlyPercentage) {
         this.installLocationInternalOnlyPercentage = installLocationInternalOnlyPercentage;
     }
 
-    public BigDecimal getInstallLocationPreferExternalPercentage() {
+    public PercentagePair getInstallLocationPreferExternalPercentage() {
         return installLocationPreferExternalPercentage;
     }
 
-    public void setInstallLocationPreferExternalPercentage(BigDecimal installLocationPreferExternalPercentage) {
+    public void setInstallLocationPreferExternalPercentage(PercentagePair installLocationPreferExternalPercentage) {
         this.installLocationPreferExternalPercentage = installLocationPreferExternalPercentage;
     }
 

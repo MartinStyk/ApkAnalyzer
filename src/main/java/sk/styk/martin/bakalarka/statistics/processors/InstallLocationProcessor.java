@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
+import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 
 import java.io.File;
@@ -68,9 +69,9 @@ public class InstallLocationProcessor {
         installLocationStatistics.setAnalyzedApks(manifestFound);
         installLocationStatistics.setInstallLocationTagFoundInApks(installLocationTagFound);
         installLocationStatistics.setInstallLocationTable(stats);
-        installLocationStatistics.setInstallLocationAutoPercentage(PercentageHelper.getPercentage(stats.get("auto"), manifestFound));
-        installLocationStatistics.setInstallLocationInternalOnlyPercentage(PercentageHelper.getPercentage(stats.get("internalOnly"), manifestFound));
-        installLocationStatistics.setInstallLocationPreferExternalPercentage(PercentageHelper.getPercentage(stats.get("preferExternal"), manifestFound));
+        installLocationStatistics.setInstallLocationAutoPercentage(new PercentagePair(stats.get("auto"),PercentageHelper.getPercentage(stats.get("auto"), manifestFound)));
+        installLocationStatistics.setInstallLocationInternalOnlyPercentage(new PercentagePair(stats.get("internalOnly"),PercentageHelper.getPercentage(stats.get("internalOnly"), manifestFound)));
+        installLocationStatistics.setInstallLocationPreferExternalPercentage(new PercentagePair(stats.get("preferExternal"),PercentageHelper.getPercentage(stats.get("preferExternal"), manifestFound)));
 
         return installLocationStatistics;
     }
