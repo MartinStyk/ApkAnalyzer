@@ -786,6 +786,13 @@ public class MetadataPairCompare {
 
         Long bigger = valueA > valueB ? valueA : valueB;
 
+        if(valueA == valueB){
+            return new BigDecimal(0);
+        }
+        if(bigger == 0){
+            return null;
+        }
+
         Double result = Math.abs(100 * difference.doubleValue() / bigger.doubleValue());
         return new BigDecimal(result);
     }
