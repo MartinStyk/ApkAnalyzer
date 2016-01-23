@@ -78,7 +78,7 @@ public class CertificateStatisticsProcessor {
                 Integer num = certificateData.size();
                 if (numberMap.containsKey(num)) {
                     PercentagePair percentagePair = numberMap.get(num);
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
 
                 } else {
@@ -94,7 +94,7 @@ public class CertificateStatisticsProcessor {
                         versionsObtained++;
                         if (versionMap.containsKey(version)) {
                             PercentagePair percentagePair = versionMap.get(version);
-                            Integer oldValue = percentagePair.getCount();
+                            Integer oldValue = percentagePair.getCount().intValue();
                             percentagePair.setCount(++oldValue);
 
                         } else {
@@ -107,7 +107,7 @@ public class CertificateStatisticsProcessor {
                         algorithmObtained++;
                         if (algorithmMap.containsKey(algorithm)) {
                             PercentagePair percentagePair = algorithmMap.get(algorithm);
-                            Integer oldValue = percentagePair.getCount();
+                            Integer oldValue = percentagePair.getCount().intValue();
                             percentagePair.setCount(++oldValue);
 
                         } else {
@@ -140,7 +140,7 @@ public class CertificateStatisticsProcessor {
 
         for (Map.Entry<Integer, PercentagePair> entry : map.entrySet()) {
             PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount();
+            Integer count = pair.getCount().intValue();
             pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
         }
 
@@ -166,7 +166,7 @@ public class CertificateStatisticsProcessor {
 
         for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
             PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount();
+            Integer count = pair.getCount().intValue();
             pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
         }
 

@@ -83,7 +83,7 @@ public class SdkStatisticsProcessor {
 
                     if (topMinSdk.containsKey(minSkd)) {
                         PercentagePair percentagePair = topMinSdk.get(minSkd);
-                        Integer oldValue = percentagePair.getCount();
+                        Integer oldValue = percentagePair.getCount().intValue();
                         percentagePair.setCount(++oldValue);
 
                     } else {
@@ -102,7 +102,7 @@ public class SdkStatisticsProcessor {
 
                     if (topTargetSdk.containsKey(targetSkd)) {
                         PercentagePair percentagePair = topTargetSdk.get(targetSkd);
-                        Integer oldValue = percentagePair.getCount();
+                        Integer oldValue = percentagePair.getCount().intValue();
                         percentagePair.setCount(++oldValue);
 
                     } else {
@@ -121,7 +121,7 @@ public class SdkStatisticsProcessor {
 
                     if (topMaxSdk.containsKey(maxSdk)) {
                         PercentagePair percentagePair = topMaxSdk.get(maxSdk);
-                        Integer oldValue = percentagePair.getCount();
+                        Integer oldValue = percentagePair.getCount().intValue();
                         percentagePair.setCount(++oldValue);
 
                     } else {
@@ -159,7 +159,7 @@ public class SdkStatisticsProcessor {
 
         for (Map.Entry<String, PercentagePair> entry : topSdk.entrySet()) {
             PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount();
+            Integer count = pair.getCount().intValue();
             pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
         }
 

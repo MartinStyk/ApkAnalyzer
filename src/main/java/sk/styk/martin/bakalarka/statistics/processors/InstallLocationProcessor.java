@@ -62,7 +62,7 @@ public class InstallLocationProcessor {
                 }
                 if (stats.containsKey(installLocation)) {
                     PercentagePair percentagePair = stats.get(installLocation);
-                    Integer value = percentagePair.getCount();
+                    Integer value = percentagePair.getCount().intValue();
                     percentagePair.setCount(++value);
                 } else {
                     stats.put(installLocation, new PercentagePair(1, null));
@@ -88,7 +88,7 @@ public class InstallLocationProcessor {
 
         for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
             PercentagePair percentagePair = entry.getValue();
-            Integer number = percentagePair.getCount();
+            Integer number = percentagePair.getCount().intValue();
             BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
 
             percentagePair.setPercentage(percentage);

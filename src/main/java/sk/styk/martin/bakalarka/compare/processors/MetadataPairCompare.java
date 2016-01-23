@@ -2,7 +2,9 @@ package sk.styk.martin.bakalarka.compare.processors;
 
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
+import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,8 +115,7 @@ public class MetadataPairCompare {
             return;
         }
         Long diffSize = apkDataB.getFileSize() - apkDataA.getFileSize();
-        result.setFileSizeDifference(diffSize);
-        result.setFileSizeDifferencePercentage(getPercentage(apkDataA.getFileSize(), apkDataB.getFileSize()));
+        result.setFileSizeDifference(new PercentagePair(diffSize, getPercentage(apkDataA.getFileSize(), apkDataB.getFileSize())));
     }
 
     private void compareDexSize() {
@@ -122,8 +123,7 @@ public class MetadataPairCompare {
             return;
         }
         Long diffSize = apkDataB.getDexSize() - apkDataA.getDexSize();
-        result.setDexSizeDifference(diffSize);
-        result.setDexSizeDifferencePercentage(getPercentage(apkDataA.getDexSize(), apkDataB.getDexSize()));
+        result.setDexSizeDifference(new PercentagePair(diffSize, getPercentage(apkDataA.getDexSize(), apkDataB.getDexSize())));
     }
 
     private void compareArscSize() {
@@ -131,8 +131,7 @@ public class MetadataPairCompare {
             return;
         }
         Long diffSize = apkDataB.getArscSize() - apkDataA.getArscSize();
-        result.setArscSizeDifference(diffSize);
-        result.setArscSizeDifferencePercentage(getPercentage(apkDataA.getArscSize(), apkDataB.getArscSize()));
+        result.setArscSizeDifference(new PercentagePair(diffSize, getPercentage(apkDataA.getArscSize(), apkDataB.getArscSize())));
     }
 
     private void comparePackageName() {
@@ -312,8 +311,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfActivitiesDifference(difference);
-        result.setNumberOfActivitiesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfActivitiesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -334,8 +332,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfServicesDifference(difference);
-        result.setNumberOfServicesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfServicesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -356,8 +353,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfContentProvidersDifference(difference);
-        result.setNumberOfContentProvidersDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfContentProvidersDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -378,8 +374,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfBroadcastReceiversDifference(difference);
-        result.setNumberOfBroadcastReceiversDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfBroadcastReceiversDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -400,8 +395,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfPermissionsDifference(difference);
-        result.setNumberOfPermissionsDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfPermissionsDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -422,8 +416,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfLibrariesDifference(difference);
-        result.setNumberOfLibrariesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfLibrariesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -444,8 +437,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB - valueA;
-        result.setNumberOfFeaturesDifference(difference);
-        result.setNumberOfFeaturesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfFeaturesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
 
         if (difference == 0) return;
 
@@ -572,8 +564,7 @@ public class MetadataPairCompare {
             return;
 
         Integer difference = valueB.size() - valueA.size();
-        result.setNumberOfLocalesDifference(difference);
-        result.setGetNumberOfLocalesDifferencePercentage(getPercentage(valueA.size(), valueB.size()));
+        result.setNumberOfLocalesDifference(new PercentagePair(difference, getPercentage(valueA.size(), valueB.size())));
 
         if (difference == 0) return;
 
@@ -594,8 +585,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfStringResourceDifference(difference);
-        result.setNumberOfStringResourceDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfStringResourceDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfPngDrawables() {
@@ -606,8 +596,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfPngDrawablesDifference(difference);
-        result.setNumberOfPngDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfPngDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfJpgDrawables() {
@@ -618,8 +607,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfJpgDrawablesDifference(difference);
-        result.setNumberOfJpgDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfJpgDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfGifDrawables() {
@@ -630,8 +618,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfGifDrawablesDifference(difference);
-        result.setNumberOfGifDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfGifDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfXmlDrawables() {
@@ -642,8 +629,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfXmlDrawablesDifference(difference);
-        result.setNumberOfXmlDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfXmlDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfLdpiDrawables() {
@@ -654,8 +640,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfLdpiDrawablesDifference(difference);
-        result.setNumberOfLdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfLdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfMdpiDrawables() {
@@ -666,8 +651,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfMdpiDrawablesDifference(difference);
-        result.setNumberOfMdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfMdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfHdpiDrawables() {
@@ -678,8 +662,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfHdpiDrawablesDifference(difference);
-        result.setNumberOfHdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfHdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfXhdpiDrawables() {
@@ -690,8 +673,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfXhdpiDrawablesDifference(difference);
-        result.setNumberOfXhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfXhdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfXxhdpiDrawables() {
@@ -702,8 +684,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfXxhdpiDrawablesDifference(difference);
-        result.setNumberOfXxhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfXxhdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfXxxhdpiDrawables() {
@@ -714,8 +695,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfXxxhdpiDrawablesDifference(difference);
-        result.setNumberOfXxxhdpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfXxxhdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfUnspecifiedDpiDrawables() {
@@ -726,8 +706,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfUnspecifiedDpiDrawablesDifference(difference);
-        result.setNumberOfUnspecifiedDpiDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfUnspecifiedDpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfRawResources() {
@@ -738,8 +717,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfRawResourcesDifference(difference);
-        result.setNumberOfRawResourcesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfRawResourcesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfMenuResources() {
@@ -750,8 +728,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfMenusDifference(difference);
-        result.setNumberOfMenusDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfMenusDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfLayoutResources() {
@@ -762,8 +739,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfLayoutsDifference(difference);
-        result.setNumberOfLayoutsDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfLayoutsDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfDifferentLayoutResources() {
@@ -774,8 +750,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfDifferentLayoutsDifference(difference);
-        result.setNumberOfDifferentLayoutsDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfDifferentLayoutsDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfDifferentDrawables() {
@@ -786,8 +761,7 @@ public class MetadataPairCompare {
             return;
 
         int difference = valueB - valueA;
-        result.setNumberOfDifferentDrawablesDifference(difference);
-        result.setNumberOfDifferentDrawablesDifferencePercentage(getPercentage(valueA, valueB));
+        result.setNumberOfDifferentDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private <X> void compareLists(List<X> inputA, List<X> inputB, List<X> additionalA, List<X> additionalB) {
@@ -807,20 +781,13 @@ public class MetadataPairCompare {
         }
     }
 
-    protected static Integer getPercentage(long valueA, long valueB) {
+    protected static BigDecimal getPercentage(long valueA, long valueB) {
         Long difference = valueB - valueA;
-        if (difference < 0.01 && difference > -0.01) {
-            return 0;
-        }
-        Long bigger;
-        if (valueA > valueB) {
-            bigger = valueA;
-        } else {
-            bigger = valueB;
-        }
 
-        Long result =Math.abs(Math.round(100L * difference / bigger.doubleValue()));
-        return result.intValue();
+        Long bigger = valueA > valueB ? valueA : valueB;
+
+        Double result = Math.abs(100 * difference.doubleValue() / bigger.doubleValue());
+        return new BigDecimal(result);
     }
 
     private String getDifferenceString(Object valueA, Object valueB) {

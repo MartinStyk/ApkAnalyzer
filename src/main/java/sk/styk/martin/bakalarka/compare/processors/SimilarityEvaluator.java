@@ -3,7 +3,9 @@ package sk.styk.martin.bakalarka.compare.processors;
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
+import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,15 +34,15 @@ public class SimilarityEvaluator {
             similarityThreshold = new SimilarityThreshold();
         }
 
-        Boolean fileSize = compareRatios(metadataResult.getFileSizeDifferencePercentage(), similarityThreshold.getMaxFilesizeRatioDifference());
-        Boolean activities = compareRatios(metadataResult.getNumberOfActivitiesDifferencePercentage(), similarityThreshold.getMaxActivitiesRatioDifference());
-        Boolean services = compareRatios(metadataResult.getNumberOfServicesDifferencePercentage(), similarityThreshold.getMaxServicesRatioDifference());
-        Boolean receivers = compareRatios(metadataResult.getNumberOfBroadcastReceiversDifferencePercentage(), similarityThreshold.getMaxReceiversRatioDifference());
-        Boolean providers = compareRatios(metadataResult.getNumberOfContentProvidersDifferencePercentage(), similarityThreshold.getMaxProvidersRatioDifference());
-        Boolean layout = compareRatios(metadataResult.getNumberOfDifferentLayoutsDifferencePercentage(), similarityThreshold.getMaxDifferentLayoutsRatioDifference());
-        Boolean drawable = compareRatios(metadataResult.getNumberOfDifferentDrawablesDifferencePercentage(), similarityThreshold.getMaxDifferentDrawablesRatioDifference());
+        Boolean fileSize = compareRatios(metadataResult.getFileSizeDifference(), similarityThreshold.getMaxFilesizeRatioDifference());
+        Boolean activities = compareRatios(metadataResult.getNumberOfActivitiesDifference(), similarityThreshold.getMaxActivitiesRatioDifference());
+        Boolean services = compareRatios(metadataResult.getNumberOfServicesDifference(), similarityThreshold.getMaxServicesRatioDifference());
+        Boolean receivers = compareRatios(metadataResult.getNumberOfBroadcastReceiversDifference(), similarityThreshold.getMaxReceiversRatioDifference());
+        Boolean providers = compareRatios(metadataResult.getNumberOfContentProvidersDifference(), similarityThreshold.getMaxProvidersRatioDifference());
+        Boolean layout = compareRatios(metadataResult.getNumberOfDifferentLayoutsDifference(), similarityThreshold.getMaxDifferentLayoutsRatioDifference());
+        Boolean drawable = compareRatios(metadataResult.getNumberOfDifferentDrawablesDifference(), similarityThreshold.getMaxDifferentDrawablesRatioDifference());
 
-        basicEvaluateResult = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable),similarityThreshold.getMinBooleanEvaluationThreshold());
+        basicEvaluateResult = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable), similarityThreshold.getMinBooleanEvaluationThreshold());
 
         comparisonResult.setSimilar(basicEvaluateResult);
 
@@ -75,19 +77,26 @@ public class SimilarityEvaluator {
         Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayoutsRatio(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
         Boolean others = compareRatios(hashCompareResult.getIdenticalOthersRatio(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
 
-        boolean result =  evaluateBooleans(Arrays.asList(drawables, layouts, others),similarityThreshold.getMinBooleanEvaluationThreshold());
+        boolean result = evaluateBooleans(Arrays.asList(drawables, layouts, others), similarityThreshold.getMinBooleanEvaluationThreshold());
         comparisonResult.setSimilar(result);
         return result;
     }
 
-    private Boolean compareRatios(Integer current, Integer threshold) {
-        return compareRatios(current, threshold, false);
+    private Boolean compareRatios(PercentagePair percentagePair, Integer threshold) {
+        return compareRatios(percentagePair, threshold, false);
     }
 
-    private Boolean compareRatios(Integer current, Integer threshold, boolean isMinCriterium) {
-        if (current == null)
+    private Boolean compareRatios(PercentagePair percentagePair, Integer threshold, boolean isMinCriterium) {
+        if (percentagePair == null)
             return null;
-        return isMinCriterium ? threshold < current : current < threshold;
+        return compareRatios(percentagePair.getPercentage(), threshold, isMinCriterium);
+    }
+
+    private Boolean compareRatios(BigDecimal percent, Integer threshold, boolean isMinCriterium) {
+        if (percent == null)
+            return null;
+
+        return isMinCriterium ? threshold.doubleValue() < percent.doubleValue() : percent.doubleValue() < threshold.doubleValue();
     }
 
     private Boolean evaluateBooleans(List<Boolean> booleans, int threshold) {

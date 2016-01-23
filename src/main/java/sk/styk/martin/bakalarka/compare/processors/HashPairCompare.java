@@ -3,6 +3,7 @@ package sk.styk.martin.bakalarka.compare.processors;
 import sk.styk.martin.bakalarka.analyze.data.HashData;
 import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -43,20 +44,20 @@ public class HashPairCompare {
         return result;
     }
 
-    private void compareArsc(){
+    private void compareArsc() {
         String arscA = hashDataA.getArscHash();
         String arscB = hashDataB.getArscHash();
 
-        if(arscA != null && arscB!=null){
+        if (arscA != null && arscB != null) {
             result.setArscIdentical(arscA.equals(arscB));
         }
     }
 
-    private void compareDex(){
+    private void compareDex() {
         String dexA = hashDataA.getDexHash();
         String dexB = hashDataB.getDexHash();
 
-        if(dexA != null && dexB!=null){
+        if (dexA != null && dexB != null) {
             result.setDexIdentical(dexA.equals(dexB));
         }
     }
@@ -66,7 +67,7 @@ public class HashPairCompare {
         Map mapA = hashDataA.getDrawableHash();
         Map mapB = hashDataB.getDrawableHash();
 
-        if(mapA == null || mapB == null){
+        if (mapA == null || mapB == null) {
             return;
         }
 
@@ -91,8 +92,8 @@ public class HashPairCompare {
         }
 
         List<String> addtionalInAclone = new ArrayList<String>(additionalInA);
-        for(String s: addtionalInAclone){
-            if(additionalInB.contains(s)){
+        for (String s : addtionalInAclone) {
+            if (additionalInB.contains(s)) {
                 modified.add(s);
                 additionalInA.remove(s);
                 additionalInB.remove(s);
@@ -106,8 +107,8 @@ public class HashPairCompare {
         result.setTotalDrawablesA(mapA.keySet().size());
         result.setTotalDrawablesB(mapB.keySet().size());
 
-        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalDrawablesRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
+        int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalDrawablesRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
 
     }
 
@@ -116,7 +117,7 @@ public class HashPairCompare {
         Map mapA = hashDataA.getLayoutHash();
         Map mapB = hashDataB.getLayoutHash();
 
-        if(mapA == null || mapB == null){
+        if (mapA == null || mapB == null) {
             return;
         }
 
@@ -141,8 +142,8 @@ public class HashPairCompare {
         }
 
         List<String> addtionalInAclone = new ArrayList<String>(additionalInA);
-        for(String s: addtionalInAclone){
-            if(additionalInB.contains(s)){
+        for (String s : addtionalInAclone) {
+            if (additionalInB.contains(s)) {
                 modified.add(s);
                 additionalInA.remove(s);
                 additionalInB.remove(s);
@@ -156,8 +157,8 @@ public class HashPairCompare {
         result.setTotalLayoutsA(mapA.keySet().size());
         result.setTotalLayoutsB(mapB.keySet().size());
 
-        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalLayoutsRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
+        int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalLayoutsRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
 
     }
 
@@ -166,7 +167,7 @@ public class HashPairCompare {
         Map mapA = hashDataA.getOtherHash();
         Map mapB = hashDataB.getOtherHash();
 
-        if(mapA == null || mapB == null){
+        if (mapA == null || mapB == null) {
             return;
         }
 
@@ -191,8 +192,8 @@ public class HashPairCompare {
         }
 
         List<String> addtionalInAclone = new ArrayList<String>(additionalInA);
-        for(String s: addtionalInAclone){
-            if(additionalInB.contains(s)){
+        for (String s : addtionalInAclone) {
+            if (additionalInB.contains(s)) {
                 modified.add(s);
                 additionalInA.remove(s);
                 additionalInB.remove(s);
@@ -206,8 +207,8 @@ public class HashPairCompare {
         result.setTotalOthersA(mapA.keySet().size());
         result.setTotalOthersB(mapB.keySet().size());
 
-        int higher = mapA.keySet().size()> mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalOthersRatio(getPercentage(mapA.keySet().size() - keysA.size(),higher));
+        int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
+        result.setIdenticalOthersRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
 
     }
 
@@ -224,10 +225,10 @@ public class HashPairCompare {
             }
         }
     }
-    private Integer getPercentage(Integer part, Integer bigger) {
 
-        Long result =Math.abs(Math.round(100L * part / bigger.doubleValue()));
-        return result.intValue();
+    private BigDecimal getPercentage(Integer part, Integer bigger) {
+        Double result = Math.abs(100L * part.doubleValue() / bigger.doubleValue());
+        return new BigDecimal(result);
     }
 
 }

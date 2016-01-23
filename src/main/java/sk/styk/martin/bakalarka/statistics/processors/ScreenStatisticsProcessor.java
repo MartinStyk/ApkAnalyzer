@@ -89,7 +89,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (resizeableMap.containsKey(resizealbe.toString())) {
                     PercentagePair percentagePair = resizeableMap.get(resizealbe.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     resizeableMap.put(resizealbe.toString(), new PercentagePair(1, null));
@@ -107,7 +107,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (smallMap.containsKey(small.toString())) {
                     PercentagePair percentagePair = smallMap.get(small.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     smallMap.put(small.toString(), new PercentagePair(1, null));
@@ -124,7 +124,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (normalMap.containsKey(normal.toString())) {
                     PercentagePair percentagePair = normalMap.get(normal.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     normalMap.put(normal.toString(), new PercentagePair(1, null));
@@ -141,7 +141,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (largeMap.containsKey(large.toString())) {
                     PercentagePair percentagePair = largeMap.get(large.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     largeMap.put(large.toString(), new PercentagePair(1, null));
@@ -158,7 +158,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (xlargeMap.containsKey(xlarge.toString())) {
                     PercentagePair percentagePair = xlargeMap.get(xlarge.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     xlargeMap.put(xlarge.toString(), new PercentagePair(1, null));
@@ -175,7 +175,7 @@ public class ScreenStatisticsProcessor {
                 }
                 if (anyDensityMap.containsKey(anyDensity.toString())) {
                     PercentagePair percentagePair = anyDensityMap.get(anyDensity.toString());
-                    Integer oldValue = percentagePair.getCount();
+                    Integer oldValue = percentagePair.getCount().intValue();
                     percentagePair.setCount(++oldValue);
                 } else {
                     anyDensityMap.put(anyDensity.toString(), new PercentagePair(1, null));
@@ -218,7 +218,7 @@ public class ScreenStatisticsProcessor {
 
         for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
             PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount();
+            Integer count = pair.getCount().intValue();
             pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), total));
         }
 

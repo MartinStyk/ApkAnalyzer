@@ -97,7 +97,7 @@ public class LocalizationsStatisticsProcessor {
 
                             if (localizationsMap.containsKey(localeNormalized)) {
                                 PercentagePair percentagePair = localizationsMap.get(localeNormalized);
-                                Integer oldValue = percentagePair.getCount();
+                                Integer oldValue = percentagePair.getCount().intValue();
                                 percentagePair.setCount(++oldValue);
                             } else {
                                 localizationsMap.put(localeNormalized, new PercentagePair(1, null));
@@ -149,7 +149,7 @@ public class LocalizationsStatisticsProcessor {
 
         for (Map.Entry<String, PercentagePair> entry : localizationsMap.entrySet()) {
             PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount();
+            Integer count = pair.getCount().intValue();
             pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), localizationObtained));
         }
 

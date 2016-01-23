@@ -1,7 +1,6 @@
 package sk.styk.martin.bakalarka.compare.data;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,9 +23,9 @@ public class HashCompareResult {
     private Integer identicalLayouts;
     private Integer identicalOthers;
 
-    private Integer identicalDrawablesRatio;
-    private Integer identicalLayoutsRatio;
-    private Integer identicalOthersRatio;
+    private BigDecimal identicalDrawablesRatio;
+    private BigDecimal identicalLayoutsRatio;
+    private BigDecimal identicalOthersRatio;
 
     private List<String> modifiedDrawableFiles;
     private List<String> modifiedLayoutFiles;
@@ -173,27 +172,27 @@ public class HashCompareResult {
         this.additionaLayoutFilesB = additionaLayoutFilesB;
     }
 
-    public Integer getIdenticalDrawablesRatio() {
+    public BigDecimal getIdenticalDrawablesRatio() {
         return identicalDrawablesRatio;
     }
 
-    public void setIdenticalDrawablesRatio(Integer identicalDrawablesRatio) {
+    public void setIdenticalDrawablesRatio(BigDecimal identicalDrawablesRatio) {
         this.identicalDrawablesRatio = identicalDrawablesRatio;
     }
 
-    public Integer getIdenticalLayoutsRatio() {
+    public BigDecimal getIdenticalLayoutsRatio() {
         return identicalLayoutsRatio;
     }
 
-    public void setIdenticalLayoutsRatio(Integer identicalLayoutsRatio) {
+    public void setIdenticalLayoutsRatio(BigDecimal identicalLayoutsRatio) {
         this.identicalLayoutsRatio = identicalLayoutsRatio;
     }
 
-    public Integer getIdenticalOthersRatio() {
+    public BigDecimal getIdenticalOthersRatio() {
         return identicalOthersRatio;
     }
 
-    public void setIdenticalOthersRatio(Integer identicalOthersRatio) {
+    public void setIdenticalOthersRatio(BigDecimal identicalOthersRatio) {
         this.identicalOthersRatio = identicalOthersRatio;
     }
 
