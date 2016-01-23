@@ -17,10 +17,7 @@ public class InstallLocationStatistics {
      * number of apks with location tag found in manifest
      */
     private Integer installLocationTagFoundInApks;
-    private Map<String, Integer> installLocationTable;
-    private PercentagePair installLocationAutoPercentage;
-    private PercentagePair installLocationInternalOnlyPercentage;
-    private PercentagePair installLocationPreferExternalPercentage;
+    private Map<String, PercentagePair> installLocationTable;
 
     public Integer getAnalyzedApks() {
         return analyzedApks;
@@ -38,37 +35,14 @@ public class InstallLocationStatistics {
         this.installLocationTagFoundInApks = installLocationTagFoundInApks;
     }
 
-    public Map<String, Integer> getInstallLocationTable() {
+    public Map<String, PercentagePair> getInstallLocationTable() {
         return installLocationTable;
     }
 
-    public void setInstallLocationTable(Map<String, Integer> installLocationTable) {
+    public void setInstallLocationTable(Map<String, PercentagePair> installLocationTable) {
         this.installLocationTable = installLocationTable;
     }
 
-    public PercentagePair getInstallLocationAutoPercentage() {
-        return installLocationAutoPercentage;
-    }
-
-    public void setInstallLocationAutoPercentage(PercentagePair installLocationAutoPercentage) {
-        this.installLocationAutoPercentage = installLocationAutoPercentage;
-    }
-
-    public PercentagePair getInstallLocationInternalOnlyPercentage() {
-        return installLocationInternalOnlyPercentage;
-    }
-
-    public void setInstallLocationInternalOnlyPercentage(PercentagePair installLocationInternalOnlyPercentage) {
-        this.installLocationInternalOnlyPercentage = installLocationInternalOnlyPercentage;
-    }
-
-    public PercentagePair getInstallLocationPreferExternalPercentage() {
-        return installLocationPreferExternalPercentage;
-    }
-
-    public void setInstallLocationPreferExternalPercentage(PercentagePair installLocationPreferExternalPercentage) {
-        this.installLocationPreferExternalPercentage = installLocationPreferExternalPercentage;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,11 +56,7 @@ public class InstallLocationStatistics {
             return false;
         if (installLocationTable != null ? !installLocationTable.equals(that.installLocationTable) : that.installLocationTable != null)
             return false;
-        if (installLocationAutoPercentage != null ? !installLocationAutoPercentage.equals(that.installLocationAutoPercentage) : that.installLocationAutoPercentage != null)
-            return false;
-        if (installLocationInternalOnlyPercentage != null ? !installLocationInternalOnlyPercentage.equals(that.installLocationInternalOnlyPercentage) : that.installLocationInternalOnlyPercentage != null)
-            return false;
-        return !(installLocationPreferExternalPercentage != null ? !installLocationPreferExternalPercentage.equals(that.installLocationPreferExternalPercentage) : that.installLocationPreferExternalPercentage != null);
+        return true;
 
     }
 
@@ -95,9 +65,6 @@ public class InstallLocationStatistics {
         int result = analyzedApks != null ? analyzedApks.hashCode() : 0;
         result = 31 * result + (installLocationTagFoundInApks != null ? installLocationTagFoundInApks.hashCode() : 0);
         result = 31 * result + (installLocationTable != null ? installLocationTable.hashCode() : 0);
-        result = 31 * result + (installLocationAutoPercentage != null ? installLocationAutoPercentage.hashCode() : 0);
-        result = 31 * result + (installLocationInternalOnlyPercentage != null ? installLocationInternalOnlyPercentage.hashCode() : 0);
-        result = 31 * result + (installLocationPreferExternalPercentage != null ? installLocationPreferExternalPercentage.hashCode() : 0);
         return result;
     }
 
@@ -107,9 +74,6 @@ public class InstallLocationStatistics {
                 "analyzedApks=" + analyzedApks +
                 ", installLocationTagFoundInApks=" + installLocationTagFoundInApks +
                 ", installLocationTable=" + installLocationTable +
-                ", installLocationAutoPercentage=" + installLocationAutoPercentage +
-                ", installLocationInternalOnlyPercentage=" + installLocationInternalOnlyPercentage +
-                ", installLocationPreferExternalPercentage=" + installLocationPreferExternalPercentage +
                 '}';
     }
 }

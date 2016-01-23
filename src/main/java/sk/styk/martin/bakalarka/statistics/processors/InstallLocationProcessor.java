@@ -7,8 +7,10 @@ import sk.styk.martin.bakalarka.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
 import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
+import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,7 @@ public class InstallLocationProcessor {
     public InstallLocationStatistics process() {
 
         installLocationStatistics = new InstallLocationStatistics();
-        Map<String, Integer> stats = new HashMap<String, Integer>();
+        Map<String, PercentagePair> stats = new HashMap<String, PercentagePair>();
 
         int installLocationTagFound = 0;
         int manifestFound = 0;
@@ -59,21 +61,41 @@ public class InstallLocationProcessor {
                     installLocation = "internalOnly";
                 }
                 if (stats.containsKey(installLocation)) {
-                    Integer value = stats.get(installLocation);
-                    stats.put(installLocation, ++value);
+                    PercentagePair percentagePair = stats.get(installLocation);
+                    Integer value = percentagePair.getCount();
+                    percentagePair.setCount(++value);
                 } else {
-                    stats.put(installLocation, 1);
+                    stats.put(installLocation, new PercentagePair(1, null));
                 }
             }
         }
         installLocationStatistics.setAnalyzedApks(manifestFound);
         installLocationStatistics.setInstallLocationTagFoundInApks(installLocationTagFound);
-        installLocationStatistics.setInstallLocationTable(stats);
-        installLocationStatistics.setInstallLocationAutoPercentage(new PercentagePair(stats.get("auto"),PercentageHelper.getPercentage(stats.get("auto"), manifestFound)));
-        installLocationStatistics.setInstallLocationInternalOnlyPercentage(new PercentagePair(stats.get("internalOnly"),PercentageHelper.getPercentage(stats.get("internalOnly"), manifestFound)));
-        installLocationStatistics.setInstallLocationPreferExternalPercentage(new PercentagePair(stats.get("preferExternal"),PercentageHelper.getPercentage(stats.get("preferExternal"), manifestFound)));
+        setInstallLocations(stats,manifestFound);
 
         return installLocationStatistics;
+    }
+    private void setInstallLocations(Map<String, PercentagePair> map, Integer wholeData) {
+
+        logger.info("Started processing Install Locations chart");
+
+        if (wholeData == null) {
+            throw new IllegalArgumentException("wholeData");
+        }
+        if (map == null) {
+            throw new IllegalArgumentException("topLibraries");
+        }
+
+        for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
+            PercentagePair percentagePair = entry.getValue();
+            Integer number = percentagePair.getCount();
+            BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
+
+            percentagePair.setPercentage(percentage);
+        }
+        installLocationStatistics.setInstallLocationTable(SortingHelper.sortByValue(map));
+
+        logger.info("Finished processing Install Locations chart");
     }
 
 }
