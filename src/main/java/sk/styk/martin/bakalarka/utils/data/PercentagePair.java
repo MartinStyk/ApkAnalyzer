@@ -1,5 +1,7 @@
 package sk.styk.martin.bakalarka.utils.data;
 
+import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
+
 import java.math.BigDecimal;
 
 /**
@@ -10,9 +12,13 @@ public class PercentagePair {
     private BigDecimal percentage;
 
     public PercentagePair(Number count, BigDecimal percentage) {
-        super();
         this.count = count;
         this.percentage = percentage;
+    }
+
+    public PercentagePair(Number count, Number total) {
+        this.count = count;
+        this.percentage = PercentageHelper.getPercentage(count.doubleValue(),total.doubleValue());
     }
 
     public int hashCode() {
