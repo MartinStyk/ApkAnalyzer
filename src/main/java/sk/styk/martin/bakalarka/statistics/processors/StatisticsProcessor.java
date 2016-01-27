@@ -37,79 +37,79 @@ public class StatisticsProcessor {
                 .process();
 
         overallStatistics.setFileSizeStatistics(fileSizeStatistics);
-
-        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
-
-
-        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
-
-        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setPermissionsStatistics(permissionsStatistics);
-
-        LibrariesStatistics librariesStatistics = LibrariesStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setLibrariesStatistics(librariesStatistics);
-
-        FeaturesStatistics featuresStatistics = FeaturesStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setFeaturesStatistics(featuresStatistics);
-
-        SdkStatistics sdkStatistics = SdkStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setSdkStatistics(sdkStatistics);
-
-        ScreenStatistics screenStatistics = ScreenStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setScreenStatistics(screenStatistics);
-
-        CertificateStatistics certificateStatistics = CertificateStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setCertificateStatistics(certificateStatistics);
-
-        LocalizationsStatistics localizationsStatistics = LocalizationsStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setLocalizationsStatistics(localizationsStatistics);
-
-        DrawableStatistics drawableStatistics = DrawableStatisticsProcessors
-        .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setDrawableStatistics(drawableStatistics);
-
-        ResourceStatistics resourceStatistics = ResourceStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setAdditionalResourceStatistics(resourceStatistics);
-
-        FileStatistics fileStatistics = FileStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setFileStatistics(fileStatistics);
+//
+//        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
+//
+//
+//        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
+//
+//        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setPermissionsStatistics(permissionsStatistics);
+//
+//        LibrariesStatistics librariesStatistics = LibrariesStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setLibrariesStatistics(librariesStatistics);
+//
+//        FeaturesStatistics featuresStatistics = FeaturesStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setFeaturesStatistics(featuresStatistics);
+//
+//        SdkStatistics sdkStatistics = SdkStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setSdkStatistics(sdkStatistics);
+//
+//        ScreenStatistics screenStatistics = ScreenStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setScreenStatistics(screenStatistics);
+//
+//        CertificateStatistics certificateStatistics = CertificateStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setCertificateStatistics(certificateStatistics);
+//
+//        LocalizationsStatistics localizationsStatistics = LocalizationsStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setLocalizationsStatistics(localizationsStatistics);
+//
+//        DrawableStatistics drawableStatistics = DrawableStatisticsProcessors
+//        .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setDrawableStatistics(drawableStatistics);
+//
+//        ResourceStatistics resourceStatistics = ResourceStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setAdditionalResourceStatistics(resourceStatistics);
+//
+//        FileStatistics fileStatistics = FileStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setFileStatistics(fileStatistics);
 
 
         if (outputFile != null) {

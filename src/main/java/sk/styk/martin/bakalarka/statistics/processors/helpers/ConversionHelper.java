@@ -25,4 +25,28 @@ public class ConversionHelper {
         return toReturn;
     }
 
+    public static List<Long> toLongList(double[] arr){
+        if(arr == null)
+            return  null;
+
+        List<Long> toReturn = new ArrayList<Long>();
+        for(int i = 0 ; i < arr.length ;i ++){
+            Double d = arr[i];
+            toReturn.add(d.longValue());
+        }
+        return toReturn;
+    }
+
+    public static List<Long> toLongList(List<Number> arr){
+        if(arr == null)
+            return null;
+
+        List<Long> toReturn = new ArrayList<Long>();
+        for(int i = 0 ; i < arr.size() ;i ++){
+            Long d = arr.get(i).longValue();
+            toReturn.add(d);
+        }
+        return toReturn;
+    }
+
 }

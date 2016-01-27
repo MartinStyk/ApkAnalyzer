@@ -4,9 +4,10 @@ import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -94,33 +95,18 @@ public class FileSizeStatisticsProcessor {
         Double variance = StatUtils.variance(array);
         Double deviation = Math.sqrt(variance);
 
+        MathStatistics mathStatistics = new MathStatistics(size, mean, median, null, maximum, minimum, variance, deviation);
+
+
         switch (type) {
             case ARSC_SIZE:
-                fileSizeStatistics.setArscSizeTotalApks(size);
-                fileSizeStatistics.setArscSizeArithmeticMean(mean.longValue());
-                fileSizeStatistics.setArscSizeMedian(median.longValue());
-                fileSizeStatistics.setArscSizeMin(minimum.longValue());
-                fileSizeStatistics.setArscSizeMax(maximum.longValue());
-                fileSizeStatistics.setArscSizeVariance(variance.longValue());
-                fileSizeStatistics.setArscSizeDeviation(deviation.longValue());
+                fileSizeStatistics.setArscSize(mathStatistics);
                 break;
             case DEX_SIZE:
-                fileSizeStatistics.setDexSizeTotalApks(size);
-                fileSizeStatistics.setDexSizeArithmeticMean(mean.longValue());
-                fileSizeStatistics.setDexSizeMedian(median.longValue());
-                fileSizeStatistics.setDexSizeMin(minimum.longValue());
-                fileSizeStatistics.setDexSizeMax(maximum.longValue());
-                fileSizeStatistics.setDexSizeVariance(variance.longValue());
-                fileSizeStatistics.setDexSizeDeviation(deviation.longValue());
+                fileSizeStatistics.setDexSize(mathStatistics);
                 break;
             case FILE_SIZE:
-                fileSizeStatistics.setFileSizeTotalApks(size);
-                fileSizeStatistics.setFileSizeArithmeticMean(mean.longValue());
-                fileSizeStatistics.setFileSizeMedian(median.longValue());
-                fileSizeStatistics.setFileSizeMin(minimum.longValue());
-                fileSizeStatistics.setFileSizeMax(maximum.longValue());
-                fileSizeStatistics.setFileSizeVariance(variance.longValue());
-                fileSizeStatistics.setFileSizeDeviation(deviation.longValue());
+                fileSizeStatistics.setFileSize(mathStatistics);
                 break;
         }
         logger.info("Finished processing " + type.toString());
