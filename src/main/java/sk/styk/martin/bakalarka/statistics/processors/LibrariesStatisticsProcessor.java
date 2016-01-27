@@ -1,20 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.data.MathStatistics;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.LibrariesStatistics;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +18,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class LibrariesStatisticsProcessor {
+public class LibrariesStatisticsProcessor extends TopListProcessorBase {
     private List<File> jsons;
     private LibrariesStatistics librariesStatistics;
     private static final Logger logger = LoggerFactory.getLogger(LibrariesStatisticsProcessor.class);
@@ -89,7 +84,7 @@ public class LibrariesStatisticsProcessor {
         librariesStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, librariesNumbersList, false);
         setValues(manifestFound, librariesNumbersListNonZero, true);
-        setTopLibraries(topLibraries, librariesNumbersList.size());
+        librariesStatistics.setTopLibraries(getTopValuesMap(topLibraries, librariesNumbersList.size(),"libraries"));
 
         return librariesStatistics;
     }
@@ -112,32 +107,8 @@ public class LibrariesStatisticsProcessor {
         logger.info("Finished processing permissions");
         logger.info("Finished processing libraries");
     }
-
-    private void setTopLibraries(Map<String, Integer> topLibraries, Integer wholeData) {
-
-        logger.info("Started processing libraries chart");
-
-        if (wholeData == null) {
-            throw new IllegalArgumentException("wholeData");
-        }
-        if (topLibraries == null) {
-            throw new IllegalArgumentException("topLibraries");
-        }
-
-        Map<String, PercentagePair> result = new HashMap<String, PercentagePair>();
-
-        for (Map.Entry<String, Integer> entry : topLibraries.entrySet()) {
-            String name = entry.getKey();
-            Integer number = entry.getValue();
-            BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
-
-            PercentagePair percentageEntry = new PercentagePair(number, percentage);
-
-            result.put(name, percentageEntry);
-        }
-        librariesStatistics.setTopLibraries(SortingHelper.sortByValue(result));
-
-        logger.info("Finished processing libraries chart");
+    protected Logger getLogger(){
+        return logger;
     }
 
 }

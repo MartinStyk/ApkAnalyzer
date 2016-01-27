@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class FeaturesStatisticsProcessor {
+public class FeaturesStatisticsProcessor extends TopListProcessorBase{
     private List<File> jsons;
     private FeaturesStatistics featuresStatistics;
     private static final Logger logger = LoggerFactory.getLogger(FeaturesStatisticsProcessor.class);
@@ -88,7 +88,7 @@ public class FeaturesStatisticsProcessor {
         featuresStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, featuresNumbersList, false);
         setValues(manifestFound, featuresNumbersListNonZero, true);
-        setTopFeatures(topFeatures, featuresNumbersList.size());
+        featuresStatistics.setTopFeatures(getTopValuesMap(topFeatures, featuresNumbersList.size(),"features"));
 
         return featuresStatistics;
     }
@@ -112,31 +112,8 @@ public class FeaturesStatisticsProcessor {
         logger.info("Finished processing features");
     }
 
-    private void setTopFeatures(Map<String, Integer> topFeatures, Integer wholeData) {
-
-        logger.info("Started processing features chart");
-
-        if (wholeData == null) {
-            throw new IllegalArgumentException("wholeData");
-        }
-        if (topFeatures == null) {
-            throw new IllegalArgumentException("topFeatures");
-        }
-
-        Map<String, PercentagePair> result = new HashMap<String, PercentagePair>();
-
-        for (Map.Entry<String, Integer> entry : topFeatures.entrySet()) {
-            String name = entry.getKey();
-            Integer number = entry.getValue();
-            BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
-
-            PercentagePair percentageEntry = new PercentagePair(number, percentage);
-
-            result.put(name, percentageEntry);
-        }
-        featuresStatistics.setTopFeatures(SortingHelper.sortByValue(result));
-
-        logger.info("Finished processing features chart");
+    protected Logger getLogger(){
+        return logger;
     }
 
 }

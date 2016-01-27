@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class PermissionsStatisticsProcessor {
+public class PermissionsStatisticsProcessor extends TopListProcessorBase{
     private List<File> jsons;
     private PermissionsStatistics permissionsStatistics;
     private static final Logger logger = LoggerFactory.getLogger(PermissionsStatisticsProcessor.class);
@@ -87,7 +87,7 @@ public class PermissionsStatisticsProcessor {
         permissionsStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, permissionsNumbersList, false);
         setValues(manifestFound, permissionsNumbersListNonZero, true);
-        setTopPermissions(topPermissions, permissionsNumbersList.size());
+        permissionsStatistics.setTopPermissions(getTopValuesMap(topPermissions, permissionsNumbersList.size(),"permissions"));
 
         return permissionsStatistics;
     }
@@ -109,32 +109,8 @@ public class PermissionsStatisticsProcessor {
         }
         logger.info("Finished processing permissions");
     }
-
-    private void setTopPermissions(Map<String, Integer> topPermissions, Integer wholeData) {
-
-        logger.info("Started processing permissions chart");
-
-        if (wholeData == null) {
-            throw new IllegalArgumentException("wholeData");
-        }
-        if (topPermissions == null) {
-            throw new IllegalArgumentException("topPermissions");
-        }
-
-        Map<String, PercentagePair> result = new HashMap<String, PercentagePair>();
-
-        for (Map.Entry<String, Integer> entry : topPermissions.entrySet()) {
-            String name = entry.getKey();
-            Integer number = entry.getValue();
-            BigDecimal percentage = PercentageHelper.getPercentage(number.doubleValue(), wholeData);
-
-            PercentagePair percentageEntry = new PercentagePair(number, percentage);
-
-            result.put(name, percentageEntry);
-        }
-        permissionsStatistics.setTopPermissions(SortingHelper.sortByValue(result));
-
-        logger.info("Finished processing permissions chart");
+    protected Logger getLogger(){
+        return logger;
     }
 
 }
