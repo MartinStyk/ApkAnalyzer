@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -95,7 +96,7 @@ public class FileSizeStatisticsProcessor {
         Double variance = StatUtils.variance(array);
         Double deviation = Math.sqrt(variance);
 
-        MathStatistics mathStatistics = new MathStatistics(size, mean, median, null, maximum, minimum, variance, deviation);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(size,jsons.size()), mean, median, null, maximum, minimum, variance, deviation);
 
 
         switch (type) {

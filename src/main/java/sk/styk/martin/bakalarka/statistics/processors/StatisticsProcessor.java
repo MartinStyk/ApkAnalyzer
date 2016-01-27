@@ -32,25 +32,25 @@ public class StatisticsProcessor {
         overallStatistics = new OverallStatistics();
         overallStatistics.setTotalAnalyzedApks(jsons.size());
 
-        FileSizeStatistics fileSizeStatistics = FileSizeStatisticsProcessor
-                .ofFiles(jsons)
-                .process();
-
-        overallStatistics.setFileSizeStatistics(fileSizeStatistics);
+//        FileSizeStatistics fileSizeStatistics = FileSizeStatisticsProcessor
+//                .ofFiles(jsons)
+//                .process();
+//
+//        overallStatistics.setFileSizeStatistics(fileSizeStatistics);
 //
 //        InstallLocationStatistics installLocationStatistics = InstallLocationProcessor
 //                .ofFiles(jsons)
 //                .process();
 //
 //        overallStatistics.setInstallLocationStatistics(installLocationStatistics);
-//
-//
-//        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
-//                .ofFiles(jsons)
-//                .process();
-//
-//        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
-//
+
+
+        AppComponentsStatistics appComponentsStatistics = AppComponentsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setAppComponentsStatistics(appComponentsStatistics);
+
 //        PermissionsStatistics permissionsStatistics = PermissionsStatisticsProcessor
 //                .ofFiles(jsons)
 //                .process();

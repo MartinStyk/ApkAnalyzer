@@ -4,6 +4,7 @@ import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
+import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +16,7 @@ public class MathStatistics {
 
     private static final Logger logger = LoggerFactory.getLogger(MathStatistics.class);
 
-    private Integer analyzedDataSet;
+    private PercentagePair analyzedDataSet;
     private BigDecimal arithmeticMean;
     private Long median;
     private List<Long> modus;
@@ -24,8 +25,8 @@ public class MathStatistics {
     private BigDecimal variance;
     private BigDecimal deviation;
 
-    public MathStatistics(Number analyzedDataSet, Number arithmeticMean, Number median, List<Number> modus, Number max, Number min, Number variance, Number deviation) {
-        this.analyzedDataSet = analyzedDataSet.intValue();
+    public MathStatistics(PercentagePair analyzedDataSet, Number arithmeticMean, Number median, List<Number> modus, Number max, Number min, Number variance, Number deviation) {
+        this.analyzedDataSet = analyzedDataSet;
         this.arithmeticMean = new BigDecimal(arithmeticMean.doubleValue());
         this.median = median.longValue();
         this.modus = ConversionHelper.toLongList(modus);
@@ -35,15 +36,17 @@ public class MathStatistics {
         this.deviation = new BigDecimal(deviation.doubleValue());
     }
 
-    public MathStatistics(Integer analyzedDataSet, List<Double> data) {
+    public MathStatistics(PercentagePair analyzedDataSet, List<Double> data) {
+        this(analyzedDataSet,ConversionHelper.toDoubleArray(data));
+    }
+
+    public MathStatistics(PercentagePair analyzedDataSet, double[] data) {
         this.analyzedDataSet = analyzedDataSet;
         computeStatistics(data);
     }
 
-    private void computeStatistics(List<Double> data) {
+    private void computeStatistics(double[] array) {
         logger.trace("Started processing stats");
-
-        double[] array = ConversionHelper.toDoubleArray(data);
 
         Double mean = StatUtils.mean(array);
         Double median = StatUtils.percentile(array, 50);
@@ -68,11 +71,11 @@ public class MathStatistics {
         return logger;
     }
 
-    public Integer getAnalyzedDataSet() {
+    public PercentagePair getAnalyzedDataSet() {
         return analyzedDataSet;
     }
 
-    public void setAnalyzedDataSet(Integer analyzedDataSet) {
+    public void setAnalyzedDataSet(PercentagePair analyzedDataSet) {
         this.analyzedDataSet = analyzedDataSet;
     }
 

@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.AppComponentsStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
@@ -27,7 +29,11 @@ public class AppComponentsStatisticsProcessor {
         ACTIVITY,
         SERVICE,
         BROADCAST_RECEIVER,
-        CONTENT_PROVIDER
+        CONTENT_PROVIDER,
+        ACTIVITY_NONZERO,
+        SERVICE_NONZERO,
+        BROADCAST_RECEIVER_NONZERO,
+        CONTENT_PROVIDER_NONZERO,
     }
 
     public AppComponentsStatisticsProcessor(List<File> jsons) {
@@ -107,140 +113,59 @@ public class AppComponentsStatisticsProcessor {
         }
 
         appComponentsStatistics.setAnalyzedApks(manifestFound);
-        setValues(Type.ACTIVITY, ConversionHelper.toDoubleArray(activityList),activityList.size());
-        setValues(Type.SERVICE, ConversionHelper.toDoubleArray(serviceList),serviceList.size());
-        setValues(Type.CONTENT_PROVIDER, ConversionHelper.toDoubleArray(providerList),providerList.size());
-        setValues(Type.BROADCAST_RECEIVER, ConversionHelper.toDoubleArray(receiverList),receiverList.size());
+        setValues(Type.ACTIVITY, ConversionHelper.toDoubleArray(activityList),new PercentagePair(activityList.size(),manifestFound));
+        setValues(Type.SERVICE, ConversionHelper.toDoubleArray(serviceList),new PercentagePair(serviceList.size(),manifestFound));
+        setValues(Type.CONTENT_PROVIDER, ConversionHelper.toDoubleArray(providerList),new PercentagePair(providerList.size(),manifestFound));
+        setValues(Type.BROADCAST_RECEIVER, ConversionHelper.toDoubleArray(receiverList),new PercentagePair(receiverList.size(),manifestFound));
 
-        setValuesNonZero(Type.ACTIVITY, ConversionHelper.toDoubleArray(activityListNonZero), activityListNonZero.size());
-        setValuesNonZero(Type.SERVICE, ConversionHelper.toDoubleArray(serviceListNonZero), serviceListNonZero.size());
-        setValuesNonZero(Type.CONTENT_PROVIDER, ConversionHelper.toDoubleArray(providerListNonZero), providerListNonZero.size());
-        setValuesNonZero(Type.BROADCAST_RECEIVER, ConversionHelper.toDoubleArray(receiverListNonZero), receiverListNonZero.size());
+        setValues(Type.ACTIVITY_NONZERO, ConversionHelper.toDoubleArray(activityListNonZero), new PercentagePair(activityListNonZero.size(),manifestFound));
+        setValues(Type.SERVICE_NONZERO, ConversionHelper.toDoubleArray(serviceListNonZero), new PercentagePair(serviceListNonZero.size(),manifestFound));
+        setValues(Type.CONTENT_PROVIDER_NONZERO, ConversionHelper.toDoubleArray(providerListNonZero), new PercentagePair(providerListNonZero.size(),manifestFound));
+        setValues(Type.BROADCAST_RECEIVER_NONZERO, ConversionHelper.toDoubleArray(receiverListNonZero), new PercentagePair(receiverListNonZero.size(),manifestFound));
 
         return appComponentsStatistics;
 
     }
 
 
-    private void setValues(Type type, double[] array, Integer size) {
+    private void setValues(Type type, double[] array, PercentagePair size) {
         if (appComponentsStatistics == null) {
             throw new NullPointerException("appComponentsStatistics");
         }
 
         logger.info("Started processing " + type.toString());
 
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
+        MathStatistics mathStatistics = new MathStatistics(size,array);
 
         switch (type) {
             case ACTIVITY:
-                appComponentsStatistics.setNumberOfActivitiesObtained(size);
-                appComponentsStatistics.setNumberOfActivitiesArithmeticMean(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfActivitiesMedian(median.intValue());
-                appComponentsStatistics.setNumberOfActivitiesModus(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfActivitiesMin(minimum.intValue());
-                appComponentsStatistics.setNumberOfActivitiesMax(maximum.intValue());
-                appComponentsStatistics.setNumberOfActivitiesVariance(variance.intValue());
-                appComponentsStatistics.setNumberOfActivitiesDeviation(deviation.intValue());
+                appComponentsStatistics.setActivities(mathStatistics);
                 break;
             case SERVICE:
-                appComponentsStatistics.setNumberOfServicesObtained(size);
-                appComponentsStatistics.setNumberOfServicesArithmeticMean(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfServicesMedian(median.intValue());
-                appComponentsStatistics.setNumberOfServicesModus(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfServicesMin(minimum.intValue());
-                appComponentsStatistics.setNumberOfServicesMax(maximum.intValue());
-                appComponentsStatistics.setNumberOfServicesVariance(variance.intValue());
-                appComponentsStatistics.setNumberOfServicesDeviation(deviation.intValue());
+                appComponentsStatistics.setServices(mathStatistics);
                 break;
             case BROADCAST_RECEIVER:
-                appComponentsStatistics.setNumberOfBroadcastReceiversObtained(size);
-                appComponentsStatistics.setNumberOfBroadcastReceiversArithmeticMean(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfBroadcastReceiversMedian(median.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversModus(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfBroadcastReceiversMin(minimum.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversMax(maximum.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversVariance(variance.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversDeviation(deviation.intValue());
+                appComponentsStatistics.setBroadcastReceivers(mathStatistics);
                 break;
             case CONTENT_PROVIDER:
-                appComponentsStatistics.setNumberOfContentProvidersObtained(size);
-                appComponentsStatistics.setNumberOfContentProvidersArithmeticMean(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfContentProvidersMedian(median.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersModus(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfContentProvidersMin(minimum.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersMax(maximum.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersVariance(variance.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersDeviation(deviation.intValue());
+                appComponentsStatistics.setContentProviders(mathStatistics);
+                break;
+            case ACTIVITY_NONZERO:
+                appComponentsStatistics.setActivitiesNonZero(mathStatistics);
+                break;
+            case SERVICE_NONZERO:
+                appComponentsStatistics.setServicesNonZero(mathStatistics);
+                break;
+            case BROADCAST_RECEIVER_NONZERO:
+                appComponentsStatistics.setBroadcastReceiversNonZero(mathStatistics);
+                break;
+            case CONTENT_PROVIDER_NONZERO:
+                appComponentsStatistics.setContentProvidersNonZero(mathStatistics);
                 break;
         }
         logger.info("Finished processing " + type.toString());
     }
 
-    private void setValuesNonZero(Type type, double[] array, Integer size) {
-        if (appComponentsStatistics == null) {
-            throw new NullPointerException("appComponentsStatistics");
-        }
-
-        logger.info("Started processing " + type.toString());
-
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
-        switch (type) {
-            case ACTIVITY:
-                appComponentsStatistics.setNumberOfActivitiesObtainedNonZero(size);
-                appComponentsStatistics.setNumberOfActivitiesArithmeticMeanNonZero(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfActivitiesMedianNonZero(median.intValue());
-                appComponentsStatistics.setNumberOfActivitiesModusNonZero(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfActivitiesMinNonZero(minimum.intValue());
-                appComponentsStatistics.setNumberOfActivitiesMaxNonZero(maximum.intValue());
-                appComponentsStatistics.setNumberOfActivitiesVarianceNonZero(variance.intValue());
-                appComponentsStatistics.setNumberOfActivitiesDeviationNonZero(deviation.intValue());
-                break;
-            case SERVICE:
-                appComponentsStatistics.setNumberOfServicesObtainedNonZero(size);
-                appComponentsStatistics.setNumberOfServicesArithmeticMeanNonZero(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfServicesMedianNonZero(median.intValue());
-                appComponentsStatistics.setNumberOfServicesModusNonZero(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfServicesMinNonZero(minimum.intValue());
-                appComponentsStatistics.setNumberOfServicesMaxNonZero(maximum.intValue());
-                appComponentsStatistics.setNumberOfServicesVarianceNonZero(variance.intValue());
-                appComponentsStatistics.setNumberOfServicesDeviationNonZero(deviation.intValue());
-                break;
-            case BROADCAST_RECEIVER:
-                appComponentsStatistics.setNumberOfBroadcastReceiversObtainedNonZero(size);
-                appComponentsStatistics.setNumberOfBroadcastReceiversArithmeticMeanNonZero(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfBroadcastReceiversMedianNonZero(median.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversModusNonZero(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfBroadcastReceiversMinNonZero(minimum.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversMaxNonZero(maximum.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversVarianceNonZero(variance.intValue());
-                appComponentsStatistics.setNumberOfBroadcastReceiversDeviationNonZero(deviation.intValue());
-                break;
-            case CONTENT_PROVIDER:
-                appComponentsStatistics.setNumberOfContentProvidersObtainedNonZero(size);
-                appComponentsStatistics.setNumberOfContentProvidersArithmeticMeanNonZero(new BigDecimal(mean));
-                appComponentsStatistics.setNumberOfContentProvidersMedianNonZero(median.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersModusNonZero(ConversionHelper.toIntegerList(modus));
-                appComponentsStatistics.setNumberOfContentProvidersMinNonZero(minimum.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersMaxNonZero(maximum.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersVarianceNonZero(variance.intValue());
-                appComponentsStatistics.setNumberOfContentProvidersDeviationNonZero(deviation.intValue());
-                break;
-        }
-        logger.info("Finished processing " + type.toString());
-    }
 
     private Double getValue(Type type, AndroidManifestData data) {
 
