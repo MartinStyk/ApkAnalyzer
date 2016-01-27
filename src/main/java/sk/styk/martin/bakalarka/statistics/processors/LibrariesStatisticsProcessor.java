@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.LibrariesStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
@@ -85,7 +86,7 @@ public class LibrariesStatisticsProcessor {
             }
         }
 
-
+        librariesStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, librariesNumbersList, false);
         setValues(manifestFound, librariesNumbersListNonZero, true);
         setTopLibraries(topLibraries, librariesNumbersList.size());
@@ -101,40 +102,14 @@ public class LibrariesStatisticsProcessor {
 
         logger.info("Started processing libraries");
 
-        double[] array = ConversionHelper.toDoubleArray(librariesNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(librariesNumbersList.size(), manifestFound), librariesNumbersList);
 
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
-        if (!isNonZero) {
-
-            librariesStatistics.setAnalyzedApks(manifestFound);
-            librariesStatistics.setNumberOfApksWithLibrariesTagObtained(librariesNumbersList.size());
-
-            librariesStatistics.setLibrariesArithmeticMean(new BigDecimal(mean));
-            librariesStatistics.setLibrariesModus(ConversionHelper.toIntegerList(modus));
-            librariesStatistics.setLibrariesMedian(median.intValue());
-            librariesStatistics.setLibrariesMax(maximum.intValue());
-            librariesStatistics.setLibrariesMin(minimum.intValue());
-            librariesStatistics.setLibrariesVariance(new BigDecimal(variance));
-            librariesStatistics.setLibrariesDeviation(new BigDecimal(deviation));
-
+        if (isNonZero) {
+            librariesStatistics.setLibrariesNonZero(mathStatistics);
         } else {
-            librariesStatistics.setNumberOfApksWithLibrariesTagObtainedNonZero(librariesNumbersList.size());
-
-            librariesStatistics.setLibrariesArithmeticMeanNonZero(new BigDecimal(mean));
-            librariesStatistics.setLibrariesModusNonZero(ConversionHelper.toIntegerList(modus));
-            librariesStatistics.setLibrariesMedianNonZero(median.intValue());
-            librariesStatistics.setLibrariesMaxNonZero(maximum.intValue());
-            librariesStatistics.setLibrariesMinNonZero(minimum.intValue());
-            librariesStatistics.setLibrariesVarianceNonZero(new BigDecimal(variance));
-            librariesStatistics.setLibrariesDeviationNonZero(new BigDecimal(deviation));
+            librariesStatistics.setLibraries(mathStatistics);
         }
+        logger.info("Finished processing permissions");
         logger.info("Finished processing libraries");
     }
 

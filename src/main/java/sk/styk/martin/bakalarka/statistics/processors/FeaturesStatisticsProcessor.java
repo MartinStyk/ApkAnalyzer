@@ -1,16 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FeaturesStatistics;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -86,6 +85,7 @@ public class FeaturesStatisticsProcessor {
         }
 
 
+        featuresStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, featuresNumbersList, false);
         setValues(manifestFound, featuresNumbersListNonZero, true);
         setTopFeatures(topFeatures, featuresNumbersList.size());
@@ -101,40 +101,14 @@ public class FeaturesStatisticsProcessor {
 
         logger.info("Started processing features");
 
-        double[] array = ConversionHelper.toDoubleArray(featuresNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(featuresNumbersList.size(), manifestFound), featuresNumbersList);
 
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
-        if (!isNonZero) {
-
-            featuresStatistics.setAnalyzedApks(manifestFound);
-            featuresStatistics.setNumberOfApksWithFeaturesTagObtained(featuresNumbersList.size());
-
-            featuresStatistics.setFeaturesArithmeticMean(new BigDecimal(mean));
-            featuresStatistics.setFeaturesModus(ConversionHelper.toIntegerList(modus));
-            featuresStatistics.setFeaturesMedian(median.intValue());
-            featuresStatistics.setFeaturesMax(maximum.intValue());
-            featuresStatistics.setFeaturesMin(minimum.intValue());
-            featuresStatistics.setFeaturesVariance(new BigDecimal(variance));
-            featuresStatistics.setFeaturesDeviation(new BigDecimal(deviation));
-
+        if (isNonZero) {
+            featuresStatistics.setFeaturesNonZero(mathStatistics);
         } else {
-            featuresStatistics.setNumberOfApksWithFeaturesTagObtainedNonZero(featuresNumbersList.size());
-
-            featuresStatistics.setFeaturesArithmeticMeanNonZero(new BigDecimal(mean));
-            featuresStatistics.setFeaturesModusNonZero(ConversionHelper.toIntegerList(modus));
-            featuresStatistics.setFeaturesMedianNonZero(median.intValue());
-            featuresStatistics.setFeaturesMaxNonZero(maximum.intValue());
-            featuresStatistics.setFeaturesMinNonZero(minimum.intValue());
-            featuresStatistics.setFeaturesVarianceNonZero(new BigDecimal(variance));
-            featuresStatistics.setFeaturesDeviationNonZero(new BigDecimal(deviation));
+            featuresStatistics.setFeatures(mathStatistics);
         }
+
         logger.info("Finished processing features");
     }
 

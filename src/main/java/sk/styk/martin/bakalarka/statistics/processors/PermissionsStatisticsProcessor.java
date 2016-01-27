@@ -1,16 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.data.PermissionsStatistics;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -85,7 +84,7 @@ public class PermissionsStatisticsProcessor {
             }
         }
 
-
+        permissionsStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, permissionsNumbersList, false);
         setValues(manifestFound, permissionsNumbersListNonZero, true);
         setTopPermissions(topPermissions, permissionsNumbersList.size());
@@ -101,39 +100,12 @@ public class PermissionsStatisticsProcessor {
 
         logger.info("Started processing permissions");
 
-        double[] array = ConversionHelper.toDoubleArray(permissionsNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(permissionsNumbersList.size(), manifestFound), permissionsNumbersList);
 
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
-        if (!isNonZero) {
-
-            permissionsStatistics.setAnalyzedApks(manifestFound);
-            permissionsStatistics.setNumberOfApksWithPermissionsTagObtained(permissionsNumbersList.size());
-
-            permissionsStatistics.setPermissionsArithmeticMean(new BigDecimal(mean));
-            permissionsStatistics.setPermissionsModus(ConversionHelper.toIntegerList(modus));
-            permissionsStatistics.setPermissionsMedian(median.intValue());
-            permissionsStatistics.setPermissionsMax(maximum.intValue());
-            permissionsStatistics.setPermissionsMin(minimum.intValue());
-            permissionsStatistics.setPermissionsVariance(new BigDecimal(variance));
-            permissionsStatistics.setPermissionsDeviation(new BigDecimal(deviation));
-
+        if (isNonZero) {
+            permissionsStatistics.setPermissionsNonZero(mathStatistics);
         } else {
-            permissionsStatistics.setNumberOfApksWithPermissionsTagObtainedNonZero(permissionsNumbersList.size());
-
-            permissionsStatistics.setPermissionsArithmeticMeanNonZero(new BigDecimal(mean));
-            permissionsStatistics.setPermissionsModusNonZero(ConversionHelper.toIntegerList(modus));
-            permissionsStatistics.setPermissionsMedianNonZero(median.intValue());
-            permissionsStatistics.setPermissionsMaxNonZero(maximum.intValue());
-            permissionsStatistics.setPermissionsMinNonZero(minimum.intValue());
-            permissionsStatistics.setPermissionsVarianceNonZero(new BigDecimal(variance));
-            permissionsStatistics.setPermissionsDeviationNonZero(new BigDecimal(deviation));
+            permissionsStatistics.setPermissions(mathStatistics);
         }
         logger.info("Finished processing permissions");
     }
