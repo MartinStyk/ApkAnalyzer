@@ -24,41 +24,29 @@ public class MetadataCompareResult {
 
     //manifest
 
-    private Boolean isPackageNameSame;
-    private String packageNameDifference;
+    private AttributeComparisonResult packageName;
 
-    private Boolean isVersionCodeSame;
-    private String versionCodeDifference;
+    private AttributeComparisonResult versionCode;
 
-    private Boolean isInstallLocationSame;
-    private String installLocationDifference;
+    private AttributeComparisonResult installLocation;
 
-    private Boolean isUsesMinSdkVersionSame;
-    private String usesMinSdkVersionDifference;
+    private AttributeComparisonResult usesMinSdkVersion;
 
-    private Boolean isUsesTargetSdkVersionSame;
-    private String usesTargetSdkVersionDifference;
+    private AttributeComparisonResult usesTargetSdkVersion;
 
-    private Boolean isUsesMaxSdkVersionSame;
-    private String usesMaxSdkVersionDifference;
+    private AttributeComparisonResult usesMaxSdkVersion;
 
-    private Boolean isSupportsScreensResizeableSame;
-    private String supportsScreensResizeableDifference;
+    private AttributeComparisonResult supportsScreensResizeable;
 
-    private Boolean isSupportsScreensSmallSame;
-    private String supportsScreensSmallDifference;
+    private AttributeComparisonResult supportsScreensSmall;
 
-    private Boolean isSupportsScreensNormalSame;
-    private String supportsScreensNormalDifference;
+    private AttributeComparisonResult supportsScreensNormal;
 
-    private Boolean isSupportsScreensLargeSame;
-    private String supportsScreensLargeDifference;
+    private AttributeComparisonResult supportsScreensLarge;
 
-    private Boolean isSupportsScreensXLargeSame;
-    private String supportsScreensXLargeDifference;
+    private AttributeComparisonResult supportsScreensXlarge;
 
-    private Boolean isSupportsScreensAnyDansitySame;
-    private String supportsScreensAnyDensityDifference;
+    private AttributeComparisonResult supportsScreensAnyDensity;
 
     private PercentagePair numberOfActivitiesDifference;
     private List<String> additionalActivitiesInA;
@@ -177,196 +165,100 @@ public class MetadataCompareResult {
         this.arscSizeDifference = arscSizeDifference;
     }
 
-    public Boolean getPackageNameSame() {
-        return isPackageNameSame;
+    public AttributeComparisonResult getPackageName() {
+        return packageName;
     }
 
-    public void setPackageNameSame(Boolean packageNameSame) {
-        isPackageNameSame = packageNameSame;
+    public void setPackageName(AttributeComparisonResult packageName) {
+        this.packageName = packageName;
     }
 
-    public String getPackageNameDifference() {
-        return packageNameDifference;
+    public AttributeComparisonResult getVersionCode() {
+        return versionCode;
     }
 
-    public void setPackageNameDifference(String packageNameDifference) {
-        this.packageNameDifference = packageNameDifference;
+    public void setVersionCode(AttributeComparisonResult versionCode) {
+        this.versionCode = versionCode;
     }
 
-    public Boolean getVersionCodeSame() {
-        return isVersionCodeSame;
+    public AttributeComparisonResult getInstallLocation() {
+        return installLocation;
     }
 
-    public void setVersionCodeSame(Boolean versionCodeSame) {
-        isVersionCodeSame = versionCodeSame;
+    public void setInstallLocation(AttributeComparisonResult installLocation) {
+        this.installLocation = installLocation;
     }
 
-    public String getVersionCodeDifference() {
-        return versionCodeDifference;
+    public AttributeComparisonResult getUsesMinSdkVersion() {
+        return usesMinSdkVersion;
     }
 
-    public void setVersionCodeDifference(String versionCodeDifference) {
-        this.versionCodeDifference = versionCodeDifference;
+    public void setUsesMinSdkVersion(AttributeComparisonResult usesMinSdkVersion) {
+        this.usesMinSdkVersion = usesMinSdkVersion;
     }
 
-    public Boolean getInstallLocationSame() {
-        return isInstallLocationSame;
+    public AttributeComparisonResult getUsesTargetSdkVersion() {
+        return usesTargetSdkVersion;
     }
 
-    public void setInstallLocationSame(Boolean installLocationSame) {
-        isInstallLocationSame = installLocationSame;
+    public void setUsesTargetSdkVersion(AttributeComparisonResult usesTargetSdkVersion) {
+        this.usesTargetSdkVersion = usesTargetSdkVersion;
     }
 
-    public String getInstallLocationDifference() {
-        return installLocationDifference;
+    public AttributeComparisonResult getUsesMaxSdkVersion() {
+        return usesMaxSdkVersion;
     }
 
-    public void setInstallLocationDifference(String installLocationDifference) {
-        this.installLocationDifference = installLocationDifference;
+    public void setUsesMaxSdkVersion(AttributeComparisonResult usesMaxSdkVersion) {
+        this.usesMaxSdkVersion = usesMaxSdkVersion;
     }
 
-    public Boolean getUsesMinSdkVersionSame() {
-        return isUsesMinSdkVersionSame;
+    public AttributeComparisonResult getSupportsScreensResizeable() {
+        return supportsScreensResizeable;
     }
 
-    public void setUsesMinSdkVersionSame(Boolean usesMinSdkVersionSame) {
-        isUsesMinSdkVersionSame = usesMinSdkVersionSame;
+    public void setSupportsScreensResizeable(AttributeComparisonResult supportsScreensResizeable) {
+        this.supportsScreensResizeable = supportsScreensResizeable;
     }
 
-    public String getUsesMinSdkVersionDifference() {
-        return usesMinSdkVersionDifference;
+    public AttributeComparisonResult getSupportsScreensSmall() {
+        return supportsScreensSmall;
     }
 
-    public void setUsesMinSdkVersionDifference(String usesMinSdkVersionDifference) {
-        this.usesMinSdkVersionDifference = usesMinSdkVersionDifference;
+    public void setSupportsScreensSmall(AttributeComparisonResult supportsScreensSmall) {
+        this.supportsScreensSmall = supportsScreensSmall;
     }
 
-    public Boolean getUsesTargetSdkVersionSame() {
-        return isUsesTargetSdkVersionSame;
+    public AttributeComparisonResult getSupportsScreensNormal() {
+        return supportsScreensNormal;
     }
 
-    public void setUsesTargetSdkVersionSame(Boolean usesTargetSdkVersionSame) {
-        isUsesTargetSdkVersionSame = usesTargetSdkVersionSame;
+    public void setSupportsScreensNormal(AttributeComparisonResult supportsScreensNormal) {
+        this.supportsScreensNormal = supportsScreensNormal;
     }
 
-    public String getUsesTargetSdkVersionDifference() {
-        return usesTargetSdkVersionDifference;
+    public AttributeComparisonResult getSupportsScreensLarge() {
+        return supportsScreensLarge;
     }
 
-    public void setUsesTargetSdkVersionDifference(String usesTargetSdkVersionDifference) {
-        this.usesTargetSdkVersionDifference = usesTargetSdkVersionDifference;
+    public void setSupportsScreensLarge(AttributeComparisonResult supportsScreensLarge) {
+        this.supportsScreensLarge = supportsScreensLarge;
     }
 
-    public Boolean getUsesMaxSdkVersionSame() {
-        return isUsesMaxSdkVersionSame;
+    public AttributeComparisonResult getSupportsScreensXlarge() {
+        return supportsScreensXlarge;
     }
 
-    public void setUsesMaxSdkVersionSame(Boolean usesMaxSdkVersionSame) {
-        isUsesMaxSdkVersionSame = usesMaxSdkVersionSame;
+    public void setSupportsScreensXlarge(AttributeComparisonResult supportsScreensXlarge) {
+        this.supportsScreensXlarge = supportsScreensXlarge;
     }
 
-    public String getUsesMaxSdkVersionDifference() {
-        return usesMaxSdkVersionDifference;
+    public AttributeComparisonResult getSupportsScreensAnyDensity() {
+        return supportsScreensAnyDensity;
     }
 
-    public void setUsesMaxSdkVersionDifference(String usesMaxSdkVersionDifference) {
-        this.usesMaxSdkVersionDifference = usesMaxSdkVersionDifference;
-    }
-
-    public Boolean getSupportsScreensResizeableSame() {
-        return isSupportsScreensResizeableSame;
-    }
-
-    public void setSupportsScreensResizeableSame(Boolean supportsScreensResizeableSame) {
-        isSupportsScreensResizeableSame = supportsScreensResizeableSame;
-    }
-
-    public String getSupportsScreensResizeableDifference() {
-        return supportsScreensResizeableDifference;
-    }
-
-    public void setSupportsScreensResizeableDifference(String supportsScreensResizeableDifference) {
-        this.supportsScreensResizeableDifference = supportsScreensResizeableDifference;
-    }
-
-    public Boolean getSupportsScreensSmallSame() {
-        return isSupportsScreensSmallSame;
-    }
-
-    public void setSupportsScreensSmallSame(Boolean supportsScreensSmallSame) {
-        isSupportsScreensSmallSame = supportsScreensSmallSame;
-    }
-
-    public String getSupportsScreensSmallDifference() {
-        return supportsScreensSmallDifference;
-    }
-
-    public void setSupportsScreensSmallDifference(String supportsScreensSmallDifference) {
-        this.supportsScreensSmallDifference = supportsScreensSmallDifference;
-    }
-
-    public Boolean getSupportsScreensNormalSame() {
-        return isSupportsScreensNormalSame;
-    }
-
-    public void setSupportsScreensNormalSame(Boolean supportsScreensNormalSame) {
-        isSupportsScreensNormalSame = supportsScreensNormalSame;
-    }
-
-    public String getSupportsScreensNormalDifference() {
-        return supportsScreensNormalDifference;
-    }
-
-    public void setSupportsScreensNormalDifference(String supportsScreensNormalDifference) {
-        this.supportsScreensNormalDifference = supportsScreensNormalDifference;
-    }
-
-    public Boolean getSupportsScreensLargeSame() {
-        return isSupportsScreensLargeSame;
-    }
-
-    public void setSupportsScreensLargeSame(Boolean supportsScreensLargeSame) {
-        isSupportsScreensLargeSame = supportsScreensLargeSame;
-    }
-
-    public String getSupportsScreensLargeDifference() {
-        return supportsScreensLargeDifference;
-    }
-
-    public void setSupportsScreensLargeDifference(String supportsScreensLargeDifference) {
-        this.supportsScreensLargeDifference = supportsScreensLargeDifference;
-    }
-
-    public Boolean getSupportsScreensXLargeSame() {
-        return isSupportsScreensXLargeSame;
-    }
-
-    public void setSupportsScreensXLargeSame(Boolean supportsScreensXLargeSame) {
-        isSupportsScreensXLargeSame = supportsScreensXLargeSame;
-    }
-
-    public String getSupportsScreensXLargeDifference() {
-        return supportsScreensXLargeDifference;
-    }
-
-    public void setSupportsScreensXLargeDifference(String supportsScreensXLargeDifference) {
-        this.supportsScreensXLargeDifference = supportsScreensXLargeDifference;
-    }
-
-    public Boolean getSupportsScreensAnyDansitySame() {
-        return isSupportsScreensAnyDansitySame;
-    }
-
-    public void setSupportsScreensAnyDansitySame(Boolean supportsScreensAnyDansitySame) {
-        isSupportsScreensAnyDansitySame = supportsScreensAnyDansitySame;
-    }
-
-    public String getSupportsScreensAnyDensityDifference() {
-        return supportsScreensAnyDensityDifference;
-    }
-
-    public void setSupportsScreensAnyDensityDifference(String supportsScreensAnyDensityDifference) {
-        this.supportsScreensAnyDensityDifference = supportsScreensAnyDensityDifference;
+    public void setSupportsScreensAnyDensity(AttributeComparisonResult supportsScreensAnyDensity) {
+        this.supportsScreensAnyDensity = supportsScreensAnyDensity;
     }
 
     public PercentagePair getNumberOfActivitiesDifference() {
@@ -822,53 +714,27 @@ public class MetadataCompareResult {
             return false;
         if (arscSizeDifference != null ? !arscSizeDifference.equals(result.arscSizeDifference) : result.arscSizeDifference != null)
             return false;
-        if (isPackageNameSame != null ? !isPackageNameSame.equals(result.isPackageNameSame) : result.isPackageNameSame != null)
+        if (packageName != null ? !packageName.equals(result.packageName) : result.packageName != null) return false;
+        if (versionCode != null ? !versionCode.equals(result.versionCode) : result.versionCode != null) return false;
+        if (installLocation != null ? !installLocation.equals(result.installLocation) : result.installLocation != null)
             return false;
-        if (packageNameDifference != null ? !packageNameDifference.equals(result.packageNameDifference) : result.packageNameDifference != null)
+        if (usesMinSdkVersion != null ? !usesMinSdkVersion.equals(result.usesMinSdkVersion) : result.usesMinSdkVersion != null)
             return false;
-        if (isVersionCodeSame != null ? !isVersionCodeSame.equals(result.isVersionCodeSame) : result.isVersionCodeSame != null)
+        if (usesTargetSdkVersion != null ? !usesTargetSdkVersion.equals(result.usesTargetSdkVersion) : result.usesTargetSdkVersion != null)
             return false;
-        if (versionCodeDifference != null ? !versionCodeDifference.equals(result.versionCodeDifference) : result.versionCodeDifference != null)
+        if (usesMaxSdkVersion != null ? !usesMaxSdkVersion.equals(result.usesMaxSdkVersion) : result.usesMaxSdkVersion != null)
             return false;
-        if (isInstallLocationSame != null ? !isInstallLocationSame.equals(result.isInstallLocationSame) : result.isInstallLocationSame != null)
+        if (supportsScreensResizeable != null ? !supportsScreensResizeable.equals(result.supportsScreensResizeable) : result.supportsScreensResizeable != null)
             return false;
-        if (installLocationDifference != null ? !installLocationDifference.equals(result.installLocationDifference) : result.installLocationDifference != null)
+        if (supportsScreensSmall != null ? !supportsScreensSmall.equals(result.supportsScreensSmall) : result.supportsScreensSmall != null)
             return false;
-        if (isUsesMinSdkVersionSame != null ? !isUsesMinSdkVersionSame.equals(result.isUsesMinSdkVersionSame) : result.isUsesMinSdkVersionSame != null)
+        if (supportsScreensNormal != null ? !supportsScreensNormal.equals(result.supportsScreensNormal) : result.supportsScreensNormal != null)
             return false;
-        if (usesMinSdkVersionDifference != null ? !usesMinSdkVersionDifference.equals(result.usesMinSdkVersionDifference) : result.usesMinSdkVersionDifference != null)
+        if (supportsScreensLarge != null ? !supportsScreensLarge.equals(result.supportsScreensLarge) : result.supportsScreensLarge != null)
             return false;
-        if (isUsesTargetSdkVersionSame != null ? !isUsesTargetSdkVersionSame.equals(result.isUsesTargetSdkVersionSame) : result.isUsesTargetSdkVersionSame != null)
+        if (supportsScreensXlarge != null ? !supportsScreensXlarge.equals(result.supportsScreensXlarge) : result.supportsScreensXlarge != null)
             return false;
-        if (usesTargetSdkVersionDifference != null ? !usesTargetSdkVersionDifference.equals(result.usesTargetSdkVersionDifference) : result.usesTargetSdkVersionDifference != null)
-            return false;
-        if (isUsesMaxSdkVersionSame != null ? !isUsesMaxSdkVersionSame.equals(result.isUsesMaxSdkVersionSame) : result.isUsesMaxSdkVersionSame != null)
-            return false;
-        if (usesMaxSdkVersionDifference != null ? !usesMaxSdkVersionDifference.equals(result.usesMaxSdkVersionDifference) : result.usesMaxSdkVersionDifference != null)
-            return false;
-        if (isSupportsScreensResizeableSame != null ? !isSupportsScreensResizeableSame.equals(result.isSupportsScreensResizeableSame) : result.isSupportsScreensResizeableSame != null)
-            return false;
-        if (supportsScreensResizeableDifference != null ? !supportsScreensResizeableDifference.equals(result.supportsScreensResizeableDifference) : result.supportsScreensResizeableDifference != null)
-            return false;
-        if (isSupportsScreensSmallSame != null ? !isSupportsScreensSmallSame.equals(result.isSupportsScreensSmallSame) : result.isSupportsScreensSmallSame != null)
-            return false;
-        if (supportsScreensSmallDifference != null ? !supportsScreensSmallDifference.equals(result.supportsScreensSmallDifference) : result.supportsScreensSmallDifference != null)
-            return false;
-        if (isSupportsScreensNormalSame != null ? !isSupportsScreensNormalSame.equals(result.isSupportsScreensNormalSame) : result.isSupportsScreensNormalSame != null)
-            return false;
-        if (supportsScreensNormalDifference != null ? !supportsScreensNormalDifference.equals(result.supportsScreensNormalDifference) : result.supportsScreensNormalDifference != null)
-            return false;
-        if (isSupportsScreensLargeSame != null ? !isSupportsScreensLargeSame.equals(result.isSupportsScreensLargeSame) : result.isSupportsScreensLargeSame != null)
-            return false;
-        if (supportsScreensLargeDifference != null ? !supportsScreensLargeDifference.equals(result.supportsScreensLargeDifference) : result.supportsScreensLargeDifference != null)
-            return false;
-        if (isSupportsScreensXLargeSame != null ? !isSupportsScreensXLargeSame.equals(result.isSupportsScreensXLargeSame) : result.isSupportsScreensXLargeSame != null)
-            return false;
-        if (supportsScreensXLargeDifference != null ? !supportsScreensXLargeDifference.equals(result.supportsScreensXLargeDifference) : result.supportsScreensXLargeDifference != null)
-            return false;
-        if (isSupportsScreensAnyDansitySame != null ? !isSupportsScreensAnyDansitySame.equals(result.isSupportsScreensAnyDansitySame) : result.isSupportsScreensAnyDansitySame != null)
-            return false;
-        if (supportsScreensAnyDensityDifference != null ? !supportsScreensAnyDensityDifference.equals(result.supportsScreensAnyDensityDifference) : result.supportsScreensAnyDensityDifference != null)
+        if (supportsScreensAnyDensity != null ? !supportsScreensAnyDensity.equals(result.supportsScreensAnyDensity) : result.supportsScreensAnyDensity != null)
             return false;
         if (numberOfActivitiesDifference != null ? !numberOfActivitiesDifference.equals(result.numberOfActivitiesDifference) : result.numberOfActivitiesDifference != null)
             return false;
@@ -987,30 +853,18 @@ public class MetadataCompareResult {
         int result = fileSizeDifference != null ? fileSizeDifference.hashCode() : 0;
         result = 31 * result + (dexSizeDifference != null ? dexSizeDifference.hashCode() : 0);
         result = 31 * result + (arscSizeDifference != null ? arscSizeDifference.hashCode() : 0);
-        result = 31 * result + (isPackageNameSame != null ? isPackageNameSame.hashCode() : 0);
-        result = 31 * result + (packageNameDifference != null ? packageNameDifference.hashCode() : 0);
-        result = 31 * result + (isVersionCodeSame != null ? isVersionCodeSame.hashCode() : 0);
-        result = 31 * result + (versionCodeDifference != null ? versionCodeDifference.hashCode() : 0);
-        result = 31 * result + (isInstallLocationSame != null ? isInstallLocationSame.hashCode() : 0);
-        result = 31 * result + (installLocationDifference != null ? installLocationDifference.hashCode() : 0);
-        result = 31 * result + (isUsesMinSdkVersionSame != null ? isUsesMinSdkVersionSame.hashCode() : 0);
-        result = 31 * result + (usesMinSdkVersionDifference != null ? usesMinSdkVersionDifference.hashCode() : 0);
-        result = 31 * result + (isUsesTargetSdkVersionSame != null ? isUsesTargetSdkVersionSame.hashCode() : 0);
-        result = 31 * result + (usesTargetSdkVersionDifference != null ? usesTargetSdkVersionDifference.hashCode() : 0);
-        result = 31 * result + (isUsesMaxSdkVersionSame != null ? isUsesMaxSdkVersionSame.hashCode() : 0);
-        result = 31 * result + (usesMaxSdkVersionDifference != null ? usesMaxSdkVersionDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensResizeableSame != null ? isSupportsScreensResizeableSame.hashCode() : 0);
-        result = 31 * result + (supportsScreensResizeableDifference != null ? supportsScreensResizeableDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensSmallSame != null ? isSupportsScreensSmallSame.hashCode() : 0);
-        result = 31 * result + (supportsScreensSmallDifference != null ? supportsScreensSmallDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensNormalSame != null ? isSupportsScreensNormalSame.hashCode() : 0);
-        result = 31 * result + (supportsScreensNormalDifference != null ? supportsScreensNormalDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensLargeSame != null ? isSupportsScreensLargeSame.hashCode() : 0);
-        result = 31 * result + (supportsScreensLargeDifference != null ? supportsScreensLargeDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensXLargeSame != null ? isSupportsScreensXLargeSame.hashCode() : 0);
-        result = 31 * result + (supportsScreensXLargeDifference != null ? supportsScreensXLargeDifference.hashCode() : 0);
-        result = 31 * result + (isSupportsScreensAnyDansitySame != null ? isSupportsScreensAnyDansitySame.hashCode() : 0);
-        result = 31 * result + (supportsScreensAnyDensityDifference != null ? supportsScreensAnyDensityDifference.hashCode() : 0);
+        result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
+        result = 31 * result + (versionCode != null ? versionCode.hashCode() : 0);
+        result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
+        result = 31 * result + (usesMinSdkVersion != null ? usesMinSdkVersion.hashCode() : 0);
+        result = 31 * result + (usesTargetSdkVersion != null ? usesTargetSdkVersion.hashCode() : 0);
+        result = 31 * result + (usesMaxSdkVersion != null ? usesMaxSdkVersion.hashCode() : 0);
+        result = 31 * result + (supportsScreensResizeable != null ? supportsScreensResizeable.hashCode() : 0);
+        result = 31 * result + (supportsScreensSmall != null ? supportsScreensSmall.hashCode() : 0);
+        result = 31 * result + (supportsScreensNormal != null ? supportsScreensNormal.hashCode() : 0);
+        result = 31 * result + (supportsScreensLarge != null ? supportsScreensLarge.hashCode() : 0);
+        result = 31 * result + (supportsScreensXlarge != null ? supportsScreensXlarge.hashCode() : 0);
+        result = 31 * result + (supportsScreensAnyDensity != null ? supportsScreensAnyDensity.hashCode() : 0);
         result = 31 * result + (numberOfActivitiesDifference != null ? numberOfActivitiesDifference.hashCode() : 0);
         result = 31 * result + (additionalActivitiesInA != null ? additionalActivitiesInA.hashCode() : 0);
         result = 31 * result + (additionalActivitiesInB != null ? additionalActivitiesInB.hashCode() : 0);
@@ -1075,30 +929,18 @@ public class MetadataCompareResult {
                 "fileSizeDifference=" + fileSizeDifference +
                 ", dexSizeDifference=" + dexSizeDifference +
                 ", arscSizeDifference=" + arscSizeDifference +
-                ", isPackageNameSame=" + isPackageNameSame +
-                ", packageNameDifference='" + packageNameDifference + '\'' +
-                ", isVersionCodeSame=" + isVersionCodeSame +
-                ", versionCodeDifference='" + versionCodeDifference + '\'' +
-                ", isInstallLocationSame=" + isInstallLocationSame +
-                ", installLocationDifference='" + installLocationDifference + '\'' +
-                ", isUsesMinSdkVersionSame=" + isUsesMinSdkVersionSame +
-                ", usesMinSdkVersionDifference='" + usesMinSdkVersionDifference + '\'' +
-                ", isUsesTargetSdkVersionSame=" + isUsesTargetSdkVersionSame +
-                ", usesTargetSdkVersionDifference='" + usesTargetSdkVersionDifference + '\'' +
-                ", isUsesMaxSdkVersionSame=" + isUsesMaxSdkVersionSame +
-                ", usesMaxSdkVersionDifference='" + usesMaxSdkVersionDifference + '\'' +
-                ", isSupportsScreensResizeableSame=" + isSupportsScreensResizeableSame +
-                ", supportsScreensResizeableDifference='" + supportsScreensResizeableDifference + '\'' +
-                ", isSupportsScreensSmallSame=" + isSupportsScreensSmallSame +
-                ", supportsScreensSmallDifference='" + supportsScreensSmallDifference + '\'' +
-                ", isSupportsScreensNormalSame=" + isSupportsScreensNormalSame +
-                ", supportsScreensNormalDifference='" + supportsScreensNormalDifference + '\'' +
-                ", isSupportsScreensLargeSame=" + isSupportsScreensLargeSame +
-                ", supportsScreensLargeDifference='" + supportsScreensLargeDifference + '\'' +
-                ", isSupportsScreensXLargeSame=" + isSupportsScreensXLargeSame +
-                ", supportsScreensXLargeDifference='" + supportsScreensXLargeDifference + '\'' +
-                ", isSupportsScreensAnyDansitySame=" + isSupportsScreensAnyDansitySame +
-                ", supportsScreensAnyDensityDifference='" + supportsScreensAnyDensityDifference + '\'' +
+                ", packageName=" + packageName +
+                ", versionCode=" + versionCode +
+                ", installLocation=" + installLocation +
+                ", usesMinSdkVersion=" + usesMinSdkVersion +
+                ", usesTargetSdkVersion=" + usesTargetSdkVersion +
+                ", usesMaxSdkVersion=" + usesMaxSdkVersion +
+                ", supportsScreensResizeable=" + supportsScreensResizeable +
+                ", supportsScreensSmall=" + supportsScreensSmall +
+                ", supportsScreensNormal=" + supportsScreensNormal +
+                ", supportsScreensLarge=" + supportsScreensLarge +
+                ", supportsScreensXlarge=" + supportsScreensXlarge +
+                ", supportsScreensAnyDensity=" + supportsScreensAnyDensity +
                 ", numberOfActivitiesDifference=" + numberOfActivitiesDifference +
                 ", additionalActivitiesInA=" + additionalActivitiesInA +
                 ", additionalActivitiesInB=" + additionalActivitiesInB +

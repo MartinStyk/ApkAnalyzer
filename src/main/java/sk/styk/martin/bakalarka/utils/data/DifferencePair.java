@@ -7,10 +7,9 @@ public class DifferencePair<A,B>  {
     private A valueA;
     private B valueB;
 
-    public DifferencePair(A count, B percentage) {
-        super();
-        this.valueA = count;
-        this.valueB = percentage;
+    public DifferencePair(A valueA, B valueB) {
+        this.valueA = valueA;
+        this.valueB = valueB;
     }
 
     public int hashCode() {

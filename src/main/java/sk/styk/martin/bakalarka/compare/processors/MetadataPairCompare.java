@@ -1,6 +1,7 @@
 package sk.styk.martin.bakalarka.compare.processors;
 
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
+import sk.styk.martin.bakalarka.compare.data.AttributeComparisonResult;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
@@ -140,13 +141,8 @@ public class MetadataPairCompare {
 
         if (nameA == null || nameB == null)
             return;
-        ;
 
-        boolean isSame = nameA.equals(nameB);
-        result.setPackageNameSame(isSame);
-        if (!isSame) {
-            result.setPackageNameDifference(getDifferenceString(nameA, nameB));
-        }
+        result.setPackageName(new AttributeComparisonResult(nameA, nameB));
     }
 
     private void compareVersionCode() {
@@ -156,11 +152,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setVersionCodeSame(isSame);
-        if (!isSame) {
-            result.setVersionCodeDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setVersionCode(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareInstallLocation() {
@@ -170,11 +162,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setInstallLocationSame(isSame);
-        if (!isSame) {
-            result.setInstallLocationDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setInstallLocation(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareUsedMinSdks() {
@@ -184,11 +172,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setUsesMinSdkVersionSame(isSame);
-        if (!isSame) {
-            result.setUsesMinSdkVersionDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setUsesMinSdkVersion(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareUsedTargetSdks() {
@@ -198,11 +182,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setUsesTargetSdkVersionSame(isSame);
-        if (!isSame) {
-            result.setUsesTargetSdkVersionDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setUsesTargetSdkVersion(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareUsedMaxSdks() {
@@ -212,11 +192,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setUsesMaxSdkVersionSame(isSame);
-        if (!isSame) {
-            result.setUsesMaxSdkVersionDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setUsesMaxSdkVersion(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensResizeable() {
@@ -226,11 +202,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensResizeableSame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensResizeableDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensResizeable(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensSmall() {
@@ -240,11 +212,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensSmallSame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensSmallDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensSmall(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensNormal() {
@@ -254,11 +222,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensNormalSame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensNormalDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensNormal(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensLarge() {
@@ -268,11 +232,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensLargeSame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensLargeDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensLarge(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensXLarge() {
@@ -282,11 +242,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensXLargeSame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensXLargeDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensXlarge(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareSupportsScreensAnyDensity() {
@@ -296,11 +252,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setSupportsScreensAnyDansitySame(isSame);
-        if (!isSame) {
-            result.setSupportsScreensAnyDensityDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setSupportsScreensAnyDensity(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareActivities() {
@@ -786,10 +738,10 @@ public class MetadataPairCompare {
 
         Long bigger = valueA > valueB ? valueA : valueB;
 
-        if(valueA == valueB){
+        if (valueA == valueB) {
             return new BigDecimal(0);
         }
-        if(bigger == 0){
+        if (bigger == 0) {
             return null;
         }
 
