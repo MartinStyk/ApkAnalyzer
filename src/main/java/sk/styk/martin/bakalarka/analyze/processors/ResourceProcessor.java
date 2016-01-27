@@ -7,8 +7,8 @@ import org.w3c.dom.Document;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.processors.helpers.XmlParsingHelper;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
-import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileFinder;
+import sk.styk.martin.bakalarka.utils.files.ApkFile;
+import sk.styk.martin.bakalarka.utils.files.FileFinder;
 
 import java.io.File;
 import java.util.ArrayList;

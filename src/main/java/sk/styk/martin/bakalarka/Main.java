@@ -2,8 +2,8 @@ package sk.styk.martin.bakalarka;
 
 import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
 import sk.styk.martin.bakalarka.compare.processors.ApkBatchCompare;
-import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileFinder;
+import sk.styk.martin.bakalarka.utils.files.ApkFile;
+import sk.styk.martin.bakalarka.utils.files.FileFinder;
 import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.StatisticsProcessor;
 
@@ -33,9 +33,9 @@ public class Main {
         final long startTime = System.currentTimeMillis();
 
         //analyze();
-        //compareTwo();
+        compareTwo();
         //compareAll();
-        computeStats();
+        //computeStats();
         final long endTime = System.currentTimeMillis();
 
         Date date = new Date(endTime - startTime);

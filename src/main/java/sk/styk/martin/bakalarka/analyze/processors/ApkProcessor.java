@@ -3,7 +3,7 @@ package sk.styk.martin.bakalarka.analyze.processors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.files.ApkFile;
+import sk.styk.martin.bakalarka.utils.files.ApkFile;
 
 import java.io.File;
 import java.util.ArrayList;

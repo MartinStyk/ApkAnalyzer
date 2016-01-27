@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
-import sk.styk.martin.bakalarka.files.JsonUtils;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 

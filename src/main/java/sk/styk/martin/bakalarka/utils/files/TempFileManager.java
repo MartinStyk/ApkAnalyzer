@@ -1,4 +1,4 @@
-package sk.styk.martin.bakalarka.files;
+package sk.styk.martin.bakalarka.utils.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package sk.styk.martin.bakalarka.files;
+package sk.styk.martin.bakalarka.utils.files;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

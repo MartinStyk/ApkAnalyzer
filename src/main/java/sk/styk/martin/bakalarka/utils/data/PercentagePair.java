@@ -1,13 +1,15 @@
-package sk.styk.martin.bakalarka.statistics.data;
+package sk.styk.martin.bakalarka.utils.data;
+
+import java.math.BigDecimal;
 
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class Pair<A, B> {
-    private A count;
-    private B percentage;
+public class PercentagePair {
+    private Number count;
+    private BigDecimal percentage;
 
-    public Pair(A count, B percentage) {
+    public PercentagePair(Number count, BigDecimal percentage) {
         super();
         this.count = count;
         this.percentage = percentage;
@@ -21,8 +23,8 @@ public class Pair<A, B> {
     }
 
     public boolean equals(Object other) {
-        if (other instanceof Pair) {
-            Pair otherPair = (Pair) other;
+        if (other instanceof PercentagePair) {
+            PercentagePair otherPair = (PercentagePair) other;
             return
                     ((this.count == otherPair.count ||
                             (this.count != null && otherPair.count != null &&
@@ -35,19 +37,19 @@ public class Pair<A, B> {
         return false;
     }
 
-    public A getCount() {
+    public Number getCount() {
         return count;
     }
 
-    public void setCount(A count) {
+    public void setCount(Number count) {
         this.count = count;
     }
 
-    public B getPercentage() {
+    public BigDecimal getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(B percentage) {
+    public void setPercentage(BigDecimal percentage) {
         this.percentage = percentage;
     }
 
@@ -55,3 +57,4 @@ public class Pair<A, B> {
         return "(" + count + ", " + percentage + ")";
     }
 }
+

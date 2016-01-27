@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.CertificateData;
-import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileFinder;
+import sk.styk.martin.bakalarka.utils.files.ApkFile;
+import sk.styk.martin.bakalarka.utils.files.FileFinder;
 import sun.security.pkcs.PKCS7;
 
 import java.io.*;

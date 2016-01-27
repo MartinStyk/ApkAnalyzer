@@ -3,7 +3,7 @@ package sk.styk.martin.bakalarka.compare.processors;
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
-import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.HashData;
-import sk.styk.martin.bakalarka.files.ApkFile;
-import sk.styk.martin.bakalarka.files.FileFinder;
-import sk.styk.martin.bakalarka.files.FileUtils;
+import sk.styk.martin.bakalarka.utils.files.ApkFile;
+import sk.styk.martin.bakalarka.utils.files.FileFinder;
+import sk.styk.martin.bakalarka.utils.files.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

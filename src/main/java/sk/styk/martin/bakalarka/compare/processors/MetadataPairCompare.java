@@ -2,7 +2,7 @@ package sk.styk.martin.bakalarka.compare.processors;
 
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
-import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

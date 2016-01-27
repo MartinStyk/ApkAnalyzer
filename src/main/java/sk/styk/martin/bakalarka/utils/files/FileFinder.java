@@ -1,4 +1,4 @@
-package sk.styk.martin.bakalarka.files;
+package sk.styk.martin.bakalarka.utils.files;
 
 import java.io.File;
 import java.util.ArrayList;

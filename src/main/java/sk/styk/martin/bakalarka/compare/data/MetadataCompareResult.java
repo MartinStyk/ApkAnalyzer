@@ -1,6 +1,6 @@
 package sk.styk.martin.bakalarka.compare.data;
 
-import sk.styk.martin.bakalarka.statistics.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
 import java.util.List;
 

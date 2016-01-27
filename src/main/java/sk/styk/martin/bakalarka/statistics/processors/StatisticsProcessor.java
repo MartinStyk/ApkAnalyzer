@@ -1,6 +1,6 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import sk.styk.martin.bakalarka.files.JsonUtils;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.*;
 
 import java.io.File;

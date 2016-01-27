@@ -1,6 +1,7 @@
 package sk.styk.martin.bakalarka.statistics.data;
 
-import java.math.BigDecimal;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+
 import java.util.Map;
 
 /**

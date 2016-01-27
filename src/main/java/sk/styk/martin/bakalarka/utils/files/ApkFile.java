@@ -1,11 +1,11 @@
-package sk.styk.martin.bakalarka.files;
+package sk.styk.martin.bakalarka.utils.files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import sk.styk.martin.bakalarka.decompile.ApkDecompiler;
-import sk.styk.martin.bakalarka.decompile.ApkUnziper;
+import sk.styk.martin.bakalarka.utils.decompile.ApkDecompiler;
+import sk.styk.martin.bakalarka.utils.decompile.ApkUnziper;
 
 import java.io.File;
 import java.io.IOException;
