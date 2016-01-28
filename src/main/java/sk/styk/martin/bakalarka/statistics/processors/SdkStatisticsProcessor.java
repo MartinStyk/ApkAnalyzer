@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class SdkStatisticsProcessor {
+public class SdkStatisticsProcessor extends TopListProcessorBase {
     private List<File> jsons;
     private SdkStatistics sdkStatistics;
     private static final Logger logger = LoggerFactory.getLogger(SdkStatisticsProcessor.class);
@@ -151,31 +151,22 @@ public class SdkStatisticsProcessor {
 
     private void setTop(Map<String, PercentagePair> topSdk, int number, Type type) {
 
-        logger.info("Started processing chart for " + type.toString());
-
-        if (topSdk == null) {
-            throw new IllegalArgumentException("topSdk");
-        }
-
-        for (Map.Entry<String, PercentagePair> entry : topSdk.entrySet()) {
-            PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount().intValue();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
-        }
-
+        Map<String,PercentagePair> topVal = getTopValuesMap(topSdk,number,type.toString());
         switch (type) {
             case MAX:
-                sdkStatistics.setTopMaxSdk(SortingHelper.sortByValue(topSdk));
+                sdkStatistics.setTopMaxSdk(SortingHelper.sortByValue(topVal));
                 break;
             case TARGET:
-                sdkStatistics.setTopTargetSdk(SortingHelper.sortByValue(topSdk));
+                sdkStatistics.setTopTargetSdk(SortingHelper.sortByValue(topVal));
                 break;
             case MIN:
-                sdkStatistics.setTopMinSdk(SortingHelper.sortByValue(topSdk));
+                sdkStatistics.setTopMinSdk(SortingHelper.sortByValue(topVal));
                 break;
         }
+    }
 
-        logger.info("Finished processing chart for " + type.toString());
+    protected Logger getLogger(){
+        return logger;
     }
 
 }

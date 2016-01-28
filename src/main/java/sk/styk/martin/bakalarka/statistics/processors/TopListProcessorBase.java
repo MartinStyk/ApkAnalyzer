@@ -45,7 +45,7 @@ public abstract class TopListProcessorBase {
         return resultFinal;
     }
 
-    private Map<String, PercentagePair> getTopValuesMap(Map<String, PercentagePair> topValues, int number, String type) {
+    protected Map<String, PercentagePair> getTopValuesMap(Map<String, PercentagePair> topValues, int number, String type) {
 
         getLogger().info("Started processing chart for " + type);
 
