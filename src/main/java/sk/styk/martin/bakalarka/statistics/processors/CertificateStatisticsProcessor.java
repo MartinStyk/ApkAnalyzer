@@ -4,11 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.CertificateData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.CertificateStatistics;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 22.01.2016.
  */
-public class CertificateStatisticsProcessor {
+public class CertificateStatisticsProcessor extends TopListProcessorBase {
     private List<File> jsons;
     private CertificateStatistics certificateStatistics;
     private static final Logger logger = LoggerFactory.getLogger(CertificateStatisticsProcessor.class);
@@ -68,9 +68,9 @@ public class CertificateStatisticsProcessor {
                 certificateData = data.getCertificateDatas();
 
                 //sometimes apk contains 0 certificates, its considered as not obtained certificate
-                if(certificateData.size() > 0 ){
+                if (certificateData.size() > 0) {
                     appsWithCertificateObtained++;
-                }else{
+                } else {
                     continue;
                 }
 
@@ -123,56 +123,15 @@ public class CertificateStatisticsProcessor {
         certificateStatistics.setSignAlgorithmObtained(new PercentagePair(algorithmObtained, PercentageHelper.getPercentage(algorithmObtained, certificateFound)));
         certificateStatistics.setVersionObtained(new PercentagePair(versionsObtained, PercentageHelper.getPercentage(versionsObtained, certificateFound)));
 
-        setTop(numberMap, appsWithCertificateObtained, Type.NUMBER);
-        setTop(versionMap, certificateFound, Type.VERSION);
-        setTopAlgorithm(algorithmMap, certificateFound, Type.ALGORITHM);
+        certificateStatistics.setNumberOfCertificates(getTopValuesMap(numberMap, appsWithCertificateObtained, Type.NUMBER.toString()));
+        certificateStatistics.setVersionMap(getTopValuesMap(versionMap, certificateFound, Type.VERSION.toString()));
+        certificateStatistics.setSignAlgorithmMap(getTopValuesMap(algorithmMap, certificateFound, Type.ALGORITHM.toString()));
 
         return certificateStatistics;
     }
 
-    private void setTop(Map<Integer, PercentagePair> map, int number, Type type) {
-
-        logger.info("Started processing chart for " + type.toString());
-
-        if (map == null) {
-            throw new IllegalArgumentException("map");
-        }
-
-        for (Map.Entry<Integer, PercentagePair> entry : map.entrySet()) {
-            PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount().intValue();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
-        }
-
-        switch (type) {
-            case NUMBER:
-                certificateStatistics.setNumberOfCertificates(SortingHelper.sortByValue(map));
-                break;
-            case VERSION:
-                certificateStatistics.setVersionMap(SortingHelper.sortByValue(map));
-                break;
-        }
-
-        logger.info("Finished processing chart for " + type.toString());
-    }
-
-    private void setTopAlgorithm(Map<String, PercentagePair> map, int number, Type type) {
-
-        logger.info("Started processing chart for " + type.toString());
-
-        if (map == null) {
-            throw new IllegalArgumentException("map");
-        }
-
-        for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
-            PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount().intValue();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), number));
-        }
-
-        certificateStatistics.setSignAlgorithmMap(SortingHelper.sortByValue(map));
-
-        logger.info("Finished processing chart for " + type.toString());
+    protected Logger getLogger() {
+        return logger;
     }
 
 }
