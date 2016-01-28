@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.DrawableStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
@@ -171,259 +172,80 @@ public class DrawableStatisticsProcessors {
 
         logger.info("Started processing drawables " + type.toString());
 
-        PercentagePair percentagePair = new PercentagePair(list.size(), PercentageHelper.getPercentage(list.size(), resourceDataFound));
-
-        double[] array = ConversionHelper.toDoubleArray(list);
-
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
 
         switch (type) {
             case PNG:
-                drawableStatistics.setApksWithPngDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setPngDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setPngDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setPngDrawablesMedian(median.intValue());
-                drawableStatistics.setPngDrawablesMax(maximum.intValue());
-                drawableStatistics.setPngDrawablesMin(minimum.intValue());
-                drawableStatistics.setPngDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setPngDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setPngDrawables(mathStatistics);
                 break;
             case PNG_NONZERO:
-                drawableStatistics.setApksWithPngDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setPngDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setPngDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setPngDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setPngDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setPngDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setPngDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setPngDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setPngDrawablesNonZero(mathStatistics);
                 break;
             case JPG:
-                drawableStatistics.setApksWithJpgDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setJpgDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setJpgDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setJpgDrawablesMedian(median.intValue());
-                drawableStatistics.setJpgDrawablesMax(maximum.intValue());
-                drawableStatistics.setJpgDrawablesMin(minimum.intValue());
-                drawableStatistics.setJpgDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setJpgDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setJpgDrawables(mathStatistics);
                 break;
             case JPG_NONZERO:
-                drawableStatistics.setApksWithJpgDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setJpgDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setJpgDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setJpgDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setJpgDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setJpgDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setJpgDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setJpgDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setJpgDrawablesNonZero(mathStatistics);
                 break;
             case GIF:
-                drawableStatistics.setApksWithGifDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setGifDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setGifDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setGifDrawablesMedian(median.intValue());
-                drawableStatistics.setGifDrawablesMax(maximum.intValue());
-                drawableStatistics.setGifDrawablesMin(minimum.intValue());
-                drawableStatistics.setGifDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setGifDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setGifDrawables(mathStatistics);
                 break;
             case GIF_NONZERO:
-                drawableStatistics.setApksWithGifDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setGifDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setGifDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setGifDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setGifDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setGifDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setGifDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setGifDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setGifDrawablesNonZero(mathStatistics);
                 break;
             case XML:
-                drawableStatistics.setApksWithXmlDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setXmlDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setXmlDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXmlDrawablesMedian(median.intValue());
-                drawableStatistics.setXmlDrawablesMax(maximum.intValue());
-                drawableStatistics.setXmlDrawablesMin(minimum.intValue());
-                drawableStatistics.setXmlDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setXmlDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setXmlDrawables(mathStatistics);
                 break;
             case XML_NONZERO:
-                drawableStatistics.setApksWithXmlDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setXmlDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setXmlDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXmlDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setXmlDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setXmlDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setXmlDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setXmlDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setXmlDrawablesNonZero(mathStatistics);
                 break;
             case DIFFERENT_DRAWABLES:
-                drawableStatistics.setApksWithDifferentDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setDifferentDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setDifferentDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setDifferentDrawablesMedian(median.intValue());
-                drawableStatistics.setDifferentDrawablesMax(maximum.intValue());
-                drawableStatistics.setDifferentDrawablesMin(minimum.intValue());
-                drawableStatistics.setDifferentDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setDifferentDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setDifferentDrawables(mathStatistics);
                 break;
             case DIFFERENT_DRAWABLES_NONZERO:
-                drawableStatistics.setApksWithDifferentDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setDifferentDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setDifferentDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setDifferentDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setDifferentDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setDifferentDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setDifferentDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setDifferentDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setDifferentDrawablesNonZero(mathStatistics);
                 break;
             case LDPI:
-                drawableStatistics.setApksWithLdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setLdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setLdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setLdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setLdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setLdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setLdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setLdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setLdpiDrawables(mathStatistics);
                 break;
             case LDPI_NONZERO:
-                drawableStatistics.setApksWithLdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setLdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setLdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setLdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setLdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setLdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setLdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setLdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setLdpiDrawablesNonZero(mathStatistics);
                 break;
             case MDPI:
-                drawableStatistics.setApksWithMdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setMdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setMdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setMdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setMdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setMdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setMdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setMdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setMdpiDrawables(mathStatistics);
                 break;
             case MDPI_NONZERO:
-                drawableStatistics.setApksWithMdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setMdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setMdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setMdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setMdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setMdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setMdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setMdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setMdpiDrawablesNonZero(mathStatistics);
                 break;
             case HDPI:
-                drawableStatistics.setApksWithHdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setHdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setHdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setHdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setHdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setHdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setHdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setHdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setHdpiDrawables(mathStatistics);
                 break;
             case HDPI_NONZERO:
-                drawableStatistics.setApksWithHdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setHdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setHdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setHdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setHdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setHdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setHdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setHdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setHdpiDrawablesNonZero(mathStatistics);
                 break;
             case XHDPI:
-                drawableStatistics.setApksWithXhdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setXhdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setXhdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXhdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setXhdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setXhdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setXhdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setXhdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setXhdpiDrawables(mathStatistics);
                 break;
             case XHDPI_NONZERO:
-                drawableStatistics.setApksWithXhdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setXhdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setXhdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXhdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setXhdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setXhdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setXhdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setXhdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setXhdpiDrawablesNonZero(mathStatistics);
                 break;
             case XXHDPI:
-                drawableStatistics.setApksWithXxhdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setXxhdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setXxhdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXxhdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setXxhdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setXxhdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setXxhdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setXxhdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setXxhdpiDrawables(mathStatistics);
                 break;
             case XXHDPI_NONZERO:
-                drawableStatistics.setApksWithXxhdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setXxhdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setXxhdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXxhdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setXxhdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setXxhdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setXxhdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setXxhdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setXxhdpiDrawablesNonZero(mathStatistics);
                 break;
             case XXXHDPI:
-                drawableStatistics.setApksWithXxxhdpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setXxxhdpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setXxxhdpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXxxhdpiDrawablesMedian(median.intValue());
-                drawableStatistics.setXxxhdpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setXxxhdpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setXxxhdpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setXxxhdpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setXxxhdpiDrawables(mathStatistics);
                 break;
             case XXXHDPI_NONZERO:
-                drawableStatistics.setApksWithXxxhdpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setXxxhdpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setXxxhdpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setXxxhdpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setXxxhdpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setXxxhdpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setXxxhdpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setXxxhdpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setXxxhdpiDrawablesNonZero(mathStatistics);
                 break;
             case UNSPECIFIED_DPI:
-                drawableStatistics.setApksWithUnspecifiedDpiDrawablesObtainedSuccessfully(percentagePair);
-                drawableStatistics.setUnspecifiedDpiDrawablesArithmeticMean(new BigDecimal(mean));
-                drawableStatistics.setUnspecifiedDpiDrawablesModus(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setUnspecifiedDpiDrawablesMedian(median.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesMax(maximum.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesMin(minimum.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesVariance(new BigDecimal(variance));
-                drawableStatistics.setUnspecifiedDpiDrawablesDeviation(new BigDecimal(deviation));
+                drawableStatistics.setUnspecifiedDpiDrawables(mathStatistics);
                 break;
             case UNSPECIFIED_DPI_NONZERO:
-                drawableStatistics.setApksWithUnspecifiedDpiDrawablesObtainedSuccessfullyNonZero(percentagePair);
-                drawableStatistics.setUnspecifiedDpiDrawablesArithmeticMeanNonZero(new BigDecimal(mean));
-                drawableStatistics.setUnspecifiedDpiDrawablesModusNonZero(ConversionHelper.toIntegerList(modus));
-                drawableStatistics.setUnspecifiedDpiDrawablesMedianNonZero(median.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesMaxNonZero(maximum.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesMinNonZero(minimum.intValue());
-                drawableStatistics.setUnspecifiedDpiDrawablesVarianceNonZero(new BigDecimal(variance));
-                drawableStatistics.setUnspecifiedDpiDrawablesDeviationNonZero(new BigDecimal(deviation));
+                drawableStatistics.setUnspecifiedDpiDrawablesNonZero(mathStatistics);
                 break;
         }
 
