@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.HashData;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FileStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
@@ -104,55 +105,20 @@ public class FileStatisticsProcessor {
 
         logger.info("Started processing files " + type.toString());
 
-        PercentagePair percentagePair = new PercentagePair(list.size(), PercentageHelper.getPercentage(list.size(), resourceDataFound));
-
-        double[] array = ConversionHelper.toDoubleArray(list);
-
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
 
         switch (type) {
             case LAYOUT:
-                fileStatistics.setFilesInLayoutFolderArithmeticMean(new BigDecimal(mean));
-                fileStatistics.setFilesInLayoutFolderModus(ConversionHelper.toIntegerList(modus));
-                fileStatistics.setFilesInLayoutFolderMedian(median.intValue());
-                fileStatistics.setFilesInLayoutFolderMax(maximum.intValue());
-                fileStatistics.setFilesInLayoutFolderMin(minimum.intValue());
-                fileStatistics.setFilesInLayoutFolderVariance(new BigDecimal(variance));
-                fileStatistics.setFilesInLayoutFolderDeviation(new BigDecimal(deviation));
+                fileStatistics.setFilesInLayoutFolder(mathStatistics);
                 break;
             case DRAWABLE:
-                fileStatistics.setFilesInDrawableFolderArithmeticMean(new BigDecimal(mean));
-                fileStatistics.setFilesInDrawableFolderModus(ConversionHelper.toIntegerList(modus));
-                fileStatistics.setFilesInDrawableFolderMedian(median.intValue());
-                fileStatistics.setFilesInDrawableFolderMax(maximum.intValue());
-                fileStatistics.setFilesInDrawableFolderMin(minimum.intValue());
-                fileStatistics.setFilesInDrawableFolderVariance(new BigDecimal(variance));
-                fileStatistics.setFilesInDrawableFolderDeviation(new BigDecimal(deviation));
+                fileStatistics.setFilesInDrawableFolder(mathStatistics);
                 break;
             case OTHER:
-                fileStatistics.setOtherFilesArithmeticMean(new BigDecimal(mean));
-                fileStatistics.setOtherFilesModus(ConversionHelper.toIntegerList(modus));
-                fileStatistics.setOtherFilesMedian(median.intValue());
-                fileStatistics.setOtherFilesMax(maximum.intValue());
-                fileStatistics.setOtherFilesMin(minimum.intValue());
-                fileStatistics.setOtherFilesVariance(new BigDecimal(variance));
-                fileStatistics.setOtherFilesDeviation(new BigDecimal(deviation));
+                fileStatistics.setOtherFiles(mathStatistics);
                 break;
             case ALL:
-                fileStatistics.setAllFilesArithmeticMean(new BigDecimal(mean));
-                fileStatistics.setAllFilesModus(ConversionHelper.toIntegerList(modus));
-                fileStatistics.setAllFilesMedian(median.intValue());
-                fileStatistics.setAllFilesMax(maximum.intValue());
-                fileStatistics.setAllFilesMin(minimum.intValue());
-                fileStatistics.setAllFilesVariance(new BigDecimal(variance));
-                fileStatistics.setAllFilesDeviation(new BigDecimal(deviation));
+                fileStatistics.setAllFiles(mathStatistics);
                 break;
         }
 
