@@ -45,6 +45,8 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
         int manifestFound = 0;
 
         Map<String, PercentagePair> localizationsMap = new HashMap<String, PercentagePair>();
+        Map<String, PercentagePair> localizationsMapNormalized = new HashMap<String, PercentagePair>();
+
 
         List<Double> numLocaleList = new ArrayList<Double>();
         List<Double> numLocaleListListNonZeros = new ArrayList<Double>();
@@ -91,13 +93,21 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
                         //because of percentage computation
                         if (alreadyAddedForApk.add(localeNormalized)) {
 
-                            if (localizationsMap.containsKey(localeNormalized)) {
-                                PercentagePair percentagePair = localizationsMap.get(localeNormalized);
+                            if (localizationsMapNormalized.containsKey(localeNormalized)) {
+                                PercentagePair percentagePair = localizationsMapNormalized.get(localeNormalized);
                                 Integer oldValue = percentagePair.getCount().intValue();
                                 percentagePair.setCount(++oldValue);
                             } else {
-                                localizationsMap.put(localeNormalized, new PercentagePair(1, null));
+                                localizationsMapNormalized.put(localeNormalized, new PercentagePair(1, null));
                             }
+                        }
+
+                        if (localizationsMap.containsKey(locale)) {
+                            PercentagePair percentagePair = localizationsMap.get(locale);
+                            Integer oldValue = percentagePair.getCount().intValue();
+                            percentagePair.setCount(++oldValue);
+                        } else {
+                            localizationsMap.put(locale, new PercentagePair(1, null));
                         }
                     }
 
@@ -117,7 +127,7 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
         setValues(Type.LOCALE_NON_ZERO, numLocaleListListNonZeros, manifestFound);
 
         localizationsStatistics.setTopLocalizations(getTopValuesMap(localizationsMap, numLocaleList.size(), "localizations"));
-
+        localizationsStatistics.setTopLocalizationsNormalized(getTopValuesMap(localizationsMapNormalized, numLocaleList.size(), "localizationsNormalized"));
         return localizationsStatistics;
     }
 
