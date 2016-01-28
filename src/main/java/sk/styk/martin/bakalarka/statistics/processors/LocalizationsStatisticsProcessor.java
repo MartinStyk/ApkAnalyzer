@@ -1,25 +1,21 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.LocalizationsStatistics;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class LocalizationsStatisticsProcessor {
+public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
     private List<File> jsons;
     private LocalizationsStatistics localizationsStatistics;
     private static final Logger logger = LoggerFactory.getLogger(LocalizationsStatisticsProcessor.class);
@@ -115,12 +111,12 @@ public class LocalizationsStatisticsProcessor {
         }
 
         localizationsStatistics.setAnalyzedApks(manifestFound);
-        setValues(Type.STRING_XML_RESOURCES, ConversionHelper.toDoubleArray(numStringResourcesList), numStringResourcesList.size(), manifestFound);
-        setValues(Type.STRING_XML_RESOURCES_NON_DEFAULT, ConversionHelper.toDoubleArray(numStringResourcesListNonDefault), numStringResourcesListNonDefault.size(), manifestFound);
-        setValues(Type.LOCALE, ConversionHelper.toDoubleArray(numLocaleList), numLocaleList.size(), manifestFound);
-        setValues(Type.LOCALE_NON_ZERO, ConversionHelper.toDoubleArray(numLocaleListListNonZeros), numLocaleListListNonZeros.size(), manifestFound);
+        setValues(Type.STRING_XML_RESOURCES, numStringResourcesList, manifestFound);
+        setValues(Type.STRING_XML_RESOURCES_NON_DEFAULT, numStringResourcesListNonDefault, manifestFound);
+        setValues(Type.LOCALE, numLocaleList, manifestFound);
+        setValues(Type.LOCALE_NON_ZERO, numLocaleListListNonZeros, manifestFound);
 
-        localizationsStatistics.setTopLocalizations(getLocaleChart(numLocaleList.size(), localizationsMap));
+        localizationsStatistics.setTopLocalizations(getTopValuesMap(localizationsMap, numLocaleList.size(), "localizations"));
 
         return localizationsStatistics;
     }
@@ -141,84 +137,33 @@ public class LocalizationsStatisticsProcessor {
         return old;
     }
 
-    private Map<String, PercentagePair> getLocaleChart(int localizationObtained, Map<String, PercentagePair> localizationsMap) {
-        if (localizationsMap == null) {
-            throw new IllegalArgumentException("localizationsMap");
-        }
-        logger.info("Started processing chart for Locale");
-
-        for (Map.Entry<String, PercentagePair> entry : localizationsMap.entrySet()) {
-            PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount().intValue();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), localizationObtained));
-        }
-
-        Map<String, PercentagePair> sorted = SortingHelper.sortByValue(localizationsMap);
-
-        logger.info("Finished processing chart for Locale");
-
-        return sorted;
-    }
-
-
-    private void setValues(Type type, double[] array, Integer size, Integer total) {
+    private void setValues(Type type, List<Double> list, Integer total) {
         if (localizationsStatistics == null) {
             throw new NullPointerException("localizationsStatistics");
         }
 
         logger.info("Started processing " + type.toString());
 
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), total), list);
 
         switch (type) {
             case STRING_XML_RESOURCES:
-                localizationsStatistics.setApksWithDefaultStringXmlObtained(new PercentagePair(size, PercentageHelper.getPercentage(size, total)));
-                localizationsStatistics.setDefaultStringXmlArithmeticMean(new BigDecimal(mean));
-                localizationsStatistics.setDefaultStringXmlMedian(median.intValue());
-                localizationsStatistics.setDefaultStringXmlModus(ConversionHelper.toIntegerList(modus));
-                localizationsStatistics.setDefaultStringXmlMin(minimum.intValue());
-                localizationsStatistics.setDefaultStringXmlMax(maximum.intValue());
-                localizationsStatistics.setDefaultStringXmlVariance(new BigDecimal(variance));
-                localizationsStatistics.setDefaultStringXmlDeviation(new BigDecimal(deviation));
+                localizationsStatistics.setDefaultStringXmlEntries(mathStatistics);
                 break;
             case STRING_XML_RESOURCES_NON_DEFAULT:
-                localizationsStatistics.setApksWithDefaultStringXmlObtainedNonDefault(new PercentagePair(size, PercentageHelper.getPercentage(size, total)));
-                localizationsStatistics.setDefaultStringXmlArithmeticMeanNonDefault(new BigDecimal(mean));
-                localizationsStatistics.setDefaultStringXmlMedianNonDefault(median.intValue());
-                localizationsStatistics.setDefaultStringXmlModusNonDefault(ConversionHelper.toIntegerList(modus));
-                localizationsStatistics.setDefaultStringXmlMinNonDefault(minimum.intValue());
-                localizationsStatistics.setDefaultStringXmlMaxNonDefault(maximum.intValue());
-                localizationsStatistics.setDefaultStringXmlVarianceNonDefault(new BigDecimal(variance));
-                localizationsStatistics.setDefaultStringXmlDeviationNonDefault(new BigDecimal(deviation));
+                localizationsStatistics.setDefaultStringXmlEntriesNonDefault(mathStatistics);
                 break;
             case LOCALE:
-                localizationsStatistics.setApksWithLocalizationsObtained(new PercentagePair(size, PercentageHelper.getPercentage(size, total)));
-                localizationsStatistics.setLocalizationsArithmeticMean(new BigDecimal(mean));
-                localizationsStatistics.setLocalizationsMedian(median.intValue());
-                localizationsStatistics.setLocalizationsModus(ConversionHelper.toIntegerList(modus));
-                localizationsStatistics.setLocalizationsMin(minimum.intValue());
-                localizationsStatistics.setLocalizationsMax(maximum.intValue());
-                localizationsStatistics.setLocalizationsVariance(new BigDecimal(variance));
-                localizationsStatistics.setLocalizationsDeviation(new BigDecimal(deviation));
+                localizationsStatistics.setLocalizationNumber(mathStatistics);
                 break;
             case LOCALE_NON_ZERO:
-                localizationsStatistics.setNumberOfApksWithLocalizationsObtainedNonZero(new PercentagePair(size, PercentageHelper.getPercentage(size, total)));
-                localizationsStatistics.setLocalizationsArithmeticMeanNonZero(new BigDecimal(mean));
-                localizationsStatistics.setLocalizationsMedianNonZero(median.intValue());
-                localizationsStatistics.setLocalizationsModusNonZero(ConversionHelper.toIntegerList(modus));
-                localizationsStatistics.setLocalizationsMinNonZero(minimum.intValue());
-                localizationsStatistics.setLocalizationsMaxNonZero(maximum.intValue());
-                localizationsStatistics.setLocalizationsVarianceNonZero(new BigDecimal(variance));
-                localizationsStatistics.setLocalizationsDeviationNonZero(new BigDecimal(deviation));
+                localizationsStatistics.setLocalizationNumberNonZero(mathStatistics);
                 break;
         }
         logger.info("Finished processing " + type.toString());
     }
 
+    protected Logger getLogger() {
+        return logger;
+    }
 }
