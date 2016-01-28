@@ -1,18 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.data.ResourceStatistics;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,99 +104,33 @@ public class ResourceStatisticsProcessor {
 
         logger.info("Started processing resources " + type.toString());
 
-        PercentagePair percentagePair = new PercentagePair(list.size(), PercentageHelper.getPercentage(list.size(), resourceDataFound));
-
-        double[] array = ConversionHelper.toDoubleArray(list);
-
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
 
 
         switch (type) {
             case LAYOUT:
-                resourceStatistics.setApksWithLayoutsObtainedSuccessfully(percentagePair);
-                resourceStatistics.setLayoutsArithmeticMean(new BigDecimal(mean));
-                resourceStatistics.setLayoutsModus(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setLayoutsMedian(median.intValue());
-                resourceStatistics.setLayoutsMax(maximum.intValue());
-                resourceStatistics.setLayoutsMin(minimum.intValue());
-                resourceStatistics.setLayoutsVariance(new BigDecimal(variance));
-                resourceStatistics.setLayoutsDeviation(new BigDecimal(deviation));
+                resourceStatistics.setLayouts(mathStatistics);
                 break;
             case LAYOUT_NONZERO:
-                resourceStatistics.setApksWithLayoutsObtainedSuccessfullyNonZero(percentagePair);
-                resourceStatistics.setLayoutsArithmeticMeanNonZero(new BigDecimal(mean));
-                resourceStatistics.setLayoutsModusNonZero(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setLayoutsMedianNonZero(median.intValue());
-                resourceStatistics.setLayoutsMaxNonZero(maximum.intValue());
-                resourceStatistics.setLayoutsMinNonZero(minimum.intValue());
-                resourceStatistics.setLayoutsVarianceNonZero(new BigDecimal(variance));
-                resourceStatistics.setLayoutsDeviationNonZero(new BigDecimal(deviation));
+                resourceStatistics.setLayoutsNonZero(mathStatistics);
                 break;
             case LAYOUT_DIFFERENT:
-                resourceStatistics.setApksWithDifferentLayoutsObtainedSuccessfully(percentagePair);
-                resourceStatistics.setDifferentLayoutsArithmeticMean(new BigDecimal(mean));
-                resourceStatistics.setDifferentLayoutsModus(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setDifferentLayoutsMedian(median.intValue());
-                resourceStatistics.setDifferentLayoutsMax(maximum.intValue());
-                resourceStatistics.setDifferentLayoutsMin(minimum.intValue());
-                resourceStatistics.setDifferentLayoutsVariance(new BigDecimal(variance));
-                resourceStatistics.setDifferentLayoutsDeviation(new BigDecimal(deviation));
+                resourceStatistics.setDifferentLayouts(mathStatistics);
                 break;
             case LAYOUT_DIFFERENT_NONZERO:
-                resourceStatistics.setApksWithDifferentLayoutsObtainedSuccessfullyNonZero(percentagePair);
-                resourceStatistics.setDifferentLayoutsArithmeticMeanNonZero(new BigDecimal(mean));
-                resourceStatistics.setDifferentLayoutsModusNonZero(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setDifferentLayoutsMedianNonZero(median.intValue());
-                resourceStatistics.setDifferentLayoutsMaxNonZero(maximum.intValue());
-                resourceStatistics.setDifferentLayoutsMinNonZero(minimum.intValue());
-                resourceStatistics.setDifferentLayoutsVarianceNonZero(new BigDecimal(variance));
-                resourceStatistics.setDifferentLayoutsDeviationNonZero(new BigDecimal(deviation));
+                resourceStatistics.setDifferentLayoutsNonZero(mathStatistics);
                 break;
             case MENU:
-                resourceStatistics.setApksWithMenusObtainedSuccessfully(percentagePair);
-                resourceStatistics.setMenusArithmeticMean(new BigDecimal(mean));
-                resourceStatistics.setMenusModus(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setMenusMedian(median.intValue());
-                resourceStatistics.setMenusMax(maximum.intValue());
-                resourceStatistics.setMenusMin(minimum.intValue());
-                resourceStatistics.setMenusVariance(new BigDecimal(variance));
-                resourceStatistics.setMenusDeviation(new BigDecimal(deviation));
+                resourceStatistics.setMenu(mathStatistics);
                 break;
             case MENU_NONZERO:
-                resourceStatistics.setApksWithMenusObtainedSuccessfullyNonZero(percentagePair);
-                resourceStatistics.setMenusArithmeticMeanNonZero(new BigDecimal(mean));
-                resourceStatistics.setMenusModusNonZero(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setMenusMedianNonZero(median.intValue());
-                resourceStatistics.setMenusMaxNonZero(maximum.intValue());
-                resourceStatistics.setMenusMinNonZero(minimum.intValue());
-                resourceStatistics.setMenusVarianceNonZero(new BigDecimal(variance));
-                resourceStatistics.setMenusDeviationNonZero(new BigDecimal(deviation));
+                resourceStatistics.setMenuNonZero(mathStatistics);
                 break;
             case RAW:
-                resourceStatistics.setApksWithRawResourcesObtainedSuccessfully(percentagePair);
-                resourceStatistics.setRawResourcesArithmeticMean(new BigDecimal(mean));
-                resourceStatistics.setRawResourcesModus(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setRawResourcesMedian(median.intValue());
-                resourceStatistics.setRawResourcesMax(maximum.intValue());
-                resourceStatistics.setRawResourcesMin(minimum.intValue());
-                resourceStatistics.setRawResourcesVariance(new BigDecimal(variance));
-                resourceStatistics.setRawResourcesDeviation(new BigDecimal(deviation));
+                resourceStatistics.setRawResources(mathStatistics);
                 break;
             case RAW_NONZERO:
-                resourceStatistics.setApksWithRawResourcesObtainedSuccessfullyNonZero(percentagePair);
-                resourceStatistics.setRawResourcesArithmeticMeanNonZero(new BigDecimal(mean));
-                resourceStatistics.setRawResourcesModusNonZero(ConversionHelper.toIntegerList(modus));
-                resourceStatistics.setRawResourcesMedianNonZero(median.intValue());
-                resourceStatistics.setRawResourcesMaxNonZero(maximum.intValue());
-                resourceStatistics.setRawResourcesMinNonZero(minimum.intValue());
-                resourceStatistics.setRawResourcesVarianceNonZero(new BigDecimal(variance));
-                resourceStatistics.setRawResourcesDeviationNonZero(new BigDecimal(deviation));
+                resourceStatistics.setRawResourcesNonZero(mathStatistics);
                 break;
         }
 
