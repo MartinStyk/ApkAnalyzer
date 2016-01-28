@@ -154,13 +154,13 @@ public class SdkStatisticsProcessor extends TopListProcessorBase {
         Map<String,PercentagePair> topVal = getTopValuesMap(topSdk,number,type.toString());
         switch (type) {
             case MAX:
-                sdkStatistics.setTopMaxSdk(SortingHelper.sortByValue(topVal));
+                sdkStatistics.setTopMaxSdk(topVal);
                 break;
             case TARGET:
-                sdkStatistics.setTopTargetSdk(SortingHelper.sortByValue(topVal));
+                sdkStatistics.setTopTargetSdk(topVal);
                 break;
             case MIN:
-                sdkStatistics.setTopMinSdk(SortingHelper.sortByValue(topVal));
+                sdkStatistics.setTopMinSdk(topVal);
                 break;
         }
     }

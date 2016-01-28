@@ -60,6 +60,6 @@ public abstract class TopListProcessorBase {
         }
 
         getLogger().info("Finished processing chart for " + type);
-        return topValues;
+        return SortingHelper.sortByValue(topValues);
     }
 }

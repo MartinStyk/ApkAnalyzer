@@ -4,11 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.data.ScreenStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class ScreenStatisticsProcessor {
+public class ScreenStatisticsProcessor extends TopListProcessorBase {
 
     private List<File> jsons;
     private ScreenStatistics screenStatistics;
@@ -210,40 +209,33 @@ public class ScreenStatisticsProcessor {
 
     private void setTop(Map<String, PercentagePair> map, int total, Type type) {
 
-        logger.info("Started processing screen chart for " + type.toString());
-
-        if (map == null) {
-            throw new IllegalArgumentException("map");
-        }
-
-        for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
-            PercentagePair pair = entry.getValue();
-            Integer count = pair.getCount().intValue();
-            pair.setPercentage(PercentageHelper.getPercentage(count.doubleValue(), total));
-        }
+        Map<String, PercentagePair> topVal = getTopValuesMap(map, total, type.toString());
 
         switch (type) {
             case RESIZEABLE:
-                screenStatistics.setSupportsScreensResizeable(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensResizeable(topVal);
                 break;
             case SMALL:
-                screenStatistics.setSupportsScreensSmall(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensSmall(topVal);
                 break;
             case NORMAL:
-                screenStatistics.setSupportsScreensNormal(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensNormal(topVal);
                 break;
             case LARGE:
-                screenStatistics.setSupportsScreensLarge(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensLarge(topVal);
                 break;
             case XLARGE:
-                screenStatistics.setSupportsScreensXlarge(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensXlarge(topVal);
                 break;
             case ANY_DENSITY:
-                screenStatistics.setSupportsScreensAnyDensity(SortingHelper.sortByValue(map));
+                screenStatistics.setSupportsScreensAnyDensity(topVal);
                 break;
         }
 
-        logger.info("Finished processing screen chart for " + type.toString());
+    }
+
+    protected Logger getLogger() {
+        return logger;
     }
 
 }
