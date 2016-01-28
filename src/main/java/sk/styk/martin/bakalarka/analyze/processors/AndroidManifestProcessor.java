@@ -72,7 +72,7 @@ public class AndroidManifestProcessor {
             isSuccessDecompilation = processUsingDecompilation();
         }
 
-        if(!isSuccessDecompilation && !isSuccessXmlDecompress){
+        if (!isSuccessDecompilation && !isSuccessXmlDecompress) {
             manifestData = null;
         }
 

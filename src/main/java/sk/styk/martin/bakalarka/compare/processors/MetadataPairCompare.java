@@ -31,6 +31,22 @@ public class MetadataPairCompare {
         this.apkDataB = apkDataB;
     }
 
+    protected static BigDecimal getPercentage(long valueA, long valueB) {
+        Long difference = valueB - valueA;
+
+        Long bigger = valueA > valueB ? valueA : valueB;
+
+        if (valueA == valueB) {
+            return new BigDecimal(0);
+        }
+        if (bigger == 0) {
+            return null;
+        }
+
+        Double result = Math.abs(100 * difference.doubleValue() / bigger.doubleValue());
+        return new BigDecimal(result);
+    }
+
     public MetadataCompareResult basicCompare() {
 
         result = new MetadataCompareResult();
@@ -731,22 +747,6 @@ public class MetadataPairCompare {
                 additionalB.remove(value);
             }
         }
-    }
-
-    protected static BigDecimal getPercentage(long valueA, long valueB) {
-        Long difference = valueB - valueA;
-
-        Long bigger = valueA > valueB ? valueA : valueB;
-
-        if (valueA == valueB) {
-            return new BigDecimal(0);
-        }
-        if (bigger == 0) {
-            return null;
-        }
-
-        Double result = Math.abs(100 * difference.doubleValue() / bigger.doubleValue());
-        return new BigDecimal(result);
     }
 
     private String getDifferenceString(Object valueA, Object valueB) {

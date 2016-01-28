@@ -8,7 +8,7 @@ import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 /**
  * Created by Martin Styk on 12.01.2016.
  */
-public class ApkPairCompareFullImpl implements ApkPairCompare{
+public class ApkPairCompareFullImpl implements ApkPairCompare {
     private static final Logger logger = LoggerFactory.getLogger(ApkPairCompare.class);
     private ApkData dataA;
     private ApkData dataB;
@@ -27,11 +27,13 @@ public class ApkPairCompareFullImpl implements ApkPairCompare{
         this.metadataComparator = new MetadataPairCompare(dataA, dataB);
         this.similarityEvaluator = new SimilarityEvaluator();
     }
+
     /**
      * Full compare of two apks.
+     *
      * @return result of compare
      */
-    public ComparisonResult compare()  {
+    public ComparisonResult compare() {
 
         logger.trace("Start compare " + dataA.getFileName() + " and " + dataB.getFileName());
 

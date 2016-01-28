@@ -23,6 +23,10 @@ public class CertificateStatistics {
         return signAlgorithmMap;
     }
 
+    public void setSignAlgorithmMap(Map<String, PercentagePair> signAlgorithmMap) {
+        this.signAlgorithmMap = signAlgorithmMap;
+    }
+
     public PercentagePair getSignAlgorithmObtained() {
         return signAlgorithmObtained;
     }
@@ -37,10 +41,6 @@ public class CertificateStatistics {
 
     public void setVersionObtained(PercentagePair versionObtained) {
         this.versionObtained = versionObtained;
-    }
-
-    public void setSignAlgorithmMap(Map<String, PercentagePair> signAlgorithmMap) {
-        this.signAlgorithmMap = signAlgorithmMap;
     }
 
     public Map<Integer, PercentagePair> getNumberOfCertificates() {

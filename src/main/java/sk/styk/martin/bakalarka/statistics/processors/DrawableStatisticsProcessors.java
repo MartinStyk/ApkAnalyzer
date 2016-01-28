@@ -1,19 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
-import sk.styk.martin.bakalarka.utils.data.MathStatistics;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.DrawableStatistics;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,37 +17,10 @@ import java.util.List;
  * Created by Martin Styk on 22.01.2016.
  */
 public class DrawableStatisticsProcessors {
+    private static final Logger logger = LoggerFactory.getLogger(DrawableStatisticsProcessors.class);
     private List<File> jsons;
     private DrawableStatistics drawableStatistics;
     private ResourceData resourceData;
-    private static final Logger logger = LoggerFactory.getLogger(DrawableStatisticsProcessors.class);
-
-    private enum Type {
-        PNG,
-        PNG_NONZERO,
-        JPG,
-        JPG_NONZERO,
-        GIF,
-        GIF_NONZERO,
-        XML,
-        XML_NONZERO,
-        DIFFERENT_DRAWABLES,
-        DIFFERENT_DRAWABLES_NONZERO,
-        LDPI,
-        LDPI_NONZERO,
-        MDPI,
-        MDPI_NONZERO,
-        HDPI,
-        HDPI_NONZERO,
-        XHDPI,
-        XHDPI_NONZERO,
-        XXHDPI,
-        XXHDPI_NONZERO,
-        XXXHDPI,
-        XXXHDPI_NONZERO,
-        UNSPECIFIED_DPI,
-        UNSPECIFIED_DPI_NONZERO
-    }
 
     public DrawableStatisticsProcessors(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -259,5 +228,32 @@ public class DrawableStatisticsProcessors {
                 listNonZero.add(new Double(value));
             }
         }
+    }
+
+    private enum Type {
+        PNG,
+        PNG_NONZERO,
+        JPG,
+        JPG_NONZERO,
+        GIF,
+        GIF_NONZERO,
+        XML,
+        XML_NONZERO,
+        DIFFERENT_DRAWABLES,
+        DIFFERENT_DRAWABLES_NONZERO,
+        LDPI,
+        LDPI_NONZERO,
+        MDPI,
+        MDPI_NONZERO,
+        HDPI,
+        HDPI_NONZERO,
+        XHDPI,
+        XHDPI_NONZERO,
+        XXHDPI,
+        XXHDPI_NONZERO,
+        XXXHDPI,
+        XXXHDPI_NONZERO,
+        UNSPECIFIED_DPI,
+        UNSPECIFIED_DPI_NONZERO
     }
 }

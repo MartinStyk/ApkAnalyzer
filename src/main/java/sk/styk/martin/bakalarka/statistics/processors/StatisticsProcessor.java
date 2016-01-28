@@ -1,7 +1,7 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.*;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.util.List;
@@ -94,7 +94,7 @@ public class StatisticsProcessor {
         overallStatistics.setLocalizationsStatistics(localizationsStatistics);
 
         DrawableStatistics drawableStatistics = DrawableStatisticsProcessors
-        .ofFiles(jsons)
+                .ofFiles(jsons)
                 .process();
 
         overallStatistics.setDrawableStatistics(drawableStatistics);

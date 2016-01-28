@@ -3,8 +3,6 @@ package sk.styk.martin.bakalarka.statistics.data;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 /**

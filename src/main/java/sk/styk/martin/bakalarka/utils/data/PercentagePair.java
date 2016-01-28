@@ -18,7 +18,7 @@ public class PercentagePair {
 
     public PercentagePair(Number count, Number total) {
         this.count = count;
-        this.percentage = PercentageHelper.getPercentage(count.doubleValue(),total.doubleValue());
+        this.percentage = PercentageHelper.getPercentage(count.doubleValue(), total.doubleValue());
     }
 
     public int hashCode() {

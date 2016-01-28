@@ -6,7 +6,6 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.CertificateData;
 import sk.styk.martin.bakalarka.statistics.data.CertificateStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
@@ -19,15 +18,9 @@ import java.util.Map;
  * Created by Martin Styk on 22.01.2016.
  */
 public class CertificateStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(CertificateStatisticsProcessor.class);
     private List<File> jsons;
     private CertificateStatistics certificateStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(CertificateStatisticsProcessor.class);
-
-    private enum Type {
-        VERSION,
-        ALGORITHM,
-        NUMBER
-    }
 
     public CertificateStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -132,6 +125,12 @@ public class CertificateStatisticsProcessor extends TopListProcessorBase {
 
     protected Logger getLogger() {
         return logger;
+    }
+
+    private enum Type {
+        VERSION,
+        ALGORITHM,
+        NUMBER
     }
 
 }

@@ -12,11 +12,11 @@ public class ComparisonResult {
     private MetadataCompareResult metadataCompareResult;
 
 
-    public ComparisonResult(String nameA, String nameB){
-        if(nameA != null && !nameA.isEmpty()){
+    public ComparisonResult(String nameA, String nameB) {
+        if (nameA != null && !nameA.isEmpty()) {
             this.nameA = nameA;
         }
-        if(nameB != null && !nameB.isEmpty()){
+        if (nameB != null && !nameB.isEmpty()) {
             this.nameB = nameB;
         }
     }

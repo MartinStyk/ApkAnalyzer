@@ -3,7 +3,7 @@ package sk.styk.martin.bakalarka.utils.data;
 /**
  * Created by Martin Styk on 27.01.2016.
  */
-public class DifferencePair<A,B>  {
+public class DifferencePair<A, B> {
     private A valueA;
     private B valueB;
 

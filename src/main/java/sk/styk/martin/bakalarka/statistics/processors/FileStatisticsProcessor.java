@@ -1,19 +1,15 @@
 package sk.styk.martin.bakalarka.statistics.processors;
 
-import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.analyze.data.HashData;
-import sk.styk.martin.bakalarka.utils.data.MathStatistics;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.FileStatistics;
+import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +17,9 @@ import java.util.List;
  * Created by Martin Styk on 22.01.2016.
  */
 public class FileStatisticsProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(FileStatisticsProcessor.class);
     private List<File> jsons;
     private FileStatistics fileStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(FileStatisticsProcessor.class);
-
-    private enum Type {
-        LAYOUT,
-        DRAWABLE,
-        OTHER,
-        ALL
-    }
 
     public FileStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -123,5 +112,12 @@ public class FileStatisticsProcessor {
         }
 
         logger.info("Finished processing files " + type.toString());
+    }
+
+    private enum Type {
+        LAYOUT,
+        DRAWABLE,
+        OTHER,
+        ALL
     }
 }

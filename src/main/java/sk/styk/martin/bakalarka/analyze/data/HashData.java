@@ -20,17 +20,17 @@ public class HashData {
     /**
      * hash of all files in res/drawable* folder
      */
-    private Map<String,String> drawableHash;
+    private Map<String, String> drawableHash;
 
     /**
      * hash of all files in res/layout* folder
      */
-    private Map<String,String> layoutHash;
+    private Map<String, String> layoutHash;
 
     /**
      * hash that doesn`t belong to any of previous categories
      */
-    private Map<String,String> otherHash;
+    private Map<String, String> otherHash;
 
 
     public String getDexHash() {
@@ -49,27 +49,27 @@ public class HashData {
         this.arscHash = arscHash;
     }
 
-    public Map<String,String> getDrawableHash() {
+    public Map<String, String> getDrawableHash() {
         return drawableHash;
     }
 
-    public void setDrawableHash(Map<String,String> drawableHash) {
+    public void setDrawableHash(Map<String, String> drawableHash) {
         this.drawableHash = drawableHash;
     }
 
-    public Map<String,String> getLayoutHash() {
+    public Map<String, String> getLayoutHash() {
         return layoutHash;
     }
 
-    public void setLayoutHash(Map<String,String> layoutHash) {
+    public void setLayoutHash(Map<String, String> layoutHash) {
         this.layoutHash = layoutHash;
     }
 
-    public Map<String,String> getOtherHash() {
+    public Map<String, String> getOtherHash() {
         return otherHash;
     }
 
-    public void setOtherHash(Map<String,String> otherHash) {
+    public void setOtherHash(Map<String, String> otherHash) {
         this.otherHash = otherHash;
     }
 

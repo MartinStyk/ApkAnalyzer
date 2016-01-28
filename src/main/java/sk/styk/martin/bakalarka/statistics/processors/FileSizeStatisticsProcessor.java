@@ -19,15 +19,9 @@ import java.util.List;
  */
 public class FileSizeStatisticsProcessor {
 
+    private static final Logger logger = LoggerFactory.getLogger(FileSizeStatisticsProcessor.class);
     private List<File> jsons;
     private FileSizeStatistics fileSizeStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(FileSizeStatisticsProcessor.class);
-
-    private enum Type {
-        FILE_SIZE,
-        DEX_SIZE,
-        ARSC_SIZE
-    }
 
     public FileSizeStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -81,7 +75,6 @@ public class FileSizeStatisticsProcessor {
 
     }
 
-
     private void setValues(Type type, double[] array, Integer size) {
         if (fileSizeStatistics == null) {
             throw new NullPointerException("fileSizeStatistics");
@@ -96,7 +89,7 @@ public class FileSizeStatisticsProcessor {
         Double variance = StatUtils.variance(array);
         Double deviation = Math.sqrt(variance);
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(size,jsons.size()), mean, median, null, maximum, minimum, variance, deviation);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(size, jsons.size()), mean, median, null, maximum, minimum, variance, deviation);
 
 
         switch (type) {
@@ -129,6 +122,12 @@ public class FileSizeStatisticsProcessor {
                 break;
         }
         return value == null || value == 0 ? null : value.doubleValue();
+    }
+
+    private enum Type {
+        FILE_SIZE,
+        DEX_SIZE,
+        ARSC_SIZE
     }
 
 }

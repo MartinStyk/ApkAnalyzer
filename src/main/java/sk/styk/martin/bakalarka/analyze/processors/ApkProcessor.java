@@ -92,7 +92,7 @@ public class ApkProcessor {
         ResourceProcessor
                 .getInstance(data, apk)
                 .processResources();
-        
+
         apk.cleanApkWorkingDirectory();
 
         logger.info(apk.getMarker() + "Finished processing of file " + apk.getName());

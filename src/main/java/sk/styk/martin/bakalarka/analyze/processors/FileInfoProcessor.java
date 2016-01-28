@@ -124,7 +124,7 @@ public class FileInfoProcessor {
     private void getDexSize() {
         File dexFile = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "classes.dex");
         Long length = dexFile.length();
-        if(length !=  null && length != 0){
+        if (length != null && length != 0) {
             data.setDexSize(length);
         }
 
@@ -133,7 +133,7 @@ public class FileInfoProcessor {
     private void getArscSize() {
         File file = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "resources.arsc");
         Long length = file.length();
-        if(length !=  null && length != 0){
+        if (length != null && length != 0) {
             data.setArscSize(length);
         }
     }

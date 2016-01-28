@@ -5,13 +5,15 @@ package sk.styk.martin.bakalarka.compare;
  */
 public class ComparisonException extends Exception {
 
-    public ComparisonException(){
+    public ComparisonException() {
         super();
     }
-    public ComparisonException(String message){
+
+    public ComparisonException(String message) {
         super(message);
     }
-    public ComparisonException(String message,Throwable cause){
-        super(message,cause);
+
+    public ComparisonException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

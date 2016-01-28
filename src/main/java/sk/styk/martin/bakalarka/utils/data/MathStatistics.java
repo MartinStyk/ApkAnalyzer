@@ -4,7 +4,6 @@ import org.apache.commons.math3.stat.StatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,12 +36,16 @@ public class MathStatistics {
     }
 
     public MathStatistics(PercentagePair analyzedDataSet, List<Double> data) {
-        this(analyzedDataSet,ConversionHelper.toDoubleArray(data));
+        this(analyzedDataSet, ConversionHelper.toDoubleArray(data));
     }
 
     public MathStatistics(PercentagePair analyzedDataSet, double[] data) {
         this.analyzedDataSet = analyzedDataSet;
         computeStatistics(data);
+    }
+
+    public static Logger getLogger() {
+        return logger;
     }
 
     private void computeStatistics(double[] array) {
@@ -65,10 +68,6 @@ public class MathStatistics {
         this.deviation = new BigDecimal(deviation);
 
         logger.trace("Finished processing stats");
-    }
-
-    public static Logger getLogger() {
-        return logger;
     }
 
     public PercentagePair getAnalyzedDataSet() {

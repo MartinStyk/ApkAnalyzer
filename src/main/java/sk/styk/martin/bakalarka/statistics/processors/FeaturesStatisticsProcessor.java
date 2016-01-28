@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.FeaturesStatistics;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +18,10 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class FeaturesStatisticsProcessor extends TopListProcessorBase{
+public class FeaturesStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(FeaturesStatisticsProcessor.class);
     private List<File> jsons;
     private FeaturesStatistics featuresStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(FeaturesStatisticsProcessor.class);
 
 
     public FeaturesStatisticsProcessor(List<File> jsons) {
@@ -88,7 +85,7 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase{
         featuresStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, featuresNumbersList, false);
         setValues(manifestFound, featuresNumbersListNonZero, true);
-        featuresStatistics.setTopFeatures(getTopValuesMap(topFeatures, featuresNumbersList.size(),"features"));
+        featuresStatistics.setTopFeatures(getTopValuesMap(topFeatures, featuresNumbersList.size(), "features"));
 
         return featuresStatistics;
     }
@@ -112,7 +109,7 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase{
         logger.info("Finished processing features");
     }
 
-    protected Logger getLogger(){
+    protected Logger getLogger() {
         return logger;
     }
 

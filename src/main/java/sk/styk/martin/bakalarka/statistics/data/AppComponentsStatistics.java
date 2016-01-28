@@ -2,9 +2,6 @@ package sk.styk.martin.bakalarka.statistics.data;
 
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 /**
  * Created by Martin Styk on 16.01.2016.
  */

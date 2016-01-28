@@ -19,9 +19,9 @@ import java.util.Map;
  * Created by Martin Styk on 21.01.2016.
  */
 public class LibrariesStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(LibrariesStatisticsProcessor.class);
     private List<File> jsons;
     private LibrariesStatistics librariesStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(LibrariesStatisticsProcessor.class);
 
 
     public LibrariesStatisticsProcessor(List<File> jsons) {
@@ -84,7 +84,7 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
         librariesStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, librariesNumbersList, false);
         setValues(manifestFound, librariesNumbersListNonZero, true);
-        librariesStatistics.setTopLibraries(getTopValuesMap(topLibraries, librariesNumbersList.size(),"libraries"));
+        librariesStatistics.setTopLibraries(getTopValuesMap(topLibraries, librariesNumbersList.size(), "libraries"));
 
         return librariesStatistics;
     }
@@ -107,7 +107,8 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
         logger.info("Finished processing permissions");
         logger.info("Finished processing libraries");
     }
-    protected Logger getLogger(){
+
+    protected Logger getLogger() {
         return logger;
     }
 

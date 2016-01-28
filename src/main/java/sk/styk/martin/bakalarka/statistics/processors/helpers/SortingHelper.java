@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class SortingHelper {
 
-    public  static <X> Map< X, PercentagePair>
+    public static <X> Map<X, PercentagePair>
     sortByValue(Map<X, PercentagePair> map) {
         List<Map.Entry<X, PercentagePair>> list =
                 new LinkedList<Map.Entry<X, PercentagePair>>(map.entrySet());

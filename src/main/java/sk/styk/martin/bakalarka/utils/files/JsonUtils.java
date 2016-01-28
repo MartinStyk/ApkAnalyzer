@@ -155,7 +155,7 @@ public class JsonUtils {
             try {
                 outputFile.createNewFile();
                 logger.info("Creating overall stats file " + outputFile.getName());
-            }catch (IOException e){
+            } catch (IOException e) {
                 logger.error("Error creating output file");
             }
 

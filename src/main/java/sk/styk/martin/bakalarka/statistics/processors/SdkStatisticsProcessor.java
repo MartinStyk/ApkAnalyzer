@@ -4,11 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.data.SdkStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -19,16 +18,9 @@ import java.util.Map;
  * Created by Martin Styk on 21.01.2016.
  */
 public class SdkStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(SdkStatisticsProcessor.class);
     private List<File> jsons;
     private SdkStatistics sdkStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(SdkStatisticsProcessor.class);
-
-    private enum Type {
-        MIN,
-        MAX,
-        TARGET
-    }
-
 
     public SdkStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -151,7 +143,7 @@ public class SdkStatisticsProcessor extends TopListProcessorBase {
 
     private void setTop(Map<String, PercentagePair> topSdk, int number, Type type) {
 
-        Map<String,PercentagePair> topVal = getTopValuesMap(topSdk,number,type.toString());
+        Map<String, PercentagePair> topVal = getTopValuesMap(topSdk, number, type.toString());
         switch (type) {
             case MAX:
                 sdkStatistics.setTopMaxSdk(topVal);
@@ -165,8 +157,14 @@ public class SdkStatisticsProcessor extends TopListProcessorBase {
         }
     }
 
-    protected Logger getLogger(){
+    protected Logger getLogger() {
         return logger;
+    }
+
+    private enum Type {
+        MIN,
+        MAX,
+        TARGET
     }
 
 }

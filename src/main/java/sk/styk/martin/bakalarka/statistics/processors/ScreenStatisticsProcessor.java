@@ -19,19 +19,9 @@ import java.util.Map;
  */
 public class ScreenStatisticsProcessor extends TopListProcessorBase {
 
+    private static final Logger logger = LoggerFactory.getLogger(ScreenStatisticsProcessor.class);
     private List<File> jsons;
     private ScreenStatistics screenStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(ScreenStatisticsProcessor.class);
-
-    private enum Type {
-        RESIZEABLE,
-        SMALL,
-        NORMAL,
-        LARGE,
-        XLARGE,
-        ANY_DENSITY
-    }
-
 
     public ScreenStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -236,6 +226,15 @@ public class ScreenStatisticsProcessor extends TopListProcessorBase {
 
     protected Logger getLogger() {
         return logger;
+    }
+
+    private enum Type {
+        RESIZEABLE,
+        SMALL,
+        NORMAL,
+        LARGE,
+        XLARGE,
+        ANY_DENSITY
     }
 
 }

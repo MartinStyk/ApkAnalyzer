@@ -28,9 +28,9 @@ public class HashProcessor {
     private HashData hashData;
     private ApkData data;
     private ApkFile apkFile;
-    private Map<String,String> drawableHash = new HashMap<String, String>();
-    private Map<String,String> layoutHash = new HashMap<String, String>();
-    private Map<String,String> otherHash = new HashMap<String, String>();
+    private Map<String, String> drawableHash = new HashMap<String, String>();
+    private Map<String, String> layoutHash = new HashMap<String, String>();
+    private Map<String, String> otherHash = new HashMap<String, String>();
 
 
     public HashProcessor(ApkData data, ApkFile apkFile) {
@@ -90,13 +90,13 @@ public class HashProcessor {
         for (File f : files) {
             processHashesFile(f);
         }
-        if(!otherHash.isEmpty()){
+        if (!otherHash.isEmpty()) {
             hashData.setOtherHash(otherHash);
         }
-        if(!drawableHash.isEmpty()){
+        if (!drawableHash.isEmpty()) {
             hashData.setDrawableHash(drawableHash);
         }
-        if(!layoutHash.isEmpty()){
+        if (!layoutHash.isEmpty()) {
             hashData.setLayoutHash(layoutHash);
         }
         if (data != null) {
@@ -132,11 +132,11 @@ public class HashProcessor {
             } else if (fileName.equals("resources.arsc")) {
                 hashData.setArscHash(fileHash);
             } else if (fileName.startsWith("res/drawable")) {
-                drawableHash.put(fileHash,fileName);
+                drawableHash.put(fileHash, fileName);
             } else if (fileName.startsWith("res/layout")) {
-                layoutHash.put(fileHash,fileName);
+                layoutHash.put(fileHash, fileName);
             } else {
-                otherHash.put(fileHash,fileName);
+                otherHash.put(fileHash, fileName);
             }
         }
 

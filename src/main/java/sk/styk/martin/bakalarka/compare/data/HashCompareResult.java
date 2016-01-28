@@ -15,7 +15,7 @@ public class HashCompareResult {
     private Integer totalDrawablesB;
     private Integer totalLayoutsA;
     private Integer totalLayoutsB;
-    private Integer totalOthersA ;
+    private Integer totalOthersA;
     private Integer totalOthersB;
 
 
@@ -64,15 +64,15 @@ public class HashCompareResult {
         this.identicalOthers = identicalOthers;
     }
 
-    public Integer getIdenticalFiles(){
+    public Integer getIdenticalFiles() {
         return identicalDrawables + identicalLayouts + identicalOthers;
     }
 
-    public Integer getTotalFilesA(){
+    public Integer getTotalFilesA() {
         return totalDrawablesA + totalLayoutsA + totalOthersA;
     }
 
-    public Integer getTotalFilesB(){
+    public Integer getTotalFilesB() {
         return totalDrawablesB + totalLayoutsB + totalOthersB;
     }
 

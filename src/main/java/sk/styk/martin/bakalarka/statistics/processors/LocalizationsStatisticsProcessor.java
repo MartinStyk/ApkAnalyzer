@@ -16,16 +16,9 @@ import java.util.*;
  * Created by Martin Styk on 21.01.2016.
  */
 public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(LocalizationsStatisticsProcessor.class);
     private List<File> jsons;
     private LocalizationsStatistics localizationsStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(LocalizationsStatisticsProcessor.class);
-
-    private enum Type {
-        STRING_XML_RESOURCES,
-        STRING_XML_RESOURCES_NON_DEFAULT,
-        LOCALE,
-        LOCALE_NON_ZERO
-    }
 
     public LocalizationsStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -175,5 +168,12 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
 
     protected Logger getLogger() {
         return logger;
+    }
+
+    private enum Type {
+        STRING_XML_RESOURCES,
+        STRING_XML_RESOURCES_NON_DEFAULT,
+        LOCALE,
+        LOCALE_NON_ZERO
     }
 }

@@ -34,7 +34,7 @@ public class ApkPairCompareSimilarImpl implements ApkPairCompare {
      *
      * @return result of compare
      */
-    public ComparisonResult compare()  {
+    public ComparisonResult compare() {
 
         logger.trace("Start compare " + dataA.getFileName() + " and " + dataB.getFileName());
 

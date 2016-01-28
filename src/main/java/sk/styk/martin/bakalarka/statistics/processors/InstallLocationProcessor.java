@@ -3,11 +3,11 @@ package sk.styk.martin.bakalarka.statistics.processors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import sk.styk.martin.bakalarka.statistics.data.InstallLocationStatistics;
-import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -19,9 +19,9 @@ import java.util.Map;
  * Created by Martin Styk on 18.01.2016.
  */
 public class InstallLocationProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(InstallLocationProcessor.class);
     private List<File> jsons;
     private InstallLocationStatistics installLocationStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(InstallLocationProcessor.class);
 
 
     public InstallLocationProcessor(List<File> jsons) {
@@ -71,10 +71,11 @@ public class InstallLocationProcessor {
         }
         installLocationStatistics.setAnalyzedApks(manifestFound);
         installLocationStatistics.setInstallLocationTagFoundInApks(installLocationTagFound);
-        setInstallLocations(stats,manifestFound);
+        setInstallLocations(stats, manifestFound);
 
         return installLocationStatistics;
     }
+
     private void setInstallLocations(Map<String, PercentagePair> map, Integer wholeData) {
 
         logger.info("Started processing Install Locations chart");

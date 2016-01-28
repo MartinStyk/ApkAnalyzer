@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.w3c.dom.Document;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
-import sk.styk.martin.bakalarka.analyze.processors.helpers.XmlParsingHelper;
 import sk.styk.martin.bakalarka.analyze.data.ResourceData;
+import sk.styk.martin.bakalarka.analyze.processors.helpers.XmlParsingHelper;
 import sk.styk.martin.bakalarka.utils.files.ApkFile;
 import sk.styk.martin.bakalarka.utils.files.FileFinder;
 

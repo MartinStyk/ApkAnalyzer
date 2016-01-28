@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.PermissionsStatistics;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
-import sk.styk.martin.bakalarka.statistics.processors.helpers.SortingHelper;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +18,10 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 21.01.2016.
  */
-public class PermissionsStatisticsProcessor extends TopListProcessorBase{
+public class PermissionsStatisticsProcessor extends TopListProcessorBase {
+    private static final Logger logger = LoggerFactory.getLogger(PermissionsStatisticsProcessor.class);
     private List<File> jsons;
     private PermissionsStatistics permissionsStatistics;
-    private static final Logger logger = LoggerFactory.getLogger(PermissionsStatisticsProcessor.class);
 
 
     public PermissionsStatisticsProcessor(List<File> jsons) {
@@ -87,7 +84,7 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase{
         permissionsStatistics.setAnalyzedApks(manifestFound);
         setValues(manifestFound, permissionsNumbersList, false);
         setValues(manifestFound, permissionsNumbersListNonZero, true);
-        permissionsStatistics.setTopPermissions(getTopValuesMap(topPermissions, permissionsNumbersList.size(),"permissions"));
+        permissionsStatistics.setTopPermissions(getTopValuesMap(topPermissions, permissionsNumbersList.size(), "permissions"));
 
         return permissionsStatistics;
     }
@@ -109,7 +106,8 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase{
         }
         logger.info("Finished processing permissions");
     }
-    protected Logger getLogger(){
+
+    protected Logger getLogger() {
         return logger;
     }
 

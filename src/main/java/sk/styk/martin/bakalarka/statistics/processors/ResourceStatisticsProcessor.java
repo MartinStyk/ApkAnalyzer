@@ -17,21 +17,10 @@ import java.util.List;
  * Created by Martin Styk on 22.01.2016.
  */
 public class ResourceStatisticsProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(ResourceStatisticsProcessor.class);
     private List<File> jsons;
     private ResourceStatistics resourceStatistics;
     private ResourceData resourceData;
-    private static final Logger logger = LoggerFactory.getLogger(ResourceStatisticsProcessor.class);
-
-    private enum Type {
-        LAYOUT,
-        LAYOUT_NONZERO,
-        LAYOUT_DIFFERENT,
-        LAYOUT_DIFFERENT_NONZERO,
-        MENU,
-        MENU_NONZERO,
-        RAW,
-        RAW_NONZERO
-    }
 
     public ResourceStatisticsProcessor(List<File> jsons) {
         if (jsons == null || jsons.isEmpty())
@@ -144,5 +133,16 @@ public class ResourceStatisticsProcessor {
                 listNonZero.add(new Double(value));
             }
         }
+    }
+
+    private enum Type {
+        LAYOUT,
+        LAYOUT_NONZERO,
+        LAYOUT_DIFFERENT,
+        LAYOUT_DIFFERENT_NONZERO,
+        MENU,
+        MENU_NONZERO,
+        RAW,
+        RAW_NONZERO
     }
 }
