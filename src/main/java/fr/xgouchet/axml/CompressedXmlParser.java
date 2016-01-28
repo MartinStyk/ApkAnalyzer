@@ -413,7 +413,7 @@ public class CompressedXmlParser {
      */
     private String getStringFromStringTable(final int offset) {
         int strLength;
-        byte chars[];
+        byte []chars;
         if (mData[offset + 1] == mData[offset]) {
             strLength = mData[offset];
             chars = new byte[strLength];// NOPMD
