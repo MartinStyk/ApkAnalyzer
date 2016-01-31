@@ -119,6 +119,8 @@ public class MetadataPairCompare {
             compareNumberOfXhdpiDrawables();
             compareNumberOfXxhdpiDrawables();
             compareNumberOfXxxhdpiDrawables();
+            compareNumberOfTvdpiDrawables();
+            compareNumberOfNodpiDrawables();
             compareNumberOfUnspecifiedDpiDrawables();
             compareNumberOfLayoutResources();
             compareNumberOfMenuResources();
@@ -686,6 +688,28 @@ public class MetadataPairCompare {
 
         int difference = valueB - valueA;
         result.setNumberOfUnspecifiedDpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
+    }
+
+    private void compareNumberOfNodpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getNodpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getNodpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfNodpihdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
+    }
+
+    private void compareNumberOfTvdpiDrawables() {
+        Integer valueA = apkDataA.getResourceData().getTvdpiDrawables();
+        Integer valueB = apkDataB.getResourceData().getTvdpiDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfTvdpiDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfRawResources() {

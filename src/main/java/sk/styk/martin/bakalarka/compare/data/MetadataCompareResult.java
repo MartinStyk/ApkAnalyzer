@@ -133,6 +133,10 @@ public class MetadataCompareResult {
 
     private PercentagePair numberOfXxxhdpiDrawablesDifference;
 
+    private PercentagePair numberOfNodpihdpiDrawablesDifference;
+
+    private PercentagePair numberOfTvdpiDrawablesDifference;
+
     private PercentagePair numberOfUnspecifiedDpiDrawablesDifference;
 
     private PercentagePair numberOfRawResourcesDifference;
@@ -675,6 +679,22 @@ public class MetadataCompareResult {
         return numberOfUnspecifiedDpiDrawablesDifference;
     }
 
+    public PercentagePair getNumberOfNodpihdpiDrawablesDifference() {
+        return numberOfNodpihdpiDrawablesDifference;
+    }
+
+    public void setNumberOfNodpihdpiDrawablesDifference(PercentagePair numberOfNodpihdpiDrawablesDifference) {
+        this.numberOfNodpihdpiDrawablesDifference = numberOfNodpihdpiDrawablesDifference;
+    }
+
+    public PercentagePair getNumberOfTvdpiDrawablesDifference() {
+        return numberOfTvdpiDrawablesDifference;
+    }
+
+    public void setNumberOfTvdpiDrawablesDifference(PercentagePair numberOfTvdpiDrawablesDifference) {
+        this.numberOfTvdpiDrawablesDifference = numberOfTvdpiDrawablesDifference;
+    }
+
     public void setNumberOfUnspecifiedDpiDrawablesDifference(PercentagePair numberOfUnspecifiedDpiDrawablesDifference) {
         this.numberOfUnspecifiedDpiDrawablesDifference = numberOfUnspecifiedDpiDrawablesDifference;
     }
@@ -848,6 +868,10 @@ public class MetadataCompareResult {
             return false;
         if (numberOfXxxhdpiDrawablesDifference != null ? !numberOfXxxhdpiDrawablesDifference.equals(result.numberOfXxxhdpiDrawablesDifference) : result.numberOfXxxhdpiDrawablesDifference != null)
             return false;
+        if (numberOfNodpihdpiDrawablesDifference != null ? !numberOfNodpihdpiDrawablesDifference.equals(result.numberOfNodpihdpiDrawablesDifference) : result.numberOfNodpihdpiDrawablesDifference != null)
+            return false;
+        if (numberOfTvdpiDrawablesDifference != null ? !numberOfTvdpiDrawablesDifference.equals(result.numberOfTvdpiDrawablesDifference) : result.numberOfTvdpiDrawablesDifference != null)
+            return false;
         if (numberOfUnspecifiedDpiDrawablesDifference != null ? !numberOfUnspecifiedDpiDrawablesDifference.equals(result.numberOfUnspecifiedDpiDrawablesDifference) : result.numberOfUnspecifiedDpiDrawablesDifference != null)
             return false;
         if (numberOfRawResourcesDifference != null ? !numberOfRawResourcesDifference.equals(result.numberOfRawResourcesDifference) : result.numberOfRawResourcesDifference != null)
@@ -859,7 +883,6 @@ public class MetadataCompareResult {
         return !(numberOfDifferentLayoutsDifference != null ? !numberOfDifferentLayoutsDifference.equals(result.numberOfDifferentLayoutsDifference) : result.numberOfDifferentLayoutsDifference != null);
 
     }
-
 
     @Override
     public int hashCode() {
@@ -929,6 +952,8 @@ public class MetadataCompareResult {
         result = 31 * result + (numberOfXhdpiDrawablesDifference != null ? numberOfXhdpiDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfXxhdpiDrawablesDifference != null ? numberOfXxhdpiDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfXxxhdpiDrawablesDifference != null ? numberOfXxxhdpiDrawablesDifference.hashCode() : 0);
+        result = 31 * result + (numberOfNodpihdpiDrawablesDifference != null ? numberOfNodpihdpiDrawablesDifference.hashCode() : 0);
+        result = 31 * result + (numberOfTvdpiDrawablesDifference != null ? numberOfTvdpiDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfUnspecifiedDpiDrawablesDifference != null ? numberOfUnspecifiedDpiDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfRawResourcesDifference != null ? numberOfRawResourcesDifference.hashCode() : 0);
         result = 31 * result + (numberOfMenusDifference != null ? numberOfMenusDifference.hashCode() : 0);
@@ -1006,6 +1031,8 @@ public class MetadataCompareResult {
                 ", numberOfXhdpiDrawablesDifference=" + numberOfXhdpiDrawablesDifference +
                 ", numberOfXxhdpiDrawablesDifference=" + numberOfXxhdpiDrawablesDifference +
                 ", numberOfXxxhdpiDrawablesDifference=" + numberOfXxxhdpiDrawablesDifference +
+                ", numberOfNodpihdpiDrawablesDifference=" + numberOfNodpihdpiDrawablesDifference +
+                ", numberOfTvdpiDrawablesDifference=" + numberOfTvdpiDrawablesDifference +
                 ", numberOfUnspecifiedDpiDrawablesDifference=" + numberOfUnspecifiedDpiDrawablesDifference +
                 ", numberOfRawResourcesDifference=" + numberOfRawResourcesDifference +
                 ", numberOfMenusDifference=" + numberOfMenusDifference +

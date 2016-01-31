@@ -64,7 +64,13 @@ public class DrawableStatistics {
     // unspecified dpi
     private MathStatistics unspecifiedDpiDrawables;
     private MathStatistics unspecifiedDpiDrawablesNonZero;
+    // no dpi
+    private MathStatistics nodpiDrawables;
+    private MathStatistics nodpiDrawablesNonZero;
 
+    // tvdpi
+    private MathStatistics tvdpiDrawables;
+    private MathStatistics tvdpiDrawablesNonZero;
 
     public Integer getAnalyzedApks() {
         return analyzedApks;
@@ -282,6 +288,38 @@ public class DrawableStatistics {
         this.ninePatchDrawablesNonZero = ninePatchDrawablesNonZero;
     }
 
+    public MathStatistics getNodpiDrawables() {
+        return nodpiDrawables;
+    }
+
+    public void setNodpiDrawables(MathStatistics nodpiDrawables) {
+        this.nodpiDrawables = nodpiDrawables;
+    }
+
+    public MathStatistics getNodpiDrawablesNonZero() {
+        return nodpiDrawablesNonZero;
+    }
+
+    public void setNodpiDrawablesNonZero(MathStatistics nodpiDrawablesNonZero) {
+        this.nodpiDrawablesNonZero = nodpiDrawablesNonZero;
+    }
+
+    public MathStatistics getTvdpiDrawables() {
+        return tvdpiDrawables;
+    }
+
+    public void setTvdpiDrawables(MathStatistics tvdpiDrawables) {
+        this.tvdpiDrawables = tvdpiDrawables;
+    }
+
+    public MathStatistics getTvdpiDrawablesNonZero() {
+        return tvdpiDrawablesNonZero;
+    }
+
+    public void setTvdpiDrawablesNonZero(MathStatistics tvdpiDrawablesNonZero) {
+        this.tvdpiDrawablesNonZero = tvdpiDrawablesNonZero;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -336,7 +374,15 @@ public class DrawableStatistics {
             return false;
         if (unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null)
             return false;
-        return !(unspecifiedDpiDrawablesNonZero != null ? !unspecifiedDpiDrawablesNonZero.equals(that.unspecifiedDpiDrawablesNonZero) : that.unspecifiedDpiDrawablesNonZero != null);
+        if (unspecifiedDpiDrawablesNonZero != null ? !unspecifiedDpiDrawablesNonZero.equals(that.unspecifiedDpiDrawablesNonZero) : that.unspecifiedDpiDrawablesNonZero != null)
+            return false;
+        if (nodpiDrawables != null ? !nodpiDrawables.equals(that.nodpiDrawables) : that.nodpiDrawables != null)
+            return false;
+        if (nodpiDrawablesNonZero != null ? !nodpiDrawablesNonZero.equals(that.nodpiDrawablesNonZero) : that.nodpiDrawablesNonZero != null)
+            return false;
+        if (tvdpiDrawables != null ? !tvdpiDrawables.equals(that.tvdpiDrawables) : that.tvdpiDrawables != null)
+            return false;
+        return !(tvdpiDrawablesNonZero != null ? !tvdpiDrawablesNonZero.equals(that.tvdpiDrawablesNonZero) : that.tvdpiDrawablesNonZero != null);
 
     }
 
@@ -369,6 +415,10 @@ public class DrawableStatistics {
         result = 31 * result + (xxxhdpiDrawablesNonZero != null ? xxxhdpiDrawablesNonZero.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawablesNonZero != null ? unspecifiedDpiDrawablesNonZero.hashCode() : 0);
+        result = 31 * result + (nodpiDrawables != null ? nodpiDrawables.hashCode() : 0);
+        result = 31 * result + (nodpiDrawablesNonZero != null ? nodpiDrawablesNonZero.hashCode() : 0);
+        result = 31 * result + (tvdpiDrawables != null ? tvdpiDrawables.hashCode() : 0);
+        result = 31 * result + (tvdpiDrawablesNonZero != null ? tvdpiDrawablesNonZero.hashCode() : 0);
         return result;
     }
 
@@ -402,6 +452,10 @@ public class DrawableStatistics {
                 ", xxxhdpiDrawablesNonZero=" + xxxhdpiDrawablesNonZero +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 ", unspecifiedDpiDrawablesNonZero=" + unspecifiedDpiDrawablesNonZero +
+                ", nodpiDrawables=" + nodpiDrawables +
+                ", nodpiDrawablesNonZero=" + nodpiDrawablesNonZero +
+                ", tvdpiDrawables=" + tvdpiDrawables +
+                ", tvdpiDrawablesNonZero=" + tvdpiDrawablesNonZero +
                 '}';
     }
 }

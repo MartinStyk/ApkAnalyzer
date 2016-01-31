@@ -30,6 +30,8 @@ public class ResourceData {
     private Integer xhdpiDrawables;
     private Integer xxhdpiDrawables;
     private Integer xxxhdpiDrawables;
+    private Integer nodpiDrawables;
+    private Integer tvdpiDrawables;
     private Integer unspecifiedDpiDrawables;
 
     //resources that should not be comprimed in res/raw folder
@@ -155,6 +157,22 @@ public class ResourceData {
         this.unspecifiedDpiDrawables = unspecifiedDpiDrawables;
     }
 
+    public Integer getNodpiDrawables() {
+        return nodpiDrawables;
+    }
+
+    public void setNodpiDrawables(Integer nodpiDrawables) {
+        this.nodpiDrawables = nodpiDrawables;
+    }
+
+    public Integer getTvdpiDrawables() {
+        return tvdpiDrawables;
+    }
+
+    public void setTvdpiDrawables(Integer tvdpiDrawables) {
+        this.tvdpiDrawables = tvdpiDrawables;
+    }
+
     public Integer getNumberOfStringResource() {
         return numberOfStringResource;
     }
@@ -225,6 +243,10 @@ public class ResourceData {
             return false;
         if (xxxhdpiDrawables != null ? !xxxhdpiDrawables.equals(that.xxxhdpiDrawables) : that.xxxhdpiDrawables != null)
             return false;
+        if (nodpiDrawables != null ? !nodpiDrawables.equals(that.nodpiDrawables) : that.nodpiDrawables != null)
+            return false;
+        if (tvdpiDrawables != null ? !tvdpiDrawables.equals(that.tvdpiDrawables) : that.tvdpiDrawables != null)
+            return false;
         if (unspecifiedDpiDrawables != null ? !unspecifiedDpiDrawables.equals(that.unspecifiedDpiDrawables) : that.unspecifiedDpiDrawables != null)
             return false;
         if (rawResources != null ? !rawResources.equals(that.rawResources) : that.rawResources != null) return false;
@@ -250,6 +272,8 @@ public class ResourceData {
         result = 31 * result + (xhdpiDrawables != null ? xhdpiDrawables.hashCode() : 0);
         result = 31 * result + (xxhdpiDrawables != null ? xxhdpiDrawables.hashCode() : 0);
         result = 31 * result + (xxxhdpiDrawables != null ? xxxhdpiDrawables.hashCode() : 0);
+        result = 31 * result + (nodpiDrawables != null ? nodpiDrawables.hashCode() : 0);
+        result = 31 * result + (tvdpiDrawables != null ? tvdpiDrawables.hashCode() : 0);
         result = 31 * result + (unspecifiedDpiDrawables != null ? unspecifiedDpiDrawables.hashCode() : 0);
         result = 31 * result + (rawResources != null ? rawResources.hashCode() : 0);
         result = 31 * result + (menu != null ? menu.hashCode() : 0);
@@ -275,6 +299,8 @@ public class ResourceData {
                 ", xhdpiDrawables=" + xhdpiDrawables +
                 ", xxhdpiDrawables=" + xxhdpiDrawables +
                 ", xxxhdpiDrawables=" + xxxhdpiDrawables +
+                ", nodpiDrawables=" + nodpiDrawables +
+                ", tvdpiDrawables=" + tvdpiDrawables +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 ", rawResources=" + rawResources +
                 ", menu=" + menu +

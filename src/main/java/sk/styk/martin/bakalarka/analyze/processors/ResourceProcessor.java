@@ -279,6 +279,8 @@ public class ResourceProcessor {
         int xhdpi = 0;
         int xxhdpi = 0;
         int xxxhdpi = 0;
+        int nodpi = 0;
+        int tvdpi = 0;
 
         if (directories == null || directories.isEmpty()) {
             return;
@@ -296,6 +298,8 @@ public class ResourceProcessor {
                 else if (dir.getName().contains("xxhdpi")) xxhdpi += size;
                 else if (dir.getName().contains("xhdpi")) xhdpi += size;
                 else if (dir.getName().contains("hdpi")) hdpi += size;
+                else if (dir.getName().contains("nodpi")) nodpi += size;
+                else if (dir.getName().contains("tvdpi")) tvdpi += size;
                 else if (dir.getName().contains("drawable")) withoutdpi += size;
             }
         }
@@ -306,6 +310,8 @@ public class ResourceProcessor {
             resourceData.setXhdpiDrawables(xhdpi);
             resourceData.setXxhdpiDrawables(xxhdpi);
             resourceData.setXxxhdpiDrawables(xxxhdpi);
+            resourceData.setNodpiDrawables(nodpi);
+            resourceData.setTvdpiDrawables(tvdpi);
             resourceData.setUnspecifiedDpiDrawables(withoutdpi);
         }
     }

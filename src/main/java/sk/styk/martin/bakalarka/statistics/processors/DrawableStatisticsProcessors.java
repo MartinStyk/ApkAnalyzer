@@ -63,6 +63,10 @@ public class DrawableStatisticsProcessors {
         List<Double> xxxhpdiListNonZero = new ArrayList<Double>();
         List<Double> unspecifiedDpiList = new ArrayList<Double>();
         List<Double> unspecifiedDpiListNonZero = new ArrayList<Double>();
+        List<Double> nodpiList = new ArrayList<Double>();
+        List<Double> nodpiListNonZero = new ArrayList<Double>();
+        List<Double> tvdpiList = new ArrayList<Double>();
+        List<Double> tvdpiListNonZero = new ArrayList<Double>();
 
         int resourceDataFound = 0;
 
@@ -92,6 +96,8 @@ public class DrawableStatisticsProcessors {
                 obtainValue(resourceData.getXxhdpiDrawables(), xxhdpiList, xxhpdiListNonZero);
                 obtainValue(resourceData.getXxxhdpiDrawables(), xxxhdpiList, xxxhpdiListNonZero);
                 obtainValue(resourceData.getUnspecifiedDpiDrawables(), unspecifiedDpiList, unspecifiedDpiListNonZero);
+                obtainValue(resourceData.getNodpiDrawables(), nodpiList, nodpiListNonZero);
+                obtainValue(resourceData.getTvdpiDrawables(), tvdpiList, tvdpiListNonZero);
             }
         }
 
@@ -108,6 +114,9 @@ public class DrawableStatisticsProcessors {
 
         setValues(Type.XML, xmlList, resourceDataFound);
         setValues(Type.XML_NONZERO, xmlListNonZero, resourceDataFound);
+
+        setValues(Type.NINE_PATCH, ninePatchList, resourceDataFound);
+        setValues(Type.NINE_PATCH_NONZERO, ninePatchListNonZero, resourceDataFound);
 
         setValues(Type.DIFFERENT_DRAWABLES, differentDrawablesList, resourceDataFound);
         setValues(Type.DIFFERENT_DRAWABLES_NONZERO, differentDrawablesListNonZero, resourceDataFound);
@@ -132,6 +141,12 @@ public class DrawableStatisticsProcessors {
 
         setValues(Type.UNSPECIFIED_DPI, unspecifiedDpiList, resourceDataFound);
         setValues(Type.UNSPECIFIED_DPI_NONZERO, unspecifiedDpiListNonZero, resourceDataFound);
+
+        setValues(Type.TVDPI, tvdpiList, resourceDataFound);
+        setValues(Type.TVDPI_NONZERO, tvdpiListNonZero, resourceDataFound);
+
+        setValues(Type.NODPI, nodpiList, resourceDataFound);
+        setValues(Type.NODPI_NONZERO, nodpiListNonZero, resourceDataFound);
 
         return drawableStatistics;
     }
@@ -225,6 +240,18 @@ public class DrawableStatisticsProcessors {
             case UNSPECIFIED_DPI_NONZERO:
                 drawableStatistics.setUnspecifiedDpiDrawablesNonZero(mathStatistics);
                 break;
+            case TVDPI:
+                drawableStatistics.setTvdpiDrawables(mathStatistics);
+                break;
+            case TVDPI_NONZERO:
+                drawableStatistics.setTvdpiDrawablesNonZero(mathStatistics);
+                break;
+            case NODPI:
+                drawableStatistics.setNodpiDrawables(mathStatistics);
+                break;
+            case NODPI_NONZERO:
+                drawableStatistics.setNodpiDrawablesNonZero(mathStatistics);
+                break;
         }
 
         logger.info("Finished processing drawables " + type.toString());
@@ -265,6 +292,10 @@ public class DrawableStatisticsProcessors {
         XXXHDPI,
         XXXHDPI_NONZERO,
         UNSPECIFIED_DPI,
-        UNSPECIFIED_DPI_NONZERO
+        UNSPECIFIED_DPI_NONZERO,
+        TVDPI,
+        TVDPI_NONZERO,
+        NODPI,
+        NODPI_NONZERO
     }
 }
