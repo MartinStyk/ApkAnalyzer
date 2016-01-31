@@ -27,6 +27,9 @@ public class DrawableStatistics {
     //xml
     private MathStatistics xmlDrawables;
     private MathStatistics xmlDrawablesNonZero;
+    //ninePatch
+    private MathStatistics ninePatchDrawables;
+    private MathStatistics ninePatchDrawablesNonZero;
 
 
     //DIFFERENT DRAWABLES
@@ -263,6 +266,22 @@ public class DrawableStatistics {
         this.unspecifiedDpiDrawablesNonZero = unspecifiedDpiDrawablesNonZero;
     }
 
+    public MathStatistics getNinePatchDrawables() {
+        return ninePatchDrawables;
+    }
+
+    public void setNinePatchDrawables(MathStatistics ninePatchDrawables) {
+        this.ninePatchDrawables = ninePatchDrawables;
+    }
+
+    public MathStatistics getNinePatchDrawablesNonZero() {
+        return ninePatchDrawablesNonZero;
+    }
+
+    public void setNinePatchDrawablesNonZero(MathStatistics ninePatchDrawablesNonZero) {
+        this.ninePatchDrawablesNonZero = ninePatchDrawablesNonZero;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -282,6 +301,10 @@ public class DrawableStatistics {
             return false;
         if (xmlDrawables != null ? !xmlDrawables.equals(that.xmlDrawables) : that.xmlDrawables != null) return false;
         if (xmlDrawablesNonZero != null ? !xmlDrawablesNonZero.equals(that.xmlDrawablesNonZero) : that.xmlDrawablesNonZero != null)
+            return false;
+        if (ninePatchDrawables != null ? !ninePatchDrawables.equals(that.ninePatchDrawables) : that.ninePatchDrawables != null)
+            return false;
+        if (ninePatchDrawablesNonZero != null ? !ninePatchDrawablesNonZero.equals(that.ninePatchDrawablesNonZero) : that.ninePatchDrawablesNonZero != null)
             return false;
         if (differentDrawables != null ? !differentDrawables.equals(that.differentDrawables) : that.differentDrawables != null)
             return false;
@@ -328,6 +351,8 @@ public class DrawableStatistics {
         result = 31 * result + (gifDrawablesNonZero != null ? gifDrawablesNonZero.hashCode() : 0);
         result = 31 * result + (xmlDrawables != null ? xmlDrawables.hashCode() : 0);
         result = 31 * result + (xmlDrawablesNonZero != null ? xmlDrawablesNonZero.hashCode() : 0);
+        result = 31 * result + (ninePatchDrawables != null ? ninePatchDrawables.hashCode() : 0);
+        result = 31 * result + (ninePatchDrawablesNonZero != null ? ninePatchDrawablesNonZero.hashCode() : 0);
         result = 31 * result + (differentDrawables != null ? differentDrawables.hashCode() : 0);
         result = 31 * result + (differentDrawablesNonZero != null ? differentDrawablesNonZero.hashCode() : 0);
         result = 31 * result + (ldpiDrawables != null ? ldpiDrawables.hashCode() : 0);
@@ -359,6 +384,8 @@ public class DrawableStatistics {
                 ", gifDrawablesNonZero=" + gifDrawablesNonZero +
                 ", xmlDrawables=" + xmlDrawables +
                 ", xmlDrawablesNonZero=" + xmlDrawablesNonZero +
+                ", ninePatchDrawables=" + ninePatchDrawables +
+                ", ninePatchDrawablesNonZero=" + ninePatchDrawablesNonZero +
                 ", differentDrawables=" + differentDrawables +
                 ", differentDrawablesNonZero=" + differentDrawablesNonZero +
                 ", ldpiDrawables=" + ldpiDrawables +

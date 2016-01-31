@@ -117,6 +117,8 @@ public class MetadataCompareResult {
 
     private PercentagePair numberOfGifDrawablesDifference;
 
+    private PercentagePair numberOfNinePatchDrawablesDifference;
+
     private PercentagePair numberOfXmlDrawablesDifference;
 
     private PercentagePair numberOfLdpiDrawablesDifference;
@@ -605,6 +607,14 @@ public class MetadataCompareResult {
         this.numberOfGifDrawablesDifference = numberOfGifDrawablesDifference;
     }
 
+    public PercentagePair getNumberOfNinePatchDrawablesDifference() {
+        return numberOfNinePatchDrawablesDifference;
+    }
+
+    public void setNumberOfNinePatchDrawablesDifference(PercentagePair numberOfNinePatchDrawablesDifference) {
+        this.numberOfNinePatchDrawablesDifference = numberOfNinePatchDrawablesDifference;
+    }
+
     public PercentagePair getNumberOfXmlDrawablesDifference() {
         return numberOfXmlDrawablesDifference;
     }
@@ -822,6 +832,8 @@ public class MetadataCompareResult {
             return false;
         if (numberOfGifDrawablesDifference != null ? !numberOfGifDrawablesDifference.equals(result.numberOfGifDrawablesDifference) : result.numberOfGifDrawablesDifference != null)
             return false;
+        if (numberOfNinePatchDrawablesDifference != null ? !numberOfNinePatchDrawablesDifference.equals(result.numberOfNinePatchDrawablesDifference) : result.numberOfNinePatchDrawablesDifference != null)
+            return false;
         if (numberOfXmlDrawablesDifference != null ? !numberOfXmlDrawablesDifference.equals(result.numberOfXmlDrawablesDifference) : result.numberOfXmlDrawablesDifference != null)
             return false;
         if (numberOfLdpiDrawablesDifference != null ? !numberOfLdpiDrawablesDifference.equals(result.numberOfLdpiDrawablesDifference) : result.numberOfLdpiDrawablesDifference != null)
@@ -847,6 +859,7 @@ public class MetadataCompareResult {
         return !(numberOfDifferentLayoutsDifference != null ? !numberOfDifferentLayoutsDifference.equals(result.numberOfDifferentLayoutsDifference) : result.numberOfDifferentLayoutsDifference != null);
 
     }
+
 
     @Override
     public int hashCode() {
@@ -908,6 +921,7 @@ public class MetadataCompareResult {
         result = 31 * result + (numberOfPngDrawablesDifference != null ? numberOfPngDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfJpgDrawablesDifference != null ? numberOfJpgDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfGifDrawablesDifference != null ? numberOfGifDrawablesDifference.hashCode() : 0);
+        result = 31 * result + (numberOfNinePatchDrawablesDifference != null ? numberOfNinePatchDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfXmlDrawablesDifference != null ? numberOfXmlDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfLdpiDrawablesDifference != null ? numberOfLdpiDrawablesDifference.hashCode() : 0);
         result = 31 * result + (numberOfMdpiDrawablesDifference != null ? numberOfMdpiDrawablesDifference.hashCode() : 0);
@@ -984,6 +998,7 @@ public class MetadataCompareResult {
                 ", numberOfPngDrawablesDifference=" + numberOfPngDrawablesDifference +
                 ", numberOfJpgDrawablesDifference=" + numberOfJpgDrawablesDifference +
                 ", numberOfGifDrawablesDifference=" + numberOfGifDrawablesDifference +
+                ", numberOfNinePatchDrawablesDifference=" + numberOfNinePatchDrawablesDifference +
                 ", numberOfXmlDrawablesDifference=" + numberOfXmlDrawablesDifference +
                 ", numberOfLdpiDrawablesDifference=" + numberOfLdpiDrawablesDifference +
                 ", numberOfMdpiDrawablesDifference=" + numberOfMdpiDrawablesDifference +

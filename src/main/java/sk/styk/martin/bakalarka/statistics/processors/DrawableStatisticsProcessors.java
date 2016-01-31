@@ -45,6 +45,8 @@ public class DrawableStatisticsProcessors {
         List<Double> gifListNonZero = new ArrayList<Double>();
         List<Double> xmlList = new ArrayList<Double>();
         List<Double> xmlListNonZero = new ArrayList<Double>();
+        List<Double> ninePatchList = new ArrayList<Double>();
+        List<Double> ninePatchListNonZero = new ArrayList<Double>();
         List<Double> differentDrawablesList = new ArrayList<Double>();
         List<Double> differentDrawablesListNonZero = new ArrayList<Double>();
         List<Double> ldpiList = new ArrayList<Double>();
@@ -81,6 +83,7 @@ public class DrawableStatisticsProcessors {
                 obtainValue(resourceData.getJpgDrawables(), jpgList, jpgListNonZero);
                 obtainValue(resourceData.getGifDrawables(), gifList, gifListNonZero);
                 obtainValue(resourceData.getXmlDrawables(), xmlList, xmlListNonZero);
+                obtainValue(resourceData.getNinePatchDrawables(), ninePatchList, ninePatchListNonZero);
                 obtainValue(resourceData.getDifferentDrawables(), differentDrawablesList, differentDrawablesListNonZero);
                 obtainValue(resourceData.getLdpiDrawables(), ldpiList, ldpiListNonZero);
                 obtainValue(resourceData.getMdpiDrawables(), mdpiList, mdpiListNonZero);
@@ -168,6 +171,12 @@ public class DrawableStatisticsProcessors {
             case XML_NONZERO:
                 drawableStatistics.setXmlDrawablesNonZero(mathStatistics);
                 break;
+            case NINE_PATCH:
+                drawableStatistics.setNinePatchDrawables(mathStatistics);
+                break;
+            case NINE_PATCH_NONZERO:
+                drawableStatistics.setNinePatchDrawablesNonZero(mathStatistics);
+                break;
             case DIFFERENT_DRAWABLES:
                 drawableStatistics.setDifferentDrawables(mathStatistics);
                 break;
@@ -239,6 +248,8 @@ public class DrawableStatisticsProcessors {
         GIF_NONZERO,
         XML,
         XML_NONZERO,
+        NINE_PATCH,
+        NINE_PATCH_NONZERO,
         DIFFERENT_DRAWABLES,
         DIFFERENT_DRAWABLES_NONZERO,
         LDPI,

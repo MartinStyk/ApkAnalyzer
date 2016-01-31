@@ -222,6 +222,7 @@ public class ResourceProcessor {
         int numGif = 0;
         int numPng = 0;
         int numXml = 0;
+        int ninePatchPng = 0;
 
         for (File f : files) {
 
@@ -235,6 +236,9 @@ public class ResourceProcessor {
             } else if (name.endsWith(".gif") ||
                     name.endsWith(".GIF")) {
                 numGif++;
+            } else if (name.endsWith(".9.png") ||
+                    name.endsWith(".9.PNG")) {
+                ninePatchPng++;
             } else if (name.endsWith(".png") ||
                     name.endsWith(".PNG")) {
                 numPng++;
@@ -247,6 +251,7 @@ public class ResourceProcessor {
         resourceData.setPngDrawables(numPng);
         resourceData.setJpgDrawables(numJpg);
         resourceData.setXmlDrawables(numXml);
+        resourceData.setNinePatchDrawables(ninePatchPng);
 
     }
 

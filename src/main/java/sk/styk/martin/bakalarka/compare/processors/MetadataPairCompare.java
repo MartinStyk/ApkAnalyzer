@@ -112,6 +112,7 @@ public class MetadataPairCompare {
             compareNumberOfJpgDrawables();
             compareNumberOfPngDrawables();
             compareNumberOfGifDrawables();
+            compareNumberOfNinePatchDrawables();
             compareNumberOfLdpiDrawables();
             compareNumberOfMdpiDrawables();
             compareNumberOfHdpiDrawables();
@@ -587,6 +588,16 @@ public class MetadataPairCompare {
 
         int difference = valueB - valueA;
         result.setNumberOfGifDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
+    }
+    private void compareNumberOfNinePatchDrawables() {
+        Integer valueA = apkDataA.getResourceData().getNinePatchDrawables();
+        Integer valueB = apkDataB.getResourceData().getNinePatchDrawables();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        int difference = valueB - valueA;
+        result.setNumberOfNinePatchDrawablesDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
     }
 
     private void compareNumberOfXmlDrawables() {

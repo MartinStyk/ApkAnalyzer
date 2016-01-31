@@ -15,6 +15,7 @@ public class ResourceData {
 
     //types of drawables
     private Integer pngDrawables;
+    private Integer ninePatchDrawables;
     private Integer jpgDrawables;
     private Integer gifDrawables;
     private Integer xmlDrawables;
@@ -68,6 +69,14 @@ public class ResourceData {
 
     public Integer getGifDrawables() {
         return gifDrawables;
+    }
+
+    public Integer getNinePatchDrawables() {
+        return ninePatchDrawables;
+    }
+
+    public void setNinePatchDrawables(Integer ninePatchDrawables) {
+        this.ninePatchDrawables = ninePatchDrawables;
     }
 
     public void setGifDrawables(Integer gifDrawables) {
@@ -197,6 +206,8 @@ public class ResourceData {
         if (numberOfStringResource != null ? !numberOfStringResource.equals(that.numberOfStringResource) : that.numberOfStringResource != null)
             return false;
         if (pngDrawables != null ? !pngDrawables.equals(that.pngDrawables) : that.pngDrawables != null) return false;
+        if (ninePatchDrawables != null ? !ninePatchDrawables.equals(that.ninePatchDrawables) : that.ninePatchDrawables != null)
+            return false;
         if (jpgDrawables != null ? !jpgDrawables.equals(that.jpgDrawables) : that.jpgDrawables != null) return false;
         if (gifDrawables != null ? !gifDrawables.equals(that.gifDrawables) : that.gifDrawables != null) return false;
         if (xmlDrawables != null ? !xmlDrawables.equals(that.xmlDrawables) : that.xmlDrawables != null) return false;
@@ -228,6 +239,7 @@ public class ResourceData {
         int result = locale != null ? locale.hashCode() : 0;
         result = 31 * result + (numberOfStringResource != null ? numberOfStringResource.hashCode() : 0);
         result = 31 * result + (pngDrawables != null ? pngDrawables.hashCode() : 0);
+        result = 31 * result + (ninePatchDrawables != null ? ninePatchDrawables.hashCode() : 0);
         result = 31 * result + (jpgDrawables != null ? jpgDrawables.hashCode() : 0);
         result = 31 * result + (gifDrawables != null ? gifDrawables.hashCode() : 0);
         result = 31 * result + (xmlDrawables != null ? xmlDrawables.hashCode() : 0);
@@ -252,6 +264,7 @@ public class ResourceData {
                 "locale=" + locale +
                 ", numberOfStringResource=" + numberOfStringResource +
                 ", pngDrawables=" + pngDrawables +
+                ", ninePatchDrawables=" + ninePatchDrawables +
                 ", jpgDrawables=" + jpgDrawables +
                 ", gifDrawables=" + gifDrawables +
                 ", xmlDrawables=" + xmlDrawables +
