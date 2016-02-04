@@ -98,19 +98,15 @@ public class ResourceProcessor {
     }
 
     private Integer getNumberOfRawResources() {
-        File resFolder = new File(apkFile.getUnzipDirectoryWithUnzipedData(), "res");
-        File rawFolder = new File(resFolder, "raw");
 
-        if (!resFolder.exists()) {
+        List<File> directoriesRaw = resourceDirectoryFileFinder.getDirectoriesStartsWithExpression("raw");
+
+        if (directoriesRaw == null) {
             logger.warn(apkNameMarker + "res/raw directory doesn`t exists");
-            return null;
-        }
-        if (!rawFolder.exists()) {
             return 0;
         }
 
-        return new FileFinder(rawFolder).getAllFilesInDirectories().size();
-
+        return new FileFinder(directoriesRaw).getAllFilesInDirectories().size();
     }
 
     private void processDrawableResources() {

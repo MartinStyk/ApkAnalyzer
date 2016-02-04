@@ -164,4 +164,24 @@ public class FileFinder {
             }
         }
     }
+
+    public List<File> getDirectoriesStartsWithExpression(String matchExpression) {
+        files = new ArrayList<File>();
+        for (File directory : searchedFolders) {
+            getDirectoriesStartsWithExpression(directory, matchExpression);
+        }
+        return files;
+    }
+
+    private void getDirectoriesStartsWithExpression(File directory, String matchExpression) {
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isDirectory()) {
+                if (file.getName().startsWith(matchExpression)) {
+                    files.add(file);
+                }
+                getDirectoriesStartsWithExpression(new File(file.getAbsolutePath()), matchExpression);
+            }
+        }
+    }
 }
