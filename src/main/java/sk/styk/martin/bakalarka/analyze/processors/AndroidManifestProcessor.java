@@ -14,6 +14,7 @@ import sk.styk.martin.bakalarka.utils.files.ApkFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,6 +104,7 @@ public class AndroidManifestProcessor {
             getUsedPermissions();
             getUsedLibraries();
             getUsedFeatures();
+            getDefinedPermissions();
             getUsesSdk();
             getSupportScreens();
 
@@ -138,6 +140,7 @@ public class AndroidManifestProcessor {
             getUsedPermissions();
             getUsedLibraries();
             getUsedFeatures();
+            getDefinedPermissions();
             getUsesSdk();
             getSupportScreens();
 
@@ -188,6 +191,34 @@ public class AndroidManifestProcessor {
         manifestData.setNamesOfServices(serviceList);
         manifestData.setNamesOfBroadcastReceivers(receiverList);
         manifestData.setNamesOfContentProviders(providerList);
+    }
+
+    private void getDefinedPermissions() {
+        List<String> result = XmlParsingHelper.getListOfTagAttributeValues(document, "permission", "android:name");
+        manifestData.setPermissions(result);
+        List<String> protectionLevel = XmlParsingHelper.getListOfTagAttributeValues(document, "permission", "android:protectionLevel");
+        List<String> protectionLevelToString = new ArrayList<String>();
+
+        for (String s : protectionLevel) {
+            if (s != null) {
+                if (s.equalsIgnoreCase("0")) {
+                    protectionLevelToString.add("auto");
+                } else if (s.equalsIgnoreCase("1")) {
+                    protectionLevelToString.add("dangerous");
+                } else if (s.equalsIgnoreCase("2")) {
+                    protectionLevelToString.add("signature");
+                } else if (s.equalsIgnoreCase("3")) {
+                    protectionLevelToString.add("signatureOrSystem");
+                } else {
+                    protectionLevelToString.add(s);
+                }
+            }
+        }
+
+        for (int i = result.size(); i > protectionLevel.size(); i--) {
+            protectionLevelToString.add("auto"); //add default value if not defined in app
+        }
+        manifestData.setPermissionsProtectionLevel(protectionLevelToString);
     }
 
     private void getUsedPermissions() {

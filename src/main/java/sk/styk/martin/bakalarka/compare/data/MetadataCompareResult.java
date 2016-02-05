@@ -76,6 +76,10 @@ public class MetadataCompareResult {
     private List<String> additionalFeaturesInA;
     private List<String> additionalFeaturesInB;
 
+    private PercentagePair numberOfDefinedPermissionsDifference;
+    private List<String> additionalDefinedPermissionsInA;
+    private List<String> additionalDefinedPermissionsInB;
+
 
     //certificate
     private Boolean isCertificateSignAlgorithmSame;
@@ -731,6 +735,30 @@ public class MetadataCompareResult {
         this.numberOfDifferentLayoutsDifference = numberOfDifferentLayoutsDifference;
     }
 
+    public PercentagePair getNumberOfDefinedPermissionsDifference() {
+        return numberOfDefinedPermissionsDifference;
+    }
+
+    public void setNumberOfDefinedPermissionsDifference(PercentagePair numberOfDefinedPermissionsDifference) {
+        this.numberOfDefinedPermissionsDifference = numberOfDefinedPermissionsDifference;
+    }
+
+    public List<String> getAdditionalDefinedPermissionsInA() {
+        return additionalDefinedPermissionsInA;
+    }
+
+    public void setAdditionalDefinedPermissionsInA(List<String> additionalDefinedPermissionsInA) {
+        this.additionalDefinedPermissionsInA = additionalDefinedPermissionsInA;
+    }
+
+    public List<String> getAdditionalDefinedPermissionsInB() {
+        return additionalDefinedPermissionsInB;
+    }
+
+    public void setAdditionalDefinedPermissionsInB(List<String> additionalDefinedPermissionsInB) {
+        this.additionalDefinedPermissionsInB = additionalDefinedPermissionsInB;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -807,6 +835,12 @@ public class MetadataCompareResult {
         if (additionalFeaturesInA != null ? !additionalFeaturesInA.equals(result.additionalFeaturesInA) : result.additionalFeaturesInA != null)
             return false;
         if (additionalFeaturesInB != null ? !additionalFeaturesInB.equals(result.additionalFeaturesInB) : result.additionalFeaturesInB != null)
+            return false;
+        if (numberOfDefinedPermissionsDifference != null ? !numberOfDefinedPermissionsDifference.equals(result.numberOfDefinedPermissionsDifference) : result.numberOfDefinedPermissionsDifference != null)
+            return false;
+        if (additionalDefinedPermissionsInA != null ? !additionalDefinedPermissionsInA.equals(result.additionalDefinedPermissionsInA) : result.additionalDefinedPermissionsInA != null)
+            return false;
+        if (additionalDefinedPermissionsInB != null ? !additionalDefinedPermissionsInB.equals(result.additionalDefinedPermissionsInB) : result.additionalDefinedPermissionsInB != null)
             return false;
         if (isCertificateSignAlgorithmSame != null ? !isCertificateSignAlgorithmSame.equals(result.isCertificateSignAlgorithmSame) : result.isCertificateSignAlgorithmSame != null)
             return false;
@@ -922,6 +956,9 @@ public class MetadataCompareResult {
         result = 31 * result + (numberOfFeaturesDifference != null ? numberOfFeaturesDifference.hashCode() : 0);
         result = 31 * result + (additionalFeaturesInA != null ? additionalFeaturesInA.hashCode() : 0);
         result = 31 * result + (additionalFeaturesInB != null ? additionalFeaturesInB.hashCode() : 0);
+        result = 31 * result + (numberOfDefinedPermissionsDifference != null ? numberOfDefinedPermissionsDifference.hashCode() : 0);
+        result = 31 * result + (additionalDefinedPermissionsInA != null ? additionalDefinedPermissionsInA.hashCode() : 0);
+        result = 31 * result + (additionalDefinedPermissionsInB != null ? additionalDefinedPermissionsInB.hashCode() : 0);
         result = 31 * result + (isCertificateSignAlgorithmSame != null ? isCertificateSignAlgorithmSame.hashCode() : 0);
         result = 31 * result + (certificateSignAlgorithmDifference != null ? certificateSignAlgorithmDifference.hashCode() : 0);
         result = 31 * result + (isCertificateStartDateSame != null ? isCertificateStartDateSame.hashCode() : 0);
@@ -1001,6 +1038,9 @@ public class MetadataCompareResult {
                 ", numberOfFeaturesDifference=" + numberOfFeaturesDifference +
                 ", additionalFeaturesInA=" + additionalFeaturesInA +
                 ", additionalFeaturesInB=" + additionalFeaturesInB +
+                ", numberOfDefinedPermissionsDifference=" + numberOfDefinedPermissionsDifference +
+                ", additionalDefinedPermissionsInA=" + additionalDefinedPermissionsInA +
+                ", additionalDefinedPermissionsInB=" + additionalDefinedPermissionsInB +
                 ", isCertificateSignAlgorithmSame=" + isCertificateSignAlgorithmSame +
                 ", certificateSignAlgorithmDifference='" + certificateSignAlgorithmDifference + '\'' +
                 ", isCertificateStartDateSame=" + isCertificateStartDateSame +

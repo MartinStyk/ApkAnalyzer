@@ -26,6 +26,9 @@ public class AndroidManifestData {
     private List<String> usesLibrary;
     private List<String> usesFeature;
 
+    private List<String> permissions;
+    private List<String> permissionsProtectionLevel;
+
     private String usesMinSdkVersion;
     private String usesTargetSdkVersion;
     private String usesMaxSdkVersion;
@@ -221,6 +224,22 @@ public class AndroidManifestData {
         this.supportsScreensAnyDensity = supportsScreensAnyDensity;
     }
 
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<String> getPermissionsProtectionLevel() {
+        return permissionsProtectionLevel;
+    }
+
+    public void setPermissionsProtectionLevel(List<String> permissionsProtectionLevel) {
+        this.permissionsProtectionLevel = permissionsProtectionLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -252,6 +271,9 @@ public class AndroidManifestData {
             return false;
         if (usesLibrary != null ? !usesLibrary.equals(that.usesLibrary) : that.usesLibrary != null) return false;
         if (usesFeature != null ? !usesFeature.equals(that.usesFeature) : that.usesFeature != null) return false;
+        if (permissions != null ? !permissions.equals(that.permissions) : that.permissions != null) return false;
+        if (permissionsProtectionLevel != null ? !permissionsProtectionLevel.equals(that.permissionsProtectionLevel) : that.permissionsProtectionLevel != null)
+            return false;
         if (usesMinSdkVersion != null ? !usesMinSdkVersion.equals(that.usesMinSdkVersion) : that.usesMinSdkVersion != null)
             return false;
         if (usesTargetSdkVersion != null ? !usesTargetSdkVersion.equals(that.usesTargetSdkVersion) : that.usesTargetSdkVersion != null)
@@ -288,6 +310,8 @@ public class AndroidManifestData {
         result = 31 * result + (usesPermissions != null ? usesPermissions.hashCode() : 0);
         result = 31 * result + (usesLibrary != null ? usesLibrary.hashCode() : 0);
         result = 31 * result + (usesFeature != null ? usesFeature.hashCode() : 0);
+        result = 31 * result + (permissions != null ? permissions.hashCode() : 0);
+        result = 31 * result + (permissionsProtectionLevel != null ? permissionsProtectionLevel.hashCode() : 0);
         result = 31 * result + (usesMinSdkVersion != null ? usesMinSdkVersion.hashCode() : 0);
         result = 31 * result + (usesTargetSdkVersion != null ? usesTargetSdkVersion.hashCode() : 0);
         result = 31 * result + (usesMaxSdkVersion != null ? usesMaxSdkVersion.hashCode() : 0);
@@ -317,6 +341,8 @@ public class AndroidManifestData {
                 ", usesPermissions=" + usesPermissions +
                 ", usesLibrary=" + usesLibrary +
                 ", usesFeature=" + usesFeature +
+                ", permissions=" + permissions +
+                ", permissionsProtectionLevel=" + permissionsProtectionLevel +
                 ", usesMinSdkVersion='" + usesMinSdkVersion + '\'' +
                 ", usesTargetSdkVersion='" + usesTargetSdkVersion + '\'' +
                 ", usesMaxSdkVersion='" + usesMaxSdkVersion + '\'' +

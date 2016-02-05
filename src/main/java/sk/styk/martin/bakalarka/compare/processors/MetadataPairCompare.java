@@ -92,6 +92,7 @@ public class MetadataPairCompare {
             compareLibraries();
             compareFeatures();
             comparePermission();
+            compareDefinedPermissions();
         }
 
         if (apkDataA.getCertificateDatas().size() > 0 && apkDataB.getCertificateDatas().size() > 0) {
@@ -419,6 +420,27 @@ public class MetadataPairCompare {
         compareLists(namesInA, namesInB, additionalInA, additionalInB);
         result.setAdditionalFeaturesInA(additionalInA);
         result.setAdditionalFeaturesInB(additionalInB);
+    }
+
+    private void compareDefinedPermissions() {
+        Integer valueA = apkDataA.getAndroidManifest().getPermissions().size();
+        Integer valueB = apkDataB.getAndroidManifest().getPermissions().size();
+
+        if (valueA == null || valueB == null)
+            return;
+
+        Integer difference = valueB - valueA;
+        result.setNumberOfDefinedPermissionsDifference(new PercentagePair(difference, getPercentage(valueA, valueB)));
+
+        if (difference == 0) return;
+
+        List<String> namesInA = new ArrayList<String>(apkDataA.getAndroidManifest().getPermissions());
+        List<String> namesInB = new ArrayList<String>(apkDataB.getAndroidManifest().getPermissions());
+        List<String> additionalInA = new ArrayList<String>();
+        List<String> additionalInB = new ArrayList<String>();
+        compareLists(namesInA, namesInB, additionalInA, additionalInB);
+        result.setAdditionalDefinedPermissionsInA(additionalInA);
+        result.setAdditionalDefinedPermissionsInB(additionalInB);
     }
 
     private void compareCertificateSignAlgorithm() {

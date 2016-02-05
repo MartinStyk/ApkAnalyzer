@@ -20,6 +20,8 @@ public class OverallStatistics {
 
     private FeaturesStatistics featuresStatistics;
 
+    private DefinedPermissionsStatistics definedPermissionsStatistics;
+
     private SdkStatistics sdkStatistics;
 
     private ScreenStatistics screenStatistics;
@@ -88,6 +90,14 @@ public class OverallStatistics {
 
     public void setFeaturesStatistics(FeaturesStatistics featuresStatistics) {
         this.featuresStatistics = featuresStatistics;
+    }
+
+    public DefinedPermissionsStatistics getDefinedPermissionsStatistics() {
+        return definedPermissionsStatistics;
+    }
+
+    public void setDefinedPermissionsStatistics(DefinedPermissionsStatistics definedPermissionsStatistics) {
+        this.definedPermissionsStatistics = definedPermissionsStatistics;
     }
 
     public SdkStatistics getSdkStatistics() {
@@ -167,6 +177,8 @@ public class OverallStatistics {
             return false;
         if (featuresStatistics != null ? !featuresStatistics.equals(that.featuresStatistics) : that.featuresStatistics != null)
             return false;
+        if (definedPermissionsStatistics != null ? !definedPermissionsStatistics.equals(that.definedPermissionsStatistics) : that.definedPermissionsStatistics != null)
+            return false;
         if (sdkStatistics != null ? !sdkStatistics.equals(that.sdkStatistics) : that.sdkStatistics != null)
             return false;
         if (screenStatistics != null ? !screenStatistics.equals(that.screenStatistics) : that.screenStatistics != null)
@@ -192,6 +204,7 @@ public class OverallStatistics {
         result = 31 * result + (permissionsStatistics != null ? permissionsStatistics.hashCode() : 0);
         result = 31 * result + (librariesStatistics != null ? librariesStatistics.hashCode() : 0);
         result = 31 * result + (featuresStatistics != null ? featuresStatistics.hashCode() : 0);
+        result = 31 * result + (definedPermissionsStatistics != null ? definedPermissionsStatistics.hashCode() : 0);
         result = 31 * result + (sdkStatistics != null ? sdkStatistics.hashCode() : 0);
         result = 31 * result + (screenStatistics != null ? screenStatistics.hashCode() : 0);
         result = 31 * result + (certificateStatistics != null ? certificateStatistics.hashCode() : 0);
@@ -212,6 +225,7 @@ public class OverallStatistics {
                 ", permissionsStatistics=" + permissionsStatistics +
                 ", librariesStatistics=" + librariesStatistics +
                 ", featuresStatistics=" + featuresStatistics +
+                ", definedPermissionsStatistics=" + definedPermissionsStatistics +
                 ", sdkStatistics=" + sdkStatistics +
                 ", screenStatistics=" + screenStatistics +
                 ", certificateStatistics=" + certificateStatistics +

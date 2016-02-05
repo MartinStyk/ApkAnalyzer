@@ -69,6 +69,12 @@ public class StatisticsProcessor {
 
         overallStatistics.setFeaturesStatistics(featuresStatistics);
 
+        DefinedPermissionsStatistics definedPermissionsStatistics = DefinedPermissionsStatisticsProcessor
+                .ofFiles(jsons)
+                .process();
+
+        overallStatistics.setDefinedPermissionsStatistics(definedPermissionsStatistics);
+
         SdkStatistics sdkStatistics = SdkStatisticsProcessor
                 .ofFiles(jsons)
                 .process();
