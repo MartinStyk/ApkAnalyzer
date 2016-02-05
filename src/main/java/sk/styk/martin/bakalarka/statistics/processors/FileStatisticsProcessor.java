@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.HashData;
 import sk.styk.martin.bakalarka.statistics.data.FileStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Martin Styk on 22.01.2016.
  */
-public class FileStatisticsProcessor {
+public class FileStatisticsProcessor extends TopValueProcessorBase {
     private static final Logger logger = LoggerFactory.getLogger(FileStatisticsProcessor.class);
     private List<File> jsons;
     private FileStatistics fileStatistics;
@@ -40,6 +41,26 @@ public class FileStatisticsProcessor {
         List<Double> drawableDirectorySizeList = new ArrayList<Double>();
         List<Double> otherDirectorySizeList = new ArrayList<Double>();
         List<Double> apkTotalFilesList = new ArrayList<Double>();
+
+        requestMaxValues(Type.LAYOUT);
+        requestMaxValues(Type.DRAWABLE);
+        requestMaxValues(Type.OTHER);
+        requestMaxValues(Type.ALL);
+
+        RecordPair layoutRecordPairMax = null;
+        RecordPair drawableRecordPairMax = null;
+        RecordPair otherRecordPairMax = null;
+        RecordPair allRecordPairMax = null;
+
+        requestMinValues(Type.LAYOUT);
+        requestMinValues(Type.DRAWABLE);
+        requestMinValues(Type.OTHER);
+        requestMinValues(Type.ALL);
+
+        RecordPair layoutRecordPairMin = null;
+        RecordPair drawableRecordPairMin = null;
+        RecordPair otherRecordPairMin = null;
+        RecordPair allRecordPairMin = null;
 
         int hashDataFound = 0;
 
@@ -66,27 +87,36 @@ public class FileStatisticsProcessor {
                     hashDataFound++;
                     if (drawable != 0) {
                         drawableDirectorySizeList.add(new Double(drawable));
+                        drawableRecordPairMax = processMaxExtreme(Type.DRAWABLE, drawable, data.getFileName());
+                        drawableRecordPairMin = processMinExtreme(Type.DRAWABLE, drawable, data.getFileName());
                     }
                     if (layout != 0) {
                         layoutDirectorySizeList.add(new Double(layout));
+                        layoutRecordPairMax = processMaxExtreme(Type.LAYOUT, layout, data.getFileName());
+                        layoutRecordPairMin = processMinExtreme(Type.LAYOUT, layout, data.getFileName());
                     }
                     if (other != 0) {
                         otherDirectorySizeList.add(new Double(other));
+                        otherRecordPairMax = processMaxExtreme(Type.OTHER, other, data.getFileName());
+                        otherRecordPairMin = processMinExtreme(Type.OTHER, other, data.getFileName());
                     }
+
+                    allRecordPairMax = processMaxExtreme(Type.ALL, total, data.getFileName());
+                    allRecordPairMin = processMinExtreme(Type.ALL, total, data.getFileName());
                     apkTotalFilesList.add(new Double(total));
                 }
             }
         }
         fileStatistics.setAnalyzedApks(hashDataFound);
 
-        setValues(Type.LAYOUT, layoutDirectorySizeList, layoutDirectorySizeList.size());
-        setValues(Type.DRAWABLE, drawableDirectorySizeList, drawableDirectorySizeList.size());
-        setValues(Type.OTHER, otherDirectorySizeList, otherDirectorySizeList.size());
-        setValues(Type.ALL, apkTotalFilesList, hashDataFound);
+        setValues(Type.LAYOUT, layoutDirectorySizeList, layoutDirectorySizeList.size(), layoutRecordPairMin, layoutRecordPairMax);
+        setValues(Type.DRAWABLE, drawableDirectorySizeList, drawableDirectorySizeList.size(), drawableRecordPairMin, drawableRecordPairMax);
+        setValues(Type.OTHER, otherDirectorySizeList, otherDirectorySizeList.size(), otherRecordPairMin, otherRecordPairMax);
+        setValues(Type.ALL, apkTotalFilesList, hashDataFound, allRecordPairMin, allRecordPairMax);
         return fileStatistics;
     }
 
-    private void setValues(Type type, List<Double> list, int resourceDataFound) {
+    private void setValues(Type type, List<Double> list, int resourceDataFound, RecordPair min, RecordPair max) {
 
         if (fileStatistics == null) {
             throw new NullPointerException("fileStatistics null");
@@ -94,7 +124,7 @@ public class FileStatisticsProcessor {
 
         logger.info("Started processing files " + type.toString());
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list, min, max);
 
         switch (type) {
             case LAYOUT:

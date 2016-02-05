@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.LibrariesStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -41,6 +42,10 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
         Map<String, Integer> topLibraries = new HashMap<String, Integer>();
         List<Double> librariesNumbersList = new ArrayList<Double>();
         List<Double> librariesNumbersListNonZero = new ArrayList<Double>();
+
+        requestMaxValues("libs");
+        RecordPair libsRecordPair = null;
+
         int manifestFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -66,6 +71,7 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
                     if (listSize != 0) {
                         librariesNumbersListNonZero.add(new Double(listSize));
                     }
+                    libsRecordPair = processMaxExtreme("libs", listSize, data.getFileName());
 
                     for (String perm : librariesList) {
                         if (topLibraries.containsKey(perm)) {
@@ -82,14 +88,14 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
         }
 
         librariesStatistics.setAnalyzedApks(manifestFound);
-        setValues(manifestFound, librariesNumbersList, false);
-        setValues(manifestFound, librariesNumbersListNonZero, true);
-        librariesStatistics.setTopLibraries(getTopValuesMap(topLibraries, librariesNumbersList.size(), "libraries"));
+        setValues(manifestFound, librariesNumbersList, false, libsRecordPair);
+        setValues(manifestFound, librariesNumbersListNonZero, true, libsRecordPair);
+        librariesStatistics.setTopLibraries(getTopValuesMapInteger(topLibraries, librariesNumbersList.size(), "libraries"));
 
         return librariesStatistics;
     }
 
-    private void setValues(int manifestFound, List<Double> librariesNumbersList, boolean isNonZero) {
+    private void setValues(int manifestFound, List<Double> librariesNumbersList, boolean isNonZero, RecordPair max) {
 
         if (librariesNumbersList == null) {
             throw new NullPointerException("librariesNumbersList null");
@@ -97,7 +103,7 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
 
         logger.info("Started processing libraries");
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(librariesNumbersList.size(), manifestFound), librariesNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(librariesNumbersList.size(), manifestFound), librariesNumbersList, null, max);
 
         if (isNonZero) {
             librariesStatistics.setLibrariesNonZero(mathStatistics);

@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ResourceData;
 import sk.styk.martin.bakalarka.statistics.data.LocalizationsStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -40,12 +41,16 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
         Map<String, PercentagePair> localizationsMap = new HashMap<String, PercentagePair>();
         Map<String, PercentagePair> localizationsMapNormalized = new HashMap<String, PercentagePair>();
 
-
         List<Double> numLocaleList = new ArrayList<Double>();
         List<Double> numLocaleListListNonZeros = new ArrayList<Double>();
 
         List<Double> numStringResourcesList = new ArrayList<Double>();
         List<Double> numStringResourcesListNonDefault = new ArrayList<Double>();
+
+        requestMaxValues(Type.LOCALE);
+        requestMaxValues(Type.STRING_XML_RESOURCES);
+        RecordPair localeRecordPair = null;
+        RecordPair stringXmlRecordPair = null;
 
         for (int i = 0; i < jsons.size(); i++) {
             if (i % StatisticsProcessor.PRINT_MESSAGE_INTERVAL == 0) {
@@ -68,6 +73,7 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
                     if (numStringResources > 1) {
                         numStringResourcesListNonDefault.add(numStringResources.doubleValue());
                     }
+                    stringXmlRecordPair = processMaxExtreme(Type.STRING_XML_RESOURCES, numStringResources, data.getFileName());
                 }
 
                 //localizations
@@ -109,15 +115,16 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
                     if (localizationsSize != 0) {
                         numLocaleListListNonZeros.add(localizationsSize.doubleValue());
                     }
+                    localeRecordPair = processMaxExtreme(Type.LOCALE, localizationsSize, data.getFileName());
                 }
             }
         }
 
         localizationsStatistics.setAnalyzedApks(manifestFound);
-        setValues(Type.STRING_XML_RESOURCES, numStringResourcesList, manifestFound);
-        setValues(Type.STRING_XML_RESOURCES_NON_DEFAULT, numStringResourcesListNonDefault, manifestFound);
-        setValues(Type.LOCALE, numLocaleList, manifestFound);
-        setValues(Type.LOCALE_NON_ZERO, numLocaleListListNonZeros, manifestFound);
+        setValues(Type.STRING_XML_RESOURCES, numStringResourcesList, manifestFound, stringXmlRecordPair);
+        setValues(Type.STRING_XML_RESOURCES_NON_DEFAULT, numStringResourcesListNonDefault, manifestFound, stringXmlRecordPair);
+        setValues(Type.LOCALE, numLocaleList, manifestFound, localeRecordPair);
+        setValues(Type.LOCALE_NON_ZERO, numLocaleListListNonZeros, manifestFound, localeRecordPair);
 
         localizationsStatistics.setTopLocalizations(getTopValuesMap(localizationsMap, numLocaleList.size(), "localizations"));
         localizationsStatistics.setTopLocalizationsNormalized(getTopValuesMap(localizationsMapNormalized, numLocaleList.size(), "localizationsNormalized"));
@@ -140,14 +147,14 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
         return old;
     }
 
-    private void setValues(Type type, List<Double> list, Integer total) {
+    private void setValues(Type type, List<Double> list, Integer total, RecordPair max) {
         if (localizationsStatistics == null) {
             throw new NullPointerException("localizationsStatistics");
         }
 
         logger.info("Started processing " + type.toString());
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), total), list);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), total), list, null, max);
 
         switch (type) {
             case STRING_XML_RESOURCES:

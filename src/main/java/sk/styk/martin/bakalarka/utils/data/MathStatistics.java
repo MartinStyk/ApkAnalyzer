@@ -19,28 +19,30 @@ public class MathStatistics {
     private BigDecimal arithmeticMean;
     private Long median;
     private List<Long> modus;
-    private Long max;
-    private Long min;
+    private RecordPair max;
+    private RecordPair min;
     private BigDecimal variance;
     private BigDecimal deviation;
 
-    public MathStatistics(PercentagePair analyzedDataSet, Number arithmeticMean, Number median, List<Number> modus, Number max, Number min, Number variance, Number deviation) {
+    public MathStatistics(PercentagePair analyzedDataSet, Number arithmeticMean, Number median, List<Number> modus, RecordPair max, RecordPair min, Number variance, Number deviation) {
         this.analyzedDataSet = analyzedDataSet;
         this.arithmeticMean = new BigDecimal(arithmeticMean.doubleValue());
         this.median = median.longValue();
         this.modus = ConversionHelper.toLongList(modus);
-        this.max = max.longValue();
-        this.min = min.longValue();
+        this.max = max;
+        this.min = min;
         this.variance = new BigDecimal(variance.doubleValue());
         this.deviation = new BigDecimal(deviation.doubleValue());
     }
 
-    public MathStatistics(PercentagePair analyzedDataSet, List<Double> data) {
-        this(analyzedDataSet, ConversionHelper.toDoubleArray(data));
+    public <X> MathStatistics(PercentagePair analyzedDataSet, List<Double> data, RecordPair minimalValue, RecordPair maximalValue) {
+        this(analyzedDataSet, ConversionHelper.toDoubleArray(data), minimalValue, maximalValue);
     }
 
-    public MathStatistics(PercentagePair analyzedDataSet, double[] data) {
+    public <X> MathStatistics(PercentagePair analyzedDataSet, double[] data, RecordPair minimalValue, RecordPair maximalValue) {
         this.analyzedDataSet = analyzedDataSet;
+        this.min = minimalValue;
+        this.max = maximalValue;
         computeStatistics(data);
     }
 
@@ -62,8 +64,8 @@ public class MathStatistics {
         this.arithmeticMean = new BigDecimal(mean);
         this.median = median.longValue();
         this.modus = ConversionHelper.toLongList(modus);
-        this.min = minimum.longValue();
-        this.max = maximum.longValue();
+        this.min = min == null ? new RecordPair<Long, String>(minimum.longValue(), null) : min;
+        this.max = max == null ? new RecordPair<Long, String>(maximum.longValue(), null) : max;
         this.variance = new BigDecimal(variance);
         this.deviation = new BigDecimal(deviation);
 
@@ -102,19 +104,19 @@ public class MathStatistics {
         this.modus = modus;
     }
 
-    public Long getMax() {
+    public RecordPair getMax() {
         return max;
     }
 
-    public void setMax(Long max) {
+    public void setMax(RecordPair max) {
         this.max = max;
     }
 
-    public Long getMin() {
+    public RecordPair getMin() {
         return min;
     }
 
-    public void setMin(Long min) {
+    public void setMin(RecordPair min) {
         this.min = min;
     }
 

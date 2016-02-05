@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ResourceData;
 import sk.styk.martin.bakalarka.statistics.data.DrawableStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Martin Styk on 22.01.2016.
  */
-public class DrawableStatisticsProcessors {
+public class DrawableStatisticsProcessors extends TopValueProcessorBase{
     private static final Logger logger = LoggerFactory.getLogger(DrawableStatisticsProcessors.class);
     private List<File> jsons;
     private DrawableStatistics drawableStatistics;
@@ -68,6 +69,38 @@ public class DrawableStatisticsProcessors {
         List<Double> tvdpiList = new ArrayList<Double>();
         List<Double> tvdpiListNonZero = new ArrayList<Double>();
 
+        requestMaxValues(Type.PNG);
+        requestMaxValues(Type.JPG);
+        requestMaxValues(Type.GIF);
+        requestMaxValues(Type.XML);
+        requestMaxValues(Type.NINE_PATCH);
+        requestMaxValues(Type.DIFFERENT_DRAWABLES);
+        requestMaxValues(Type.LDPI);
+        requestMaxValues(Type.MDPI);
+        requestMaxValues(Type.HDPI);
+        requestMaxValues(Type.XHDPI);
+        requestMaxValues(Type.XXHDPI);
+        requestMaxValues(Type.XXXHDPI);
+        requestMaxValues(Type.UNSPECIFIED_DPI);
+        requestMaxValues(Type.TVDPI);
+        requestMaxValues(Type.NODPI);
+
+        RecordPair pngRecordPair = null;
+        RecordPair jpgRecordPair =null;
+        RecordPair gifRecordPair = null;
+        RecordPair xmlRecordPair = null;
+        RecordPair ninePatchRecordPair = null;
+        RecordPair differentDrawablesRecordPair = null;
+        RecordPair ldpiRecordPair = null;
+        RecordPair mdpiRecordPair = null;
+        RecordPair hdpiRecordPair = null;
+        RecordPair xhdpiRecordPair = null;
+        RecordPair xxhdpiRecordPair = null;
+        RecordPair xxxhdpiRecordPair = null;
+        RecordPair unspecifiedDpiRecordPair = null;
+        RecordPair tvdpiRecordPair = null;
+        RecordPair nodpiRecordPair = null;
+
         int resourceDataFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -84,74 +117,103 @@ public class DrawableStatisticsProcessors {
                 resourceData = data.getResourceData();
 
                 obtainValue(resourceData.getPngDrawables(), pngList, pngListNonZero);
+                pngRecordPair = processMaxExtreme(Type.PNG, resourceData.getPngDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getJpgDrawables(), jpgList, jpgListNonZero);
+                jpgRecordPair = processMaxExtreme(Type.JPG, resourceData.getJpgDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getGifDrawables(), gifList, gifListNonZero);
+                gifRecordPair = processMaxExtreme(Type.GIF, resourceData.getGifDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getXmlDrawables(), xmlList, xmlListNonZero);
+                xmlRecordPair = processMaxExtreme(Type.XML, resourceData.getXmlDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getNinePatchDrawables(), ninePatchList, ninePatchListNonZero);
+                ninePatchRecordPair = processMaxExtreme(Type.NINE_PATCH, resourceData.getNinePatchDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getDifferentDrawables(), differentDrawablesList, differentDrawablesListNonZero);
+                differentDrawablesRecordPair = processMaxExtreme(Type.DIFFERENT_DRAWABLES, resourceData.getDifferentDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getLdpiDrawables(), ldpiList, ldpiListNonZero);
+                ldpiRecordPair = processMaxExtreme(Type.LDPI, resourceData.getLdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getMdpiDrawables(), mdpiList, mdpiListNonZero);
+                mdpiRecordPair = processMaxExtreme(Type.MDPI, resourceData.getMdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getHdpiDrawables(), hdpiList, hpdiListNonZero);
+                hdpiRecordPair = processMaxExtreme(Type.HDPI, resourceData.getHdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getXhdpiDrawables(), xhdpiList, xhpdiListNonZero);
+                xhdpiRecordPair = processMaxExtreme(Type.XHDPI, resourceData.getXhdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getXxhdpiDrawables(), xxhdpiList, xxhpdiListNonZero);
+                xxhdpiRecordPair = processMaxExtreme(Type.XXHDPI, resourceData.getXxhdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getXxxhdpiDrawables(), xxxhdpiList, xxxhpdiListNonZero);
+                xxxhdpiRecordPair = processMaxExtreme(Type.XXXHDPI, resourceData.getXxxhdpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getUnspecifiedDpiDrawables(), unspecifiedDpiList, unspecifiedDpiListNonZero);
+                unspecifiedDpiRecordPair = processMaxExtreme(Type.UNSPECIFIED_DPI, resourceData.getUnspecifiedDpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getNodpiDrawables(), nodpiList, nodpiListNonZero);
+                nodpiRecordPair = processMaxExtreme(Type.NODPI, resourceData.getNodpiDrawables(), data.getFileName());
+
                 obtainValue(resourceData.getTvdpiDrawables(), tvdpiList, tvdpiListNonZero);
+                tvdpiRecordPair = processMaxExtreme(Type.TVDPI, resourceData.getTvdpiDrawables(), data.getFileName());
             }
         }
 
         drawableStatistics.setAnalyzedApks(resourceDataFound);
 
-        setValues(Type.PNG, pngList, resourceDataFound);
-        setValues(Type.PNG_NONZERO, pngListNonZero, resourceDataFound);
+        setValues(Type.PNG, pngList, resourceDataFound, pngRecordPair);
+        setValues(Type.PNG_NONZERO, pngListNonZero, resourceDataFound, pngRecordPair);
 
-        setValues(Type.JPG, jpgList, resourceDataFound);
-        setValues(Type.JPG_NONZERO, jpgListNonZero, resourceDataFound);
+        setValues(Type.JPG, jpgList, resourceDataFound, jpgRecordPair);
+        setValues(Type.JPG_NONZERO, jpgListNonZero, resourceDataFound, jpgRecordPair);
 
-        setValues(Type.GIF, gifList, resourceDataFound);
-        setValues(Type.GIF_NONZERO, gifListNonZero, resourceDataFound);
+        setValues(Type.GIF, gifList, resourceDataFound, gifRecordPair);
+        setValues(Type.GIF_NONZERO, gifListNonZero, resourceDataFound, gifRecordPair);
 
-        setValues(Type.XML, xmlList, resourceDataFound);
-        setValues(Type.XML_NONZERO, xmlListNonZero, resourceDataFound);
+        setValues(Type.XML, xmlList, resourceDataFound, xmlRecordPair);
+        setValues(Type.XML_NONZERO, xmlListNonZero, resourceDataFound, xmlRecordPair);
 
-        setValues(Type.NINE_PATCH, ninePatchList, resourceDataFound);
-        setValues(Type.NINE_PATCH_NONZERO, ninePatchListNonZero, resourceDataFound);
+        setValues(Type.NINE_PATCH, ninePatchList, resourceDataFound, ninePatchRecordPair);
+        setValues(Type.NINE_PATCH_NONZERO, ninePatchListNonZero, resourceDataFound, ninePatchRecordPair);
 
-        setValues(Type.DIFFERENT_DRAWABLES, differentDrawablesList, resourceDataFound);
-        setValues(Type.DIFFERENT_DRAWABLES_NONZERO, differentDrawablesListNonZero, resourceDataFound);
+        setValues(Type.DIFFERENT_DRAWABLES, differentDrawablesList, resourceDataFound, differentDrawablesRecordPair);
+        setValues(Type.DIFFERENT_DRAWABLES_NONZERO, differentDrawablesListNonZero, resourceDataFound, differentDrawablesRecordPair);
 
-        setValues(Type.LDPI, ldpiList, resourceDataFound);
-        setValues(Type.LDPI_NONZERO, ldpiListNonZero, resourceDataFound);
+        setValues(Type.LDPI, ldpiList, resourceDataFound, ldpiRecordPair);
+        setValues(Type.LDPI_NONZERO, ldpiListNonZero, resourceDataFound, ldpiRecordPair);
 
-        setValues(Type.MDPI, mdpiList, resourceDataFound);
-        setValues(Type.MDPI_NONZERO, mdpiListNonZero, resourceDataFound);
+        setValues(Type.MDPI, mdpiList, resourceDataFound, mdpiRecordPair);
+        setValues(Type.MDPI_NONZERO, mdpiListNonZero, resourceDataFound, mdpiRecordPair);
 
-        setValues(Type.HDPI, hdpiList, resourceDataFound);
-        setValues(Type.HDPI_NONZERO, hpdiListNonZero, resourceDataFound);
+        setValues(Type.HDPI, hdpiList, resourceDataFound, hdpiRecordPair);
+        setValues(Type.HDPI_NONZERO, hpdiListNonZero, resourceDataFound, hdpiRecordPair);
 
-        setValues(Type.XHDPI, xhdpiList, resourceDataFound);
-        setValues(Type.XHDPI_NONZERO, xhpdiListNonZero, resourceDataFound);
+        setValues(Type.XHDPI, xhdpiList, resourceDataFound, xhdpiRecordPair);
+        setValues(Type.XHDPI_NONZERO, xhpdiListNonZero, resourceDataFound, xhdpiRecordPair);
 
-        setValues(Type.XXHDPI, xxhdpiList, resourceDataFound);
-        setValues(Type.XXHDPI_NONZERO, xxhpdiListNonZero, resourceDataFound);
+        setValues(Type.XXHDPI, xxhdpiList, resourceDataFound, xxhdpiRecordPair);
+        setValues(Type.XXHDPI_NONZERO, xxhpdiListNonZero, resourceDataFound, xxhdpiRecordPair);
 
-        setValues(Type.XXXHDPI, xxxhdpiList, resourceDataFound);
-        setValues(Type.XXXHDPI_NONZERO, xxxhpdiListNonZero, resourceDataFound);
+        setValues(Type.XXXHDPI, xxxhdpiList, resourceDataFound,xxxhdpiRecordPair);
+        setValues(Type.XXXHDPI_NONZERO, xxxhpdiListNonZero, resourceDataFound,xxxhdpiRecordPair);
 
-        setValues(Type.UNSPECIFIED_DPI, unspecifiedDpiList, resourceDataFound);
-        setValues(Type.UNSPECIFIED_DPI_NONZERO, unspecifiedDpiListNonZero, resourceDataFound);
+        setValues(Type.UNSPECIFIED_DPI, unspecifiedDpiList, resourceDataFound, unspecifiedDpiRecordPair);
+        setValues(Type.UNSPECIFIED_DPI_NONZERO, unspecifiedDpiListNonZero, resourceDataFound, unspecifiedDpiRecordPair);
 
-        setValues(Type.TVDPI, tvdpiList, resourceDataFound);
-        setValues(Type.TVDPI_NONZERO, tvdpiListNonZero, resourceDataFound);
+        setValues(Type.TVDPI, tvdpiList, resourceDataFound, tvdpiRecordPair);
+        setValues(Type.TVDPI_NONZERO, tvdpiListNonZero, resourceDataFound, tvdpiRecordPair);
 
-        setValues(Type.NODPI, nodpiList, resourceDataFound);
-        setValues(Type.NODPI_NONZERO, nodpiListNonZero, resourceDataFound);
+        setValues(Type.NODPI, nodpiList, resourceDataFound, nodpiRecordPair);
+        setValues(Type.NODPI_NONZERO, nodpiListNonZero, resourceDataFound, nodpiRecordPair);
 
         return drawableStatistics;
     }
 
-    private void setValues(Type type, List<Double> list, int resourceDataFound) {
+    private void setValues(Type type, List<Double> list, int resourceDataFound, RecordPair maxRecordPair) {
 
         if (drawableStatistics == null) {
             throw new NullPointerException("drawableStatistics null");
@@ -159,7 +221,7 @@ public class DrawableStatisticsProcessors {
 
         logger.info("Started processing drawables " + type.toString());
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list, null, maxRecordPair);
 
         switch (type) {
             case PNG:

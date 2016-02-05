@@ -8,6 +8,7 @@ import sk.styk.martin.bakalarka.statistics.data.FileSizeStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by Martin Styk on 17.01.2016.
  */
-public class FileSizeStatisticsProcessor {
+public class FileSizeStatisticsProcessor extends TopValueProcessorBase {
 
     private static final Logger logger = LoggerFactory.getLogger(FileSizeStatisticsProcessor.class);
     private List<File> jsons;
@@ -42,6 +43,23 @@ public class FileSizeStatisticsProcessor {
         List<Double> arscSizeList = new ArrayList<Double>();
         List<Double> dexSizeList = new ArrayList<Double>();
 
+        requestMaxValues(Type.FILE_SIZE);
+        requestMaxValues(Type.DEX_SIZE);
+        requestMaxValues(Type.ARSC_SIZE);
+
+        RecordPair fileRecordPairMax = null;
+        RecordPair dexRecordPairMax = null;
+        RecordPair arscRecordPairMax = null;
+
+        requestMinValues(Type.FILE_SIZE);
+        requestMinValues(Type.DEX_SIZE);
+        requestMinValues(Type.ARSC_SIZE);
+
+        RecordPair fileRecordPairMin = null;
+        RecordPair dexRecordPairMin = null;
+        RecordPair arscRecordPairMin = null;
+
+
         for (int i = 0; i < jsons.size(); i++) {
             if (i % StatisticsProcessor.PRINT_MESSAGE_INTERVAL == 0) {
                 logger.info("Loading json number " + i);
@@ -55,27 +73,33 @@ public class FileSizeStatisticsProcessor {
                 Double fileSizeValue = getValue(Type.FILE_SIZE, data);
                 if (fileSizeValue != null) {
                     fileSizeList.add(fileSizeValue);
+                    fileRecordPairMax = processMaxExtreme(Type.FILE_SIZE, fileSizeValue.longValue(), data.getFileName());
+                    fileRecordPairMin = processMinExtreme(Type.FILE_SIZE, fileSizeValue.longValue(), data.getFileName());
                 }
                 Double arscSizeValue = getValue(Type.ARSC_SIZE, data);
                 if (arscSizeValue != null) {
                     arscSizeList.add(arscSizeValue);
+                    arscRecordPairMax = processMaxExtreme(Type.ARSC_SIZE, arscSizeValue.longValue(), data.getFileName());
+                    arscRecordPairMin = processMinExtreme(Type.ARSC_SIZE, arscSizeValue.longValue(), data.getFileName());
                 }
                 Double dexSizeValue = getValue(Type.DEX_SIZE, data);
                 if (dexSizeValue != null) {
                     dexSizeList.add(dexSizeValue);
+                    dexRecordPairMax = processMaxExtreme(Type.DEX_SIZE, dexSizeValue.longValue(), data.getFileName());
+                    dexRecordPairMin = processMinExtreme(Type.DEX_SIZE, dexSizeValue.longValue(), data.getFileName());
                 }
             }
         }
 
-        setValues(Type.FILE_SIZE, ConversionHelper.toDoubleArray(fileSizeList), fileSizeList.size());
-        setValues(Type.ARSC_SIZE, ConversionHelper.toDoubleArray(arscSizeList), arscSizeList.size());
-        setValues(Type.DEX_SIZE, ConversionHelper.toDoubleArray(dexSizeList), dexSizeList.size());
+        setValues(Type.FILE_SIZE, ConversionHelper.toDoubleArray(fileSizeList), fileSizeList.size(), fileRecordPairMin, fileRecordPairMax);
+        setValues(Type.ARSC_SIZE, ConversionHelper.toDoubleArray(arscSizeList), arscSizeList.size(), arscRecordPairMin, arscRecordPairMax);
+        setValues(Type.DEX_SIZE, ConversionHelper.toDoubleArray(dexSizeList), dexSizeList.size(), dexRecordPairMin, dexRecordPairMax);
 
         return fileSizeStatistics;
 
     }
 
-    private void setValues(Type type, double[] array, Integer size) {
+    private void setValues(Type type, double[] array, Integer size, RecordPair minimum, RecordPair maximum) {
         if (fileSizeStatistics == null) {
             throw new NullPointerException("fileSizeStatistics");
         }
@@ -84,8 +108,6 @@ public class FileSizeStatisticsProcessor {
 
         Double mean = StatUtils.mean(array);
         Double median = StatUtils.percentile(array, 50);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
         Double variance = StatUtils.variance(array);
         Double deviation = Math.sqrt(variance);
 

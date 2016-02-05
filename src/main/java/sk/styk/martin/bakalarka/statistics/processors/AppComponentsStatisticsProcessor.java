@@ -8,6 +8,7 @@ import sk.styk.martin.bakalarka.statistics.data.AppComponentsStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.helpers.ConversionHelper;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by Martin Styk on 19.01.2016.
  */
-public class AppComponentsStatisticsProcessor {
+public class AppComponentsStatisticsProcessor extends TopValueProcessorBase {
 
     private static final Logger logger = LoggerFactory.getLogger(AppComponentsStatisticsProcessor.class);
     private List<File> jsons;
@@ -48,6 +49,16 @@ public class AppComponentsStatisticsProcessor {
         List<Double> receiverListNonZero = new ArrayList<Double>();
         List<Double> providerListNonZero = new ArrayList<Double>();
 
+        requestMaxValues(Type.ACTIVITY);
+        requestMaxValues(Type.BROADCAST_RECEIVER);
+        requestMaxValues(Type.CONTENT_PROVIDER);
+        requestMaxValues(Type.SERVICE);
+
+        RecordPair activityRecordPair = null;
+        RecordPair receiverRecordPair = null;
+        RecordPair providerRecordPair = null;
+        RecordPair serviceRecordPair = null;
+
         int manifestFound = 0;
         for (int i = 0; i < jsons.size(); i++) {
             if (i % StatisticsProcessor.PRINT_MESSAGE_INTERVAL == 0) {
@@ -71,6 +82,7 @@ public class AppComponentsStatisticsProcessor {
                     if (activityValue != 0) {
                         activityListNonZero.add(activityValue);
                     }
+                    activityRecordPair = processMaxExtreme(Type.ACTIVITY, activityValue.longValue(), data.getFileName());
                 }
 
                 Double serviceValue = getValue(Type.SERVICE, manifestData);
@@ -79,6 +91,7 @@ public class AppComponentsStatisticsProcessor {
                     if (serviceValue != 0) {
                         serviceListNonZero.add(serviceValue);
                     }
+                    serviceRecordPair = processMaxExtreme(Type.SERVICE, serviceValue.longValue(), data.getFileName());
                 }
 
                 Double providerValue = getValue(Type.CONTENT_PROVIDER, manifestData);
@@ -87,6 +100,7 @@ public class AppComponentsStatisticsProcessor {
                     if (providerValue != 0) {
                         providerListNonZero.add(providerValue);
                     }
+                    providerRecordPair = processMaxExtreme(Type.CONTENT_PROVIDER, providerValue.longValue(), data.getFileName());
                 }
 
                 Double receiverValue = getValue(Type.BROADCAST_RECEIVER, manifestData);
@@ -95,33 +109,35 @@ public class AppComponentsStatisticsProcessor {
                     if (receiverValue != 0) {
                         receiverListNonZero.add(receiverValue);
                     }
+                    receiverRecordPair = processMaxExtreme(Type.BROADCAST_RECEIVER, receiverValue.longValue(), data.getFileName());
                 }
             }
         }
 
         appComponentsStatistics.setAnalyzedApks(manifestFound);
-        setValues(Type.ACTIVITY, ConversionHelper.toDoubleArray(activityList), new PercentagePair(activityList.size(), manifestFound));
-        setValues(Type.SERVICE, ConversionHelper.toDoubleArray(serviceList), new PercentagePair(serviceList.size(), manifestFound));
-        setValues(Type.CONTENT_PROVIDER, ConversionHelper.toDoubleArray(providerList), new PercentagePair(providerList.size(), manifestFound));
-        setValues(Type.BROADCAST_RECEIVER, ConversionHelper.toDoubleArray(receiverList), new PercentagePair(receiverList.size(), manifestFound));
+        setValues(Type.ACTIVITY, ConversionHelper.toDoubleArray(activityList), new PercentagePair(activityList.size(), manifestFound), activityRecordPair);
+        setValues(Type.SERVICE, ConversionHelper.toDoubleArray(serviceList), new PercentagePair(serviceList.size(), manifestFound), serviceRecordPair);
+        setValues(Type.CONTENT_PROVIDER, ConversionHelper.toDoubleArray(providerList), new PercentagePair(providerList.size(), manifestFound), providerRecordPair);
+        setValues(Type.BROADCAST_RECEIVER, ConversionHelper.toDoubleArray(receiverList), new PercentagePair(receiverList.size(), manifestFound), receiverRecordPair);
 
-        setValues(Type.ACTIVITY_NONZERO, ConversionHelper.toDoubleArray(activityListNonZero), new PercentagePair(activityListNonZero.size(), manifestFound));
-        setValues(Type.SERVICE_NONZERO, ConversionHelper.toDoubleArray(serviceListNonZero), new PercentagePair(serviceListNonZero.size(), manifestFound));
-        setValues(Type.CONTENT_PROVIDER_NONZERO, ConversionHelper.toDoubleArray(providerListNonZero), new PercentagePair(providerListNonZero.size(), manifestFound));
-        setValues(Type.BROADCAST_RECEIVER_NONZERO, ConversionHelper.toDoubleArray(receiverListNonZero), new PercentagePair(receiverListNonZero.size(), manifestFound));
+        setValues(Type.ACTIVITY_NONZERO, ConversionHelper.toDoubleArray(activityListNonZero), new PercentagePair(activityListNonZero.size(), manifestFound), activityRecordPair);
+        setValues(Type.SERVICE_NONZERO, ConversionHelper.toDoubleArray(serviceListNonZero), new PercentagePair(serviceListNonZero.size(), manifestFound), serviceRecordPair);
+        setValues(Type.CONTENT_PROVIDER_NONZERO, ConversionHelper.toDoubleArray(providerListNonZero), new PercentagePair(providerListNonZero.size(), manifestFound), providerRecordPair);
+        setValues(Type.BROADCAST_RECEIVER_NONZERO, ConversionHelper.toDoubleArray(receiverListNonZero), new PercentagePair(receiverListNonZero.size(), manifestFound), receiverRecordPair);
 
         return appComponentsStatistics;
 
     }
 
-    private void setValues(Type type, double[] array, PercentagePair size) {
+    private void setValues(Type type, double[] array, PercentagePair size, RecordPair maxValue) {
         if (appComponentsStatistics == null) {
             throw new NullPointerException("appComponentsStatistics");
         }
 
         logger.info("Started processing " + type.toString());
 
-        MathStatistics mathStatistics = new MathStatistics(size, array);
+        //computing only maximum
+        MathStatistics mathStatistics = new MathStatistics(size, array, null, maxValue);
 
         switch (type) {
             case ACTIVITY:

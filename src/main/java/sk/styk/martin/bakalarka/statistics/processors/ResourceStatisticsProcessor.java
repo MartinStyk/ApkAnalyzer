@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ResourceData;
 import sk.styk.martin.bakalarka.statistics.data.ResourceStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Martin Styk on 22.01.2016.
  */
-public class ResourceStatisticsProcessor {
+public class ResourceStatisticsProcessor extends TopValueProcessorBase {
     private static final Logger logger = LoggerFactory.getLogger(ResourceStatisticsProcessor.class);
     private List<File> jsons;
     private ResourceStatistics resourceStatistics;
@@ -46,6 +47,16 @@ public class ResourceStatisticsProcessor {
         List<Double> rawList = new ArrayList<Double>();
         List<Double> rawListNonZero = new ArrayList<Double>();
 
+        requestMaxValues(Type.LAYOUT);
+        requestMaxValues(Type.LAYOUT_DIFFERENT);
+        requestMaxValues(Type.MENU);
+        requestMaxValues(Type.RAW);
+
+        RecordPair layoutRecordPair = null;
+        RecordPair layoutDifferentRecordPair = null;
+        RecordPair menuRecordPair = null;
+        RecordPair rawRecordPair = null;
+
         int resourceDataFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -62,30 +73,37 @@ public class ResourceStatisticsProcessor {
                 resourceData = data.getResourceData();
 
                 obtainValue(resourceData.getLayouts(), layoutList, layoutListNonZero);
+                layoutRecordPair = processMaxExtreme(Type.LAYOUT, resourceData.getLayouts(), data.getFileName());
+
                 obtainValue(resourceData.getDifferentLayouts(), diffLayoutList, diffLayoutListNonZero);
+                layoutDifferentRecordPair = processMaxExtreme(Type.LAYOUT_DIFFERENT, resourceData.getDifferentLayouts(), data.getFileName());
+
                 obtainValue(resourceData.getMenu(), menuList, menuListNonZero);
+                menuRecordPair = processMaxExtreme(Type.MENU, resourceData.getMenu(), data.getFileName());
+
                 obtainValue(resourceData.getRawResources(), rawList, rawListNonZero);
+                rawRecordPair = processMaxExtreme(Type.RAW, resourceData.getRawResources(), data.getFileName());
             }
         }
 
         resourceStatistics.setAnalyzedApks(resourceDataFound);
 
-        setValues(Type.LAYOUT, layoutList, resourceDataFound);
-        setValues(Type.LAYOUT_NONZERO, layoutListNonZero, resourceDataFound);
+        setValues(Type.LAYOUT, layoutList, resourceDataFound, layoutRecordPair);
+        setValues(Type.LAYOUT_NONZERO, layoutListNonZero, resourceDataFound, layoutRecordPair);
 
-        setValues(Type.LAYOUT_DIFFERENT, diffLayoutList, resourceDataFound);
-        setValues(Type.LAYOUT_DIFFERENT_NONZERO, diffLayoutListNonZero, resourceDataFound);
+        setValues(Type.LAYOUT_DIFFERENT, diffLayoutList, resourceDataFound, layoutDifferentRecordPair);
+        setValues(Type.LAYOUT_DIFFERENT_NONZERO, diffLayoutListNonZero, resourceDataFound, layoutDifferentRecordPair);
 
-        setValues(Type.MENU, menuList, resourceDataFound);
-        setValues(Type.MENU_NONZERO, menuListNonZero, resourceDataFound);
+        setValues(Type.MENU, menuList, resourceDataFound, menuRecordPair);
+        setValues(Type.MENU_NONZERO, menuListNonZero, resourceDataFound, menuRecordPair);
 
-        setValues(Type.RAW, rawList, resourceDataFound);
-        setValues(Type.RAW_NONZERO, rawListNonZero, resourceDataFound);
+        setValues(Type.RAW, rawList, resourceDataFound, rawRecordPair);
+        setValues(Type.RAW_NONZERO, rawListNonZero, resourceDataFound, rawRecordPair);
 
         return resourceStatistics;
     }
 
-    private void setValues(Type type, List<Double> list, int resourceDataFound) {
+    private void setValues(Type type, List<Double> list, int resourceDataFound, RecordPair max) {
 
         if (resourceStatistics == null) {
             throw new NullPointerException("resourceStatistics null");
@@ -93,7 +111,7 @@ public class ResourceStatisticsProcessor {
 
         logger.info("Started processing resources " + type.toString());
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(list.size(), resourceDataFound), list, null, max);
 
 
         switch (type) {

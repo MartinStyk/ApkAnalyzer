@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.DefinedPermissionsStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -41,6 +42,10 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
         Map<String, Integer> topProtectionLevel = new HashMap<String, Integer>();
         List<Double> permissionsNumbersList = new ArrayList<Double>();
         List<Double> permissionsNumbersListNonZero = new ArrayList<Double>();
+
+        requestMaxValues("perms");
+        RecordPair permsRecordPair = null;
+
         int manifestFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -67,6 +72,7 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
                     if (listSize != 0) {
                         permissionsNumbersListNonZero.add(new Double(listSize));
                     }
+                    permsRecordPair= processMaxExtreme("perms",listSize,data.getFileName());
 
                     for (String perm : protectonLevelList) {
                         if (topProtectionLevel.containsKey(perm)) {
@@ -83,14 +89,14 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
         }
 
         permissionsStatistics.setAnalyzedApks(manifestFound);
-        setValues(manifestFound, permissionsNumbersList, false);
-        setValues(manifestFound, permissionsNumbersListNonZero, true);
-        permissionsStatistics.setTopProtectionLevel(getTopValuesMap(topProtectionLevel, permissionsNumbersList.size(), "permissions protection level"));
+        setValues(manifestFound, permissionsNumbersList, false, permsRecordPair);
+        setValues(manifestFound, permissionsNumbersListNonZero, true, permsRecordPair);
+        permissionsStatistics.setTopProtectionLevel(getTopValuesMapInteger(topProtectionLevel, permissionsNumbersList.size(), "permissions protection level"));
 
         return permissionsStatistics;
     }
 
-    private void setValues(int manifestFound, List<Double> permissionsNumbersList, boolean isNonZero) {
+    private void setValues(int manifestFound, List<Double> permissionsNumbersList, boolean isNonZero, RecordPair recordPairMax) {
 
         if (permissionsNumbersList == null) {
             throw new NullPointerException("permissionsNumbersList null");
@@ -98,7 +104,7 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
 
         logger.info("Started processing permissions");
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(permissionsNumbersList.size(), manifestFound), permissionsNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(permissionsNumbersList.size(), manifestFound), permissionsNumbersList, null, recordPairMax);
 
         if (isNonZero) {
             permissionsStatistics.setPermissionsNonZero(mathStatistics);

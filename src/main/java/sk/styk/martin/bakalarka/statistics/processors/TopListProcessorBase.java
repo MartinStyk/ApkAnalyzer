@@ -12,17 +12,14 @@ import java.util.Map;
 /**
  * Created by Martin Styk on 27.01.2016.
  */
-public abstract class TopListProcessorBase<X> {
+public abstract class TopListProcessorBase<X> extends TopValueProcessorBase{
 
     protected abstract Logger getLogger();
 
-    protected Map<X, PercentagePair> getTopValuesMap(Map<X, Integer> topValues, Integer wholeData, String type) {
+    protected Map<X, PercentagePair> getTopValuesMapInteger(Map<X, Integer> topValues, int wholeData, String type) {
 
         getLogger().info("Started processing chart " + type);
 
-        if (wholeData == null) {
-            throw new IllegalArgumentException("wholeData");
-        }
         if (topValues == null) {
             throw new IllegalArgumentException("topValues");
         }

@@ -54,6 +54,34 @@ public class JsonUtils {
             }
         }
     }
+    public static void toJsonFile(ApkData data, File outFile) {
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
+                .create();
+
+        String jsonString = gson.toJson(data);
+
+        FileWriter writer = null;
+
+        try {
+            writer = new FileWriter(outFile);
+            writer.write(jsonString);
+            logger.info(data.getFileName() + " written to " + outFile.getName() + " in " + outFile.getName());
+
+        } catch (IOException e) {
+            logger.error("Error saving file to " + outFile.getName());
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileWriter : " + e.toString());
+                }
+            }
+        }
+    }
 
     public static ApkData fromJson(File jsonFile) {
 

@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.FeaturesStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -41,6 +42,10 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase {
         Map<String, Integer> topFeatures = new HashMap<String, Integer>();
         List<Double> featuresNumbersList = new ArrayList<Double>();
         List<Double> featuresNumbersListNonZero = new ArrayList<Double>();
+
+        requestMaxValues("features");
+        RecordPair recordPair = null;
+
         int manifestFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -67,6 +72,8 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase {
                         featuresNumbersListNonZero.add(new Double(listSize));
                     }
 
+                    recordPair = processMaxExtreme("features", listSize, data.getFileName());
+
                     for (String perm : featuresList) {
                         if (topFeatures.containsKey(perm)) {
                             Integer oldValue = topFeatures.get(perm);
@@ -83,14 +90,14 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase {
 
 
         featuresStatistics.setAnalyzedApks(manifestFound);
-        setValues(manifestFound, featuresNumbersList, false);
-        setValues(manifestFound, featuresNumbersListNonZero, true);
-        featuresStatistics.setTopFeatures(getTopValuesMap(topFeatures, featuresNumbersList.size(), "features"));
+        setValues(manifestFound, featuresNumbersList, false, recordPair);
+        setValues(manifestFound, featuresNumbersListNonZero, true, recordPair);
+        featuresStatistics.setTopFeatures(getTopValuesMapInteger(topFeatures, featuresNumbersList.size(), "features"));
 
         return featuresStatistics;
     }
 
-    private void setValues(int manifestFound, List<Double> featuresNumbersList, boolean isNonZero) {
+    private void setValues(int manifestFound, List<Double> featuresNumbersList, boolean isNonZero, RecordPair maxRecordPair) {
 
         if (featuresNumbersList == null) {
             throw new NullPointerException("featuresNumbersList null");
@@ -98,7 +105,7 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase {
 
         logger.info("Started processing features");
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(featuresNumbersList.size(), manifestFound), featuresNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(featuresNumbersList.size(), manifestFound), featuresNumbersList, null, maxRecordPair);
 
         if (isNonZero) {
             featuresStatistics.setFeaturesNonZero(mathStatistics);

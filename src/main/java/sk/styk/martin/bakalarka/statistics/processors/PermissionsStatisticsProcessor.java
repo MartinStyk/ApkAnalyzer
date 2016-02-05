@@ -7,6 +7,7 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.PermissionsStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+import sk.styk.martin.bakalarka.utils.data.RecordPair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
@@ -41,6 +42,10 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
         Map<String, Integer> topPermissions = new HashMap<String, Integer>();
         List<Double> permissionsNumbersList = new ArrayList<Double>();
         List<Double> permissionsNumbersListNonZero = new ArrayList<Double>();
+
+        requestMaxValues("perms");
+        RecordPair permsRecordPair = null;
+
         int manifestFound = 0;
 
         for (int i = 0; i < jsons.size(); i++) {
@@ -66,6 +71,7 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
                     if (listSize != 0) {
                         permissionsNumbersListNonZero.add(new Double(listSize));
                     }
+                    permsRecordPair = processMaxExtreme("perms", listSize, data.getFileName());
 
                     for (String perm : permissionsList) {
                         if (topPermissions.containsKey(perm)) {
@@ -82,14 +88,14 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
         }
 
         permissionsStatistics.setAnalyzedApks(manifestFound);
-        setValues(manifestFound, permissionsNumbersList, false);
-        setValues(manifestFound, permissionsNumbersListNonZero, true);
-        permissionsStatistics.setTopPermissions(getTopValuesMap(topPermissions, permissionsNumbersList.size(), "permissions"));
+        setValues(manifestFound, permissionsNumbersList, false, permsRecordPair);
+        setValues(manifestFound, permissionsNumbersListNonZero, true, permsRecordPair);
+        permissionsStatistics.setTopPermissions(getTopValuesMapInteger(topPermissions, permissionsNumbersList.size(), "permissions"));
 
         return permissionsStatistics;
     }
 
-    private void setValues(int manifestFound, List<Double> permissionsNumbersList, boolean isNonZero) {
+    private void setValues(int manifestFound, List<Double> permissionsNumbersList, boolean isNonZero, RecordPair max) {
 
         if (permissionsNumbersList == null) {
             throw new NullPointerException("permissionsNumbersList null");
@@ -97,7 +103,7 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
 
         logger.info("Started processing permissions");
 
-        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(permissionsNumbersList.size(), manifestFound), permissionsNumbersList);
+        MathStatistics mathStatistics = new MathStatistics(new PercentagePair(permissionsNumbersList.size(), manifestFound), permissionsNumbersList, null, max);
 
         if (isNonZero) {
             permissionsStatistics.setPermissionsNonZero(mathStatistics);
