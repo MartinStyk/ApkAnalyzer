@@ -83,6 +83,8 @@ numberOfContentProviders      | Integer   | Total number of content providers in
 numberOfBroadcastReceivers  | Integer   | Total number of broadcast receivers in application
 usesPermissions      | List<String>     | List of permissions used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-permission-element.html)
 usesLibrary       | List<String>     | List of libraries used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-library-element.html)
+permissions       | List<String>     | List of permissions defined by application [See Android documentation](http://developer.android.com/guide/topics/manifest/permission-element.html)
+permissionsProtectionLevel       | List<String>     | Protection level of permissions defined by application [See Android documentation](http://developer.android.com/guide/topics/manifest/permission-element.html)
 usesFeature      | List<String>     | List of features used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-feature-element.html)
 usesMinSdkVersion      | String   | Minimum Sdk version required by app List of features used by application [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html)
 usesTargetSdkVersion  | String   | Target Sdk version required by app [See Android documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html)
@@ -117,6 +119,7 @@ Name          | Type     | Description
 locale      | List<String>   | Localizations of string.xml file
 numberOfStringResource  | Integer   | Number of entries in default string.xml file (currently not collected)
 pngDrawables      | Integer     | Number of drawables in png format
+ninePatchDrawables      | Integer     | Number of drawables in .9.png format
 jpgDrawables       | Integer     | Number of drawables in jpg/jpeg format
 gifDrawables      | Integer     | Number of drawables in gif format
 xmlDrawables  | Integer   | Number of drawables in xml format
@@ -126,6 +129,8 @@ hdpiDrawables      | Integer | Number of drawables located in hdpi folder
 xhdpiDrawables   | Integer | Number of drawables located in xhdpi folder
 xxhdpiDrawables      | Integer | Number of drawables located in xxhdpi folder
 xxxhdpiDrawables       | Integer | Number of drawables located in xxxhdpi folder
+tvdpiDrawables       | Integer | Number of drawables located in tvdpi folder
+nodpiDrawables       | Integer | Number of drawables located in nodpi folder
 unspecifiedDpiDrawables      | Integer | Number of drawables located in default drawable folder
 rawResources   | Integer | Number of resources in raw/ folder
 layouts   | Integer | Total number of layout resources in res/layout* folder
