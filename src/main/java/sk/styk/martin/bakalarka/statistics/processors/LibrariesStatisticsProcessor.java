@@ -74,11 +74,12 @@ public class LibrariesStatisticsProcessor extends TopListProcessorBase {
                     libsRecordPair = processMaxExtreme("libs", listSize, data.getFileName());
 
                     for (String perm : librariesList) {
-                        if (topLibraries.containsKey(perm)) {
-                            Integer oldValue = topLibraries.get(perm);
-                            topLibraries.put(perm, ++oldValue);
+                        String permLower = perm.toLowerCase();
+                        if (topLibraries.containsKey(permLower)) {
+                            Integer oldValue = topLibraries.get(permLower);
+                            topLibraries.put(permLower, ++oldValue);
                         } else {
-                            topLibraries.put(perm, 1);
+                            topLibraries.put(permLower, 1);
                         }
                     }
 

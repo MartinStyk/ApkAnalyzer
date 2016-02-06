@@ -90,23 +90,23 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
                         //locale list from analyze can contain en-US, en-GB
                         //here we normlaize locale to just en, we dont want to add it twice
                         //because of percentage computation
-                        if (alreadyAddedForApk.add(localeNormalized)) {
+                        if (alreadyAddedForApk.add(localeNormalized.toLowerCase())) {
 
-                            if (localizationsMapNormalized.containsKey(localeNormalized)) {
-                                PercentagePair percentagePair = localizationsMapNormalized.get(localeNormalized);
+                            if (localizationsMapNormalized.containsKey(localeNormalized.toLowerCase())) {
+                                PercentagePair percentagePair = localizationsMapNormalized.get(localeNormalized.toLowerCase());
                                 Integer oldValue = percentagePair.getCount().intValue();
                                 percentagePair.setCount(++oldValue);
                             } else {
-                                localizationsMapNormalized.put(localeNormalized, new PercentagePair(1, null));
+                                localizationsMapNormalized.put(localeNormalized.toLowerCase(), new PercentagePair(1, null));
                             }
                         }
 
-                        if (localizationsMap.containsKey(locale)) {
-                            PercentagePair percentagePair = localizationsMap.get(locale);
+                        if (localizationsMap.containsKey(locale.toLowerCase())) {
+                            PercentagePair percentagePair = localizationsMap.get(locale.toLowerCase());
                             Integer oldValue = percentagePair.getCount().intValue();
                             percentagePair.setCount(++oldValue);
                         } else {
-                            localizationsMap.put(locale, new PercentagePair(1, null));
+                            localizationsMap.put(locale.toLowerCase(), new PercentagePair(1, null));
                         }
                     }
 

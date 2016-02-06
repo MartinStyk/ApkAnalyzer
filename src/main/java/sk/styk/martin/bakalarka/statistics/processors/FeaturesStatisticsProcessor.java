@@ -75,11 +75,12 @@ public class FeaturesStatisticsProcessor extends TopListProcessorBase {
                     recordPair = processMaxExtreme("features", listSize, data.getFileName());
 
                     for (String perm : featuresList) {
-                        if (topFeatures.containsKey(perm)) {
-                            Integer oldValue = topFeatures.get(perm);
-                            topFeatures.put(perm, ++oldValue);
+                        String permLower = perm.toLowerCase();
+                        if (topFeatures.containsKey(permLower)) {
+                            Integer oldValue = topFeatures.get(permLower);
+                            topFeatures.put(permLower, ++oldValue);
                         } else {
-                            topFeatures.put(perm, 1);
+                            topFeatures.put(permLower, 1);
                         }
                     }
 

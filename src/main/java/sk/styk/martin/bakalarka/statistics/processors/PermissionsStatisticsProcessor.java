@@ -74,11 +74,12 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
                     permsRecordPair = processMaxExtreme("perms", listSize.longValue(), data.getFileName());
 
                     for (String perm : permissionsList) {
-                        if (topPermissions.containsKey(perm)) {
-                            Integer oldValue = topPermissions.get(perm);
-                            topPermissions.put(perm, ++oldValue);
+                        String low = perm.toLowerCase();
+                        if (topPermissions.containsKey(low)) {
+                            Integer oldValue = topPermissions.get(low);
+                            topPermissions.put(low, ++oldValue);
                         } else {
-                            topPermissions.put(perm, 1);
+                            topPermissions.put(low, 1);
                         }
                     }
 

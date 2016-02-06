@@ -75,11 +75,12 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
                     permsRecordPair = processMaxExtreme("perms", listSize.longValue(), data.getFileName());
 
                     for (String perm : protectonLevelList) {
-                        if (topProtectionLevel.containsKey(perm)) {
-                            Integer oldValue = topProtectionLevel.get(perm);
-                            topProtectionLevel.put(perm, ++oldValue);
+                        String permLower = perm.toLowerCase();
+                        if (topProtectionLevel.containsKey(permLower)) {
+                            Integer oldValue = topProtectionLevel.get(permLower);
+                            topProtectionLevel.put(permLower, ++oldValue);
                         } else {
-                            topProtectionLevel.put(perm, 1);
+                            topProtectionLevel.put(permLower, 1);
                         }
                     }
 
