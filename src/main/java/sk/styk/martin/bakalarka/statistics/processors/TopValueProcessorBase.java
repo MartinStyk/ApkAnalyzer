@@ -26,11 +26,26 @@ public class TopValueProcessorBase<X> {
         maxInventary.put(name, new RecordPair<Number, X>(0, new ArrayList<X>()));
     }
 
-    public RecordPair<Number, X> processMaxExtreme(Enum name, long currentValue, X currentName) {
-        return processMaxExtreme(name.toString(), currentValue,currentName);
+    public RecordPair<Number, X> processMaxExtreme(Enum name, Integer currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMaxExtreme(name.toString(), currentValue.longValue(), currentName);
     }
 
-    public RecordPair<Number, X> processMaxExtreme(String name, long currentValue, X currentName) {
+    public RecordPair<Number, X> processMaxExtreme(String name, Integer currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMaxExtreme(name, currentValue.longValue(), currentName);
+    }
+
+    public RecordPair<Number, X> processMaxExtreme(Enum name, Long currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMaxExtreme(name.toString(), currentValue, currentName);
+    }
+
+    public RecordPair<Number, X> processMaxExtreme(String name, Long currentValue, X currentName) {
+
+        if (currentValue == null)
+            return null;
+
         RecordPair currentRecordPair = maxInventary.get(name);
 
         if (currentRecordPair == null)
@@ -43,7 +58,7 @@ public class TopValueProcessorBase<X> {
             oldList.clear();
             oldList.add(currentName);
             currentRecordPair.setNumber(currentValue);
-        } else if( currentValue == oldMax){
+        } else if (currentValue == oldMax) {
             oldList.add(currentName);
         }
 
@@ -64,8 +79,19 @@ public class TopValueProcessorBase<X> {
         minInventary.put(name, new RecordPair<Number, X>(0, new ArrayList<X>()));
     }
 
-    public RecordPair<Number, X> processMinExtreme(Enum name, long currentValue, X currentName) {
-        return processMinExtreme(name.toString(), currentValue,currentName);
+    public RecordPair<Number, X> processMinExtreme(Enum name, Integer currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMinExtreme(name.toString(), currentValue.longValue(), currentName);
+    }
+
+    public RecordPair<Number, X> processMinExtreme(String name, Integer currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMinExtreme(name, currentValue.longValue(), currentName);
+    }
+
+    public RecordPair<Number, X> processMinExtreme(Enum name, Long currentValue, X currentName) {
+        if(currentValue == null) return null;
+        return processMinExtreme(name.toString(), currentValue, currentName);
     }
 
     public RecordPair<Number, X> processMinExtreme(String name, long currentValue, X currentName) {
@@ -81,7 +107,7 @@ public class TopValueProcessorBase<X> {
             oldList.clear();
             oldList.add(currentName);
             currentRecordPair.setNumber(currentValue);
-        } else if( currentValue == oldMin){
+        } else if (currentValue == oldMin) {
             oldList.add(currentName);
         }
 

@@ -66,12 +66,12 @@ public class PermissionsStatisticsProcessor extends TopListProcessorBase {
                 List<String> permissionsList = manifestData.getUsesPermissions();
 
                 if (permissionsList != null) {
-                    int listSize = permissionsList.size();
+                    Integer listSize = permissionsList.size();
                     permissionsNumbersList.add(new Double(listSize));
                     if (listSize != 0) {
                         permissionsNumbersListNonZero.add(new Double(listSize));
                     }
-                    permsRecordPair = processMaxExtreme("perms", listSize, data.getFileName());
+                    permsRecordPair = processMaxExtreme("perms", listSize.longValue(), data.getFileName());
 
                     for (String perm : permissionsList) {
                         if (topPermissions.containsKey(perm)) {
