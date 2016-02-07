@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import sk.styk.martin.bakalarka.analyze.data.AndroidManifestData;
 import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.statistics.data.DefinedPermissionsStatistics;
-import sk.styk.martin.bakalarka.statistics.data.PermissionsStatistics;
 import sk.styk.martin.bakalarka.utils.data.MathStatistics;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 import sk.styk.martin.bakalarka.utils.files.JsonUtils;
