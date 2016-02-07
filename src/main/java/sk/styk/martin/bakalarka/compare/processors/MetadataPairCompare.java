@@ -452,11 +452,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateSignAlgorithmSame(isSame);
-        if (!isSame) {
-            result.setCertificateSignAlgorithmDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateSignAlgorithmSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareCertificateStartDate() {
@@ -466,11 +462,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateStartDateSame(isSame);
-        if (!isSame) {
-            result.setCertificateStartDateDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateStartDateSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareCertificateEndDate() {
@@ -480,11 +472,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateEndDateSame(isSame);
-        if (!isSame) {
-            result.setCertificateEndDateDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateEndDateSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareCertificatePublicKey() {
@@ -516,11 +504,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateVersionSame(isSame);
-        if (!isSame) {
-            result.setCertificateVersionDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateVersionSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareCertificateIssuer() {
@@ -530,11 +514,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateIssuerNameSame(isSame);
-        if (!isSame) {
-            result.setCertificateIssuerNameDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateIssuerNameSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareCertificateSubject() {
@@ -544,11 +524,7 @@ public class MetadataPairCompare {
         if (valueA == null || valueB == null)
             return;
 
-        boolean isSame = valueA.equals(valueB);
-        result.setCertificateSubjectNameSame(isSame);
-        if (!isSame) {
-            result.setCertificateSubjectNameDifference(getDifferenceString(valueA, valueB));
-        }
+        result.setCertificateSubjectNameSame(new AttributeComparisonResult(valueA, valueB));
     }
 
     private void compareLocales() {

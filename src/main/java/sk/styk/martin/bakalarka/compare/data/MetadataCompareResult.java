@@ -82,27 +82,21 @@ public class MetadataCompareResult {
 
 
     //certificate
-    private Boolean isCertificateSignAlgorithmSame;
-    private String certificateSignAlgorithmDifference;
+    private AttributeComparisonResult certificateSignAlgorithmSame;
 
-    private Boolean isCertificateStartDateSame;
-    private String certificateStartDateDifference;
+    private AttributeComparisonResult certificateStartDateSame;
 
-    private Boolean isCertificateEndDateSame;
-    private String certificateEndDateDifference;
+    private AttributeComparisonResult certificateEndDateSame;
 
     private Boolean isCertificatePublicKeySame;
 
     private Boolean isCertificateSame;
 
-    private Boolean isCertificateVersionSame;
-    private String certificateVersionDifference;
+    private AttributeComparisonResult certificateVersionSame;
 
-    private Boolean isCertificateIssuerNameSame;
-    private String certificateIssuerNameDifference;
+    private AttributeComparisonResult certificateIssuerNameSame;
 
-    private Boolean isCertificateSubjectNameSame;
-    private String certificateSubjectNameDifference;
+    private AttributeComparisonResult certificateSubjectNameSame;
 
 
     //resources
@@ -213,6 +207,70 @@ public class MetadataCompareResult {
 
     public void setUsesTargetSdkVersion(AttributeComparisonResult usesTargetSdkVersion) {
         this.usesTargetSdkVersion = usesTargetSdkVersion;
+    }
+
+    public AttributeComparisonResult getCertificateSignAlgorithmSame() {
+        return certificateSignAlgorithmSame;
+    }
+
+    public void setCertificateSignAlgorithmSame(AttributeComparisonResult certificateSignAlgorithmSame) {
+        this.certificateSignAlgorithmSame = certificateSignAlgorithmSame;
+    }
+
+    public AttributeComparisonResult getCertificateStartDateSame() {
+        return certificateStartDateSame;
+    }
+
+    public void setCertificateStartDateSame(AttributeComparisonResult certificateStartDateSame) {
+        this.certificateStartDateSame = certificateStartDateSame;
+    }
+
+    public AttributeComparisonResult getCertificateEndDateSame() {
+        return certificateEndDateSame;
+    }
+
+    public void setCertificateEndDateSame(AttributeComparisonResult certificateEndDateSame) {
+        this.certificateEndDateSame = certificateEndDateSame;
+    }
+
+    public Boolean getCertificatePublicKeySame() {
+        return isCertificatePublicKeySame;
+    }
+
+    public void setCertificatePublicKeySame(Boolean isCertificatePublicKeySame) {
+        this.isCertificatePublicKeySame = isCertificatePublicKeySame;
+    }
+
+    public Boolean getCertificateSame() {
+        return isCertificateSame;
+    }
+
+    public void setCertificateSame(Boolean isCertificateSame) {
+        this.isCertificateSame = isCertificateSame;
+    }
+
+    public AttributeComparisonResult getCertificateVersionSame() {
+        return certificateVersionSame;
+    }
+
+    public void setCertificateVersionSame(AttributeComparisonResult certificateVersionSame) {
+        this.certificateVersionSame = certificateVersionSame;
+    }
+
+    public AttributeComparisonResult getCertificateIssuerNameSame() {
+        return certificateIssuerNameSame;
+    }
+
+    public void setCertificateIssuerNameSame(AttributeComparisonResult certificateIssuerNameSame) {
+        this.certificateIssuerNameSame = certificateIssuerNameSame;
+    }
+
+    public AttributeComparisonResult getCertificateSubjectNameSame() {
+        return certificateSubjectNameSame;
+    }
+
+    public void setCertificateSubjectNameSame(AttributeComparisonResult certificateSubjectNameSame) {
+        this.certificateSubjectNameSame = certificateSubjectNameSame;
     }
 
     public AttributeComparisonResult getUsesMaxSdkVersion() {
@@ -439,117 +497,7 @@ public class MetadataCompareResult {
         this.additionalFeaturesInB = additionalFeaturesInB;
     }
 
-    public Boolean getCertificateSignAlgorithmSame() {
-        return isCertificateSignAlgorithmSame;
-    }
 
-    public void setCertificateSignAlgorithmSame(Boolean certificateSignAlgorithmSame) {
-        isCertificateSignAlgorithmSame = certificateSignAlgorithmSame;
-    }
-
-    public String getCertificateSignAlgorithmDifference() {
-        return certificateSignAlgorithmDifference;
-    }
-
-    public void setCertificateSignAlgorithmDifference(String certificateSignAlgorithmDifference) {
-        this.certificateSignAlgorithmDifference = certificateSignAlgorithmDifference;
-    }
-
-    public Boolean getCertificateStartDateSame() {
-        return isCertificateStartDateSame;
-    }
-
-    public void setCertificateStartDateSame(Boolean certificateStartDateSame) {
-        isCertificateStartDateSame = certificateStartDateSame;
-    }
-
-    public String getCertificateStartDateDifference() {
-        return certificateStartDateDifference;
-    }
-
-    public void setCertificateStartDateDifference(String certificateStartDateDifference) {
-        this.certificateStartDateDifference = certificateStartDateDifference;
-    }
-
-    public Boolean getCertificateEndDateSame() {
-        return isCertificateEndDateSame;
-    }
-
-    public void setCertificateEndDateSame(Boolean certificateEndDateSame) {
-        isCertificateEndDateSame = certificateEndDateSame;
-    }
-
-    public String getCertificateEndDateDifference() {
-        return certificateEndDateDifference;
-    }
-
-    public void setCertificateEndDateDifference(String certificateEndDateDifference) {
-        this.certificateEndDateDifference = certificateEndDateDifference;
-    }
-
-    public Boolean getCertificatePublicKeySame() {
-        return isCertificatePublicKeySame;
-    }
-
-    public void setCertificatePublicKeySame(Boolean certificatePublicKeySame) {
-        isCertificatePublicKeySame = certificatePublicKeySame;
-    }
-
-    public Boolean getCertificateSame() {
-        return isCertificateSame;
-    }
-
-    public void setCertificateSame(Boolean certificateSame) {
-        isCertificateSame = certificateSame;
-    }
-
-    public Boolean getCertificateVersionSame() {
-        return isCertificateVersionSame;
-    }
-
-    public void setCertificateVersionSame(Boolean certificateVersionSame) {
-        isCertificateVersionSame = certificateVersionSame;
-    }
-
-    public String getCertificateVersionDifference() {
-        return certificateVersionDifference;
-    }
-
-    public void setCertificateVersionDifference(String certificateVersionDifference) {
-        this.certificateVersionDifference = certificateVersionDifference;
-    }
-
-    public Boolean getCertificateIssuerNameSame() {
-        return isCertificateIssuerNameSame;
-    }
-
-    public void setCertificateIssuerNameSame(Boolean certificateIssuerNameSame) {
-        isCertificateIssuerNameSame = certificateIssuerNameSame;
-    }
-
-    public String getCertificateIssuerNameDifference() {
-        return certificateIssuerNameDifference;
-    }
-
-    public void setCertificateIssuerNameDifference(String certificateIssuerNameDifference) {
-        this.certificateIssuerNameDifference = certificateIssuerNameDifference;
-    }
-
-    public Boolean getCertificateSubjectNameSame() {
-        return isCertificateSubjectNameSame;
-    }
-
-    public void setCertificateSubjectNameSame(Boolean certificateSubjectNameSame) {
-        isCertificateSubjectNameSame = certificateSubjectNameSame;
-    }
-
-    public String getCertificateSubjectNameDifference() {
-        return certificateSubjectNameDifference;
-    }
-
-    public void setCertificateSubjectNameDifference(String certificateSubjectNameDifference) {
-        this.certificateSubjectNameDifference = certificateSubjectNameDifference;
-    }
 
     public PercentagePair getNumberOfLocalesDifference() {
         return numberOfLocalesDifference;
@@ -842,33 +790,21 @@ public class MetadataCompareResult {
             return false;
         if (additionalDefinedPermissionsInB != null ? !additionalDefinedPermissionsInB.equals(result.additionalDefinedPermissionsInB) : result.additionalDefinedPermissionsInB != null)
             return false;
-        if (isCertificateSignAlgorithmSame != null ? !isCertificateSignAlgorithmSame.equals(result.isCertificateSignAlgorithmSame) : result.isCertificateSignAlgorithmSame != null)
+        if (certificateSignAlgorithmSame != null ? !certificateSignAlgorithmSame.equals(result.certificateSignAlgorithmSame) : result.certificateSignAlgorithmSame != null)
             return false;
-        if (certificateSignAlgorithmDifference != null ? !certificateSignAlgorithmDifference.equals(result.certificateSignAlgorithmDifference) : result.certificateSignAlgorithmDifference != null)
+        if (certificateStartDateSame != null ? !certificateStartDateSame.equals(result.certificateStartDateSame) : result.certificateStartDateSame != null)
             return false;
-        if (isCertificateStartDateSame != null ? !isCertificateStartDateSame.equals(result.isCertificateStartDateSame) : result.isCertificateStartDateSame != null)
-            return false;
-        if (certificateStartDateDifference != null ? !certificateStartDateDifference.equals(result.certificateStartDateDifference) : result.certificateStartDateDifference != null)
-            return false;
-        if (isCertificateEndDateSame != null ? !isCertificateEndDateSame.equals(result.isCertificateEndDateSame) : result.isCertificateEndDateSame != null)
-            return false;
-        if (certificateEndDateDifference != null ? !certificateEndDateDifference.equals(result.certificateEndDateDifference) : result.certificateEndDateDifference != null)
+        if (certificateEndDateSame != null ? !certificateEndDateSame.equals(result.certificateEndDateSame) : result.certificateEndDateSame != null)
             return false;
         if (isCertificatePublicKeySame != null ? !isCertificatePublicKeySame.equals(result.isCertificatePublicKeySame) : result.isCertificatePublicKeySame != null)
             return false;
         if (isCertificateSame != null ? !isCertificateSame.equals(result.isCertificateSame) : result.isCertificateSame != null)
             return false;
-        if (isCertificateVersionSame != null ? !isCertificateVersionSame.equals(result.isCertificateVersionSame) : result.isCertificateVersionSame != null)
+        if (certificateVersionSame != null ? !certificateVersionSame.equals(result.certificateVersionSame) : result.certificateVersionSame != null)
             return false;
-        if (certificateVersionDifference != null ? !certificateVersionDifference.equals(result.certificateVersionDifference) : result.certificateVersionDifference != null)
+        if (certificateIssuerNameSame != null ? !certificateIssuerNameSame.equals(result.certificateIssuerNameSame) : result.certificateIssuerNameSame != null)
             return false;
-        if (isCertificateIssuerNameSame != null ? !isCertificateIssuerNameSame.equals(result.isCertificateIssuerNameSame) : result.isCertificateIssuerNameSame != null)
-            return false;
-        if (certificateIssuerNameDifference != null ? !certificateIssuerNameDifference.equals(result.certificateIssuerNameDifference) : result.certificateIssuerNameDifference != null)
-            return false;
-        if (isCertificateSubjectNameSame != null ? !isCertificateSubjectNameSame.equals(result.isCertificateSubjectNameSame) : result.isCertificateSubjectNameSame != null)
-            return false;
-        if (certificateSubjectNameDifference != null ? !certificateSubjectNameDifference.equals(result.certificateSubjectNameDifference) : result.certificateSubjectNameDifference != null)
+        if (certificateSubjectNameSame != null ? !certificateSubjectNameSame.equals(result.certificateSubjectNameSame) : result.certificateSubjectNameSame != null)
             return false;
         if (numberOfLocalesDifference != null ? !numberOfLocalesDifference.equals(result.numberOfLocalesDifference) : result.numberOfLocalesDifference != null)
             return false;
@@ -959,20 +895,14 @@ public class MetadataCompareResult {
         result = 31 * result + (numberOfDefinedPermissionsDifference != null ? numberOfDefinedPermissionsDifference.hashCode() : 0);
         result = 31 * result + (additionalDefinedPermissionsInA != null ? additionalDefinedPermissionsInA.hashCode() : 0);
         result = 31 * result + (additionalDefinedPermissionsInB != null ? additionalDefinedPermissionsInB.hashCode() : 0);
-        result = 31 * result + (isCertificateSignAlgorithmSame != null ? isCertificateSignAlgorithmSame.hashCode() : 0);
-        result = 31 * result + (certificateSignAlgorithmDifference != null ? certificateSignAlgorithmDifference.hashCode() : 0);
-        result = 31 * result + (isCertificateStartDateSame != null ? isCertificateStartDateSame.hashCode() : 0);
-        result = 31 * result + (certificateStartDateDifference != null ? certificateStartDateDifference.hashCode() : 0);
-        result = 31 * result + (isCertificateEndDateSame != null ? isCertificateEndDateSame.hashCode() : 0);
-        result = 31 * result + (certificateEndDateDifference != null ? certificateEndDateDifference.hashCode() : 0);
+        result = 31 * result + (certificateSignAlgorithmSame != null ? certificateSignAlgorithmSame.hashCode() : 0);
+        result = 31 * result + (certificateStartDateSame != null ? certificateStartDateSame.hashCode() : 0);
+        result = 31 * result + (certificateEndDateSame != null ? certificateEndDateSame.hashCode() : 0);
         result = 31 * result + (isCertificatePublicKeySame != null ? isCertificatePublicKeySame.hashCode() : 0);
         result = 31 * result + (isCertificateSame != null ? isCertificateSame.hashCode() : 0);
-        result = 31 * result + (isCertificateVersionSame != null ? isCertificateVersionSame.hashCode() : 0);
-        result = 31 * result + (certificateVersionDifference != null ? certificateVersionDifference.hashCode() : 0);
-        result = 31 * result + (isCertificateIssuerNameSame != null ? isCertificateIssuerNameSame.hashCode() : 0);
-        result = 31 * result + (certificateIssuerNameDifference != null ? certificateIssuerNameDifference.hashCode() : 0);
-        result = 31 * result + (isCertificateSubjectNameSame != null ? isCertificateSubjectNameSame.hashCode() : 0);
-        result = 31 * result + (certificateSubjectNameDifference != null ? certificateSubjectNameDifference.hashCode() : 0);
+        result = 31 * result + (certificateVersionSame != null ? certificateVersionSame.hashCode() : 0);
+        result = 31 * result + (certificateIssuerNameSame != null ? certificateIssuerNameSame.hashCode() : 0);
+        result = 31 * result + (certificateSubjectNameSame != null ? certificateSubjectNameSame.hashCode() : 0);
         result = 31 * result + (numberOfLocalesDifference != null ? numberOfLocalesDifference.hashCode() : 0);
         result = 31 * result + (additionalLocalesInA != null ? additionalLocalesInA.hashCode() : 0);
         result = 31 * result + (additionalLocalesInB != null ? additionalLocalesInB.hashCode() : 0);
@@ -1041,20 +971,14 @@ public class MetadataCompareResult {
                 ", numberOfDefinedPermissionsDifference=" + numberOfDefinedPermissionsDifference +
                 ", additionalDefinedPermissionsInA=" + additionalDefinedPermissionsInA +
                 ", additionalDefinedPermissionsInB=" + additionalDefinedPermissionsInB +
-                ", isCertificateSignAlgorithmSame=" + isCertificateSignAlgorithmSame +
-                ", certificateSignAlgorithmDifference='" + certificateSignAlgorithmDifference + '\'' +
-                ", isCertificateStartDateSame=" + isCertificateStartDateSame +
-                ", certificateStartDateDifference='" + certificateStartDateDifference + '\'' +
-                ", isCertificateEndDateSame=" + isCertificateEndDateSame +
-                ", certificateEndDateDifference='" + certificateEndDateDifference + '\'' +
-                ", isCertificatePublicKeySame=" + isCertificatePublicKeySame +
-                ", isCertificateSame=" + isCertificateSame +
-                ", isCertificateVersionSame=" + isCertificateVersionSame +
-                ", certificateVersionDifference='" + certificateVersionDifference + '\'' +
-                ", isCertificateIssuerNameSame=" + isCertificateIssuerNameSame +
-                ", certificateIssuerNameDifference='" + certificateIssuerNameDifference + '\'' +
-                ", isCertificateSubjectNameSame=" + isCertificateSubjectNameSame +
-                ", certificateSubjectNameDifference='" + certificateSubjectNameDifference + '\'' +
+                ", certificateSignAlgorithmSame=" + certificateSignAlgorithmSame +
+                ", certificateStartDateSame=" + certificateStartDateSame +
+                ", certificateEndDateSame=" + certificateEndDateSame +
+                ", certificatePublicKeySame=" + isCertificatePublicKeySame +
+                ", certificateSame=" + isCertificateSame +
+                ", certificateVersionSame=" + certificateVersionSame +
+                ", certificateIssuerNameSame=" + certificateIssuerNameSame +
+                ", certificateSubjectNameSame=" + certificateSubjectNameSame +
                 ", numberOfLocalesDifference=" + numberOfLocalesDifference +
                 ", additionalLocalesInA=" + additionalLocalesInA +
                 ", additionalLocalesInB=" + additionalLocalesInB +
