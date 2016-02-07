@@ -36,6 +36,7 @@ public class Main {
         //compareTwo();
         //compareAll();
         computeStats();
+        //collectData();
         final long endTime = System.currentTimeMillis();
 
         Date date = new Date(endTime - startTime);
@@ -166,6 +167,61 @@ public class Main {
 //
 //
 //        }
+//    }
+//
+//    public static void collectData() {
+//        //possible input from user
+////        final String ANALYZED_APK = "D:\\APK\\";
+////        final String OUTPUT_DIR = "D:\\APK\\metadata";
+//
+//        final String ANALYZED_APK = "D:\\APK\\";
+//        final String OUTPUT_DIR = "D:\\APK\\metadata\\";
+//
+//
+//        FileFinder ff = new FileFinder(new File(ANALYZED_APK));
+//        List<ApkFile> apks = ff.getApkFilesInDirectories();
+//
+//        FileFinder ffjson = new FileFinder(new File(OUTPUT_DIR));
+//        List<File> jsons = ffjson.getJsonFilesInDirectories();
+//
+//        for (ApkFile apk : apks) {
+//            File correctJson = loadFromJson(apk, jsons);
+//            ApkData apkData = JsonUtils.fromJson(correctJson);
+//            boolean change = false;
+//            if (apkData != null) {
+//                if (apkData.getResourceData() != null && apkData.getResourceData().getTvdpiDrawables() != null) {
+//                    ResourceProcessor.getInstance(apkData, apk).processResources();
+//                    change = true;
+//                }
+//                if (apkData.getAndroidManifest() != null && apkData.getAndroidManifest().getPermissionsProtectionLevel() != null) {
+//                    AndroidManifestProcessor.getInstance(apkData, apk).processAndroidManifest();
+//                    change = true;
+//                }
+//                if (change) {
+//                    JsonUtils.toJsonFile(apkData, correctJson);
+//
+//                    try {
+//                        apk.getApkWorkingDirectoryManager().deleteApkWorkingDirectory();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    public static File loadFromJson(ApkFile apk, List<File> jsons) {
+//        String apkName = apk.getName();
+//        String jsonName = apkName.substring(0, apkName.length() - 3) + "json";
+//
+//        File correctJson = null;
+//        for (File j : jsons) {
+//            if (j.getName().equals(jsonName)) {
+//                correctJson = j;
+//                break;
+//            }
+//        }
+//        return correctJson;
 //    }
 }
 
