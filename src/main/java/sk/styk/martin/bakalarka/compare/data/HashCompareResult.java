@@ -1,6 +1,7 @@
 package sk.styk.martin.bakalarka.compare.data;
 
-import java.math.BigDecimal;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
+
 import java.util.List;
 
 /**
@@ -18,14 +19,9 @@ public class HashCompareResult {
     private Integer totalOthersA;
     private Integer totalOthersB;
 
-
-    private Integer identicalDrawables;
-    private Integer identicalLayouts;
-    private Integer identicalOthers;
-
-    private BigDecimal identicalDrawablesRatio;
-    private BigDecimal identicalLayoutsRatio;
-    private BigDecimal identicalOthersRatio;
+    private PercentagePair identicalDrawables;
+    private PercentagePair identicalLayouts;
+    private PercentagePair identicalOthers;
 
     private List<String> modifiedDrawableFiles;
     private List<String> modifiedLayoutFiles;
@@ -40,32 +36,28 @@ public class HashCompareResult {
     private List<String> additionalOtherFilesA;
     private List<String> additionalOtherFilesB;
 
-    public Integer getIdenticalDrawables() {
+    public PercentagePair getIdenticalDrawables() {
         return identicalDrawables;
     }
 
-    public void setIdenticalDrawables(Integer identicalDrawables) {
+    public void setIdenticalDrawables(PercentagePair identicalDrawables) {
         this.identicalDrawables = identicalDrawables;
     }
 
-    public Integer getIdenticalLayouts() {
+    public PercentagePair getIdenticalLayouts() {
         return identicalLayouts;
     }
 
-    public void setIdenticalLayouts(Integer identicalLayouts) {
+    public void setIdenticalLayouts(PercentagePair identicalLayouts) {
         this.identicalLayouts = identicalLayouts;
     }
 
-    public Integer getIdenticalOthers() {
+    public PercentagePair getIdenticalOthers() {
         return identicalOthers;
     }
 
-    public void setIdenticalOthers(Integer identicalOthers) {
+    public void setIdenticalOthers(PercentagePair identicalOthers) {
         this.identicalOthers = identicalOthers;
-    }
-
-    public Integer getIdenticalFiles() {
-        return identicalDrawables + identicalLayouts + identicalOthers;
     }
 
     public Integer getTotalFilesA() {
@@ -171,30 +163,46 @@ public class HashCompareResult {
     public void setAdditionaLayoutFilesB(List<String> additionaLayoutFilesB) {
         this.additionaLayoutFilesB = additionaLayoutFilesB;
     }
-
-    public BigDecimal getIdenticalDrawablesRatio() {
-        return identicalDrawablesRatio;
+    public List<String> getAdditionalOtherFilesA() {
+        return additionalOtherFilesA;
     }
 
-    public void setIdenticalDrawablesRatio(BigDecimal identicalDrawablesRatio) {
-        this.identicalDrawablesRatio = identicalDrawablesRatio;
+    public void setAdditionalOtherFilesA(List<String> additionalOtherFilesA) {
+        this.additionalOtherFilesA = additionalOtherFilesA;
     }
 
-    public BigDecimal getIdenticalLayoutsRatio() {
-        return identicalLayoutsRatio;
+    public List<String> getAdditionalOtherFilesB() {
+        return additionalOtherFilesB;
     }
 
-    public void setIdenticalLayoutsRatio(BigDecimal identicalLayoutsRatio) {
-        this.identicalLayoutsRatio = identicalLayoutsRatio;
+    public void setAdditionalOtherFilesB(List<String> additionalOtherFilesB) {
+        this.additionalOtherFilesB = additionalOtherFilesB;
+    }
+    public List<String> getModifiedDrawableFiles() {
+        return modifiedDrawableFiles;
     }
 
-    public BigDecimal getIdenticalOthersRatio() {
-        return identicalOthersRatio;
+    public void setModifiedDrawableFiles(List<String> modifiedDrawableFiles) {
+        this.modifiedDrawableFiles = modifiedDrawableFiles;
     }
 
-    public void setIdenticalOthersRatio(BigDecimal identicalOthersRatio) {
-        this.identicalOthersRatio = identicalOthersRatio;
+    public List<String> getModifiedLayoutFiles() {
+        return modifiedLayoutFiles;
     }
+
+    public void setModifiedLayoutFiles(List<String> modifiedLayoutFiles) {
+        this.modifiedLayoutFiles = modifiedLayoutFiles;
+    }
+
+    public List<String> getModifiedOtherFiles() {
+        return modifiedOtherFiles;
+    }
+
+    public void setModifiedOtherFiles(List<String> modifiedOtherFiles) {
+        this.modifiedOtherFiles = modifiedOtherFiles;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -221,12 +229,6 @@ public class HashCompareResult {
         if (identicalLayouts != null ? !identicalLayouts.equals(that.identicalLayouts) : that.identicalLayouts != null)
             return false;
         if (identicalOthers != null ? !identicalOthers.equals(that.identicalOthers) : that.identicalOthers != null)
-            return false;
-        if (identicalDrawablesRatio != null ? !identicalDrawablesRatio.equals(that.identicalDrawablesRatio) : that.identicalDrawablesRatio != null)
-            return false;
-        if (identicalLayoutsRatio != null ? !identicalLayoutsRatio.equals(that.identicalLayoutsRatio) : that.identicalLayoutsRatio != null)
-            return false;
-        if (identicalOthersRatio != null ? !identicalOthersRatio.equals(that.identicalOthersRatio) : that.identicalOthersRatio != null)
             return false;
         if (modifiedDrawableFiles != null ? !modifiedDrawableFiles.equals(that.modifiedDrawableFiles) : that.modifiedDrawableFiles != null)
             return false;
@@ -261,9 +263,6 @@ public class HashCompareResult {
         result = 31 * result + (identicalDrawables != null ? identicalDrawables.hashCode() : 0);
         result = 31 * result + (identicalLayouts != null ? identicalLayouts.hashCode() : 0);
         result = 31 * result + (identicalOthers != null ? identicalOthers.hashCode() : 0);
-        result = 31 * result + (identicalDrawablesRatio != null ? identicalDrawablesRatio.hashCode() : 0);
-        result = 31 * result + (identicalLayoutsRatio != null ? identicalLayoutsRatio.hashCode() : 0);
-        result = 31 * result + (identicalOthersRatio != null ? identicalOthersRatio.hashCode() : 0);
         result = 31 * result + (modifiedDrawableFiles != null ? modifiedDrawableFiles.hashCode() : 0);
         result = 31 * result + (modifiedLayoutFiles != null ? modifiedLayoutFiles.hashCode() : 0);
         result = 31 * result + (modifiedOtherFiles != null ? modifiedOtherFiles.hashCode() : 0);
@@ -274,22 +273,6 @@ public class HashCompareResult {
         result = 31 * result + (additionalOtherFilesA != null ? additionalOtherFilesA.hashCode() : 0);
         result = 31 * result + (additionalOtherFilesB != null ? additionalOtherFilesB.hashCode() : 0);
         return result;
-    }
-
-    public List<String> getAdditionalOtherFilesA() {
-        return additionalOtherFilesA;
-    }
-
-    public void setAdditionalOtherFilesA(List<String> additionalOtherFilesA) {
-        this.additionalOtherFilesA = additionalOtherFilesA;
-    }
-
-    public List<String> getAdditionalOtherFilesB() {
-        return additionalOtherFilesB;
-    }
-
-    public void setAdditionalOtherFilesB(List<String> additionalOtherFilesB) {
-        this.additionalOtherFilesB = additionalOtherFilesB;
     }
 
     @Override
@@ -306,9 +289,6 @@ public class HashCompareResult {
                 ", identicalDrawables=" + identicalDrawables +
                 ", identicalLayouts=" + identicalLayouts +
                 ", identicalOthers=" + identicalOthers +
-                ", identicalDrawablesRatio=" + identicalDrawablesRatio +
-                ", identicalLayoutsRatio=" + identicalLayoutsRatio +
-                ", identicalOthersRatio=" + identicalOthersRatio +
                 ", modifiedDrawableFiles=" + modifiedDrawableFiles +
                 ", modifiedLayoutFiles=" + modifiedLayoutFiles +
                 ", modifiedOtherFiles=" + modifiedOtherFiles +
@@ -320,29 +300,4 @@ public class HashCompareResult {
                 ", additionalOtherFilesB=" + additionalOtherFilesB +
                 '}';
     }
-
-    public List<String> getModifiedDrawableFiles() {
-        return modifiedDrawableFiles;
-    }
-
-    public void setModifiedDrawableFiles(List<String> modifiedDrawableFiles) {
-        this.modifiedDrawableFiles = modifiedDrawableFiles;
-    }
-
-    public List<String> getModifiedLayoutFiles() {
-        return modifiedLayoutFiles;
-    }
-
-    public void setModifiedLayoutFiles(List<String> modifiedLayoutFiles) {
-        this.modifiedLayoutFiles = modifiedLayoutFiles;
-    }
-
-    public List<String> getModifiedOtherFiles() {
-        return modifiedOtherFiles;
-    }
-
-    public void setModifiedOtherFiles(List<String> modifiedOtherFiles) {
-        this.modifiedOtherFiles = modifiedOtherFiles;
-    }
-
 }

@@ -73,9 +73,9 @@ public class SimilarityEvaluator {
 
         HashCompareResult hashCompareResult = comparisonResult.getHashCompareResult();
 
-        Boolean drawables = compareRatios(hashCompareResult.getIdenticalDrawablesRatio(), similarityThreshold.getMinIdenticalDrawablesInApkRatio(), true);
-        Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayoutsRatio(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
-        Boolean others = compareRatios(hashCompareResult.getIdenticalOthersRatio(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
+        Boolean drawables = compareRatios(hashCompareResult.getIdenticalDrawables(), similarityThreshold.getMinIdenticalDrawablesInApkRatio(), true);
+        Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayouts(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
+        Boolean others = compareRatios(hashCompareResult.getIdenticalOthers(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
 
         boolean result = evaluateBooleans(Arrays.asList(drawables, layouts, others), similarityThreshold.getMinBooleanEvaluationThreshold());
         comparisonResult.setSimilar(result);

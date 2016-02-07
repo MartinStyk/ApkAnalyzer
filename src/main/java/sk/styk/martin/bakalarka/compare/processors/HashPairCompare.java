@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.compare.processors;
 
 import sk.styk.martin.bakalarka.analyze.data.HashData;
 import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
+import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -103,13 +104,11 @@ public class HashPairCompare {
         result.setAdditionalDrawableFilesA(additionalInA);
         result.setAdditionalDrawableFilesB(additionalInB);
         result.setModifiedDrawableFiles(modified);
-        result.setIdenticalDrawables(mapA.keySet().size() - keysA.size());
         result.setTotalDrawablesA(mapA.keySet().size());
         result.setTotalDrawablesB(mapB.keySet().size());
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalDrawablesRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
-
+        result.setIdenticalDrawables(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
     }
 
     private void compareLayouts() {
@@ -153,12 +152,11 @@ public class HashPairCompare {
         result.setAdditionaLayoutFilesA(additionalInA);
         result.setAdditionaLayoutFilesB(additionalInB);
         result.setModifiedLayoutFiles(modified);
-        result.setIdenticalLayouts(mapA.keySet().size() - keysA.size());
         result.setTotalLayoutsA(mapA.keySet().size());
         result.setTotalLayoutsB(mapB.keySet().size());
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalLayoutsRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
+        result.setIdenticalLayouts(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
 
     }
 
@@ -203,13 +201,11 @@ public class HashPairCompare {
         result.setAdditionalOtherFilesA(additionalInA);
         result.setAdditionalOtherFilesB(additionalInB);
         result.setModifiedOtherFiles(modified);
-        result.setIdenticalOthers(mapA.keySet().size() - keysA.size());
         result.setTotalOthersA(mapA.keySet().size());
         result.setTotalOthersB(mapB.keySet().size());
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
-        result.setIdenticalOthersRatio(getPercentage(mapA.keySet().size() - keysA.size(), higher));
-
+        result.setIdenticalOthers(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
     }
 
     private void compare(Set<String> keysA, Set<String> keysB) {
