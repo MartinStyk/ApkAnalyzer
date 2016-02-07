@@ -15,9 +15,9 @@ import java.util.List;
 public class SimilarityEvaluator {
 
     private SimilarityThreshold similarityThreshold;
-    private Boolean basicEvaluateResult;
+    private SimilarityType basicEvaluateResult;
 
-    public boolean basicEvaluate(ComparisonResult comparisonResult) {
+    public SimilarityType basicEvaluate(ComparisonResult comparisonResult) {
 
         if (comparisonResult == null) {
             throw new IllegalArgumentException("comparisonResult is null");
@@ -26,8 +26,8 @@ public class SimilarityEvaluator {
         MetadataCompareResult metadataResult = comparisonResult.getMetadataCompareResult();
 
         if (metadataResult == null) {
-            comparisonResult.setSimilar(false);
-            return false;
+            comparisonResult.setSimilar(SimilarityType.NOT_SIMILAR);
+            return SimilarityType.NOT_SIMILAR;
         }
 
         if (similarityThreshold == null) {
@@ -42,27 +42,51 @@ public class SimilarityEvaluator {
         Boolean layout = compareRatios(metadataResult.getNumberOfDifferentLayoutsDifference(), similarityThreshold.getMaxDifferentLayoutsRatioDifference());
         Boolean drawable = compareRatios(metadataResult.getNumberOfDifferentDrawablesDifference(), similarityThreshold.getMaxDifferentDrawablesRatioDifference());
 
-        basicEvaluateResult = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable), similarityThreshold.getMinBooleanEvaluationThreshold());
+        boolean evaluateResult = evaluateBooleans(Arrays.asList(fileSize, activities, services, receivers, providers, layout, drawable), similarityThreshold.getMinBooleanEvaluationThreshold());
+        Boolean certificateEvaluate = metadataResult.getCertificateSame();
+        Boolean versionEvaluate = metadataResult.getVersionCode() == null ? null : metadataResult.getVersionCode().getSame();
 
+        if (evaluateResult == false) {
+            basicEvaluateResult = SimilarityType.NOT_SIMILAR;
+        } else if (certificateEvaluate == null && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (certificateEvaluate == null && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_SAME_VERSION;
+        } else if (certificateEvaluate == null && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_DIFFERENT_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_SAME_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_DIFFERENT_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_SAME_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_DIFFERENT_VERSION;
+        }
         comparisonResult.setSimilar(basicEvaluateResult);
-
         return basicEvaluateResult;
 
     }
 
 
-    public boolean fullEvaluate(ComparisonResult comparisonResult) {
+    public SimilarityType fullEvaluate(ComparisonResult comparisonResult) {
 
         if (comparisonResult == null) {
             throw new IllegalArgumentException("comparisonResult is null");
         }
-        if (basicEvaluateResult != null && basicEvaluateResult == false) {
-            return false;
+        if (basicEvaluateResult != null && basicEvaluateResult.equals(SimilarityType.NOT_SIMILAR)) {
+            comparisonResult.setSimilar(SimilarityType.NOT_SIMILAR);
+            return SimilarityType.NOT_SIMILAR;
         }
-        HashCompareResult compareResult = comparisonResult.getHashCompareResult();
 
-        if (compareResult == null) {
-            boolean isSimilar = basicEvaluateResult == null ? basicEvaluate(comparisonResult) : basicEvaluateResult;
+        HashCompareResult hashCompareResult = comparisonResult.getHashCompareResult();
+
+        if (hashCompareResult == null) {
+            SimilarityType isSimilar = basicEvaluateResult == null ? basicEvaluate(comparisonResult) : basicEvaluateResult;
             comparisonResult.setSimilar(isSimilar);
             return isSimilar;
         }
@@ -71,15 +95,41 @@ public class SimilarityEvaluator {
             similarityThreshold = new SimilarityThreshold();
         }
 
-        HashCompareResult hashCompareResult = comparisonResult.getHashCompareResult();
-
         Boolean drawables = compareRatios(hashCompareResult.getIdenticalDrawables(), similarityThreshold.getMinIdenticalDrawablesInApkRatio(), true);
         Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayouts(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
         Boolean others = compareRatios(hashCompareResult.getIdenticalOthers(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
 
         boolean result = evaluateBooleans(Arrays.asList(drawables, layouts, others), similarityThreshold.getMinBooleanEvaluationThreshold());
-        comparisonResult.setSimilar(result);
-        return result;
+        Boolean certificateEvaluate = comparisonResult.getMetadataCompareResult() == null ? null : comparisonResult.getMetadataCompareResult().getCertificateSame();
+        Boolean versionEvaluate = null;
+
+        if (comparisonResult.getMetadataCompareResult() != null && comparisonResult.getMetadataCompareResult().getVersionCode() != null) {
+            versionEvaluate = comparisonResult.getMetadataCompareResult().getVersionCode().getSame();
+        }
+
+        if (result == false) {
+            basicEvaluateResult = SimilarityType.NOT_SIMILAR;
+        } else if (certificateEvaluate == null && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (certificateEvaluate == null && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_SAME_VERSION;
+        } else if (certificateEvaluate == null && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_DIFFERENT_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_SAME_VERSION;
+        } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_DIFFERENT_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && versionEvaluate == null) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_UNDETERMINED_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_SAME_VERSION;
+        } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+            basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_DIFFERENT_VERSION;
+        }
+        comparisonResult.setSimilar(basicEvaluateResult);
+        return basicEvaluateResult;
     }
 
     private Boolean compareRatios(PercentagePair percentagePair, Integer threshold) {
@@ -116,7 +166,7 @@ public class SimilarityEvaluator {
 
         int allSize2 = allSize - nullSize;
 
-        return ((trueSize * 100) / allSize2) > threshold;
+        return allSize2 > 0 ? (((trueSize * 100) / allSize2) > threshold) : Boolean.valueOf(false);
 
     }
 

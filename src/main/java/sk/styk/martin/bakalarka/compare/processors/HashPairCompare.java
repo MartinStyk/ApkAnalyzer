@@ -34,8 +34,6 @@ public class HashPairCompare {
         }
         result = new HashCompareResult();
 
-
-        result.setDexIdentical(hashDataA.getDexHash().equals(hashDataB.getDexHash()));
         compareArsc();
         compareDex();
         compareDrawable();

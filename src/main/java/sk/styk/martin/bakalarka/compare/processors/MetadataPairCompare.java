@@ -58,11 +58,15 @@ public class MetadataPairCompare {
             compareServices();
             compareProviders();
             compareReceivers();
+            compareVersionCode();
         }
 
         if (apkDataA.getResourceData() != null && apkDataB.getResourceData() != null) {
             compareNumberOfDifferentDrawables();
             compareNumberOfDifferentLayoutResources();
+        }
+        if (apkDataA.getCertificateDatas().size() > 0 && apkDataB.getCertificateDatas().size() > 0) {
+            compareCertificate();
         }
 
         isBasicCompared = true;
@@ -78,7 +82,6 @@ public class MetadataPairCompare {
 
         if (apkDataB.getAndroidManifest() != null && apkDataA.getAndroidManifest() != null) {
             comparePackageName();
-            compareVersionCode();
             compareInstallLocation();
             compareUsedMinSdks();
             compareUsedMaxSdks();
@@ -100,7 +103,6 @@ public class MetadataPairCompare {
             compareCertificateStartDate();
             compareCertificateEndDate();
             compareCertificatePublicKey();
-            compareCertificate();
             compareCertificateVersion();
             compareCertificateIssuer();
             compareCertificateSubject();

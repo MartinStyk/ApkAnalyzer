@@ -1,5 +1,7 @@
 package sk.styk.martin.bakalarka.compare.data;
 
+import sk.styk.martin.bakalarka.compare.processors.SimilarityType;
+
 /**
  * Created by Martin Styk on 06.01.2016.
  */
@@ -7,7 +9,7 @@ public class ComparisonResult {
 
     private String nameA;
     private String nameB;
-    private Boolean isSimilar;
+    private SimilarityType similarityType;
     private HashCompareResult hashCompareResult;
     private MetadataCompareResult metadataCompareResult;
 
@@ -53,12 +55,12 @@ public class ComparisonResult {
         this.metadataCompareResult = metadataCompareResult;
     }
 
-    public Boolean getSimilar() {
-        return isSimilar;
+    public SimilarityType getSimilar() {
+        return similarityType;
     }
 
-    public void setSimilar(Boolean similar) {
-        isSimilar = similar;
+    public void setSimilar(SimilarityType similar) {
+        similarityType = similar;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class ComparisonResult {
         return "ComparisonResult{" +
                 "nameA='" + nameA + '\'' +
                 ", nameB='" + nameB + '\'' +
-                ", isSimilar=" + isSimilar +
+                ", similarityType=" + similarityType +
                 ", hashCompareResult=" + hashCompareResult +
                 ", metadataCompareResult=" + metadataCompareResult +
                 '}';
@@ -81,7 +83,7 @@ public class ComparisonResult {
 
         if (nameA != null ? !nameA.equals(that.nameA) : that.nameA != null) return false;
         if (nameB != null ? !nameB.equals(that.nameB) : that.nameB != null) return false;
-        if (isSimilar != null ? !isSimilar.equals(that.isSimilar) : that.isSimilar != null) return false;
+        if (similarityType != null ? !similarityType.equals(that.similarityType) : that.similarityType != null) return false;
         if (hashCompareResult != null ? !hashCompareResult.equals(that.hashCompareResult) : that.hashCompareResult != null)
             return false;
         return !(metadataCompareResult != null ? !metadataCompareResult.equals(that.metadataCompareResult) : that.metadataCompareResult != null);
@@ -92,7 +94,7 @@ public class ComparisonResult {
     public int hashCode() {
         int result = nameA != null ? nameA.hashCode() : 0;
         result = 31 * result + (nameB != null ? nameB.hashCode() : 0);
-        result = 31 * result + (isSimilar != null ? isSimilar.hashCode() : 0);
+        result = 31 * result + (similarityType != null ? similarityType.hashCode() : 0);
         result = 31 * result + (hashCompareResult != null ? hashCompareResult.hashCode() : 0);
         result = 31 * result + (metadataCompareResult != null ? metadataCompareResult.hashCode() : 0);
         return result;

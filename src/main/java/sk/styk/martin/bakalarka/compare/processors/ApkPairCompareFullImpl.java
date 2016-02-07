@@ -42,9 +42,9 @@ public class ApkPairCompareFullImpl implements ApkPairCompare {
         comparisonResult.setMetadataCompareResult(metadataComparator.fullCompare());
         comparisonResult.setHashCompareResult(hashComparator.hashCompare());
 
-        boolean isDetailedSimilar = similarityEvaluator.fullEvaluate(comparisonResult);
+        SimilarityType isDetailedSimilar = similarityEvaluator.fullEvaluate(comparisonResult);
 
-        logger.trace("Finished compare " + dataA.getFileName() + " and " + dataB.getFileName());
+        logger.trace("Finished compare " + dataA.getFileName() + " and " + dataB.getFileName() + " with result " + isDetailedSimilar);
 
         return comparisonResult;
     }

@@ -16,7 +16,7 @@ public class ApkDataCompareTask implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(ApkDataCompareTask.class);
     private ApkData apkDataA;
     private ApkData apkDataB;
-    private File outputDirectory;
+    private File outputDirectoryBase;
 
     public ApkDataCompareTask(ApkData apkDataA, ApkData apkDataB, File outputDirectory) {
         if (apkDataA == null) {
@@ -28,7 +28,7 @@ public class ApkDataCompareTask implements Runnable {
 
         this.apkDataA = apkDataA;
         this.apkDataB = apkDataB;
-        this.outputDirectory = outputDirectory;
+        this.outputDirectoryBase = outputDirectory;
     }
 
     public void run() {
@@ -36,24 +36,24 @@ public class ApkDataCompareTask implements Runnable {
 
         ApkPairCompare apkPairCompare = new ApkPairCompareSimilarImpl(apkDataA, apkDataB);
         ComparisonResult comparisonResult = apkPairCompare.compare();
-        Boolean similar = comparisonResult.getSimilar();
+        SimilarityType similar = comparisonResult.getSimilar();
 
-        if (similar == null || !similar) {
+        if (similar == null || similar.equals(SimilarityType.NOT_SIMILAR)) {
             logger.info("APK A :" + comparisonResult.getNameA() + " APK B : " + comparisonResult.getNameB() + " not similar");
         } else {
-            logger.info("APK A :" + comparisonResult.getNameA() + " APK B : " + comparisonResult.getNameB() + " SIMILAR");
+            logger.info("APK A :" + comparisonResult.getNameA() + " APK B : " + comparisonResult.getNameB() + " -> " + similar.toString());
+
             if (isWriteToFile()) {
-                JsonUtils.toJson(comparisonResult, outputDirectory);
+                JsonUtils.toJson(comparisonResult, new File(outputDirectoryBase, similar.toString()));
             } else {
                 logger.info(comparisonResult.toString());
             }
         }
 
-
         logger.trace("end " + apkDataA.getFileName() + " " + apkDataB.getFileName());
     }
 
     private boolean isWriteToFile() {
-        return outputDirectory != null;
+        return outputDirectoryBase != null;
     }
 }

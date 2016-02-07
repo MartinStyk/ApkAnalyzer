@@ -44,9 +44,9 @@ public class ApkPairCompareSimilarImpl implements ApkPairCompare {
         comparisonResult.setMetadataCompareResult(metadataComparator.basicCompare());
 
         //check whether they are similiar
-        boolean isBasicallySimilar = similarityEvaluator.basicEvaluate(comparisonResult);
+        SimilarityType isBasicallySimilar = similarityEvaluator.basicEvaluate(comparisonResult);
 
-        if (!isBasicallySimilar) { //if they are not similar dont continue
+        if (isBasicallySimilar == null || SimilarityType.NOT_SIMILAR.equals(isBasicallySimilar)) { //if they are not similar dont continue
             logger.trace("Basically not similar " + dataA.getFileName() + " and " + dataB.getFileName());
             return comparisonResult;
         }
@@ -55,9 +55,9 @@ public class ApkPairCompareSimilarImpl implements ApkPairCompare {
         comparisonResult.setMetadataCompareResult(metadataComparator.fullCompare());
         comparisonResult.setHashCompareResult(hashComparator.hashCompare());
 
-        boolean isDetailedSimilar = similarityEvaluator.fullEvaluate(comparisonResult);
+        SimilarityType isDetailedSimilar = similarityEvaluator.fullEvaluate(comparisonResult);
 
-        logger.trace("Finished compare " + dataA.getFileName() + " and " + dataB.getFileName());
+        logger.trace("Finished compare " + dataA.getFileName() + " and " + dataB.getFileName() + "with result" + isDetailedSimilar);
 
         return comparisonResult;
     }
