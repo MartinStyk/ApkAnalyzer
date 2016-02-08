@@ -34,7 +34,7 @@ public class ApkBatchCompare {
     public void processFiles(File outputDirectory) {
 
         int numberOfProcessors = Runtime.getRuntime().availableProcessors();
-        ExecutorService pool = Executors.newFixedThreadPool(1);
+        ExecutorService pool = Executors.newFixedThreadPool(numberOfProcessors);
 
         int jsonsSize = jsons.size();
 
