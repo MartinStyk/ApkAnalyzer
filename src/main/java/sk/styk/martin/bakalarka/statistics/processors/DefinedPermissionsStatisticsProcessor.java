@@ -54,7 +54,7 @@ public class DefinedPermissionsStatisticsProcessor extends TopListProcessorBase 
             }
 
             File f = jsons.get(i);
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             AndroidManifestData manifestData = null;
 
 

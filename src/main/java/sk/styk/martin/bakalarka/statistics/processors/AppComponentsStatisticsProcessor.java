@@ -68,7 +68,7 @@ public class AppComponentsStatisticsProcessor extends TopValueProcessorBase {
             File f = jsons.get(i);
             logger.trace("Processing " + f.getName());
 
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             AndroidManifestData manifestData = null;
 
             if (data != null && data.getAndroidManifest() != null) {

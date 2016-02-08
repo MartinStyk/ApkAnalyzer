@@ -40,10 +40,10 @@ public class ApkBatchCompare {
 
         for (int i = 0; i < jsonsSize - 1; i++) {
 
-            ApkData apkDataA = JsonUtils.fromJson(jsons.get(i));
+            ApkData apkDataA = JsonUtils.fromJson(jsons.get(i), ApkData.class);
 
             for (int j = i + 1; j < jsonsSize; j++) {
-                ApkData apkDataB = JsonUtils.fromJson(jsons.get(j));
+                ApkData apkDataB = JsonUtils.fromJson(jsons.get(j), ApkData.class);
                 try {
                     pool.submit(new ApkDataCompareTask(apkDataA, apkDataB, outputDirectory));
                 } catch (Exception e) {

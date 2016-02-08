@@ -1,13 +1,16 @@
 package sk.styk.martin.bakalarka;
 
 import sk.styk.martin.bakalarka.analyze.processors.ApkProcessor;
+import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 import sk.styk.martin.bakalarka.compare.processors.ApkBatchCompare;
 import sk.styk.martin.bakalarka.statistics.data.OverallStatistics;
 import sk.styk.martin.bakalarka.statistics.processors.StatisticsProcessor;
 import sk.styk.martin.bakalarka.utils.files.ApkFile;
 import sk.styk.martin.bakalarka.utils.files.FileFinder;
+import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -35,8 +38,9 @@ public class Main {
         //analyze();
         //compareTwo();
         //compareAll();
-        computeStats();
+        //computeStats();
         //collectData();
+        organizeToFolders();
         final long endTime = System.currentTimeMillis();
 
         Date date = new Date(endTime - startTime);
@@ -223,5 +227,63 @@ public class Main {
 //        }
 //        return correctJson;
 //    }
+
+    private static void organizeToFolders() {
+        final String ORIGIN_DIR = "home/mstyk/bakalarka/compareOutput";
+        final String NEW_DIR = "home/mstyk/bakalarka/compareOutput1";
+
+//        final String ORIGIN_DIR = "D:\\output\\test";
+//        final String NEW_DIR = "D:\\output\\test1";
+
+        FileFinder ff = new FileFinder(new File(ORIGIN_DIR));
+        List<File> jsons = ff.getJsonFilesInDirectories();
+
+        for (File current : jsons) {
+            ComparisonResult r = JsonUtils.fromJson(current, ComparisonResult.class);
+            SimilarityType basicEvaluateResult = null;
+            if (r != null && r.getMetadataCompareResult() != null) {
+                Boolean certificateEvaluate = r.getMetadataCompareResult().getCertificateSame();
+                Boolean versionEvaluate = r.getMetadataCompareResult().getVersionCode() == null ? null : r.getMetadataCompareResult().getVersionCode().getSame();
+
+                if (certificateEvaluate == null && versionEvaluate == null) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_UNDETERMINED_VERSION;
+                } else if (certificateEvaluate == null && Boolean.TRUE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_SAME_VERSION;
+                } else if (certificateEvaluate == null && Boolean.FALSE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_UNDETERMINED_CERTIFICATE_DIFFERENT_VERSION;
+                } else if (Boolean.TRUE.equals(certificateEvaluate) && versionEvaluate == null) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_UNDETERMINED_VERSION;
+                } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_SAME_VERSION;
+                } else if (Boolean.TRUE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_SAME_CERTIFICATE_DIFFERENT_VERSION;
+                } else if (Boolean.FALSE.equals(certificateEvaluate) && versionEvaluate == null) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_UNDETERMINED_VERSION;
+                } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.TRUE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_SAME_VERSION;
+                } else if (Boolean.FALSE.equals(certificateEvaluate) && Boolean.FALSE.equals(versionEvaluate)) {
+                    basicEvaluateResult = SimilarityType.SIMILAR_DIFFERENT_CERTIFICATE_DIFFERENT_VERSION;
+                }
+
+                //move to folder
+                current.renameTo(new File("/home/mstyk/bakalarka/compareOutput1/" + basicEvaluateResult.toString() + "/" + current.getName()));
+//                current.renameTo(new File( NEW_DIR + "\\" + basicEvaluateResult.toString() + "\\" + current.getName()));
+            }
+        }
+
+    }
+
+    private enum SimilarityType {
+        NOT_SIMILAR,
+        SIMILAR_SAME_CERTIFICATE_SAME_VERSION,
+        SIMILAR_SAME_CERTIFICATE_DIFFERENT_VERSION,
+        SIMILAR_SAME_CERTIFICATE_UNDETERMINED_VERSION,
+        SIMILAR_DIFFERENT_CERTIFICATE_SAME_VERSION,
+        SIMILAR_DIFFERENT_CERTIFICATE_DIFFERENT_VERSION,
+        SIMILAR_DIFFERENT_CERTIFICATE_UNDETERMINED_VERSION,
+        SIMILAR_UNDETERMINED_CERTIFICATE_SAME_VERSION,
+        SIMILAR_UNDETERMINED_CERTIFICATE_DIFFERENT_VERSION,
+        SIMILAR_UNDETERMINED_CERTIFICATE_UNDETERMINED_VERSION
+    }
 }
 

@@ -52,7 +52,7 @@ public class CertificateStatisticsProcessor extends TopListProcessorBase {
             }
 
             File f = jsons.get(i);
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             List<CertificateData> certificateData = null;
 
 

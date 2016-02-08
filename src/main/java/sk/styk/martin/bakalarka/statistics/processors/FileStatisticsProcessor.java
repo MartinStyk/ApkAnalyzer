@@ -70,7 +70,7 @@ public class FileStatisticsProcessor extends TopValueProcessorBase {
             }
 
             File f = jsons.get(i);
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             HashData hashData = null;
 
 

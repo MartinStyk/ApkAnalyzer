@@ -83,47 +83,7 @@ public class JsonUtils {
         }
     }
 
-    public static ApkData fromJson(File jsonFile) {
-
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .disableHtmlEscaping()
-                .create();
-
-        ApkData obj = null;
-        BufferedReader br = null;
-        FileReader fr = null;
-        try {
-            fr = new FileReader(jsonFile);
-            br = new BufferedReader(fr);
-
-            obj = gson.fromJson(br, ApkData.class);
-
-            logger.trace(obj.toString());
-
-        } catch (IOException e) {
-            logger.error("Error reading file from " + jsonFile.getName());
-        } finally {
-            if (fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    logger.error("Error closing FileReader : " + e.toString());
-                }
-            }
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    logger.error("Error closing BufferedReader : " + e.toString());
-                }
-            }
-        }
-        return obj;
-    }
-
-
-    public static List<ApkData> ListfromJson(File jsonFolder) {
+    public static <X> List<X> listfromJson(File jsonFolder,Class<X> className) {
 
         if (jsonFolder == null || !jsonFolder.exists()) {
             throw new IllegalArgumentException("jsonFolder");
@@ -132,10 +92,10 @@ public class JsonUtils {
         FileFinder ff = new FileFinder(jsonFolder);
         List<File> jsons = ff.getJsonFilesInDirectories();
 
-        List<ApkData> list = new ArrayList<ApkData>();
+        List<X> list = new ArrayList<X>();
 
         for (File f : jsons) {
-            list.add(fromJson(f));
+            list.add(fromJson(f,className));
         }
 
         return list;
@@ -175,6 +135,45 @@ public class JsonUtils {
                 }
             }
         }
+    }
+
+    public static <X> X fromJson(File jsonFile, Class<X> className) {
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
+                .create();
+
+        X obj = null;
+        BufferedReader br = null;
+        FileReader fr = null;
+        try {
+            fr = new FileReader(jsonFile);
+            br = new BufferedReader(fr);
+
+            obj = gson.fromJson(br, className);
+
+            logger.trace(obj.toString());
+
+        } catch (IOException e) {
+            logger.error("Error reading file from " + jsonFile.getName());
+        } finally {
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    logger.error("Error closing FileReader : " + e.toString());
+                }
+            }
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    logger.error("Error closing BufferedReader : " + e.toString());
+                }
+            }
+        }
+        return obj;
     }
 
     public static void toJson(OverallStatistics data, File outputFile) {

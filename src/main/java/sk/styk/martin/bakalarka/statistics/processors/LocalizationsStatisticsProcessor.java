@@ -58,7 +58,7 @@ public class LocalizationsStatisticsProcessor extends TopListProcessorBase {
             }
 
             File f = jsons.get(i);
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             ResourceData resourceData = null;
 
             if (data != null && data.getResourceData() != null) {

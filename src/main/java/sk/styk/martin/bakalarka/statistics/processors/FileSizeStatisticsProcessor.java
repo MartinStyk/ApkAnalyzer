@@ -66,7 +66,7 @@ public class FileSizeStatisticsProcessor extends TopValueProcessorBase {
             }
 
             File f = jsons.get(i);
-            ApkData data = JsonUtils.fromJson(f);
+            ApkData data = JsonUtils.fromJson(f,ApkData.class);
             if (data != null) {
 
                 // FILE SIZE
