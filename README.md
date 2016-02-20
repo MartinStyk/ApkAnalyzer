@@ -2,7 +2,8 @@
 Java app / library used to obtain detailed informations about Andoid APK files.
 * [How to use it](#How_to_use_it)
   * [Prepare for first use](#Prepare_for_first_use)
-  * [Get Metadata](#Get_Metadata)
+  * [Analyze APKs](#Analyze_APKs)
+  * [Compare APKs](#Compare_APKs)
 * [Collected data](#Collected_data)
   * [Attributes & description](#ad)
    * [Basic apk metadata](#basic)
@@ -10,7 +11,9 @@ Java app / library used to obtain detailed informations about Andoid APK files.
    * [Certificate metadata](#certificate)
    * [Resources metadata](#resource)
    * [File hashes](#hash)
-  * [Example of output *.json](#json)
+* [Example of analyze result json](#json_analyze)
+* [Example of compare result json](#json_compare)
+* [Example of statistics result json](#json_statistics)
 * [Used libraries](#Used_libs)
  
 
@@ -18,42 +21,59 @@ Java app / library used to obtain detailed informations about Andoid APK files.
 ## How to use it
 <a name="Prepare_for_first_use"/>
 #### Prepare for first use
+If you want to build and make changes in code of ApkAnalyzer, you need to perform following steps.
 ApkAnalyzer uses Apktool for decompilation of Apk. You need to add Apktool to your maven repository.<br/>
 1. Download apktool_2.0.0rc4 from https://bitbucket.org/iBotPeaches/apktool/downloads<br/>
 2. Run following maven command : mvn install:install-file -Dfile=<path-to-apktool_2.0.0rc4-file> -DgroupId=ApkTool -DartifactId=ApkTool -Dversion=2.0.0.rc4 -Dpackaging=jar<br/>
-3. 
-<a name="Get_Metadata"/>
-#### Get Metadata 
 
-Currently ApkAnalyzer can`t be used as a standalone app. However, you can modify main method or use it as a library to get data about your apk. 
+ApkAnalyzer uses maven to build. It`s designed to allow you to customize way it works and various values as thresholds. This can only be done using public API, not using command line parameters (not implemented yet).
 
-Example of method that gets list of ApkData objects from every apk file found in directory APKS (i.e = APKS = "C:\\APKS")
+You can also use [latest build jar with all dependecies](https://github.com/MartinStyk/ApkAnalyzer/blob/master/jar/ApkAnalyzer-1.0-SNAPSHOT-jar-with-dependencies.jar) and run it as a java program. 
+###### Command line parameters
+Parameter |Info
+------------- | -------------
+-analyze      | Triggers analyze task. See [Analyze APKs] (#Analyze_APKs) chapter
+-compare      | Triggers compare task. See [Compare APKs] (#Compare_APKs) chapter
+-statistics   | Triggers statistics task. See [Statistics] (#Statistics) chapter
+-in, --input-dir   | Specify directory where input for task will be searched 
+-out, --output-dir   | Specify directory where output of task will be saved 
 
-```java
- public static void main(String[] args) throws Exception {
 
-        FileFinder ff = new FileFinder(new File(APKS));
-        List<ApkFile> apks = ff.getApkFilesInDirectories();
+<a name="Analyze_APKs"/>
+#### Analyze APKs 
+In case you use jar file, this use case can be triggered with following command ``java -jar -analyze -in="your_input_dir" -out="your_output_dir"``
 
-        List<ApkData> = ApkProcessor
-                .ofFiles(apks)
-                .processFiles();
-}
-  ```
-  
-Example of method that saves metadata about every apk file found in directory APKS (i.e = APKS = "C:\\APKS") in separate json file in METADATA_DIR directory
 
-```java
- public static void main(String[] args) throws Exception {
+This task unzip and decompile APK file using ApkTool. To find details about implementation, please explore [AnalyzeTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/AnalyzeTask.java).  
 
-        FileFinder ff = new FileFinder(new File(APKS));
-        List<ApkFile> apks = ff.getApkFilesInDirectories();
+This task creates json file for every analyzed APK. [See example of output file](#json_analyze).
 
-        List<ApkData> = ApkProcessor
-                .ofFiles(apks)
-                .processFiles(new File(METADATA_DIR));
-}
-  ```
+<a name="Compare_APKs"/>
+#### Compare APKs 
+In case you use jar file, this use case can be triggered with following command ``java -jar -compare -in="your_input_dir" -out="your_output_dir"``
+
+Directory ``your_input_dir`` must contain json files created by [analyze task](#Analyze_APKs)
+
+Directory ``your_output_dir`` will contain data about similar APKs
+
+
+This task only compares metadata. It uses informations about number of activities, services, broadcast recevers, content prividers, apk file size, dex and arsc file size to determine whether two APKs are at least similar. If so, it compares all files in APKs. Default threshold is set to 50% for each attribute. It can not be adjusted using CLI so far. 
+In case you need to adjust it for your use, please feel free to see [CompareTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/CompareTask.java) and related parts of code. 
+
+Output of this task is json file for every pair of similar APKs. Output is divided into specific folders according to certificate match and version of application match. Every json contains simple diff of two APKs with data including modified, added or deleted files. See [single output file](#json_compare).
+
+<a name="Statistics"/>
+#### Statistics 
+In case you use jar file, this use case can be triggered with following command ``java -jar -statistics -in="your_input_dir" -out="your_output_dir"``
+
+Directory ``your_input_dir`` must contain json files created by [analyze task](#Analyze_APKs)
+
+Directory ``your_output_dir`` will contain statistics data
+
+To find details about implementation, please explore [StatisticsTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/StatisticsTask.java).  
+
+[See example of output file](#json_statistics).
+
 <a name="Collected_data"/>
 ##Collected data
 
@@ -147,7 +167,7 @@ drawableHash      | Map<String,String> | Hashes of files in res/drawable* folder
 layoutHash      | Map<String,String> | Hashes of files in res/layout* folder from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 otherHash      | Map<String,String>   | Hashes of all files in apk from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 
-<a name="json"/>
+<a name="json_analyze"/>
 ### Example of output *.json
   
   ```json
