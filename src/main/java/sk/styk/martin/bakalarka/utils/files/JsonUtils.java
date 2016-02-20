@@ -188,6 +188,10 @@ public class JsonUtils {
             }
 
         }
+        if(outputFile.isDirectory()){
+            File outputDirectory = outputFile;
+            outputFile = new File(outputDirectory, "statistics.json");
+        }
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -201,7 +205,7 @@ public class JsonUtils {
         try {
             writer = new FileWriter(outputFile);
             writer.write(jsonString);
-            logger.info("Writting overal statistics");
+            logger.info("Writting overal statistics to file " + outputFile.getAbsolutePath());
 
         } catch (IOException e) {
             logger.error("Error saving file to " + outputFile.getName());
