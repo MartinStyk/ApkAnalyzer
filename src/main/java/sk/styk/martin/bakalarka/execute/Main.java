@@ -18,7 +18,7 @@ public class Main {
         Arguments commandLineArgs = new ArgumentsFactory(args).parseArguments();
 
         String inputDirectory = commandLineArgs.getInputDirectory();
-        String outputDirectory = commandLineArgs.getInputDirectory();
+        String outputDirectory = commandLineArgs.getOutputDirectory();
 
         Task task = getCurrentTask(commandLineArgs.getTaskMode());
 
