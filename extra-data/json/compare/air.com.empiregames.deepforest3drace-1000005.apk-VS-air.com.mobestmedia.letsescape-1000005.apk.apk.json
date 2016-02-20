@@ -1,0 +1,262 @@
+{
+  "nameA": "air.com.empiregames.deepforest3drace-1000005.apk",
+  "nameB": "air.com.mobestmedia.letsescape-1000005.apk.apk",
+  "isSimilar": true,
+  "hashCompareResult": {
+    "dexIdentical": false,
+    "arscIdentical": false,
+    "totalDrawablesA": 17,
+    "totalDrawablesB": 20,
+    "totalLayoutsA": 5,
+    "totalLayoutsB": 5,
+    "totalOthersA": 18,
+    "totalOthersB": 35,
+    "identicalDrawables": 12,
+    "identicalLayouts": 5,
+    "identicalOthers": 8,
+    "identicalDrawablesRatio": 60,
+    "identicalLayoutsRatio": 100,
+    "identicalOthersRatio": 22.857142857142857650387668400071561336517333984375,
+    "modifiedDrawableFiles": [
+      "res/drawable-mdpi/icon.png",
+      "res/drawable-ldpi/icon.png",
+      "res/drawable-hdpi/icon.png",
+      "res/drawable-xhdpi/icon.png",
+      "res/drawable-xxhdpi/icon.png"
+    ],
+    "modifiedLayoutFiles": [],
+    "modifiedOtherFiles": [
+      "AndroidManifest.xml",
+      "lib/armeabi-v7a/libCore.so",
+      "assets/META-INF/AIR/application.xml",
+      "assets/adobeair.vch"
+    ],
+    "additionalDrawableFilesA": [],
+    "additionalDrawableFilesB": [
+      "res/drawable/vunglepub_sdk_mute.png",
+      "res/drawable/vunglepub_sdk_close.png",
+      "res/drawable/vunglepub_sdk_unmute.png"
+    ],
+    "additionaLayoutFilesA": [],
+    "additionaLayoutFilesB": [],
+    "additionalOtherFilesA": [
+      "assets/48.png",
+      "assets/36.png",
+      "assets/deep-forest-3d-race.swf",
+      "assets/72.png",
+      "assets/96.png",
+      "assets/144.png"
+    ],
+    "additionalOtherFilesB": [
+      "assets/AppIconsForPublish/a512.png",
+      "assets/AppIconsForPublish/1024i.png",
+      "assets/AppIconsForPublish/29i.png",
+      "assets/AppIconsForPublish/144A.png",
+      "assets/AppIconsForPublish/120i.png",
+      "assets/AppIconsForPublish/144i.png",
+      "assets/AppIconsForPublish/512A.png",
+      "assets/AppIconsForPublish/76i.png",
+      "assets/AppIconsForPublish/100i.png",
+      "assets/AppIconsForPublish/114i.png",
+      "assets/AppIconsForPublish/152i.png",
+      "assets/letsescape_android.swf",
+      "assets/AppIconsForPublish/57i.png",
+      "assets/AppIconsForPublish/36i.png",
+      "assets/AppIconsForPublish/50i.png",
+      "assets/AppIconsForPublish/96A.png",
+      "assets/AppIconsForPublish/48i.png",
+      "assets/AppIconsForPublish/72A.png",
+      "assets/AppIconsForPublish/72i.png",
+      "assets/AppIconsForPublish/48A.png",
+      "assets/AppIconsForPublish/58i.png",
+      "assets/AppIconsForPublish/36A.png",
+      "assets/AppIconsForPublish/512i.png"
+    ]
+  },
+  "metadataCompareResult": {
+    "fileSizeDifference": {
+      "count": 29228042,
+      "percentage": 61.15677322112207292548191617242991924285888671875
+    },
+    "dexSizeDifference": {
+      "count": 1901644,
+      "percentage": 83.3051800815159282365129911340773105621337890625
+    },
+    "arscSizeDifference": {
+      "count": 1336,
+      "percentage": 12.641937925813778065275982953608036041259765625
+    },
+    "packageName": {
+      "isSame": false,
+      "difference": {
+        "valueA": "air.com.empiregames.deepforest3drace",
+        "valueB": "air.com.mobestmedia.letsescape"
+      }
+    },
+    "versionCode": {
+      "isSame": true
+    },
+    "installLocation": {
+      "isSame": false,
+      "difference": {
+        "valueA": "auto",
+        "valueB": "preferExternal"
+      }
+    },
+    "usesMinSdkVersion": {
+      "isSame": true
+    },
+    "usesTargetSdkVersion": {
+      "isSame": false,
+      "difference": {
+        "valueA": "11",
+        "valueB": "17"
+      }
+    },
+    "usesMaxSdkVersion": {
+      "isSame": true
+    },
+    "numberOfActivitiesDifference": {
+      "count": 7,
+      "percentage": 77.77777777777777146184234879910945892333984375
+    },
+    "additionalActivitiesInA": [],
+    "additionalActivitiesInB": [
+      "com.mopub.mobileads.MoPubActivity",
+      "com.mopub.mobileads.MraidActivity",
+      "com.mopub.mobileads.MraidBrowser",
+      "com.mopub.mobileads.MraidVideoPlayerActivity",
+      "com.millennialmedia.android.MMActivity",
+      "com.millennialmedia.android.VideoPlayer",
+      "com.vungle.sdk.VungleAdvert"
+    ],
+    "numberOfServicesDifference": {
+      "count": 1,
+      "percentage": 100
+    },
+    "additionalServicesInA": [],
+    "additionalServicesInB": [
+      "com.vungle.sdk.VungleIntentService"
+    ],
+    "numberOfContentProvidersDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfBroadcastReceiversDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfPermissionsDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfLibrariesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfFeaturesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfDefinedPermissionsDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "isCertificateSignAlgorithmSame": true,
+    "isCertificateStartDateSame": false,
+    "certificateStartDateDifference": "Apk A : Wed Jun 13 09:31:16 CEST 2012 ; Apk B : Sun Sep 09 11:15:16 CEST 2012",
+    "isCertificateEndDateSame": false,
+    "certificateEndDateDifference": "Apk A : Sat Jun 13 09:31:16 CEST 2037 ; Apk B : Thu Sep 10 11:15:16 CEST 2037",
+    "isCertificatePublicKeySame": false,
+    "isCertificateSame": false,
+    "isCertificateVersionSame": true,
+    "isCertificateIssuerNameSame": false,
+    "certificateIssuerNameDifference": "Apk A : CN=Michael Rad,OU=Empire Games,O=Empire Games,C=US ; Apk B : CN=bla,OU=bla,O=bla,C=EE",
+    "isCertificateSubjectNameSame": false,
+    "certificateSubjectNameDifference": "Apk A : CN=Michael Rad,OU=Empire Games,O=Empire Games,C=US ; Apk B : CN=bla,OU=bla,O=bla,C=EE",
+    "numberOfLocalesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfStringResourceDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfDifferentDrawablesDifference": {
+      "count": 3,
+      "percentage": 37.5
+    },
+    "numberOfPngDrawablesDifference": {
+      "count": 3,
+      "percentage": 12.5
+    },
+    "numberOfJpgDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfGifDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfNinePatchDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfXmlDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfLdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfMdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfHdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfXhdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfXxhdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfXxxhdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfNodpihdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfTvdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfUnspecifiedDpiDrawablesDifference": {
+      "count": 3,
+      "percentage": 37.5
+    },
+    "numberOfRawResourcesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfMenusDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfLayoutsDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfDifferentLayoutsDifference": {
+      "count": 0,
+      "percentage": 0
+    }
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "nameA": "1Tap Cleaner Pro v2.46  apkarchive.com.apk",
+  "nameB": "1Tap Cleaner Pro v2.53 apkarchive.com.apk",
+  "isSimilar": true,
+  "hashCompareResult": {
+    "dexIdentical": false,
+    "arscIdentical": false,
+    "totalDrawablesA": 441,
+    "totalDrawablesB": 454,
+    "totalLayoutsA": 72,
+    "totalLayoutsB": 76,
+    "totalOthersA": 120,
+    "totalOthersB": 122,
+    "identicalDrawables": 408,
+    "identicalLayouts": 4,
+    "identicalOthers": 64,
+    "identicalDrawablesRatio": 89.867841409691635590206715278327465057373046875,
+    "identicalLayoutsRatio": 5.26315789473684247923301882110536098480224609375,
+    "identicalOthersRatio": 52.459016393442624348608660511672496795654296875,
+    "modifiedDrawableFiles": [
+      "res/drawable-mdpi-v4/ic_plusone_tall_off_client.png",
+      "res/drawable/wnd_darkgray_bg_tile.xml",
+      "res/drawable-mdpi-v4/ic_plusone_small_off_client.png",
+      "res/drawable-hdpi-v4/ic_plusone_small_off_client.png",
+      "res/drawable-hdpi-v4/ic_plusone_medium_off_client.png",
+      "res/drawable/iab_btn_default.xml",
+      "res/drawable-xxhdpi-v4/ic_plusone_standard_off_client.png",
+      "res/drawable/common_signin_btn_icon_light.xml",
+      "res/drawable-mdpi-v4/ic_plusone_medium_off_client.png",
+      "res/drawable-xhdpi-v4/ic_plusone_medium_off_client.png",
+      "res/drawable-xxhdpi-v4/ic_plusone_tall_off_client.png",
+      "res/drawable-mdpi-v4/ic_plusone_standard_off_client.png",
+      "res/drawable/wnd_green_bg_tile.xml",
+      "res/drawable-hdpi-v4/ic_plusone_tall_off_client.png",
+      "res/drawable-xxhdpi-v4/ic_plusone_medium_off_client.png",
+      "res/drawable/bab_borderless_button.xml",
+      "res/drawable/common_signin_btn_text_light.xml",
+      "res/drawable/wnd_gray_bg_tile.xml",
+      "res/drawable-xhdpi-v4/ic_plusone_standard_off_client.png",
+      "res/drawable/app_icon_size_bg.xml",
+      "res/drawable/wnd_blue_bg_tile.xml",
+      "res/drawable-xhdpi-v4/ic_plusone_tall_off_client.png",
+      "res/drawable/iab_buy_btn_default.xml",
+      "res/drawable/app_icon_size_title_bg.xml",
+      "res/drawable/common_signin_btn_text_dark.xml",
+      "res/drawable-xxhdpi-v4/ic_plusone_small_off_client.png",
+      "res/drawable/common_signin_btn_icon_dark.xml",
+      "res/drawable-xhdpi-v4/ic_plusone_small_off_client.png",
+      "res/drawable/wnd_purple_bg_tile.xml",
+      "res/drawable-hdpi-v4/ic_plusone_standard_off_client.png"
+    ],
+    "modifiedLayoutFiles": [
+      "res/layout/call_cleaner_wnd.xml",
+      "res/layout/screenshot_share_wnd.xml",
+      "res/layout/abs__search_view.xml",
+      "res/layout/abs__action_bar_title_item.xml",
+      "res/layout/bab_select_dir_wnd.xml",
+      "res/layout/apdw_appdrawer_wnd.xml",
+      "res/layout-v14/sherlock_spinner_dropdown_item.xml",
+      "res/layout/app_icon.xml",
+      "res/layout-xlarge-v4/abs__screen_action_bar_overlay.xml",
+      "res/layout/clear_all_wnd.xml",
+      "res/layout/widget_circle_conf_wnd.xml",
+      "res/layout-land/dashboard_wnd.xml",
+      "res/layout/sliding_menu.xml",
+      "res/layout/abs__list_menu_item_radio.xml",
+      "res/layout/abs__screen_simple.xml",
+      "res/layout-large-v4/abs__action_mode_close_item.xml",
+      "res/layout/pers_toast.xml",
+      "res/layout/ab_app_num.xml",
+      "res/layout/history_cleaner_wnd.xml",
+      "res/layout/cleaner_list_item.xml",
+      "res/layout/lic_wnd_btns_panel.xml",
+      "res/layout/widget.xml",
+      "res/layout/abs__action_mode_close_item.xml",
+      "res/layout/widget_circle.xml",
+      "res/layout/widget_main_wnd.xml",
+      "res/layout/dashboard_wnd.xml",
+      "res/layout/abs__screen_action_bar.xml",
+      "res/layout/main_wnd.xml",
+      "res/layout/sherlock_spinner_dropdown_item.xml",
+      "res/layout/cpv_dialog_color_picker.xml",
+      "res/layout/abs__list_menu_item_icon.xml",
+      "res/layout/abs__action_menu_layout.xml",
+      "res/layout/abs__list_menu_item_checkbox.xml",
+      "res/layout/abs__screen_action_bar_overlay.xml",
+      "res/layout-v14/lic_wnd_btns_panel.xml",
+      "res/layout/cpv_preference_preview_layout.xml",
+      "res/layout/history_cleaner_list_item.xml",
+      "res/layout/app_list_wnd.xml",
+      "res/layout-xlarge-v4/abs__screen_action_bar.xml",
+      "res/layout/abs__activity_chooser_view_list_item.xml",
+      "res/layout/abs__screen_simple_overlay_action_mode.xml",
+      "res/layout/abs__action_bar_tab.xml",
+      "res/layout/abs__action_menu_item_layout.xml",
+      "res/layout/abs__list_menu_item_layout.xml",
+      "res/layout/abs__action_bar_home.xml",
+      "res/layout/abs__dialog_title_holo.xml",
+      "res/layout/ad.xml",
+      "res/layout/lic_wnd.xml",
+      "res/layout/abs__action_mode_bar.xml",
+      "res/layout/abs__popup_menu_item_layout.xml",
+      "res/layout/abs__action_bar_tab_bar_view.xml",
+      "res/layout/abs__search_dropdown_item_icons_2line.xml",
+      "res/layout/default_cleaner_list_head.xml",
+      "res/layout/default_cleaner_wnd.xml",
+      "res/layout/pref_wnd.xml",
+      "res/layout/about_wnd.xml",
+      "res/layout/free_app_cache_dlg_frg.xml",
+      "res/layout-land/cpv_dialog_color_picker.xml",
+      "res/layout/abs__activity_chooser_view.xml",
+      "res/layout/storage_info_frg.xml",
+      "res/layout/apdw_menu_category_item.xml",
+      "res/layout/sherlock_spinner_item.xml",
+      "res/layout/history_wnd.xml",
+      "res/layout/showcase_button.xml",
+      "res/layout/apdw_menu_item.xml",
+      "res/layout-large-land-v4/cpv_dialog_color_picker.xml"
+    ],
+    "modifiedOtherFiles": [
+      "assets/fr/about.htm",
+      "res/menu/clear_all_wnd.xml",
+      "assets/zh/about.htm",
+      "assets/ar/about.htm",
+      "assets/th/about.htm",
+      "assets/vi/about.htm",
+      "res/menu/default_cleaner_item.xml",
+      "res/color/abs__primary_text_disable_only_holo_light.xml",
+      "res/menu/bab_select_dir_wnd.xml",
+      "assets/sv/about.htm",
+      "assets/ro/about.htm",
+      "assets/whats_new.htm",
+      "assets/ja/about.htm",
+      "assets/tr/about.htm",
+      "assets/sl/about.htm",
+      "res/xml/widget_provider.xml",
+      "assets/about.htm",
+      "res/color/abs__primary_text_disable_only_holo_dark.xml",
+      "assets/nl/about.htm",
+      "AndroidManifest.xml",
+      "assets/pt/about.htm",
+      "assets/ru/about.htm",
+      "assets/it/about.htm",
+      "res/menu/dashboard_wnd.xml",
+      "res/color/abs__primary_text_holo_light.xml",
+      "assets/pl/about.htm",
+      "assets/hu/about.htm",
+      "res/menu/default_cleaner_wnd.xml",
+      "res/menu/lic_wnd.xml",
+      "assets/sr/about.htm",
+      "res/menu/history_cleaner_item.xml",
+      "res/color/common_signin_btn_text_dark.xml",
+      "assets/el/about.htm",
+      "assets/sk/about.htm",
+      "res/color/abs__primary_text_holo_dark.xml",
+      "res/menu/call_cleaner_wnd.xml",
+      "res/color/wallet_primary_text_holo_light.xml",
+      "res/xml/pref.xml",
+      "res/menu/app_list_wnd.xml",
+      "assets/da/about.htm",
+      "assets/es/about.htm",
+      "res/color/wallet_secondary_text_holo_dark.xml",
+      "res/color/common_signin_btn_text_light.xml",
+      "res/menu/sliding_menu.xml",
+      "res/menu/screenshot_share_wnd.xml",
+      "assets/crashlytics-build.properties",
+      "res/menu/app_icon.xml",
+      "assets/ur/about.htm",
+      "assets/ko/about.htm",
+      "assets/credits.htm",
+      "assets/in/about.htm",
+      "assets/cs/about.htm",
+      "res/xml/widget_circle_provider.xml",
+      "res/menu/history_cleaner_wnd.xml",
+      "assets/de/about.htm",
+      "res/menu/history_wnd.xml"
+    ],
+    "additionalDrawableFilesA": [
+      "res/drawable/btn_default_normal.9.png",
+      "res/drawable/btn_ignore_normal.png",
+      "res/drawable/btn_ignore_pressed.png"
+    ],
+    "additionalDrawableFilesB": [
+      "res/drawable-hdpi-v4/common_full_open_on_phone.png",
+      "res/drawable-tvdpi-v4/ic_plusone_tall_off_client.png",
+      "res/drawable-tvdpi-v4/ic_plusone_small_off_client.png",
+      "res/drawable-hdpi-v4/db_sd_cleaner.png",
+      "res/drawable-hdpi-v4/btn_ignore_pressed.png",
+      "res/drawable-hdpi-v4/btn_ignore_normal.png",
+      "res/drawable-hdpi-v4/smc_sd_cleaner.png",
+      "res/drawable-xxhdpi-v4/btn_ignore_pressed.png",
+      "res/drawable-hdpi-v4/common_ic_googleplayservices.png",
+      "res/drawable-tvdpi-v4/ic_plusone_medium_off_client.png",
+      "res/drawable-xxhdpi-v4/btn_ignore_normal.png",
+      "res/drawable-hdpi-v4/btn_default_normal.9.png",
+      "res/drawable-xxhdpi-v4/btn_default_normal.9.png",
+      "res/drawable-hdpi-v4/chat_box.9.png",
+      "res/drawable-tvdpi-v4/ic_plusone_standard_off_client.png",
+      "res/drawable-xxhdpi-v4/chat_box.9.png"
+    ],
+    "additionaLayoutFilesA": [
+      "res/layout-v14/bab_ok_cancel_bar.xml",
+      "res/layout/bab_ok_cancel_bar.xml"
+    ],
+    "additionaLayoutFilesB": [
+      "res/layout-v14/bl_ok_cancel_bar.xml",
+      "res/layout/sd_cleaner_list_item.xml",
+      "res/layout/ab_text.xml",
+      "res/layout/show_folder_list_item.xml",
+      "res/layout/bl_ok_cancel_bar.xml",
+      "res/layout/sd_cleaner_wnd.xml"
+    ],
+    "additionalOtherFilesA": [],
+    "additionalOtherFilesB": [
+      "res/menu/show_folders_wnd.xml",
+      "res/menu/sd_cleaner_wnd.xml"
+    ]
+  },
+  "metadataCompareResult": {
+    "fileSizeDifference": {
+      "count": 227261,
+      "percentage": 7.6587500311727207957801510929130017757415771484375
+    },
+    "dexSizeDifference": {
+      "count": 395208,
+      "percentage": 15.9846110786643738066459263791330158710479736328125
+    },
+    "arscSizeDifference": {
+      "count": 82340,
+      "percentage": 8.919170692605991490609085303731262683868408203125
+    },
+    "packageName": {
+      "isSame": true
+    },
+    "versionCode": {
+      "isSame": false,
+      "difference": {
+        "valueA": "90002469",
+        "valueB": "90002539"
+      }
+    },
+    "installLocation": {
+      "isSame": true
+    },
+    "usesMinSdkVersion": {
+      "isSame": true
+    },
+    "usesTargetSdkVersion": {
+      "isSame": true
+    },
+    "usesMaxSdkVersion": {
+      "isSame": true
+    },
+    "supportsScreensSmall": {
+      "isSame": true
+    },
+    "supportsScreensNormal": {
+      "isSame": true
+    },
+    "supportsScreensLarge": {
+      "isSame": true
+    },
+    "supportsScreensXlarge": {
+      "isSame": true
+    },
+    "supportsScreensAnyDensity": {
+      "isSame": true
+    },
+    "numberOfActivitiesDifference": {
+      "count": 3,
+      "percentage": 18.75
+    },
+    "additionalActivitiesInA": [],
+    "additionalActivitiesInB": [
+      "com.a0soft.gphone.acc.StorageCleaner.SdCleanerWnd",
+      "com.a0soft.gphone.acc.StorageCleaner.ShowEmptyFoldersWnd",
+      "com.a0soft.gphone.acc.StorageCleaner.ShowUninstalledAppFoldersWnd"
+    ],
+    "numberOfServicesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfContentProvidersDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfBroadcastReceiversDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfPermissionsDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfLibrariesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfFeaturesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfDefinedPermissionsDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "isCertificateSignAlgorithmSame": true,
+    "isCertificateStartDateSame": true,
+    "isCertificateEndDateSame": true,
+    "isCertificatePublicKeySame": true,
+    "isCertificateSame": true,
+    "isCertificateVersionSame": true,
+    "isCertificateIssuerNameSame": true,
+    "isCertificateSubjectNameSame": true,
+    "numberOfLocalesDifference": {
+      "count": 17,
+      "percentage": 20.987654320987655154340245644561946392059326171875
+    },
+    "additionalLocalesInA": [],
+    "additionalLocalesInB": [
+      "bn-rBD",
+      "eu-rES",
+      "gl-rES",
+      "is-rIS",
+      "kk-rKZ",
+      "kn-rIN",
+      "ky-rKG",
+      "mk-rMK",
+      "ml-rIN",
+      "mr-rIN",
+      "my-rMM",
+      "ne-rNP",
+      "si-rLK",
+      "ta-rIN",
+      "te-rIN",
+      "ur-rPK",
+      "uz-rUZ"
+    ],
+    "numberOfStringResourceDifference": {
+      "count": 30,
+      "percentage": 9.375
+    },
+    "numberOfDifferentDrawablesDifference": {
+      "count": 5,
+      "percentage": 1.893939393939394033594680877286009490489959716796875
+    },
+    "numberOfPngDrawablesDifference": {
+      "count": 10,
+      "percentage": 5.78034682080924877567440489656291902065277099609375
+    },
+    "numberOfJpgDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfGifDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfNinePatchDrawablesDifference": {
+      "count": 3,
+      "percentage": 0.9433962264150943521912040523602627217769622802734375
+    },
+    "numberOfXmlDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfLdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfMdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfHdpiDrawablesDifference": {
+      "count": 8,
+      "percentage": 4.2328042328042325692649683333002030849456787109375
+    },
+    "numberOfXhdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfXxhdpiDrawablesDifference": {
+      "count": 4,
+      "percentage": 11.111111111111110716365146799944341182708740234375
+    },
+    "numberOfXxxhdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfNodpihdpiDrawablesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfTvdpiDrawablesDifference": {
+      "count": 4,
+      "percentage": 100
+    },
+    "numberOfUnspecifiedDpiDrawablesDifference": {
+      "count": -3,
+      "percentage": 4.28571428571428558740308289998210966587066650390625
+    },
+    "numberOfRawResourcesDifference": {
+      "count": 0,
+      "percentage": 0
+    },
+    "numberOfMenusDifference": {
+      "count": 2,
+      "percentage": 11.7647058823529420124032185412943363189697265625
+    },
+    "numberOfLayoutsDifference": {
+      "count": 4,
+      "percentage": 5.26315789473684247923301882110536098480224609375
+    },
+    "numberOfDifferentLayoutsDifference": {
+      "count": 4,
+      "percentage": 6.0606060606060605522316109272651374340057373046875
+    }
+  }
+}
