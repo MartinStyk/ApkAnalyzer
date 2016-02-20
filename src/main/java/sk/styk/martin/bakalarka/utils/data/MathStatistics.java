@@ -53,6 +53,11 @@ public class MathStatistics {
     private void computeStatistics(double[] array) {
         logger.trace("Started processing stats");
 
+        if(array == null || array.length == 0){
+            logger.trace("array empty, finishing processing data without results");
+            return;
+        }
+
         Double mean = StatUtils.mean(array);
         Double median = StatUtils.percentile(array, 50);
         double[] modus = StatUtils.mode(array);
