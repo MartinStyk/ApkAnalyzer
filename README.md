@@ -11,9 +11,6 @@ Java app / library used to obtain detailed informations about Andoid APK files.
    * [Certificate metadata](#certificate)
    * [Resources metadata](#resource)
    * [File hashes](#hash)
-* [Example of analyze result json](#json_analyze)
-* [Example of compare result json](#json_compare)
-* [Example of statistics result json](#json_statistics)
 * [Used libraries](#Used_libs)
  
 
@@ -28,7 +25,7 @@ ApkAnalyzer uses Apktool for decompilation of Apk. You need to add Apktool to yo
 
 ApkAnalyzer uses maven to build. It`s designed to allow you to customize way it works and various values as thresholds. This can only be done using public API, not using command line parameters (not implemented yet).
 
-You can also use [latest build jar with all dependecies](https://github.com/MartinStyk/ApkAnalyzer/blob/master/jar/ApkAnalyzer-1.0-SNAPSHOT-jar-with-dependencies.jar) and run it as a java program. 
+You can also use [latest build jar with all dependecies](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/jar/ApkAnalyzer-1.0-SNAPSHOT-jar-with-dependencies.jar) and run it as a java program. 
 ###### Command line parameters
 Parameter |Info
 ------------- | -------------
@@ -46,7 +43,7 @@ In case you use jar file, this use case can be triggered with following command 
 
 This task unzip and decompile APK file using ApkTool. To find details about implementation, please explore [AnalyzeTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/AnalyzeTask.java).  
 
-This task creates json file for every analyzed APK. [See example of output file](#json_analyze).
+This task creates json file for every analyzed APK. [See example of output file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/analyze/com.android.chrome-39.0.2171.93-2171093-Android-4.0.json).
 
 <a name="Compare_APKs"/>
 #### Compare APKs 
@@ -60,7 +57,7 @@ Directory ``your_output_dir`` will contain data about similar APKs
 This task only compares metadata. It uses informations about number of activities, services, broadcast recevers, content prividers, apk file size, dex and arsc file size to determine whether two APKs are at least similar. If so, it compares all files in APKs. Default threshold is set to 50% for each attribute. It can not be adjusted using CLI so far. 
 In case you need to adjust it for your use, please feel free to see [CompareTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/CompareTask.java) and related parts of code. 
 
-Output of this task is json file for every pair of similar APKs. Output is divided into specific folders according to certificate match and version of application match. Every json contains simple diff of two APKs with data including modified, added or deleted files. See [single output file](#json_compare).
+Output of this task is json file for every pair of similar APKs. Output is divided into specific folders according to certificate match and version of application match. Every json contains simple diff of two APKs with data including modified, added or deleted files. For example see [this file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/compare/1Tap%20Cleaner%20Pro%20v2.46%20%20apkarchive.com.apk-VS-1Tap%20Cleaner%20Pro%20v2.53%20apkarchive.com.apk.json) or [another one](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/compare/air.com.empiregames.deepforest3drace-1000005.apk-VS-air.com.mobestmedia.letsescape-1000005.apk.apk.json).
 
 <a name="Statistics"/>
 #### Statistics 
@@ -72,7 +69,7 @@ Directory ``your_output_dir`` will contain statistics data
 
 To find details about implementation, please explore [StatisticsTask.java] (https://github.com/MartinStyk/ApkAnalyzer/blob/master/src/main/java/sk/styk/martin/bakalarka/execute/tasks/StatisticsTask.java).  
 
-[See example of output file](#json_statistics).
+[See example of output file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/statistics/stats.json).
 
 <a name="Collected_data"/>
 ##Collected data
@@ -167,168 +164,6 @@ drawableHash      | Map<String,String> | Hashes of files in res/drawable* folder
 layoutHash      | Map<String,String> | Hashes of files in res/layout* folder from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 otherHash      | Map<String,String>   | Hashes of all files in apk from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 
-<a name="json_analyze"/>
-### Example of output *.json
-  
-  ```json
- {
-  "fileName": "com.facebook.katana-42.0.0.27.114-APK4Fun.com.apk",
-  "sourceOfFile": "test - works)",
-  "fileSize": 35488821,
-  "dexSize": 510148,
-  "arscSize": 8129808,
-  "androidManifest": {
-    "packageName": "com.facebook.katana",
-    "installLocation": "auto",
-    "numberOfActivities": 257,
-    "numberOfServices": 84,
-    "numberOfContentProviders": 25,
-    "numberOfBroadcastReceivers": 60,
-    "usesPermissions": [
-      "android.permission.ACCESS_COARSE_LOCATION",
-      "android.permission.WAKE_LOCK",
-      "android.permission.VIBRATE",
-      "android.permission.READ_CONTACTS",
-      "android.permission.WRITE_CONTACTS",
-      "android.permission.GET_ACCOUNTS",
-      "android.permission.MANAGE_ACCOUNTS",
-      "android.permission.AUTHENTICATE_ACCOUNTS",
-      "android.permission.READ_SYNC_SETTINGS",
-      "android.permission.WRITE_SYNC_SETTINGS",
-      "android.permission.ACCESS_FINE_LOCATION",
-      "android.permission.BROADCAST_STICKY",
-      "com.facebook.katana.provider.ACCESS",
-      "com.facebook.orca.provider.ACCESS",
-      "com.facebook.pages.app.provider.ACCESS",
-      "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
-      "android.permission.CAMERA",
-      "android.permission.RECORD_AUDIO",
-      "android.permission.WRITE_EXTERNAL_STORAGE",
-      "com.facebook.permission.prod.FB_APP_COMMUNICATION",
-      "com.facebook.permission.prod.SYSTEM_COMMUNICATION",
-      "android.permission.READ_PHONE_STATE",
-      "android.permission.READ_CALENDAR",
-      "android.permission.WRITE_CALENDAR",
-      "android.permission.MODIFY_AUDIO_SETTINGS",
-      "android.permission.READ_PROFILE",
-      "android.permission.READ_SMS",
-      "android.permission.CHANGE_NETWORK_STATE",
-      "android.permission.CHANGE_WIFI_STATE",
-      "android.permission.SYSTEM_ALERT_WINDOW",
-      "com.google.android.providers.gsf.permission.READ_GSERVICES",
-      "android.permission.READ_EXTERNAL_STORAGE",
-      "android.permission.ACCESS_NETWORK_STATE",
-      "com.facebook.katana.permission.CROSS_PROCESS_BROADCAST_MANAGER",
-      "android.permission.BATTERY_STATS",
-      "android.permission.ACCESS_WIFI_STATE",
-      "com.android.launcher.permission.INSTALL_SHORTCUT",
-      "android.permission.GET_TASKS",
-      "android.permission.RECEIVE_BOOT_COMPLETED",
-      "android.permission.EXPAND_STATUS_BAR",
-      "android.permission.REORDER_TASKS",
-      "android.permission.CALL_PHONE",
-      "android.permission.SET_WALLPAPER",
-      "android.permission.SET_WALLPAPER_HINTS",
-      "com.facebook.receiver.permission.ACCESS",
-      "android.permission.INTERNET",
-      "com.sec.android.provider.badge.permission.READ",
-      "com.sec.android.provider.badge.permission.WRITE",
-      "com.htc.launcher.permission.READ_SETTINGS",
-      "com.htc.launcher.permission.UPDATE_SHORTCUT",
-      "com.sonyericsson.home.permission.BROADCAST_BADGE",
-      "com.facebook.home.permission.WRITE_BADGES",
-      "com.google.android.launcher.permission.READ_SETTINGS",
-      "com.google.android.c2dm.permission.RECEIVE",
-      "com.facebook.katana.permission.C2D_MESSAGE",
-      "com.nokia.pushnotifications.permission.RECEIVE",
-      "com.facebook.katana.permission.RECEIVE_ADM_MESSAGE",
-      "com.amazon.device.messaging.permission.RECEIVE"
-    ],
-    "usesLibrary": [
-      "com.google.android.maps",
-      "com.amazon.device.messaging"
-    ],
-    "usesFeature": [
-      "android.hardware.camera",
-      "android.hardware.telephony",
-      "android.hardware.microphone",
-      "android.hardware.location",
-      "android.hardware.location.network",
-      "android.hardware.location.gps"
-    ]
-  },
-  "certificateDatas": [
-    {
-      "fileName": "CERT.RSA",
-      "signAlgorithm": "MD5withRSA",
-      "signAlgorithmOID": "1.2.840.113549.1.1.4",
-      "startDate": "Aug 31, 2009 11:52:16 PM",
-      "endDate": "Sep 25, 2050 11:52:16 PM",
-      "publicKeyMd5": "57e4647d1da90ef6eef980770673862c",
-      "certBase64Md5": "bc45583156a00f55537903de8e84e9d2",
-      "certMd5": "3fad024f2dcbe3ee693c96f350f8e376",
-      "version": 1,
-      "issuerName": "CN=Facebook Corporation,OU=Facebook,O=Facebook Mobile,L=Palo Alto,ST=CA,C=US"
-    }
-  ],
-  "resourceData": {
-    "locale": [],
-    "numberOfStringResource": 7866,
-    "pngDrawables": 3470,
-    "jpgDrawables": 4,
-    "gifDrawables": 1,
-    "xmlDrawables": 1528,
-    "differentDrawables": 4935,
-    "ldpiDrawables": 1,
-    "mdpiDrawables": 62,
-    "hdpiDrawables": 3309,
-    "xhdpiDrawables": 46,
-    "xxhdpiDrawables": 0,
-    "xxxhdpiDrawables": 0,
-    "unspecifiedDpiDrawables": 1585,
-    "rawResources": 85,
-    "menu": 32,
-    "layouts": 3072,
-    "differentLayouts": 3042
-  },
-  "fileDigest": {
-    "dexHash": "bMyeEVy9g8VYPd8S09xBeDu1ouE=",
-    "arscHash": "br+poZYwb/JUSmFAKYhW0zd8QVc=",
-    "drawableHash": [
-      "S6vxCIQ2bS3ze7pSOF+6eozEldc=",
-      "uNOeQAFoOFkQbYgJfkJyePznmy0=",
-      "727pL5pYYaMczcG0OKDMaYT1F9Q=",
-      "u5TY6PQerEhaOucVzSCrKc5lor8=",
-      "MuSnK3Cf2lk/cT6NzwWZLRD1O58=",
-      "3Qsa4NCFZyy9zsstBa88EvNlvSQ=",
-      "uL4rEHyudY8XyvhT2UxSsSfBq8s=",
-      "Oykfw3UheEEts18yb9NpJVZtjSE=",
-      "xAt0x2WW8LlNCz3IIuearX9FqHc=",
-    ],
-    "layoutHash": [
-      "uNOeQAFoOFkQbYgJfkJyePznmy0=",
-      "727pL5pYYaMczcG0OKDMaYT1F9Q=",
-      "u5TY6PPerEhaOucVzSCrKc5lor8=",
-      "MuSnK3Cf2lk/cT6NzwWZLRD1O58=",
-      "3Qsa4NCFZyy9zsstBa88EvNlvSQ=",
-      "uL4rEHyudY8XyvhT2UxSsSfBq8s=",
-      "Oykfw3UheEEts18yb9NpJVZtjSE=",
-      "xAt0x2WW8LlNCz3IIuearX9FqHc=",
-     ]
-    "otherHash": [
-      "aNOeQAFoOFkQbYgJfkJyePznmy0=",
-      "927pL5pYYaMczcG0OKDMaYT1F9Q=",
-      "q5TY6PQerEhaOucVzSCrKc5lor8=",
-      "quSnK3Cf2lk/cT6NzwWZLRD1O58=",
-      "cQsa4NCFZyy9zsstBa88EvNlvSQ=",
-      "bL4rEHyudY8XyvhT2UxSsSfBq8s=",
-      "qykfw3UheEEts18yb9NpJVZtjSE=",
-      "yAt0x2WW8LlNCz3IIuearX9FqHc=",
-     ]
-
-  }
-}
-  ```
 <a name="Used_libs"/>
 ### Used libraries
 * [xgouchet/AXML](https://github.com/xgouchet/AXML) used code from this project, located in fr.xgouchet.axml package
