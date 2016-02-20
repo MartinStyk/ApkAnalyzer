@@ -15,7 +15,7 @@ public class TempFileManager {
     File decompiledDir;
     File unzipDir;
     File workingDir;
-    private String defaultTempDirBase = "D:\\Projects\\temp";
+    private File defaultTempDirBase = new File(System.getProperty("java.io.tmpdir"), "apk_tmp");
     private File apk;
 
     public TempFileManager(File apk) {
@@ -29,11 +29,11 @@ public class TempFileManager {
         return new TempFileManager(apk);
     }
 
-    public String getDefaultTempFileBaseDir() {
+    public File getDefaultTempFileBaseDir() {
         return defaultTempDirBase;
     }
 
-    public void setDefaultTempFileBaseDir(String defaultTempFileBaseDir) {
+    public void setDefaultTempFileBaseDir(File defaultTempFileBaseDir) {
         defaultTempDirBase = defaultTempFileBaseDir;
     }
 
@@ -42,7 +42,7 @@ public class TempFileManager {
     }
 
     public File createApkWorkingDirectory() {
-        File newDir = new File(defaultTempDirBase + File.separator + apk.getName());
+        File newDir = new File(defaultTempDirBase, apk.getName());
         if (!newDir.exists()) {
             logger.trace("creating working dir " + newDir.getAbsolutePath());
             newDir.mkdirs();
