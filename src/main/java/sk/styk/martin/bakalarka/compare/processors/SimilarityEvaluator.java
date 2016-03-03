@@ -5,6 +5,7 @@ import sk.styk.martin.bakalarka.compare.data.HashCompareResult;
 import sk.styk.martin.bakalarka.compare.data.MetadataCompareResult;
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,7 @@ public class SimilarityEvaluator {
         }
 
         if (similarityThreshold == null) {
-            similarityThreshold = new SimilarityThreshold();
+            similarityThreshold = SimilarityThresholdFactory.getInstance(new File("similarity.properties"));
         }
 
         Boolean fileSize = compareRatios(metadataResult.getFileSizeDifference(), similarityThreshold.getMaxFilesizeRatioDifference());
