@@ -39,6 +39,7 @@ public class HashPairCompare {
         compareDrawable();
         compareLayouts();
         compareOther();
+        compareAll();
 
         return result;
     }
@@ -107,6 +108,7 @@ public class HashPairCompare {
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
         result.setIdenticalDrawables(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
+        result.setJaccardIndexDrawables(getJaccardIndex(mapA.values(),mapB.values()));
     }
 
     private void compareLayouts() {
@@ -155,7 +157,46 @@ public class HashPairCompare {
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
         result.setIdenticalLayouts(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
+        result.setJaccardIndexLayouts(getJaccardIndex(mapA.values(),mapB.values()));
+    }
 
+    private void compareAll(){
+        Set<String> mapA = new HashSet<String>();
+        Set<String> mapB = new HashSet<String>();
+
+        if(hashDataA.getArscHash() != null){
+            mapA.add(hashDataA.getArscHash());
+        }
+        if(hashDataB.getArscHash() != null){
+            mapB.add(hashDataB.getArscHash());
+        }
+        if(hashDataA.getDexHash() != null){
+            mapA.add(hashDataA.getDexHash());
+        }
+        if(hashDataB.getDexHash() != null){
+            mapB.add(hashDataB.getDexHash());
+        }
+        if(hashDataA.getDrawableHash() != null){
+            mapA.addAll(hashDataA.getDrawableHash().values());
+        }
+        if(hashDataB.getDrawableHash() != null){
+            mapB.addAll(hashDataB.getDrawableHash().values());
+        }
+        if(hashDataA.getLayoutHash() != null){
+            mapA.addAll(hashDataA.getLayoutHash().values());
+        }
+        if(hashDataB.getLayoutHash() != null){
+            mapB.addAll(hashDataB.getLayoutHash().values());
+        }
+        if(hashDataA.getOtherHash() != null){
+            mapA.addAll(hashDataA.getOtherHash().values());
+        }
+        if(hashDataB.getOtherHash() != null){
+            mapB.addAll(hashDataB.getOtherHash().values());
+        }
+
+
+        result.setJaccardIndexAll(getJaccardIndex(mapA,mapB));
     }
 
     private void compareOther() {
@@ -204,6 +245,7 @@ public class HashPairCompare {
 
         int higher = mapA.keySet().size() > mapB.keySet().size() ? mapA.keySet().size() : mapB.keySet().size();
         result.setIdenticalOthers(new PercentagePair(mapA.keySet().size() - keysA.size(), getPercentage(mapA.keySet().size() - keysA.size(), higher)));
+        result.setJaccardIndexOthers(getJaccardIndex(mapA.values(),mapB.values()));
     }
 
     private void compare(Set<String> keysA, Set<String> keysB) {
@@ -223,6 +265,14 @@ public class HashPairCompare {
     private BigDecimal getPercentage(Integer part, Integer bigger) {
         Double result = Math.abs(100L * part.doubleValue() / bigger.doubleValue());
         return new BigDecimal(result);
+    }
+
+    private BigDecimal getJaccardIndex(Collection<String> setA, Collection<String> setB) {
+        Set<Object> union = new HashSet<Object>(setA.size() + setB.size());
+        union.addAll(setA);
+        union.addAll(setB);
+
+        return new BigDecimal((setA.size() + setB.size() - union.size()) / union.size());
     }
 
 }

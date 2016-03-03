@@ -58,9 +58,10 @@ public class SimilarityThresholdFactory {
             similarityThreshold.setMaxDifferentDrawablesRatioDifference(Integer.parseInt(prop.getProperty("maxDifferentDrawablesRatioDifference")));
             similarityThreshold.setMaxDifferentLayoutsRatioDifference(Integer.parseInt(prop.getProperty("maxDifferentLayoutsRatioDifference")));
             similarityThreshold.setMinBooleanEvaluationThreshold(Integer.parseInt(prop.getProperty("minBooleanEvaluationThreshold")));
-            similarityThreshold.setMinIdenticalDrawablesInApkRatio(Integer.parseInt(prop.getProperty("minIdenticalDrawablesInApkRatio")));
-            similarityThreshold.setMinIdenticalLayoutsInApkRatio(Integer.parseInt(prop.getProperty("minIdenticalLayoutsInApkRatio")));
-            similarityThreshold.setMinIdenticalOthersInApkRatio(Integer.parseInt(prop.getProperty("minIdenticalOthersInApkRatio")));
+            similarityThreshold.setMinIdenticalDrawablesInApkJaccardIndex(Double.parseDouble(prop.getProperty("minIdenticalDrawablesInApkJaccardIndex")));
+            similarityThreshold.setMinIdenticalLayoutsInApkJaccardIndex(Double.parseDouble(prop.getProperty("minIdenticalLayoutsInApkJaccardIndex")));
+            similarityThreshold.setMinIdenticalOthersInApkJaccardIndex(Double.parseDouble(prop.getProperty("minIdenticalOthersInApkJaccardIndex")));
+            similarityThreshold.setMinIdenticalOthersInApkJaccardIndex(Double.parseDouble(prop.getProperty("minIdenticalAllInApkJaccardIndex")));
 
             return similarityThreshold;
 

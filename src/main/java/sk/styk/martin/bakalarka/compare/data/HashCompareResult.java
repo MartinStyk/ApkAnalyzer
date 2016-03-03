@@ -2,6 +2,7 @@ package sk.styk.martin.bakalarka.compare.data;
 
 import sk.styk.martin.bakalarka.utils.data.PercentagePair;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -35,6 +36,11 @@ public class HashCompareResult {
 
     private List<String> additionalOtherFilesA;
     private List<String> additionalOtherFilesB;
+
+    private BigDecimal jaccardIndexDrawables;
+    private BigDecimal jaccardIndexLayouts;
+    private BigDecimal jaccardIndexOthers;
+    private BigDecimal jaccardIndexAll;
 
     public PercentagePair getIdenticalDrawables() {
         return identicalDrawables;
@@ -163,6 +169,7 @@ public class HashCompareResult {
     public void setAdditionaLayoutFilesB(List<String> additionaLayoutFilesB) {
         this.additionaLayoutFilesB = additionaLayoutFilesB;
     }
+
     public List<String> getAdditionalOtherFilesA() {
         return additionalOtherFilesA;
     }
@@ -178,6 +185,7 @@ public class HashCompareResult {
     public void setAdditionalOtherFilesB(List<String> additionalOtherFilesB) {
         this.additionalOtherFilesB = additionalOtherFilesB;
     }
+
     public List<String> getModifiedDrawableFiles() {
         return modifiedDrawableFiles;
     }
@@ -202,7 +210,37 @@ public class HashCompareResult {
         this.modifiedOtherFiles = modifiedOtherFiles;
     }
 
+    public BigDecimal getJaccardIndexDrawables() {
+        return jaccardIndexDrawables;
+    }
 
+    public void setJaccardIndexDrawables(BigDecimal jaccardIndexDrawables) {
+        this.jaccardIndexDrawables = jaccardIndexDrawables;
+    }
+
+    public BigDecimal getJaccardIndexLayouts() {
+        return jaccardIndexLayouts;
+    }
+
+    public void setJaccardIndexLayouts(BigDecimal jaccardIndexLayouts) {
+        this.jaccardIndexLayouts = jaccardIndexLayouts;
+    }
+
+    public BigDecimal getJaccardIndexOthers() {
+        return jaccardIndexOthers;
+    }
+
+    public void setJaccardIndexOthers(BigDecimal jaccardIndexOthers) {
+        this.jaccardIndexOthers = jaccardIndexOthers;
+    }
+
+    public BigDecimal getJaccardIndexAll() {
+        return jaccardIndexAll;
+    }
+
+    public void setJaccardIndexAll(BigDecimal jaccardIndexAll) {
+        this.jaccardIndexAll = jaccardIndexAll;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -246,7 +284,15 @@ public class HashCompareResult {
             return false;
         if (additionalOtherFilesA != null ? !additionalOtherFilesA.equals(that.additionalOtherFilesA) : that.additionalOtherFilesA != null)
             return false;
-        return !(additionalOtherFilesB != null ? !additionalOtherFilesB.equals(that.additionalOtherFilesB) : that.additionalOtherFilesB != null);
+        if (additionalOtherFilesB != null ? !additionalOtherFilesB.equals(that.additionalOtherFilesB) : that.additionalOtherFilesB != null)
+            return false;
+        if (jaccardIndexDrawables != null ? !jaccardIndexDrawables.equals(that.jaccardIndexDrawables) : that.jaccardIndexDrawables != null)
+            return false;
+        if (jaccardIndexLayouts != null ? !jaccardIndexLayouts.equals(that.jaccardIndexLayouts) : that.jaccardIndexLayouts != null)
+            return false;
+        if (jaccardIndexOthers != null ? !jaccardIndexOthers.equals(that.jaccardIndexOthers) : that.jaccardIndexOthers != null)
+            return false;
+        return !(jaccardIndexAll != null ? !jaccardIndexAll.equals(that.jaccardIndexAll) : that.jaccardIndexAll != null);
 
     }
 
@@ -272,6 +318,10 @@ public class HashCompareResult {
         result = 31 * result + (additionaLayoutFilesB != null ? additionaLayoutFilesB.hashCode() : 0);
         result = 31 * result + (additionalOtherFilesA != null ? additionalOtherFilesA.hashCode() : 0);
         result = 31 * result + (additionalOtherFilesB != null ? additionalOtherFilesB.hashCode() : 0);
+        result = 31 * result + (jaccardIndexDrawables != null ? jaccardIndexDrawables.hashCode() : 0);
+        result = 31 * result + (jaccardIndexLayouts != null ? jaccardIndexLayouts.hashCode() : 0);
+        result = 31 * result + (jaccardIndexOthers != null ? jaccardIndexOthers.hashCode() : 0);
+        result = 31 * result + (jaccardIndexAll != null ? jaccardIndexAll.hashCode() : 0);
         return result;
     }
 
@@ -298,6 +348,10 @@ public class HashCompareResult {
                 ", additionaLayoutFilesB=" + additionaLayoutFilesB +
                 ", additionalOtherFilesA=" + additionalOtherFilesA +
                 ", additionalOtherFilesB=" + additionalOtherFilesB +
+                ", jaccardIndexDrawables=" + jaccardIndexDrawables +
+                ", jaccardIndexLayouts=" + jaccardIndexLayouts +
+                ", jaccardIndexOthers=" + jaccardIndexOthers +
+                ", jaccardIndexAll=" + jaccardIndexAll +
                 '}';
     }
 }

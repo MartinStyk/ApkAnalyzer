@@ -13,9 +13,10 @@ public class SimilarityThreshold {
     private static final int MAX_DIFFERENT_DRAWABLES_RATIO_DIFFERENCE = 50;
     private static final int MAX_DIFFERENT_LAYOUTS_RATIO_DIFFERENCE = 50;
     private static final int MIN_BOOLEAN_EVALUATION_THRESHOLD = 50;
-    private static final int MIN_IDENTICAL_DRAWABLES_IN_APK_RATIO = 50;
-    private static final int MIN_IDENTICAL_LAYOUTS_IN_APK_RATIO = 50;
-    private static final int MIN_IDENTICAL_OTHERS_IN_APK_RATIO = 50;
+    private static final int MIN_IDENTICAL_DRAWABLES_IN_APK_JACCARD_INDEX = 50;
+    private static final double MIN_IDENTICAL_LAYOUTS_IN_APK_JACCARD_INDEX = 0.5;
+    private static final double MIN_IDENTICAL_OTHERS_IN_APK_JACCARD_INDEX = 50;
+    private static final double MIN_IDENTICAL_ALL_IN_APK_JACCARD_INDEX = 50;
 
 
     private Integer maxFilesizeRatioDifference;
@@ -26,9 +27,10 @@ public class SimilarityThreshold {
     private Integer maxDifferentDrawablesRatioDifference;
     private Integer maxDifferentLayoutsRatioDifference;
     private Integer minBooleanEvaluationThreshold;
-    private Integer minIdenticalDrawablesInApkRatio;
-    private Integer minIdenticalLayoutsInApkRatio;
-    private Integer minIdenticalOthersInApkRatio;
+    private Double minIdenticalDrawablesInApkJaccardIndex;
+    private Double minIdenticalLayoutsInApkJaccardIndex;
+    private Double minIdenticalOthersInApkJaccardIndex;
+    private Double minIdenticalAllInApkJaccardIndex;
 
 
     public Integer getMaxFilesizeRatioDifference() {
@@ -95,27 +97,103 @@ public class SimilarityThreshold {
         this.minBooleanEvaluationThreshold = maxBooleanEvaluationThreshold;
     }
 
-    public Integer getMinIdenticalDrawablesInApkRatio() {
-        return minIdenticalDrawablesInApkRatio == null ? MIN_IDENTICAL_DRAWABLES_IN_APK_RATIO : minIdenticalDrawablesInApkRatio;
+    public Double getMinIdenticalDrawablesInApkJaccardIndex() {
+        return minIdenticalDrawablesInApkJaccardIndex == null ? MIN_IDENTICAL_DRAWABLES_IN_APK_JACCARD_INDEX : minIdenticalDrawablesInApkJaccardIndex;
     }
 
-    public void setMinIdenticalDrawablesInApkRatio(Integer minIdenticalDrawablesInApkRatio) {
-        this.minIdenticalDrawablesInApkRatio = minIdenticalDrawablesInApkRatio;
+    public void setMinIdenticalDrawablesInApkJaccardIndex(Double minIdenticalDrawablesInApkJaccardIndex) {
+        this.minIdenticalDrawablesInApkJaccardIndex = minIdenticalDrawablesInApkJaccardIndex;
     }
 
-    public Integer getMinIdenticalLayoutsInApkRatio() {
-        return minIdenticalLayoutsInApkRatio == null ? MIN_IDENTICAL_LAYOUTS_IN_APK_RATIO : minIdenticalLayoutsInApkRatio;
+    public Double getMinIdenticalLayoutsInApkJaccardIndex() {
+        return minIdenticalLayoutsInApkJaccardIndex == null ? MIN_IDENTICAL_LAYOUTS_IN_APK_JACCARD_INDEX : minIdenticalLayoutsInApkJaccardIndex;
     }
 
-    public void setMinIdenticalLayoutsInApkRatio(Integer minIdenticalLayoutsInApkRatio) {
-        this.minIdenticalLayoutsInApkRatio = minIdenticalLayoutsInApkRatio;
+    public void setMinIdenticalLayoutsInApkJaccardIndex(Double minIdenticalLayoutsInApkJaccardIndex) {
+        this.minIdenticalLayoutsInApkJaccardIndex = minIdenticalLayoutsInApkJaccardIndex;
     }
 
-    public Integer getMinIdenticalOthersInApkRatio() {
-        return minIdenticalOthersInApkRatio == null ? MIN_IDENTICAL_OTHERS_IN_APK_RATIO : minIdenticalOthersInApkRatio;
+    public Double getMinIdenticalOthersInApkJaccardIndex() {
+        return minIdenticalOthersInApkJaccardIndex == null ? MIN_IDENTICAL_OTHERS_IN_APK_JACCARD_INDEX : minIdenticalOthersInApkJaccardIndex;
     }
 
-    public void setMinIdenticalOthersInApkRatio(Integer minIdenticalOthersInApkRatio) {
-        this.minIdenticalOthersInApkRatio = minIdenticalOthersInApkRatio;
+    public void setMinIdenticalOthersInApkJaccardIndex(Double minIdenticalOthersInApkJaccardIndex) {
+        this.minIdenticalOthersInApkJaccardIndex = minIdenticalOthersInApkJaccardIndex;
+    }
+
+    public Double getMinIdenticalAllInApkJaccardIndex() {
+        return minIdenticalAllInApkJaccardIndex == null ? MIN_IDENTICAL_ALL_IN_APK_JACCARD_INDEX : minIdenticalAllInApkJaccardIndex;
+    }
+
+    public void setMinIdenticalAllInApkJaccardIndex(Double minIdenticalAllInApkJaccardIndex) {
+        this.minIdenticalAllInApkJaccardIndex = minIdenticalAllInApkJaccardIndex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimilarityThreshold that = (SimilarityThreshold) o;
+
+        if (maxFilesizeRatioDifference != null ? !maxFilesizeRatioDifference.equals(that.maxFilesizeRatioDifference) : that.maxFilesizeRatioDifference != null)
+            return false;
+        if (maxActivitiesRatioDifference != null ? !maxActivitiesRatioDifference.equals(that.maxActivitiesRatioDifference) : that.maxActivitiesRatioDifference != null)
+            return false;
+        if (maxServicesRatioDifference != null ? !maxServicesRatioDifference.equals(that.maxServicesRatioDifference) : that.maxServicesRatioDifference != null)
+            return false;
+        if (maxProvidersRatioDifference != null ? !maxProvidersRatioDifference.equals(that.maxProvidersRatioDifference) : that.maxProvidersRatioDifference != null)
+            return false;
+        if (maxReceiversRatioDifference != null ? !maxReceiversRatioDifference.equals(that.maxReceiversRatioDifference) : that.maxReceiversRatioDifference != null)
+            return false;
+        if (maxDifferentDrawablesRatioDifference != null ? !maxDifferentDrawablesRatioDifference.equals(that.maxDifferentDrawablesRatioDifference) : that.maxDifferentDrawablesRatioDifference != null)
+            return false;
+        if (maxDifferentLayoutsRatioDifference != null ? !maxDifferentLayoutsRatioDifference.equals(that.maxDifferentLayoutsRatioDifference) : that.maxDifferentLayoutsRatioDifference != null)
+            return false;
+        if (minBooleanEvaluationThreshold != null ? !minBooleanEvaluationThreshold.equals(that.minBooleanEvaluationThreshold) : that.minBooleanEvaluationThreshold != null)
+            return false;
+        if (minIdenticalDrawablesInApkJaccardIndex != null ? !minIdenticalDrawablesInApkJaccardIndex.equals(that.minIdenticalDrawablesInApkJaccardIndex) : that.minIdenticalDrawablesInApkJaccardIndex != null)
+            return false;
+        if (minIdenticalLayoutsInApkJaccardIndex != null ? !minIdenticalLayoutsInApkJaccardIndex.equals(that.minIdenticalLayoutsInApkJaccardIndex) : that.minIdenticalLayoutsInApkJaccardIndex != null)
+            return false;
+        if (minIdenticalOthersInApkJaccardIndex != null ? !minIdenticalOthersInApkJaccardIndex.equals(that.minIdenticalOthersInApkJaccardIndex) : that.minIdenticalOthersInApkJaccardIndex != null)
+            return false;
+        return !(minIdenticalAllInApkJaccardIndex != null ? !minIdenticalAllInApkJaccardIndex.equals(that.minIdenticalAllInApkJaccardIndex) : that.minIdenticalAllInApkJaccardIndex != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = maxFilesizeRatioDifference != null ? maxFilesizeRatioDifference.hashCode() : 0;
+        result = 31 * result + (maxActivitiesRatioDifference != null ? maxActivitiesRatioDifference.hashCode() : 0);
+        result = 31 * result + (maxServicesRatioDifference != null ? maxServicesRatioDifference.hashCode() : 0);
+        result = 31 * result + (maxProvidersRatioDifference != null ? maxProvidersRatioDifference.hashCode() : 0);
+        result = 31 * result + (maxReceiversRatioDifference != null ? maxReceiversRatioDifference.hashCode() : 0);
+        result = 31 * result + (maxDifferentDrawablesRatioDifference != null ? maxDifferentDrawablesRatioDifference.hashCode() : 0);
+        result = 31 * result + (maxDifferentLayoutsRatioDifference != null ? maxDifferentLayoutsRatioDifference.hashCode() : 0);
+        result = 31 * result + (minBooleanEvaluationThreshold != null ? minBooleanEvaluationThreshold.hashCode() : 0);
+        result = 31 * result + (minIdenticalDrawablesInApkJaccardIndex != null ? minIdenticalDrawablesInApkJaccardIndex.hashCode() : 0);
+        result = 31 * result + (minIdenticalLayoutsInApkJaccardIndex != null ? minIdenticalLayoutsInApkJaccardIndex.hashCode() : 0);
+        result = 31 * result + (minIdenticalOthersInApkJaccardIndex != null ? minIdenticalOthersInApkJaccardIndex.hashCode() : 0);
+        result = 31 * result + (minIdenticalAllInApkJaccardIndex != null ? minIdenticalAllInApkJaccardIndex.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SimilarityThreshold{" +
+                "maxFilesizeRatioDifference=" + maxFilesizeRatioDifference +
+                ", maxActivitiesRatioDifference=" + maxActivitiesRatioDifference +
+                ", maxServicesRatioDifference=" + maxServicesRatioDifference +
+                ", maxProvidersRatioDifference=" + maxProvidersRatioDifference +
+                ", maxReceiversRatioDifference=" + maxReceiversRatioDifference +
+                ", maxDifferentDrawablesRatioDifference=" + maxDifferentDrawablesRatioDifference +
+                ", maxDifferentLayoutsRatioDifference=" + maxDifferentLayoutsRatioDifference +
+                ", minBooleanEvaluationThreshold=" + minBooleanEvaluationThreshold +
+                ", minIdenticalDrawablesInApkJaccardIndex=" + minIdenticalDrawablesInApkJaccardIndex +
+                ", minIdenticalLayoutsInApkJaccardIndex=" + minIdenticalLayoutsInApkJaccardIndex +
+                ", minIdenticalOthersInApkJaccardIndex=" + minIdenticalOthersInApkJaccardIndex +
+                ", minIdenticalAllInApkJaccardIndex=" + minIdenticalAllInApkJaccardIndex +
+                '}';
     }
 }

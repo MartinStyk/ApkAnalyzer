@@ -96,11 +96,13 @@ public class SimilarityEvaluator {
             similarityThreshold = new SimilarityThreshold();
         }
 
-        Boolean drawables = compareRatios(hashCompareResult.getIdenticalDrawables(), similarityThreshold.getMinIdenticalDrawablesInApkRatio(), true);
-        Boolean layouts = compareRatios(hashCompareResult.getIdenticalLayouts(), similarityThreshold.getMinIdenticalLayoutsInApkRatio(), true);
-        Boolean others = compareRatios(hashCompareResult.getIdenticalOthers(), similarityThreshold.getMinIdenticalOthersInApkRatio(), true);
+        Boolean drawables = compareRatios(hashCompareResult.getJaccardIndexDrawables(), similarityThreshold.getMinIdenticalDrawablesInApkJaccardIndex(), true);
+        Boolean layouts = compareRatios(hashCompareResult.getJaccardIndexLayouts(), similarityThreshold.getMinIdenticalLayoutsInApkJaccardIndex(), true);
+        Boolean others = compareRatios(hashCompareResult.getJaccardIndexOthers(), similarityThreshold.getMinIdenticalOthersInApkJaccardIndex(), true);
+        Boolean all = compareRatios(hashCompareResult.getJaccardIndexAll(), similarityThreshold.getMinIdenticalAllInApkJaccardIndex(), true);
 
-        boolean result = evaluateBooleans(Arrays.asList(drawables, layouts, others), similarityThreshold.getMinBooleanEvaluationThreshold());
+        boolean result = evaluateBooleans(Arrays.asList(drawables, layouts, others, all), 85);//85 means all obtained got to match
+
         Boolean certificateEvaluate = comparisonResult.getMetadataCompareResult() == null ? null : comparisonResult.getMetadataCompareResult().getCertificateSame();
         Boolean versionEvaluate = null;
 
@@ -133,17 +135,17 @@ public class SimilarityEvaluator {
         return basicEvaluateResult;
     }
 
-    private Boolean compareRatios(PercentagePair percentagePair, Integer threshold) {
+    private Boolean compareRatios(PercentagePair percentagePair, Number threshold) {
         return compareRatios(percentagePair, threshold, false);
     }
 
-    private Boolean compareRatios(PercentagePair percentagePair, Integer threshold, boolean isMinCriterium) {
+    private Boolean compareRatios(PercentagePair percentagePair, Number threshold, boolean isMinCriterium) {
         if (percentagePair == null)
             return null;
         return compareRatios(percentagePair.getPercentage(), threshold, isMinCriterium);
     }
 
-    private Boolean compareRatios(BigDecimal percent, Integer threshold, boolean isMinCriterium) {
+    private Boolean compareRatios(BigDecimal percent, Number threshold, boolean isMinCriterium) {
         if (percent == null)
             return null;
 

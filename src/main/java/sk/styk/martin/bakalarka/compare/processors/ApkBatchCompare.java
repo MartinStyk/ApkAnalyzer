@@ -37,6 +37,7 @@ public class ApkBatchCompare {
         ExecutorService pool = Executors.newFixedThreadPool(numberOfProcessors);
 
         int jsonsSize = jsons.size();
+        int ii=0;
 
         for (int i = 0; i < jsonsSize - 1; i++) {
 
@@ -44,6 +45,10 @@ public class ApkBatchCompare {
 
             for (int j = i + 1; j < jsonsSize; j++) {
                 ApkData apkDataB = JsonUtils.fromJson(jsons.get(j));
+                ii++;
+                if(j == jsonsSize -1){
+                    System.out.print("---------"+ii);
+                }
                 try {
                     pool.submit(new ApkDataCompareTask(apkDataA, apkDataB, outputDirectory));
                 } catch (Exception e) {
