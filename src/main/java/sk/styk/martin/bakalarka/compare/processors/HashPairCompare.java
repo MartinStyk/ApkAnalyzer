@@ -272,7 +272,11 @@ public class HashPairCompare {
         union.addAll(setA);
         union.addAll(setB);
 
-        return new BigDecimal((setA.size() + setB.size() - union.size()) / union.size());
+        double sizeA = setA.size();
+        double sizeB = setB.size();
+        double sizeUnion = union.size();
+
+        return new BigDecimal((sizeA + sizeB - sizeUnion) / sizeUnion);
     }
 
 }
