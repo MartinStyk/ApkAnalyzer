@@ -17,6 +17,7 @@ public class ArgumentsFactory {
     private static final String OPTION_INPUT_SHORT = "in";
     private static final String OPTION_INPUT_LONG = "input-dir";
     private static final String OPTION_OUTPUT_SHORT = "out";
+
     private static final String OPTION_OUTPUT_LONG = "output-dir";
 
     private final String[] args;

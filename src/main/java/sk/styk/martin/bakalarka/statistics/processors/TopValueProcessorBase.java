@@ -76,7 +76,7 @@ public class TopValueProcessorBase<X> {
     public void requestMinValues(String name) {
         if (minInventary.containsKey(name))
             throw new IllegalArgumentException("min values for this name already in use");
-        minInventary.put(name, new RecordPair<Number, X>(0, new ArrayList<X>()));
+        minInventary.put(name, new RecordPair<Number, X>(Long.MAX_VALUE, new ArrayList<X>()));
     }
 
     public RecordPair<Number, X> processMinExtreme(Enum name, Integer currentValue, X currentName) {
@@ -95,7 +95,7 @@ public class TopValueProcessorBase<X> {
     }
 
     public RecordPair<Number, X> processMinExtreme(String name, long currentValue, X currentName) {
-        RecordPair currentRecordPair = maxInventary.get(name);
+        RecordPair currentRecordPair = minInventary.get(name);
 
         if (currentRecordPair == null)
             throw new IllegalArgumentException("unknown name, min values are for this name not in use");
