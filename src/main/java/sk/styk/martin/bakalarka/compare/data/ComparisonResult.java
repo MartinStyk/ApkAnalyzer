@@ -3,6 +3,8 @@ package sk.styk.martin.bakalarka.compare.data;
 import sk.styk.martin.bakalarka.compare.processors.SimilarityType;
 
 /**
+ * Class that aggregates results of comparison of 2 APKs
+ *
  * Created by Martin Styk on 06.01.2016.
  */
 public class ComparisonResult {

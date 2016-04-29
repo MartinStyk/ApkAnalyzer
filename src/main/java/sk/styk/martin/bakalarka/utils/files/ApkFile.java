@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Represents APK file. Extends File with information and methods useful when working with APK
+ *
  * Created by Martin Styk on 06.12.2015.
  */
 public class ApkFile extends File {
@@ -21,10 +23,19 @@ public class ApkFile extends File {
     private Exception decompilationException;
     private Exception unzipException;
 
+    /**
+     * Creates APK file
+     * @param file apk file
+     */
     public ApkFile(File file) {
         this(file.getAbsolutePath());
     }
 
+
+    /**
+     * Creates APK file
+     * @param pathname path to apk file
+     */
     public ApkFile(String pathname) {
         super(pathname);
         if (!(pathname.endsWith(".apk") || pathname.endsWith(".APK"))) {
@@ -32,6 +43,11 @@ public class ApkFile extends File {
         }
     }
 
+    /**
+     * Creates APK file
+     * @param parent parent directory
+     * @param child name of APK file
+     */
     public ApkFile(String parent, String child) {
         super(parent, child);
         if (!child.endsWith(".apk")) {
@@ -39,18 +55,31 @@ public class ApkFile extends File {
         }
     }
 
+    /**
+     * @see TempFileManager
+     * @return manger of temporary directory of APK file
+     */
     public TempFileManager getApkWorkingDirectoryManager() {
         return apkWorkingDirectoryManager;
     }
 
+    /**
+     * @return temporary directory where APK file is unzipped
+     */
     public File getUnzipDirectory() {
         return apkWorkingDirectoryManager.getApkUnzipedDirectory();
     }
 
+    /**
+     * @return temporary directory where APK file is decompiled
+     */
     public File getDecompiledDirectory() {
         return apkWorkingDirectoryManager.getApkDecompiledDirectory();
     }
 
+    /**
+     * Delete everything created in directory where current apk is unzipped/decompiled
+     */
     public void cleanApkWorkingDirectory() {
         try {
             apkWorkingDirectoryManager.deleteApkWorkingDirectory();
@@ -59,6 +88,10 @@ public class ApkFile extends File {
         }
     }
 
+    /**
+     * Unzip APK file
+     * @see ApkUnziper
+     */
     public void unzip() {
         try {
             ApkUnziper.getInstance(this).unzip();
@@ -68,6 +101,10 @@ public class ApkFile extends File {
         }
     }
 
+    /**
+     * Decompile APK file
+     * @see ApkDecompiler
+     */
     public void decompile() {
         try {
             ApkDecompiler.getInstance(this).decompile();
@@ -93,6 +130,9 @@ public class ApkFile extends File {
         return unzipException != null;
     }
 
+    /**
+     * @return directory where APK is unzipped, perform unzip if needed
+     */
     public File getUnzipDirectoryWithUnzipedData() {
         if (!isUnziped() && !isUnzipFailed()) {
             unzip();
@@ -100,6 +140,9 @@ public class ApkFile extends File {
         return getUnzipDirectory();
     }
 
+    /**
+     * @return directory where APK is decompiled, perform decomplation if needed
+     */
     public File getDecompiledDirectoryWithDecompiledData() {
         if (!isDecompiled() && !isDecompilationFailed()) {
             decompile();

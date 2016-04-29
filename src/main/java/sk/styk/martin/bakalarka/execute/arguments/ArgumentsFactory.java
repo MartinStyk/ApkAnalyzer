@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Creates command line options
+ *
  * Created by Martin Styk on 20.02.2016.
  */
 public class ArgumentsFactory {

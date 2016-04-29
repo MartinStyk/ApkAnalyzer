@@ -9,6 +9,19 @@ import sk.styk.martin.bakalarka.execute.tasks.StatisticsTask;
 import sk.styk.martin.bakalarka.execute.tasks.Task;
 
 /**
+ * Main class of ApkAnalyzer project
+ * <p/>
+ * This project is created as a part of Bachelor thesis Analysis of Android installation APK files
+ * <p/>
+ * -analyze Triggers analyze task.
+ * -compare Triggers compare task.
+ * -statistics Triggers statistics task.
+ * -in, --input-dir Specify directory where input for task will be searched
+ * -out, --output-dir Specify directory where output of task will be saved
+ * <p/>
+ *
+ * @see https://github.com/MartinStyk/ApkAnalyzer
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class Main {

@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Utility for work with temporary files created during decompile/unzip APK
+ *
  * Created by Martin Styk on 29.11.2015.
  */
 public class TempFileManager {

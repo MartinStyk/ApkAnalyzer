@@ -3,6 +3,9 @@ package sk.styk.martin.bakalarka.utils.data;
 import java.util.List;
 
 /**
+ * Pair of numeric value and related records
+ * Used in statistics to represent max/min values
+ *
  * Created by Martin Styk on 05.02.2016.
  */
 public class RecordPair<A extends Number, B> {

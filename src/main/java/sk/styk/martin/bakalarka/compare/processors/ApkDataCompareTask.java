@@ -9,6 +9,9 @@ import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import java.io.File;
 
 /**
+ * Task for compare of 2 APKs
+ * Works with metadata created during analyze task.
+ *
  * Created by Martin Styk on 07.01.2016.
  */
 public class ApkDataCompareTask implements Runnable {
@@ -18,6 +21,11 @@ public class ApkDataCompareTask implements Runnable {
     private ApkData apkDataB;
     private File outputDirectoryBase;
 
+    /**
+     * @param apkDataA data created during analysis - APK A
+     * @param apkDataB data created during analysis - APK B
+     * @param outputDirectory directory to save output
+     */
     public ApkDataCompareTask(ApkData apkDataA, ApkData apkDataB, File outputDirectory) {
         if (apkDataA == null) {
             throw new IllegalArgumentException("apkDataA null");
@@ -31,6 +39,10 @@ public class ApkDataCompareTask implements Runnable {
         this.outputDirectoryBase = outputDirectory;
     }
 
+    /**
+     * Compare using with optimization
+     * @see ApkPairCompareSimilarImpl
+     */
     public void run() {
         logger.trace("start " + apkDataA.getFileName() + " " + apkDataB.getFileName());
 

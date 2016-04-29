@@ -3,6 +3,9 @@ package sk.styk.martin.bakalarka.analyze.data;
 import java.util.Date;
 
 /**
+ * Class representing data collecting during analyze
+ * Represents data obtained from certificate file
+ *
  * Created by Martin Styk on 27.11.2015.
  */
 public class CertificateData {

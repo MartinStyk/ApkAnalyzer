@@ -3,6 +3,8 @@ package sk.styk.martin.bakalarka.compare.data;
 import sk.styk.martin.bakalarka.utils.data.DifferencePair;
 
 /**
+ * Comparison result of single attribute
+ *
  * Created by Martin Styk on 27.01.2016.
  */
 public class AttributeComparisonResult<X> {

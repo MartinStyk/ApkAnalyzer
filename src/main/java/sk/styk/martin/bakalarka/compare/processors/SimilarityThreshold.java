@@ -1,6 +1,8 @@
 package sk.styk.martin.bakalarka.compare.processors;
 
 /**
+ * Similarity threshold values
+ *
  * Created by Martin Styk on 07.01.2016.
  */
 public class SimilarityThreshold {

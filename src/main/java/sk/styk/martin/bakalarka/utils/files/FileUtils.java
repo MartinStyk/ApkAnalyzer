@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
+ * Utilities to simplify work with files
+ *
  * Created by Martin Styk on 27.11.2015.
  */
 public class FileUtils {

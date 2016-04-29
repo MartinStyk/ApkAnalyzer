@@ -13,6 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Base class for processing analyze of APKs.
+ * Analysis consists of all analyzed aspects
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkProcessor {
@@ -44,6 +47,12 @@ public class ApkProcessor {
         return new ApkProcessor(apk);
     }
 
+    /**
+     * Analyze all APKs provided to constructor during creation of instance
+     * In memory analyze, results are not saved in output file, but returned as return value
+     *
+     * @return list of metadata about APK
+     */
     public List<ApkData> processFiles() {
         List<ApkData> statistics = new ArrayList<ApkData>();
         for (ApkFile f : apks) {
@@ -52,6 +61,15 @@ public class ApkProcessor {
         return statistics;
     }
 
+    /**
+     * Analyze all APKs provided to constructor during creation of instance
+     * Output of analyze is saved into ouput files in directory specified by parameter.
+     *
+     * Executes concurrent analyze, 1 analyzed APK per processor core
+     *
+     * @see ApkProcessingTask for thread implementing this funcitonality
+     * @param outputDirectory directory to store output files
+     */
     public void processFiles(File outputDirectory) {
 
         int numberOfProcessors = Runtime.getRuntime().availableProcessors();
@@ -68,6 +86,12 @@ public class ApkProcessor {
         }
     }
 
+    /**
+     * Analyze single APK file
+     *
+     * @param apk file to be analyzed
+     * @return data about APK
+     */
     public ApkData processFile(ApkFile apk) {
         logger.info(apk.getMarker() + "Started processing of file " + apk.getName());
 

@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
+ * Pairwise comapre of 2APK - hash data
+ *
  * Created by Martin Styk on 06.01.2016.
  */
 public class HashPairCompare {

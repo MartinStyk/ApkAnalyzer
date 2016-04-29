@@ -13,12 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Utilities to simplify work with Jsons
+ *
  * Created by Martin Styk on 27.11.2015.
  */
 public class JsonUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
+    /**
+     * Saves ApkData as Json file in specified directory
+     * Name is derived from APK file name
+     *
+     * @param data
+     * @param outputDirectory
+     */
     public static void toJson(ApkData data, File outputDirectory) {
 
         if (!outputDirectory.exists()) {
@@ -54,6 +63,14 @@ public class JsonUtils {
             }
         }
     }
+
+    /**
+     * Saves ApkData as Json file in specified directory
+     * Name is specified in outFile parameter
+     *
+     * @param data
+     * @param outFile
+     */
     public static void toJsonFile(ApkData data, File outFile) {
 
         Gson gson = new GsonBuilder()
@@ -83,6 +100,12 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * Load ApkData instance from Json file
+     *
+     * @param jsonFile
+     * @return ApkData object represented by data in file
+     */
     public static ApkData fromJson(File jsonFile) {
 
         Gson gson = new GsonBuilder()
@@ -122,7 +145,12 @@ public class JsonUtils {
         return obj;
     }
 
-
+    /**
+     * Load all ApkData instances from Json files in directory
+     *
+     * @param jsonFolder
+     * @return List of ApkData objects represented by data in file
+     */
     public static List<ApkData> ListfromJson(File jsonFolder) {
 
         if (jsonFolder == null || !jsonFolder.exists()) {
@@ -141,6 +169,13 @@ public class JsonUtils {
         return list;
     }
 
+    /**
+     * Saves ComparisonResult as Json file in specified directory
+     * Name is derived from compared APKs file name
+     *
+     * @param data
+     * @param outputDirectory
+     */
     public static void toJson(ComparisonResult data, File outputDirectory) {
 
         if (!outputDirectory.exists()) {
@@ -177,6 +212,13 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * Saves OverallStatistics as Json file in specified directory
+     * Name is specified in parameted
+     *
+     * @param data
+     * @param outputFile file to save output
+     */
     public static void toJson(OverallStatistics data, File outputFile) {
 
         if (!outputFile.exists()) {

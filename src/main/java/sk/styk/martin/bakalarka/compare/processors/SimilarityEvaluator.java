@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Evaluates 2 APKs similarity
+ *
  * Created by Martin Styk on 07.01.2016.
  */
 public class SimilarityEvaluator {
@@ -18,6 +20,11 @@ public class SimilarityEvaluator {
     private SimilarityThreshold similarityThreshold;
     private SimilarityType basicEvaluateResult;
 
+    /**
+     * Evaluates similarity on limited set of attributes
+     * @param comparisonResult result of compare of 2 APKS
+     * @return type of similarity
+     */
     public SimilarityType basicEvaluate(ComparisonResult comparisonResult) {
 
         if (comparisonResult == null) {
@@ -73,7 +80,11 @@ public class SimilarityEvaluator {
 
     }
 
-
+    /**
+     * Evaluates similarity on full set of attributes
+     * @param comparisonResult result of compare of 2 APKS
+     * @return type of similarity
+     */
     public SimilarityType fullEvaluate(ComparisonResult comparisonResult) {
 
         if (comparisonResult == null) {

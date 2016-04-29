@@ -3,6 +3,9 @@ package sk.styk.martin.bakalarka.analyze.data;
 import java.util.List;
 
 /**
+ * Class representing data collecting during analyze
+ * Represents data about resources
+ *
  * Created by Martin Styk on 06.12.2015.
  */
 public class ResourceData {

@@ -9,6 +9,8 @@ import sk.styk.martin.bakalarka.utils.files.JsonUtils;
 import java.io.File;
 
 /**
+ * Task for single APK file analyze
+ *
  * Created by Martin Styk on 30.12.2015.
  */
 public class ApkProcessingTask implements Runnable {
@@ -17,6 +19,10 @@ public class ApkProcessingTask implements Runnable {
     private ApkFile apk;
     private File outputDirectory;
 
+    /**
+     * @param apk file for analysis
+     * @param outputDirectory directory for output
+     */
     public ApkProcessingTask(ApkFile apk, File outputDirectory) {
         if (apk == null) {
             throw new IllegalArgumentException("apk file is null");
@@ -35,12 +41,16 @@ public class ApkProcessingTask implements Runnable {
         JsonUtils.toJson(data, outputDirectory);
     }
 
+    /**
+     * Analyze single APK file
+     *
+     * @param apk file to be analyzed
+     * @return data about APK
+     */
     private ApkData processFile(ApkFile apk) {
         logger.info(apk.getMarker() + "Started processing of file " + apk.getName());
 
         ApkData data = new ApkData();
-
-        // 1. get data from unziped directory
 
         FileInfoProcessor
                 .getInstance(data, apk)
@@ -54,13 +64,10 @@ public class ApkProcessingTask implements Runnable {
                 .getInstance(data, apk)
                 .getHashes();
 
-        // 2. get data from decompile directory
-
         AndroidManifestProcessor
                 .getInstance(data, apk)
                 .processAndroidManifest();
 
-        // 3. uses data from decompile and unzip directory
         ResourceProcessor
                 .getInstance(data, apk)
                 .processResources();

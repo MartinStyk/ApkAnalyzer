@@ -6,6 +6,9 @@ import sk.styk.martin.bakalarka.analyze.data.ApkData;
 import sk.styk.martin.bakalarka.compare.data.ComparisonResult;
 
 /**
+ * Full compare of two apks.
+ * Works with metadata created during analyze task
+ *
  * Created by Martin Styk on 12.01.2016.
  */
 public class ApkPairCompareFullImpl implements ApkPairCompare {

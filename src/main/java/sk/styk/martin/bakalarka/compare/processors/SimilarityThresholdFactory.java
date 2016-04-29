@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 /**
+ * Creates threshold values for 2 APK to be consider as similar
+ * We expect low number of different threshold criteria. Keep them in memory and don`t create new for each pair.
+ *
  * Created by Martin Styk on 03.03.2016.
  */
 public class SimilarityThresholdFactory {
@@ -23,6 +26,11 @@ public class SimilarityThresholdFactory {
         ourInstancesPrepared.put("default", new SimilarityThreshold());
     }
 
+    /**
+     * Get similarity threshold criteria for given properties file
+     * @param propertiesFile file with values
+     * @return
+     */
     public static SimilarityThreshold getInstance(File propertiesFile) {
         SimilarityThreshold toReturn = ourInstancesPrepared.get(propertiesFile.getAbsolutePath());
         if (toReturn != null) {
@@ -40,6 +48,11 @@ public class SimilarityThresholdFactory {
     private SimilarityThresholdFactory() {
     }
 
+    /**
+     * Load values from properties file
+     * @param propFile file with values
+     * @return appropriate instance of SimilarityThreshold
+     */
     private static SimilarityThreshold loadFromProps(File propFile) {
         Properties prop = new Properties();
         InputStream input = null;

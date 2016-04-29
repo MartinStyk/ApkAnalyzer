@@ -3,6 +3,9 @@ package sk.styk.martin.bakalarka.analyze.data;
 import java.util.List;
 
 /**
+ * Class representing data collecting during analyze
+ * Aggregate another classes from sk.styk.martin.bakalarka.analyze.data package
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkData {

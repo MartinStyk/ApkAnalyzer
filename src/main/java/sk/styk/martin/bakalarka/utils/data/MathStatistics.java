@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * Math Statistics collected about attributes of Apk file
+ *
  * Created by Martin Styk on 27.01.2016.
  */
 public class MathStatistics {
@@ -35,11 +37,11 @@ public class MathStatistics {
         this.deviation = new BigDecimal(deviation.doubleValue());
     }
 
-    public <X> MathStatistics(PercentagePair analyzedDataSet, List<Double> data, RecordPair minimalValue, RecordPair maximalValue) {
+    public MathStatistics(PercentagePair analyzedDataSet, List<Double> data, RecordPair minimalValue, RecordPair maximalValue) {
         this(analyzedDataSet, ConversionHelper.toDoubleArray(data), minimalValue, maximalValue);
     }
 
-    public <X> MathStatistics(PercentagePair analyzedDataSet, double[] data, RecordPair minimalValue, RecordPair maximalValue) {
+    public MathStatistics(PercentagePair analyzedDataSet, double[] data, RecordPair minimalValue, RecordPair maximalValue) {
         this.analyzedDataSet = analyzedDataSet;
         this.min = minimalValue;
         this.max = maximalValue;

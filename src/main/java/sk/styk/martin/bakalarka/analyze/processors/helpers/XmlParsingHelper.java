@@ -16,12 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Utils for simplified XML parsing
+ *
  * Created by Martin Styk on 07.12.2015.
  */
 public class XmlParsingHelper {
 
     private static final Logger logger = Logger.getLogger(XmlParsingHelper.class);
 
+    /**
+     * Create normalized XML document
+     *
+     * @param manifestFile XML file to work with
+     * @return normalized XML org.w3c.dom.Document
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     */
     public static Document getNormalizedDocument(File manifestFile) throws ParserConfigurationException, IOException, SAXException {
 
         logger.trace("started parsing of manifest file");
@@ -37,6 +48,14 @@ public class XmlParsingHelper {
         return doc;
     }
 
+    /**
+     * Get Element by according tag
+     * Only one such element should exist
+     *
+     * @param document document to search
+     * @param tag tag to look for in document
+     * @return corresponding element
+     */
     public static Element getSingleAppearingElementByTag(Document document, String tag) {
         NodeList elementList = document.getElementsByTagName(tag);
         if (elementList.getLength() != 1)
@@ -49,6 +68,11 @@ public class XmlParsingHelper {
         return null;
     }
 
+    /**
+     * @param eElement element containing boolean attribute
+     * @param atribute name of attribute in element
+     * @return value of boolean or null if attribute not exists
+     */
     public static Boolean getBooleanElementAtribute(Element eElement, String atribute) {
         String atr = eElement.getAttribute(atribute);
         if (atr != null && !atr.isEmpty()) {
@@ -57,6 +81,13 @@ public class XmlParsingHelper {
         return null;
     }
 
+    /**
+     * Return all values associated with attributeName inside element specified by tag
+     * @param document doc we work with
+     * @param elementTag element containing desired attribute
+     * @param attributeName name of attribute
+     * @return List of values specified in XML array
+     */
     public static List<String> getListOfTagAttributeValues(Document document, String elementTag, String attributeName) {
         NodeList usesPermissionList = document.getElementsByTagName(elementTag);
 
@@ -74,6 +105,11 @@ public class XmlParsingHelper {
         return result;
     }
 
+    /**
+     * @param element
+     * @param atrName
+     * @return String attribute or nul if not defined or empty
+     */
     public static String getSingleNonEmptyStringAtributeFromElement(Element element, String atrName) {
         String atrValue = element.getAttribute(atrName);
         return atrValue.isEmpty() ? null : atrValue;

@@ -13,6 +13,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
+ * Unzip APK file as ZIP archive
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkUnziper {
@@ -21,6 +23,9 @@ public class ApkUnziper {
     private Marker apkNameMarker;
     private ApkFile apkFile;
 
+    /**
+     * @param apkFile file to unzip
+     */
     public ApkUnziper(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
@@ -30,10 +35,17 @@ public class ApkUnziper {
         this.apkNameMarker = apkFile.getMarker();
     }
 
+    /**
+     * @param apkFile file to unzip
+     */
     public static ApkUnziper getInstance(ApkFile apkFile) {
         return new ApkUnziper(apkFile);
     }
 
+    /**
+     * Unzip single APK file
+     * @throws IOException
+     */
     public void unzip() throws IOException {
 
         byte[] buffer = new byte[1024];

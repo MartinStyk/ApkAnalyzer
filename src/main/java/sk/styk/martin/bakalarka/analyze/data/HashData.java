@@ -3,6 +3,9 @@ package sk.styk.martin.bakalarka.analyze.data;
 import java.util.Map;
 
 /**
+ * Class representing data collecting during analyze
+ * Represents hash data obtained from Manifest.mf
+ *
  * Created by Martin Styk on 14.12.2015.
  */
 public class HashData {

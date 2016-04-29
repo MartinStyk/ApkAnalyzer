@@ -7,6 +7,8 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Processor for statistics task
+ *
  * Created by Martin Styk on 17.01.2016.
  */
 public class StatisticsProcessor {
@@ -28,6 +30,12 @@ public class StatisticsProcessor {
         return new StatisticsProcessor(jsons);
     }
 
+    /**
+     * Get statistics from files
+     * If output file is set -> write statistics to file
+     *
+     * @return statistics data
+     */
     public OverallStatistics processFiles() {
         overallStatistics = new OverallStatistics();
         overallStatistics.setTotalAnalyzedApks(jsons.size());

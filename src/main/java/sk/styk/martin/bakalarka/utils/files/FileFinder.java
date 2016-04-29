@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Returns desired files
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class FileFinder {

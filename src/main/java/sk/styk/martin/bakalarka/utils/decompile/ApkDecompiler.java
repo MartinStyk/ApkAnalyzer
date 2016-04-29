@@ -12,6 +12,8 @@ import sk.styk.martin.bakalarka.utils.files.ApkFile;
 import java.io.File;
 
 /**
+ * Decompile APK file
+ *
  * Created by Martin Styk on 23.11.2015.
  */
 public class ApkDecompiler {
@@ -22,6 +24,9 @@ public class ApkDecompiler {
 
     private ApkFile apkFile;
 
+    /**
+     * @param apkFile file to decompile
+     */
     public ApkDecompiler(ApkFile apkFile) {
         if (apkFile == null) {
             throw new IllegalArgumentException("apkFile null");
@@ -38,10 +43,17 @@ public class ApkDecompiler {
         this.apkNameMarker = apkFile.getMarker();
     }
 
+    /**
+     * @param apkFile file to decompile
+     */
     public static ApkDecompiler getInstance(ApkFile apkFile) {
         return new ApkDecompiler(apkFile);
     }
 
+    /**
+     * Called internally to install framework of ApkTool
+     * neccessary to analyze some APKs
+     */
     private static void installFramework() {
 
         logger.info("Installing framework-res.apk");
@@ -54,6 +66,10 @@ public class ApkDecompiler {
         }
     }
 
+    /**
+     * Decompile APK file using ApkTool
+     * @throws Exception
+     */
     public void decompile() throws Exception {
 
         ApkDecoder decoder = new ApkDecoder();

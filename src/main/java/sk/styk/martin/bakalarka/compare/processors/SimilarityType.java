@@ -1,6 +1,9 @@
 package sk.styk.martin.bakalarka.compare.processors;
 
 /**
+ * Types of similarity of APKS
+ * Distinguish certifiacte and version
+ *
  * Created by Martin Styk on 07.02.2016.
  */
 public enum SimilarityType {

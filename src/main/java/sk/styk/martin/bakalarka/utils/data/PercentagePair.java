@@ -5,6 +5,9 @@ import sk.styk.martin.bakalarka.statistics.processors.helpers.PercentageHelper;
 import java.math.BigDecimal;
 
 /**
+ * Pair of number and its percentage part of total count
+ * Used in statistics task
+ *
  * Created by Martin Styk on 21.01.2016.
  */
 public class PercentagePair {

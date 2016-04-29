@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Pairwise compare of 2APK - metadata
+ * Works with metadata created during analyze task.
+ *
  * Created by Martin Styk on 06.01.2016.
  */
 public class MetadataPairCompare {

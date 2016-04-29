@@ -1,13 +1,15 @@
 package sk.styk.martin.bakalarka.utils.data;
 
 /**
+ * Pair of two values compared in statistics and compare task
+ *
  * Created by Martin Styk on 27.01.2016.
  */
-public class DifferencePair<A, B> {
+public class DifferencePair<A> {
     private A valueA;
-    private B valueB;
+    private A valueB;
 
-    public DifferencePair(A valueA, B valueB) {
+    public DifferencePair(A valueA, A valueB) {
         this.valueA = valueA;
         this.valueB = valueB;
     }
@@ -42,11 +44,11 @@ public class DifferencePair<A, B> {
         this.valueA = valueA;
     }
 
-    public B getValueB() {
+    public A getValueB() {
         return valueB;
     }
 
-    public void setValueB(B valueB) {
+    public void setValueB(A valueB) {
         this.valueB = valueB;
     }
 
