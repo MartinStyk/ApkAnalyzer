@@ -217,18 +217,13 @@ public class JsonUtils {
      * Name is specified in parameted
      *
      * @param data
-     * @param outputFile file to save output
+     * @param outputFile directory to save output
      */
     public static void toJson(OverallStatistics data, File outputFile) {
 
         if (!outputFile.exists()) {
-            try {
-                outputFile.createNewFile();
-                logger.info("Creating overall stats file " + outputFile.getName());
-            } catch (IOException e) {
-                logger.error("Error creating output file");
-            }
-
+                outputFile.mkdirs();
+                logger.info("Creating overall stats directory " + outputFile.getName());
         }
         if(outputFile.isDirectory()){
             File outputDirectory = outputFile;
@@ -250,7 +245,7 @@ public class JsonUtils {
             logger.info("Writting overal statistics to file " + outputFile.getAbsolutePath());
 
         } catch (IOException e) {
-            logger.error("Error saving file to " + outputFile.getName());
+            logger.error("Error saving file to " + outputFile.getName() + " " + e.toString());
         } finally {
             if (writer != null) {
                 try {
