@@ -4,6 +4,7 @@ Java app / library used to obtain detailed informations about Andoid APK files.
   * [Prepare for first use](#Prepare_for_first_use)
   * [Analyze APKs](#Analyze_APKs)
   * [Compare APKs](#Compare_APKs)
+  * [Compute Statistics](#Statistics)
 * [Collected data](#Collected_data)
   * [Attributes & description](#ad)
    * [Basic apk metadata](#basic)
