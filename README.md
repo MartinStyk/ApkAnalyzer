@@ -1,6 +1,6 @@
 # ApkAnalyzer
 Java app / library used to obtain detailed informations about Andoid APK files.
-* [How to use it](#How_to_use_it)
+* [How to use](#How_to_use_it)
   * [Prepare for first use](#Prepare_for_first_use)
   * [Analyze APKs](#Analyze_APKs)
   * [Compare APKs](#Compare_APKs)
@@ -16,8 +16,11 @@ Java app / library used to obtain detailed informations about Andoid APK files.
  
 
 <a name="How_to_use_it"/>
-## How to use it
+
+## How to use
+
 <a name="Prepare_for_first_use"/>
+
 #### Prepare for first use
 If you want to build and make changes in code of ApkAnalyzer, you need to perform following steps.
 ApkAnalyzer uses Apktool for decompilation of Apk. You need to add Apktool to your maven repository.<br/>
@@ -38,6 +41,7 @@ Parameter |Info
 
 
 <a name="Analyze_APKs"/>
+
 #### Analyze APKs 
 In case you use jar file, this use case can be triggered with following command ``java -jar -analyze -in="your_input_dir" -out="your_output_dir"``
 
@@ -47,6 +51,7 @@ This task unzip and decompile APK file using ApkTool. To find details about impl
 This task creates json file for every analyzed APK. [See example of output file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/analyze/com.android.chrome-39.0.2171.93-2171093-Android-4.0.json).
 
 <a name="Compare_APKs"/>
+
 #### Compare APKs 
 In case you use jar file, this use case can be triggered with following command ``java -jar -compare -in="your_input_dir" -out="your_output_dir"``
 
@@ -61,6 +66,7 @@ In case you need to adjust it for your use, please feel free to see [CompareTask
 Output of this task is json file for every pair of similar APKs. Output is divided into specific folders according to certificate match and version of application match. Every json contains simple diff of two APKs with data including modified, added or deleted files. For example see [this file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/compare/1Tap%20Cleaner%20Pro%20v2.46%20%20apkarchive.com.apk-VS-1Tap%20Cleaner%20Pro%20v2.53%20apkarchive.com.apk.json) or [another one](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/compare/air.com.empiregames.deepforest3drace-1000005.apk-VS-air.com.mobestmedia.letsescape-1000005.apk.apk.json).
 
 <a name="Statistics"/>
+
 #### Statistics 
 In case you use jar file, this use case can be triggered with following command ``java -jar -statistics -in="your_input_dir" -out="your_output_dir"``
 
@@ -73,13 +79,17 @@ To find details about implementation, please explore [StatisticsTask.java] (http
 [See example of output file](https://github.com/MartinStyk/ApkAnalyzer/blob/master/extra-data/json/statistics/stats.json).
 
 <a name="Collected_data"/>
+
 ##Collected data
 
 <a name="ad"/>
+
 ###Attributes & description
 
 <a name="basic"/>
+
 ####Basic apk metadata
+
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 fileName      | String   | Name of analyzed apk file  
@@ -89,7 +99,9 @@ dexSize       | Long     | Size of compiled sources in classes.dex file (in byte
 arscSize      | Long     | Size of compiled resources in classes.dex file (in bytes)
 
 <a name="manifest"/>
+
 ####Android manifest metadata
+
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 packageName      | String   | [See Android documentation](http://developer.android.com/guide/topics/manifest/manifest-element.html#package)
@@ -115,7 +127,9 @@ supportsScreensXlarge      | Boolean     | [See Android documentation](http://de
 supportsScreensAnyDensity       | Boolean     | [See Android documentation](http://developer.android.com/guide/topics/manifest/supports-screens-element.html)
 
 <a name="certificate"/>
+
 ####Certificate metadata
+
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 fileName      | String   | Name of certificate file (i.e CERT.RSA in MEATA-INF directory)  
@@ -131,7 +145,9 @@ issuerName   | String | Representation of the X.500 distinguished name using the
 subjectName   | String | Representation of the X.500 distinguished name using the format defined in RFC 2253
 
 <a name="resource"/>
+
 ####Resources metadata
+
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 locale      | List<String>   | Localizations of string.xml file
@@ -156,7 +172,9 @@ differentLayouts   | Integer | Number of different layout resources in res/layou
 menu   | Integer | Total number of menu resources in res/menu folder
 
 <a name="hash"/>
+
 ####File hashes
+
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
 dexHash      | String | Hash of classes.dex from META-INF/MANIFEST.MF
@@ -166,6 +184,7 @@ layoutHash      | Map<String,String> | Hashes of files in res/layout* folder fro
 otherHash      | Map<String,String>   | Hashes of all files in apk from META-INF/MANIFEST.MF. Map<HashValue, fileName>
 
 <a name="Used_libs"/>
+
 ### Used libraries
 * [xgouchet/AXML](https://github.com/xgouchet/AXML) used code from this project, located in fr.xgouchet.axml package
 * [iBotPeaches/Apktool](https://github.com/iBotPeaches/Apktool)
