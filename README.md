@@ -80,15 +80,15 @@ To find details about implementation, please explore [StatisticsTask.java] (http
 
 <a name="Collected_data"/>
 
-##Collected data
+## Collected data
 
 <a name="ad"/>
 
-###Attributes & description
+### Attributes & description
 
 <a name="basic"/>
 
-####Basic apk metadata
+#### Basic apk metadata
 
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -100,7 +100,7 @@ arscSize      | Long     | Size of compiled resources in classes.dex file (in by
 
 <a name="manifest"/>
 
-####Android manifest metadata
+#### Android manifest metadata
 
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -128,7 +128,7 @@ supportsScreensAnyDensity       | Boolean     | [See Android documentation](http
 
 <a name="certificate"/>
 
-####Certificate metadata
+#### Certificate metadata
 
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -146,7 +146,7 @@ subjectName   | String | Representation of the X.500 distinguished name using th
 
 <a name="resource"/>
 
-####Resources metadata
+#### Resources metadata
 
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
@@ -173,7 +173,7 @@ menu   | Integer | Total number of menu resources in res/menu folder
 
 <a name="hash"/>
 
-####File hashes
+#### File hashes
 
 Name          | Type     | Description
 ------------- | -------- | ------------------------------ 
